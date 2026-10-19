@@ -1,0 +1,551 @@
+[
+  {
+    "name": "AutoCAD",
+    "vendor": "Autodesk",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "二维制图、三维工程绘图与专业图纸准备；本条为 AutoCAD 基础平台，行业工具集及 Civil 3D 分开核对。",
+    "interfaces": [
+      {
+        "name": "AutoLISP",
+        "type": "脚本/CLI",
+        "detail": "调用内置命令；创建或修改绘图对象；读取绘图系统变量。"
+      },
+      {
+        "name": "Managed .NET API",
+        "type": "API/SDK",
+        "detail": "读写 DWG 数据库；访问编辑器和命令提示符；定制界面、发布与绘图功能。"
+      },
+      {
+        "name": "ObjectARX C++ SDK",
+        "type": "API/SDK",
+        "detail": "定义自定义命令；访问数据库和几何对象；扩展类及 AutoLISP 函数。"
+      },
+      {
+        "name": "ActiveX / COM Automation",
+        "type": "API/SDK",
+        "detail": "创建与操作绘图对象；读取图纸数据和属性；响应公开对象事件。"
+      },
+      {
+        "name": "DWG / DXF 文件",
+        "type": "文件格式",
+        "detail": "保存和读取图纸数据；以 DXF 交换绘图对象信息。"
+      }
+    ],
+    "constraints": "主要依据 AutoCAD 2026 帮助；.NET 兼容表同时列 2025/2026 为 .NET 8、2027 为 .NET 10。实际更新包的运行时迁移另核，不能将 Windows 完整版能力套用于 Mac、Web 或 LT。",
+    "sources": [
+      {
+        "title": "Autodesk：AutoCAD 2026 支持的编程接口",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-E6429154-36DF-4D84-8ABC-9FCA15B66158.htm"
+      },
+      {
+        "title": "Autodesk：AutoLISP 应用",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-16DC15FC-5329-492E-B66A-401D49CF971F.htm"
+      },
+      {
+        "title": "Autodesk：AutoCAD 托管 .NET 应用",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-3A5E2EE7-9A06-4965-A614-AD97A49B849A.htm"
+      },
+      {
+        "title": "Autodesk：AutoCAD 托管 .NET 兼容表",
+        "url": "https://help.autodesk.com/cloudhelp/2027/ENU/AutoCAD-Customization/files/GUID-A6C680F2-DE2E-418A-A182-E4884073338A.htm"
+      },
+      {
+        "title": "Autodesk：ObjectARX 应用",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-3FF72BD0-9863-4739-8A45-B14AF1B67B06.htm"
+      },
+      {
+        "title": "Autodesk：ActiveX Automation 与 LT 限制",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-2090E4E8-9AE0-4E01-B5EB-0843A30EB0E9.htm"
+      },
+      {
+        "title": "Autodesk：DXF 格式说明",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-DXF/files/GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3.htm"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "MicroStation",
+    "vendor": "Bentley Systems",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "基础设施二维/三维 CAD、工程图纸与地理空间上下文建模。",
+    "interfaces": [
+      {
+        "name": "MicroStation Python API",
+        "type": "脚本/CLI",
+        "detail": "自动化任务；开发自定义工具；访问官方提供的地理空间上下文能力。"
+      },
+      {
+        "name": "DGN / DWG / IFC 等文件交换",
+        "type": "文件格式",
+        "detail": "交换 CAD 数据；导出 IFC 模型。"
+      }
+    ],
+    "constraints": "产品页包含 MicroStation 2026；文件与 IFC 具体依据另含 2025 发布页。运行版、Python 绑定与文件转换能力分别匹配。",
+    "sources": [
+      {
+        "title": "Bentley：MicroStation 产品与 Python 能力",
+        "url": "https://www.bentley.com/en/products/microstation/"
+      },
+      {
+        "title": "Bentley：MicroStation 2025 文件与 IFC 支持",
+        "url": "https://www.bentley.com/en/lp/microstation-2025/"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "OpenRoads Designer",
+    "vendor": "Bentley Systems",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "道路、地形、线路、廊道及相关土木工程设计和施工图准备。",
+    "interfaces": [
+      {
+        "name": "Managed / Unmanaged SDK",
+        "type": "API/SDK",
+        "detail": "读取活动 DGN 设计数据；生成示例中的线路等报告；添加自定义 key-in 命令。"
+      },
+      {
+        "name": "DGN / LandXML 及 CAD 数据交换",
+        "type": "文件格式",
+        "detail": "导入包含 LandXML 在内的地形资料；集成 DGN、DWG、DXF、IFC 等 CAD 数据。"
+      }
+    ],
+    "constraints": "SDK 指南采用 CONNECT Edition 示例；实际产品、SDK、依赖程序集和编译环境需配套。",
+    "sources": [
+      {
+        "title": "Bentley：OpenRoads Designer SDK 开发指南",
+        "url": "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0012549"
+      },
+      {
+        "title": "Bentley：OpenRoads Managed SDK 示例与加载",
+        "url": "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0012555"
+      },
+      {
+        "title": "Bentley：OpenRoads 技术能力与交换格式",
+        "url": "https://www.bentley.com/en/products/openroads-designer/"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "STAAD.Pro",
+    "vendor": "Bentley Systems",
+    "sector": "civil",
+    "stage": "仿真分析",
+    "purpose": "结构有限元分析与设计，用于建筑和基础设施结构工程。",
+    "interfaces": [
+      {
+        "name": "OpenSTAAD COM / openstaadpy",
+        "type": "API/SDK",
+        "detail": "访问几何与荷载；访问分析结果；访问设计数据。"
+      }
+    ],
+    "constraints": "官方 openstaadpy 仓库要求 Windows 11+、运行中的 STAAD.Pro 2025+ 和 Python 3.11+；不把该包装库要求推广到所有历史 OpenSTAAD 版本。",
+    "sources": [
+      {
+        "title": "BentleySystems：openstaadpy 官方仓库说明",
+        "url": "https://github.com/BentleySystems/openstaadpy/blob/main/README.md"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "SAP2000",
+    "vendor": "Computers and Structures, Inc.",
+    "sector": "civil",
+    "stage": "仿真分析",
+    "purpose": "通用结构有限元建模、静力/动力分析及设计。",
+    "interfaces": [
+      {
+        "name": "CSI API / OAPI",
+        "type": "API/SDK",
+        "detail": "创建与修改模型；运行模型分析；提取结果。"
+      }
+    ],
+    "constraints": "CSI 开发页注明 SAP2000 v21、CSiBridge v21 起可开发跨产品工具；并不意味着两个产品的所有对象和功能相同。",
+    "sources": [
+      {
+        "title": "CSI：API 开发与产品兼容范围",
+        "url": "https://www.csiamerica.com/developer"
+      },
+      {
+        "title": "CSI：SAP2000 OAPI 与技术支持边界",
+        "url": "https://web.wiki.csiamerica.com/wiki/spaces/kb/pages/2005484"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "CSiBridge",
+    "vendor": "Computers and Structures, Inc.",
+    "sector": "civil",
+    "stage": "仿真分析",
+    "purpose": "桥梁建模、荷载、分析与设计，组织桥梁工程研究模型。",
+    "interfaces": [
+      {
+        "name": "CSI API / OAPI",
+        "type": "API/SDK",
+        "detail": "创建与修改模型；运行模型分析；提取结果。"
+      }
+    ],
+    "constraints": "CSI 开发页注明 SAP2000 v21、CSiBridge v21 起可开发跨产品工具；并不意味着两个产品的所有对象和功能相同。",
+    "sources": [
+      {
+        "title": "CSI：API 开发与产品兼容范围",
+        "url": "https://www.csiamerica.com/developer"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "MIDAS CIVIL NX",
+    "vendor": "MIDAS IT",
+    "sector": "civil",
+    "stage": "仿真分析",
+    "purpose": "桥梁与土木结构建模、分析和设计，可通过 Open API 编排工程操作。",
+    "interfaces": [
+      {
+        "name": "CIVIL NX Open API（REST）",
+        "type": "API/SDK",
+        "detail": "配置 API 会话；通过公开 API 操作支持的工程数据；用官方示例编排工程任务。"
+      }
+    ],
+    "constraints": "本条为 CIVIL NX；公开指南主要为 2024 起文档。Base URL 随产品、地区或服务器可能不同，必须从产品设置读取。",
+    "sources": [
+      {
+        "title": "MIDAS：CIVIL NX Open API 使用指南",
+        "url": "https://support.midasuser.com/hc/en-us/articles/30130748041369-How-to-use-MIDAS-CIVIL-NX-Open-API"
+      },
+      {
+        "title": "MIDAS：API 设置与连接状态",
+        "url": "https://support.midasuser.com/hc/ja/articles/27745256204057-API%E8%A8%AD%E5%AE%9A"
+      },
+      {
+        "title": "MIDAS：Base URL 与 API Key",
+        "url": "https://support.midasuser.com/hc/en-us/articles/30508934444569-Base-URL-and-API-KEY"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "Archicad",
+    "vendor": "Graphisoft",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "建筑 BIM 设计与文档组织，可自动处理元素属性、分类和导航结构。",
+    "interfaces": [
+      {
+        "name": "JSON Automation API / archicad Python",
+        "type": "API/SDK",
+        "detail": "查询元素和属性；设置受支持的属性与分类；组织支持的布局和导航项。"
+      }
+    ],
+    "constraints": "入门教程以 Archicad 24+、Python 3.7+ 为条件；滚动包文档含多代 release，不应把示例最低条件视为全部当前版本兼容矩阵。",
+    "sources": [
+      {
+        "title": "Graphisoft：Archicad Python/JSON 入门",
+        "url": "https://archicadapi.graphisoft.com/getting-started-with-Archicad-python-connection"
+      },
+      {
+        "title": "Graphisoft：archicad Python 包 API 参考",
+        "url": "https://archicadapi.graphisoft.com/archicadPythonPackage/archicad.html"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "Rhino / Grasshopper",
+    "vendor": "Robert McNeel & Associates",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "自由曲面与参数化几何设计，可服务于建筑形态及工程几何准备。",
+    "interfaces": [
+      {
+        "name": "Python / C# / RhinoCommon",
+        "type": "API/SDK",
+        "detail": "编写几何处理脚本；开发 Rhino 插件；开发 Grasshopper 组件。"
+      },
+      {
+        "name": "程序化文件读写",
+        "type": "文件格式",
+        "detail": "通过 API 导入文件；通过 API 导出几何。"
+      }
+    ],
+    "constraints": "主要参考 Rhino 8 开发指南；Rhino 8 的程序化文件 IO 与旧版基于命令导出的方式有差异。",
+    "sources": [
+      {
+        "title": "McNeel：Rhino 与 Grasshopper 开发文档",
+        "url": "https://developer.rhino3d.com/en/"
+      },
+      {
+        "title": "McNeel：Rhino 脚本指南",
+        "url": "https://developer.rhino3d.com/guides/scripting/"
+      },
+      {
+        "title": "McNeel：Rhino 8 程序化文件读写指南源文件",
+        "url": "https://github.com/mcneel/developer.rhino3d.com/blob/main/content/en/guides/rhinocommon/code-driven-file-io/index.md"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "HEC-RAS",
+    "vendor": "USACE Hydrologic Engineering Center",
+    "sector": "environment",
+    "stage": "仿真分析",
+    "purpose": "河道水力、洪水与相关泥沙/水质工程分析；本条主要登记工程与结果文件交互。",
+    "interfaces": [
+      {
+        "name": "工程文件 / HDF5 结果",
+        "type": "文件格式",
+        "detail": "读取工程及关联文件；读取 HDF5 结果块；提取所需时间和空间结果。"
+      }
+    ],
+    "constraints": "工程说明为滚动 latest 页面（核查日期所见为 7.0）；HDF5 数组布局的直接依据为 6.2 二维泥沙手册，其他版本/求解对象需重新核对。",
+    "sources": [
+      {
+        "title": "USACE：HEC-RAS 工程与文件组成",
+        "url": "https://www.hec.usace.army.mil/confluence/rasdocs/rasum/latest/working-with-projects"
+      },
+      {
+        "title": "USACE：HEC-RAS 6.2 HDF5 输出结构",
+        "url": "https://www.hec.usace.army.mil/confluence/rasdocs/h2sd/ras2dsed/6.2/viewing-results/hdf5-output-and-the-log-file/exploring-the-hdf5-file"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "HEC-HMS",
+    "vendor": "USACE Hydrologic Engineering Center",
+    "sector": "environment",
+    "stage": "仿真分析",
+    "purpose": "降雨径流、水文过程及流域工程方案计算，可用脚本批量运行已有研究。",
+    "interfaces": [
+      {
+        "name": "Java / Jython API 与脚本入口",
+        "type": "脚本/CLI",
+        "detail": "打开已有工程；运行指定 computeRun；关闭工程与计算引擎。"
+      }
+    ],
+    "constraints": "API 入口核对至 4.13；直接运行示例含 4.4 环境路径。应以安装版参考替换路径，不能直接将 Jython 当作任意 CPython 3 环境。",
+    "sources": [
+      {
+        "title": "USACE：HEC-HMS 4.13 脚本与 Java/Jython API",
+        "url": "https://www.hec.usace.army.mil/confluence/hmsdocs/hmsum/4.13/scripting"
+      },
+      {
+        "title": "USACE：通过 Jython 运行 HEC-HMS",
+        "url": "https://www.hec.usace.army.mil/confluence/hmsdocs/hmsguides/basic-model-setup/hec-hms-project-management-improvements/running-hec-hms-with-jython"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "MODFLOW 6",
+    "vendor": "U.S. Geological Survey",
+    "sector": "environment",
+    "stage": "仿真分析",
+    "purpose": "地下水流动及相关输运系统建模，支持文件批计算与 API 控制。",
+    "interfaces": [
+      {
+        "name": "MODFLOW API / modflowapi",
+        "type": "API/SDK",
+        "detail": "在初始化等阶段回调；在应力期或时间步调整数据；读取求解阶段的数据。"
+      },
+      {
+        "name": "FloPy 文件建模与结果处理",
+        "type": "API/SDK",
+        "detail": "创建模型输入；运行 MODFLOW 模型；读取及后处理输出。"
+      }
+    ],
+    "constraints": "官方 modflowapi 当前仓库要求 Python 3.11+；所引 Quickstart 为 0.3.0.dev0 文档。共享库、包装包、模型输入与安装版应一起固定。",
+    "sources": [
+      {
+        "title": "USGS/Deltares：modflowapi 官方项目",
+        "url": "https://github.com/MODFLOW-ORG/modflowapi"
+      },
+      {
+        "title": "MODFLOW-ORG：MODFLOW API 回调式求解入门",
+        "url": "https://modflowapi.readthedocs.io/en/latest/examples/notebooks/Quickstart.html"
+      },
+      {
+        "title": "USGS：FloPy 创建、运行和处理 MODFLOW 模型",
+        "url": "https://www.usgs.gov/software/flopy-python-package-creating-running-and-post-processing-modflow-based-models"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "GPS-X",
+    "vendor": "Hydromantis",
+    "sector": "environment",
+    "stage": "仿真分析",
+    "purpose": "污水处理过程建模、动态仿真及运行方案评估。",
+    "interfaces": [
+      {
+        "name": "Python Script Manager / gpsx API",
+        "type": "脚本/CLI",
+        "detail": "用 getValue/setValue 读写变量；用 setTstop 设置结束时间；通过 start/cint/eor 回调采集数据。"
+      }
+    ],
+    "constraints": "直接依据 GPS-X 8.5 教程14，要求 Advanced Tools 模块；该教程默认 Python 3.7，当前产品组合与解释器需另核。",
+    "sources": [
+      {
+        "title": "Hydromantis：GPS-X 8.5 Python 教程14",
+        "url": "https://www.hydromantis.com/help/GPS-X/docs/8.5/Tutorial/15_Tutorial14.htm"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "BioWin",
+    "vendor": "EnviroSim Associates",
+    "sector": "environment",
+    "stage": "仿真分析",
+    "purpose": "污水处理生化过程及处理厂方案建模，支持结果数据导出到表格工具。",
+    "interfaces": [
+      {
+        "name": "TXT / CSV / Excel 数据交付",
+        "type": "文件格式",
+        "detail": "选择导出的模型元素和变量；输出 TXT/CSV 数据；在相应新版生成为 Excel 报告。"
+      }
+    ],
+    "constraints": "详细 CSV 依据为 BioWin 5 手册的公开检索内容；6.0 发布说明另列 Excel 数据/图表报告。PDF 全文抓取受限，不能推定当前版菜单和接口完全相同。",
+    "sources": [
+      {
+        "title": "EnviroSim：BioWin 5 用户手册",
+        "url": "https://www.envirosim.com/downloads/BW5Manual.pdf"
+      },
+      {
+        "title": "EnviroSim：BioWin 6.0 新增 Excel 报告",
+        "url": "https://envirosim.com/WhatsNewin60.pdf"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "InfoWorks ICM",
+    "vendor": "Autodesk",
+    "sector": "environment",
+    "stage": "仿真分析",
+    "purpose": "城市排水、洪涝与流域集成模型分析，支持网络数据处理脚本。",
+    "interfaces": [
+      {
+        "name": "Ruby scripts / Run add-on",
+        "type": "脚本/CLI",
+        "detail": "运行网络编辑脚本；校验和运行编辑器中的 Ruby；把脚本注册为菜单命令。"
+      }
+    ],
+    "constraints": "2024 帮助说明脚本菜单注册，2027 文档说明 Ruby 3.4.6 与迁移；两代能力分开记录，不把 2027 解释器要求用于全部旧工程。",
+    "sources": [
+      {
+        "title": "Autodesk：InfoWorks ICM 2024 Ruby 插件运行",
+        "url": "https://help.autodesk.com/cloudhelp/2024/ENU/ICM-Help/files/GUID-943A85D0-EA0F-4BC3-AA50-7C55A3250D5D.htm"
+      },
+      {
+        "title": "Autodesk：InfoWorks ICM 2027 Ruby 编辑与错误反馈",
+        "url": "https://help.autodesk.com/cloudhelp/2027/ENU/ICM-Help/files/GUID-57F599CF-9FDE-405D-8C78-030694266390.htm"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "InfoWater Pro",
+    "vendor": "Autodesk",
+    "sector": "environment",
+    "stage": "仿真分析",
+    "purpose": "ArcGIS Pro 环境下的给水管网建模与分析，Python 扩展用于提取已计算结果。",
+    "interfaces": [
+      {
+        "name": "infowater.output.manager Python",
+        "type": "API/SDK",
+        "detail": "读取压力等结果范围数据；获取输出元数据；在 Notebook 中处理结果。"
+      }
+    ],
+    "constraints": "官方在线指南未固定产品版本；包与结果文件格式需和实际 InfoWater Pro / ArcGIS Pro 安装配套。",
+    "sources": [
+      {
+        "title": "Autodesk：InfoWater Pro Python 结果读取入门",
+        "url": "https://help.autodesk.com/cloudhelp/ENU/INFWP-UserGuide/files/GUID-9E060B16-9E1A-4C96-9A2D-E51D521EBA0A.htm"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  },
+  {
+    "name": "Delft3D Flexible Mesh / D-Flow FM",
+    "vendor": "Deltares",
+    "sector": "environment",
+    "stage": "仿真分析",
+    "purpose": "河流、河口和海岸水动力及相关水环境模型，支持集成模型运行与工程文件处理。",
+    "interfaces": [
+      {
+        "name": "DIMR 命令行 / XML 配置",
+        "type": "脚本/CLI",
+        "detail": "加载集成模型配置；命令行运行模型；按安装包提供的并行入口运行配置。"
+      },
+      {
+        "name": "工程文件 / NetCDF / dfm_tools",
+        "type": "文件格式",
+        "detail": "使用 HYDROLIB-core 写模型输入；处理 NetCDF/UGRID 网格；组织边界与模型文件。"
+      }
+    ],
+    "constraints": "所引 DIMR 技术手册为 DRAFT 首版，§1.3 列适用 Delft3D FM Suite 2017 及以后；另据 Riverlab 示例和 dfm_tools 0.47.1 文档。启动脚本以安装包为准；Python modelbuilder 为 proof of concept。",
+    "sources": [
+      {
+        "title": "Deltares：DIMR 技术手册",
+        "url": "https://content.oss.deltares.nl/delft3d/DIMR_Technical_reference_Manual.pdf"
+      },
+      {
+        "title": "Deltares：Delft3D FM 文件建模与运行",
+        "url": "https://oss.deltares.nl/web/riverlab-models/creating-a-delft3d-model"
+      },
+      {
+        "title": "Deltares：Delft3D 官方 Linux 编译与运行说明",
+        "url": "https://github.com/Deltares/Delft3D/blob/main/doc/compiling_Linux.md"
+      },
+      {
+        "title": "Deltares：dfm_tools 模型构建示例",
+        "url": "https://deltares.github.io/dfm_tools/notebooks/modelbuilder_example.html"
+      }
+    ],
+    "evidence": "官方来源确认所列交互能力；具体公开范围及未知项见交互详情。",
+    "sourceDate": "2026-10-19",
+    "additionalSectors": []
+  }
+]

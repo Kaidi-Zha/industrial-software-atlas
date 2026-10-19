@@ -1,0 +1,1354 @@
+[
+  {
+    "name": "EMTP",
+    "profile": {
+      "versionBoundary": "官方 EMTPWorks 概览与脚本 FAQ 未标统一适用主版本；不据网页更新时间推定接口版本。",
+      "humanEntry": "工程师在 EMTPWorks 中搭建电路，设置设备数据并运行仿真。",
+      "coverage": "图形电路对象的脚本自动化；与电力现场通信协议分开。",
+      "unknowns": [
+        "当前版本完整对象参考与错误码未公开核实",
+        "仿真引擎独立调用方式、无界面运行及并发约束未核实",
+        "部分官方交换平台脚本下载需登录，本次未下载或执行"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "EMTPWorks JavaScript",
+        "category": "program",
+        "entry": "Script 选项卡新建 JavaScript 后 Run；或 Design → Run a script 选择 .dwj 文件。",
+        "role": "宿主内设计与设备数据自动化",
+        "direction": "读取/修改设计对象和设备数据；逐个属性的可写范围依设备帮助。",
+        "operations": [
+          "访问 DWDevice / DWCircuit / DWSignal / DWPin",
+          "设置设备数据属性",
+          "执行设计脚本"
+        ],
+        "dataContract": "EMTPWorks 宿主对象及 ParamsA、ParamsB、ParamsC、ModelData 等设备属性；各设备字符串格式须查对应帮助。",
+        "workflow": [
+          "建议：复制设计作为核查样例",
+          "建议：从 Script 或 Design 入口运行最小脚本",
+          "建议：检查对象与设备属性",
+          "建议：比较设计保存前后的参数与仿真结果"
+        ],
+        "execution": "脚本由 EMTPWorks 宿主运行；FAQ 的编辑器 Run 路径需要 EMTP code editor，文件路径可使用其他编辑器准备脚本。",
+        "failure": "完整异常契约未核实；建议检查对象类型、设备属性格式及宿主输出。",
+        "prerequisites": "有效 EMTP 安装与许可；修改内置子电路前按概览要求确认 Make Unique Type。",
+        "version": "未固定主版本",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.emtp.com/documentation/emtp-overview",
+            "https://emtp.com/support/faq/Scripting"
+          ],
+          "locator": "Overview：scripting / device attributes；FAQ：How to run a script"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：复制设计作为核查样例 → 从 Script 或 Design 入口运行最小脚本 → 检查对象与设备属性 → 比较设计保存前后的参数与仿真结果。本次未执行。",
+          "sourceUrl": "https://www.emtp.com/documentation/emtp-overview"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "EMTP：EMTPWorks overview",
+        "url": "https://www.emtp.com/documentation/emtp-overview",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "EMTP：Scripting FAQ",
+        "url": "https://emtp.com/support/faq/Scripting",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "EMTP：PGSTech license-provider announcement",
+        "url": "https://emtp.com/about-us/news/pgstech-acquires-powersys-shares",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "RT-LAB",
+    "profile": {
+      "versionBoundary": "官网产品页与公开 RtlabApi 命令文档核查；API 页面未为全部命令标出同一主版本。",
+      "humanEntry": "工程师编辑模型、编译、加载到目标机后执行，并通过控制台交互。",
+      "coverage": "Python 自动化中的项目连接、参数控制和仿真生命周期；不将全部硬件协议视为默认可用。",
+      "unknowns": [
+        "目标机、MATLAB/Simulink 与编译工具兼容矩阵需按采购版核对",
+        "未逐项核查硬件 I/O 和现场协议的许可与适配器",
+        "公开文档部分页面直接访问受限，依据可公开索引的官方命令页；未实测"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "RtlabApi Python API",
+        "category": "program",
+        "entry": "Python 导入 RtlabApi；OpenProject(project, functionalBlock, controlPriority, returnOnAmbiguity) 连接项目或活动实例。",
+        "role": "外部测试程序控制 RT-LAB 项目与模型参数",
+        "direction": "客户端调用宿主；设置参数，返回项目标识或命令结果；采样读取范围另核。",
+        "operations": [
+          "打开项目或连接活动实例",
+          "申请功能块控制权",
+          "设置模型参数"
+        ],
+        "dataContract": "SetParameters 接受由 (parameterId, value) 构成的元组；需要已连接且已加载的模型和参数控制权。",
+        "workflow": [
+          "建议：核对宿主与目标机兼容性",
+          "建议：连接唯一项目或明确项目路径",
+          "建议：加载模型并获取参数控制权",
+          "建议：设置一个已知参数并检查模型响应",
+          "建议：按宿主生命周期复位并释放会话"
+        ],
+        "execution": "产品工作流为编辑、编译、加载、执行、复位；连接活动实例不等于已经加载模型。并发控制由功能块控制权约束，不能推定所有调用可并行。",
+        "failure": "OpenProject 文档列 EINVAL、E2BIG 等；SetParameters 列 EPERM 无参数控制权、EBADF 无模型、ENOEXEC 未加载，以及通信/超时错误。",
+        "prerequisites": "RT-LAB 许可、兼容 Python 环境、模型构建依赖及所需目标机；SetParameters 需 Parameter Control。",
+        "version": "公开命令页；具体宿主主版本另核",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://opal-rt.atlassian.net/wiki/spaces/PRD/pages/143495767/OpenProject",
+            "https://opal-rt.atlassian.net/wiki/spaces/PRD/pages/143431876/SetParameters",
+            "https://opal-rt.atlassian.net/wiki/spaces/PRD/pages/144083675/Preparing%2Band%2BBuilding%2Bthe%2BModel"
+          ],
+          "locator": "OpenProject：Input/Output/Exceptions；SetParameters：Usage/Exceptions"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对宿主与目标机兼容性 → 连接唯一项目或明确项目路径 → 加载模型并获取参数控制权 → 设置一个已知参数并检查模型响应 → 按宿主生命周期复位并释放会话。本次未执行。",
+          "sourceUrl": "https://opal-rt.atlassian.net/wiki/spaces/PRD/pages/143495767/OpenProject"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "OPAL-RT：RT-LAB",
+        "url": "https://www.opal-rt.com/software/software-platforms/rt-lab/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "RT-LAB API：OpenProject",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PRD/pages/143495767/OpenProject",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "RT-LAB API：SetParameters",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PRD/pages/143431876/SetParameters",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "RT-LAB：Preparing and Building the Model",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PRD/pages/144083675/Preparing%2Band%2BBuilding%2Bthe%2BModel",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "HYPERSIM",
+    "profile": {
+      "versionBoundary": "按公开 Python API Setup、Commands 和 Examples 核查；Python 小版本依 Software Compatibility 表，不把文档版本泛化到历史宿主。",
+      "humanEntry": "工程师在 HYPERSIM 中建模、映射计算任务、生成代码并启动实时仿真。",
+      "coverage": "HyWorksApiGRPC Python 客户端编排设计、参数与仿真；不把 Python gRPC 通道称为通用现场总线。",
+      "unknowns": [
+        "具体安装版的 Python 兼容矩阵、运行授权与目标机配置另核",
+        "返回对象、参数单位及各命令错误类型需逐项查安装版参考",
+        "不公开或账户受限页面未取得完整内容，未运行官方示例"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "HyWorksApiGRPC Python API",
+        "category": "program",
+        "entry": "兼容的 64 位 Python 导入 HyWorksApiGRPC；使用 startAndConnectHypersim 或 connectToHyWorks 建立连接。",
+        "role": "外部 Python 自动化控制 HYPERSIM 宿主",
+        "direction": "客户端发起命令，宿主返回参数/命令结果；设备参数可读写，具体对象权限依函数。",
+        "operations": [
+          "打开设计",
+          "设置仿真偏好和设备参数",
+          "映射任务与生成代码",
+          "启动潮流和仿真",
+          "停止仿真并关闭设计/宿主"
+        ],
+        "dataContract": "官方例程使用 .ecf 路径、组件名/参数名和偏好键；字段名、类型与单位必须按实际模型核对。",
+        "workflow": [
+          "建议：安装兼容 Python 与 requirements 依赖",
+          "建议：连接宿主并打开示例副本",
+          "建议：按官方顺序映射任务与生成代码",
+          "建议：运行后读取一个参数并核对结果",
+          "建议：停止后关闭设计及宿主"
+        ],
+        "execution": "API 会话与仿真运行分别有生命周期；官方示例按 start/connect → openDesign → mapTask/genCode → startSim → stopSim → closeDesign/closeHyperWorks 组织。",
+        "failure": "Commands 列 enableHyWorksApiExceptions / disableHyWorksApiExceptions；完整错误类型和重试语义未核实，建议检查构建、潮流与仿真状态。",
+        "prerequisites": "HYPERSIM 安装及许可、兼容 64 位 Python 和 gRPC requirements；实时执行需相应计算环境。",
+        "version": "按公开 API 文档；兼容版本依安装版表",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://opal-rt.atlassian.net/wiki/spaces/PDOCHS/pages/150144462",
+            "https://opal-rt.atlassian.net/wiki/spaces/PDOCHS/pages/149850182/Python%2BAPI%2BCommands",
+            "https://opal-rt.atlassian.net/wiki/spaces/PDOCHS/pages/150078785/Python%2BAPI%2BExamples"
+          ],
+          "locator": "Setup：64-bit / requirements；Commands：connection/session；Examples：basic simulation automation"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：安装兼容 Python 与 requirements 依赖 → 连接宿主并打开示例副本 → 按官方顺序映射任务与生成代码 → 运行后读取一个参数并核对结果 → 停止后关闭设计及宿主。本次未执行。",
+          "sourceUrl": "https://opal-rt.atlassian.net/wiki/spaces/PDOCHS/pages/150144462"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "OPAL-RT：HYPERSIM",
+        "url": "https://www.opal-rt.com/software/software-platforms/hypersim/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "HYPERSIM：Python API Setup",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PDOCHS/pages/150144462",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "HYPERSIM：Python API Commands",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PDOCHS/pages/149850182/Python%2BAPI%2BCommands",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "HYPERSIM：Python API Examples",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PDOCHS/pages/150078785/Python%2BAPI%2BExamples",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PLECS",
+    "profile": {
+      "versionBoundary": "本次公开页标题为 PLECS 5.0；RPC 属于 PLECS Standalone，不能泛化为 Blockset 原生接口。",
+      "humanEntry": "工程师在 Standalone 图形模型中设计电路并运行分析；Blockset 在 Simulink 中使用。",
+      "coverage": "通过本机 XML-RPC/JSON-RPC 自动加载模型、设置参数和调用仿真/分析。",
+      "unknowns": [
+        "Blockset 应使用 MATLAB/Simulink 脚本，不能套用 Standalone RPC",
+        "RPC 默认关闭，实际许可、端口和宿主版本须核对",
+        "批处理并行不等于允许多个阻塞请求同时进入服务器"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Standalone XML-RPC / JSON-RPC",
+        "category": "program",
+        "entry": "Standalone Preferences 中启用 RPC 及端口；官方 Python 示例以 http://localhost:1080 连接 XML-RPC。",
+        "role": "外部脚本驱动本机 PLECS 仿真",
+        "direction": "请求/响应；模型加载、参数读写、仿真及结果返回。",
+        "operations": [
+          "load / close 模型",
+          "get / set 参数",
+          "simulate / analyze",
+          "批量仿真选项列表"
+        ],
+        "dataContract": "模型名称/完整文件路径、组件路径和选项结构；返回仿真结果结构，支持 Plain 或 MatFile 输出。",
+        "workflow": [
+          "建议：在偏好中启用本机 RPC",
+          "建议：加载示例模型副本",
+          "建议：检查组件路径后设置参数",
+          "建议：调用 simulate 并核对结果结构",
+          "建议：确认保存需求后再关闭模型"
+        ],
+        "execution": "simulate/analyze 为阻塞调用；服务器同一时刻只处理一个阻塞命令。传入选项结构列表可触发官方批量并行机制；close 无条件关闭且不保存。",
+        "failure": "阻塞命令执行时第二个阻塞请求会失败；批量返回列表中失败作业可能是错误字符串。建议逐项判断结果类型。",
+        "prerequisites": "PLECS Standalone 安装与许可；服务默认关闭，仅允许同机客户端访问。",
+        "version": "5.0 文档；JSON-RPC 和列表批量机制注明自 4.6",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.plexim.com/plecs/latest/scripting/",
+            "https://www.plexim.com/content/plecs-xml-rpc-interface-and-controller-design-python"
+          ],
+          "locator": "Simulation Scripts：RPC interface / simulation options / parallel simulations"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在偏好中启用本机 RPC → 加载示例模型副本 → 检查组件路径后设置参数 → 调用 simulate 并核对结果结构 → 确认保存需求后再关闭模型。本次未执行。",
+          "sourceUrl": "https://docs.plexim.com/plecs/latest/scripting/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "PLECS 5.0：Simulation Scripts",
+        "url": "https://docs.plexim.com/plecs/latest/scripting/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Plexim：XML-RPC and Python tutorial",
+        "url": "https://www.plexim.com/content/plecs-xml-rpc-interface-and-controller-design-python",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PSIM",
+    "profile": {
+      "versionBoundary": "接口细节来自 Altair 2023 PSIM 官方脚本教程；不据此声称覆盖当前全部 Python API 或全部 PSIM 版本。",
+      "humanEntry": "工程师在 PSIM 原理图中搭建电路，在 Script 环境编排仿真并用 Simview 检查波形。",
+      "coverage": "内置脚本 Simulate 函数接受原理图和输出路径，适合重复仿真；未扩大为通用 REST API。",
+      "unknowns": [
+        "当前安装版脚本语言与函数差异、许可模块需另核",
+        "Python 自动化能力本次未做函数级核查",
+        "并发调用和完整退出码约定未核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "PSIM Script Simulate",
+        "category": "program",
+        "entry": "PSIM Script 环境调用 Simulate；必需参数是原理图路径，其余按教程可选。",
+        "role": "宿主脚本调用电路仿真引擎",
+        "direction": "原理图/仿真选项输入；波形文件或图形结果输出。",
+        "operations": [
+          "指定原理图",
+          "执行仿真",
+          "选择输出波形文件",
+          "组合重复仿真流程"
+        ],
+        "dataContract": "原理图文件路径及仿真选项；教程区分 .txt 文本输出与 .smv 二进制波形文件。",
+        "workflow": [
+          "建议：从官方教程准备原理图副本",
+          "建议：在脚本中指定输入和独立输出目录",
+          "建议：运行 Simulate 并等待完成",
+          "建议：在 Simview 或文本输出中对照波形"
+        ],
+        "execution": "Simulate 在仿真完成前阻塞脚本后续执行；不推定支持并行宿主实例或无许可批量计算。",
+        "failure": "官方教程未在所读部分给出完整错误码；建议核查路径、参数解析、求解日志与输出文件是否完整。",
+        "prerequisites": "PSIM 安装、有效许可与兼容原理图；可选模块按电路模型另核。",
+        "version": "Altair 2023 官方教程",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://2023.help.altair.com/psim-tut/tutorials/Tutorial%20-%20How%20to%20Use%20Script%20Functions.pdf"
+          ],
+          "locator": "Simulate function：arguments / blocking behavior / output filename"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从官方教程准备原理图副本 → 在脚本中指定输入和独立输出目录 → 运行 Simulate 并等待完成 → 在 Simview 或文本输出中对照波形。本次未执行。",
+          "sourceUrl": "https://2023.help.altair.com/psim-tut/tutorials/Tutorial%20-%20How%20to%20Use%20Script%20Functions.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Altair PSIM：How to Use Script Functions",
+        "url": "https://2023.help.altair.com/psim-tut/tutorials/Tutorial%20-%20How%20to%20Use%20Script%20Functions.pdf",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Altair Learn：PSIM power electronics course",
+        "url": "https://learn.altair.com/course/view.php?id=374&section=1",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PVsyst",
+    "profile": {
+      "versionBoundary": "公开 CLI 文档当前示例为 8 系列；具体可执行程序和许可须与所安装版本核对。",
+      "humanEntry": "工程师先在 GUI 建立项目、变体和所需数据库文件，再通过 GUI 或 CLI 运行。",
+      "coverage": "命令行驱动已准备的光伏仿真；CSV 用于参数批处理和时序结果输出。",
+      "unknowns": [
+        "CLI 是否包括在现有授权、可用席位及自动化部署条款未核实",
+        "CSV 列、输出变量定义及版本兼容需以 RVT/SFI 与安装版文档确认",
+        "本次未安装或运行 PVsyst"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "PVsystCLI",
+        "category": "program",
+        "entry": "命令行 PVsystCLI.exe；reference 提供 help、version 和 run-simulation。",
+        "role": "外部进程编排光伏仿真",
+        "direction": "CLI 参数/项目文件输入，仿真结果文件输出。",
+        "operations": [
+          "选择工作空间与项目变体",
+          "执行单次仿真",
+          "选择时间步长和输出设置",
+          "运行参数批处理"
+        ],
+        "dataContract": "项目/变体标识及其依赖的组件、站点、气象数据；可通过 RVT/SFI 文件规定输出变量。",
+        "workflow": [
+          "建议：先在 GUI 验证项目变体",
+          "建议：用 help/version 核查安装版入口",
+          "建议：指定独立输出目录后运行一次",
+          "建议：核查日志及 CSV 行数与时标",
+          "建议：再扩大到批量作业"
+        ],
+        "execution": "外部进程运行；已有默认 CSV 且未设置覆盖选项时可能不执行仿真，因此不能仅凭命令已启动判断完成。",
+        "failure": "建议检查退出状态、日志、依赖文件与已有输出；完整退出码表和超时语义未核实。",
+        "prerequisites": "PVsyst CLI 安装与相应商业授权；已准备可运行项目、变体及工作空间。",
+        "version": "公开 CLI 8 系列文档；具体补丁未实测",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.pvsyst.com/help-cli/reference/index.html",
+            "https://www.pvsyst.com/help-cli/use-cases/simulation.html"
+          ],
+          "locator": "CLI reference：run-simulation / overwrite / variables；Use cases：existing projects"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先在 GUI 验证项目变体 → 用 help/version 核查安装版入口 → 指定独立输出目录后运行一次 → 核查日志及 CSV 行数与时标 → 再扩大到批量作业。本次未执行。",
+          "sourceUrl": "https://www.pvsyst.com/help-cli/reference/index.html"
+        }
+      },
+      {
+        "name": "CSV 批处理与结果",
+        "category": "file",
+        "entry": "CLI use cases 的 batch 参数文件及仿真输出 CSV；输出变量由相应 RVT/SFI 设置。",
+        "role": "离线批量参数输入与结果交换",
+        "direction": "参数 CSV 导入；仿真时序 CSV 导出。",
+        "operations": [
+          "准备批次参数表",
+          "运行各行配置",
+          "导出结果变量",
+          "比较不同变体结果"
+        ],
+        "dataContract": "CSV 列含义、单位与变量可用性依所选模拟任务和变量定义；不是统一光伏行业数据标准。",
+        "workflow": [
+          "建议：用官方样例核对批次列名",
+          "建议：用两行参数验证逐次结果",
+          "建议：按变量配置导出 CSV",
+          "建议：核查分隔符、单位、时标和覆盖行为"
+        ],
+        "execution": "文件批次交换，不提供实时设备测量；批次调度与单次仿真完成状态须分别检查。",
+        "failure": "建议核对缺列、非法参数、缺失气象/器件数据以及结果文件覆盖；完整逐行错误结构未核实。",
+        "prerequisites": "可用 CLI、项目与变量配置；外部表格工具需保留列名和数值格式。",
+        "version": "与当前 CLI 文档绑定，跨版本 CSV 兼容未核实",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.pvsyst.com/help-cli/reference/index.html",
+            "https://www.pvsyst.com/help-cli/use-cases/simulation.html"
+          ],
+          "locator": "Reference / Use cases：batch simulation and CSV results"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：用官方样例核对批次列名 → 用两行参数验证逐次结果 → 按变量配置导出 CSV → 核查分隔符、单位、时标和覆盖行为。本次未执行。",
+          "sourceUrl": "https://www.pvsyst.com/help-cli/reference/index.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "PVsyst CLI：Reference",
+        "url": "https://www.pvsyst.com/help-cli/reference/index.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PVsyst CLI：Running simulations",
+        "url": "https://www.pvsyst.com/help-cli/use-cases/simulation.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PVsyst：CLI product",
+        "url": "https://secure.pvsyst.com/en/products/pvsyst-cli/",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "HOMER Pro",
+    "profile": {
+      "versionBoundary": "公开 latest 帮助中的时序输出页标示 HOMER Pro 3.16；不推定全部历史/后续版本导出列完全一致。",
+      "humanEntry": "工程师定义负荷、资源、设备和经济参数，计算后打开某一仿真方案的时序结果。",
+      "coverage": "已核实所选方案的时序 CSV 导出；不据产品优化能力推定存在公开通用 API。",
+      "unknowns": [
+        "批量外部计算 API、无界面运行及完整错误接口未核实",
+        "MATLAB Link 属于另列模块，本次未核实其开发契约，未作为已确认接口",
+        "可导出列随实际模型组件与资源设置变化"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "时序 CSV 导出",
+        "category": "file",
+        "entry": "计算完成后双击结果方案，进入时序输出/结果窗口并使用 Export。",
+        "role": "离线导出微电网仿真和资源时序",
+        "direction": "HOMER 结果向外导出；本条不声称反向导入同一结果文件。",
+        "operations": [
+          "选择单个方案",
+          "查看时序变量",
+          "导出 CSV",
+          "在外部分析工具中核对结果"
+        ],
+        "dataContract": "随模型而定的时序列；资源列如风速、温度和太阳辐射仅在相应组件/设置启用时出现，不能保证每份 CSV 都有这些列。",
+        "workflow": [
+          "建议：建立最小可运行方案并计算",
+          "建议：打开选定方案的时序结果",
+          "建议：导出 CSV 到新目录",
+          "建议：核对时间步、单位及启用组件对应的列"
+        ],
+        "execution": "计算后的离线结果导出；不属于微电网控制器的实时通信接口。",
+        "failure": "公开页未给导出错误码；建议检查计算是否完成、所选方案和列是否存在、输出路径权限及 CSV 完整性。",
+        "prerequisites": "有效 HOMER Pro 安装与许可；有已完成的仿真结果。",
+        "version": "公开帮助 3.16；知识库操作界面可能随版本变化",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://homerenergy.com/products/pro/docs/latest/time_series_outputs.html",
+            "https://homerenergy.com/docs/knowledgebase/article/export-homers-resource-data/"
+          ],
+          "locator": "Time Series Outputs；Knowledge Base：Export button / selected simulation"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：建立最小可运行方案并计算 → 打开选定方案的时序结果 → 导出 CSV 到新目录 → 核对时间步、单位及启用组件对应的列。本次未执行。",
+          "sourceUrl": "https://homerenergy.com/products/pro/docs/latest/time_series_outputs.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "HOMER Energy：HOMER Pro",
+        "url": "https://homerenergy.com/homer-pro",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "HOMER Pro：Time Series Outputs",
+        "url": "https://homerenergy.com/products/pro/docs/latest/time_series_outputs.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "HOMER Knowledge Base：Export resource data",
+        "url": "https://homerenergy.com/docs/knowledgebase/article/export-homers-resource-data/",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "pandapower",
+    "profile": {
+      "versionBoundary": "本次固定核查官方 v3.1.0 文档；不混用 latest 参数签名。",
+      "humanEntry": "分析人员编写 Python 脚本，构建 pandapowerNet 并调用求解器，检查结果表。",
+      "coverage": "程序内潮流求解与 JSON 模型保存/恢复；不把 Python 库当现场通信网关。",
+      "unknowns": [
+        "运行环境、可选求解器和依赖版本需按实际安装核对",
+        "本次未验证每一种元件、控制器和第三方对象的 JSON 往返",
+        "性能及求解鲁棒性依网络与求解选项，未实测"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python runpp",
+        "category": "program",
+        "entry": "Python 中导入 pandapower 并调用 runpp；函数参数以 v3.1.0 AC Power Flow 页为准。",
+        "role": "程序内电网计算库",
+        "direction": "网络和求解选项输入；结果写入网络结果表。",
+        "operations": [
+          "执行交流潮流",
+          "选择求解算法与初始化",
+          "读取 res_bus 等结果表"
+        ],
+        "dataContract": "pandapowerNet 内的 pandas 表及求解选项；元件索引和单位按官方模型表核对。",
+        "workflow": [
+          "建议：固定 Python 和依赖版本",
+          "建议：构建小型网络并检查输入表",
+          "建议：运行 runpp",
+          "建议：核对收敛状态和结果表",
+          "建议：再处理目标网络"
+        ],
+        "execution": "同步 Python 函数调用；可选 lightsim2grid 在 auto 设置下可回退，不能由安装库存在推定实际使用该求解器。",
+        "failure": "建议检查潮流是否收敛、孤岛/参考节点与初值；显式启用不满足条件的可选后端可能报错，完整异常契约另核。",
+        "prerequisites": "兼容 Python 及 pandas 等依赖；可选后端有额外条件和依赖。",
+        "version": "v3.1.0",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://pandapower.readthedocs.io/en/v3.1.0/powerflow/ac.html"
+          ],
+          "locator": "AC Power Flow：runpp / algorithms / lightsim2grid conditions"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：固定 Python 和依赖版本 → 构建小型网络并检查输入表 → 运行 runpp → 核对收敛状态和结果表 → 再处理目标网络。本次未执行。",
+          "sourceUrl": "https://pandapower.readthedocs.io/en/v3.1.0/powerflow/ac.html"
+        }
+      },
+      {
+        "name": "JSON 网络文件",
+        "category": "file",
+        "entry": "pandapower.to_json 与 pandapower.from_json；输入文件名或官方支持的 JSON 字符串形式。",
+        "role": "离线网络序列化与交换",
+        "direction": "网络对象导出 JSON；JSON 解析为网络对象。",
+        "operations": [
+          "保存网络",
+          "从 JSON 恢复",
+          "按选项转换旧格式",
+          "检查未知对象处理"
+        ],
+        "dataContract": "JSON 包含网络表和可序列化对象；内部下划线键、标准类型保存行为及自定义对象须依文档核查，不应假设完整进程状态持久化。",
+        "workflow": [
+          "建议：先保存小网络并恢复",
+          "建议：比较元件索引和字段而非行顺序",
+          "建议：显式选择旧格式转换与未知对象策略",
+          "建议：重新运行潮流比较结果"
+        ],
+        "execution": "离线持久化；from_json 的 convert 处理旧格式，ignore_unknown_objects 控制不认识的对象。",
+        "failure": "默认不忽略未知对象时会报错；允许忽略可能丢失对象。建议检查自定义控制器、索引和恢复后的模型等价性。",
+        "prerequisites": "与文件版本兼容的 pandapower；自定义对象类及依赖须可用。",
+        "version": "v3.1.0 文件 I/O 文档",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://pandapower.readthedocs.io/en/v3.1.0/file_io.html"
+          ],
+          "locator": "File Input/Output：to_json / from_json / Notes"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先保存小网络并恢复 → 比较元件索引和字段而非行顺序 → 显式选择旧格式转换与未知对象策略 → 重新运行潮流比较结果。本次未执行。",
+          "sourceUrl": "https://pandapower.readthedocs.io/en/v3.1.0/file_io.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "pandapower 3.1.0：AC power flow",
+        "url": "https://pandapower.readthedocs.io/en/v3.1.0/powerflow/ac.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "pandapower 3.1.0：File I/O",
+        "url": "https://pandapower.readthedocs.io/en/v3.1.0/file_io.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "pandapower：Contact",
+        "url": "https://www.pandapower.org/contact/",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ECLIPSE",
+    "profile": {
+      "versionBoundary": "产品用途按当前官网；具体 ECLRUN/输入数据操作固定依据 ECLIPSE 2021.4 安装指南，不将该版操作系统或调度器要求套用到现行版。",
+      "humanEntry": "工程师通过 Simulation Launcher、前后处理器或命令行运行油藏数据集。",
+      "coverage": "ECLRUN 作业启动与 ECLIPSE 关键词数据集输入；与已收录 Petrel/Ocean 的扩展机制不同。",
+      "unknowns": [
+        "当前商业授权、并行席位和集群兼容矩阵需客户版资料",
+        "完整关键词、单位制、结果二进制布局及退出码未在公开安装指南核实",
+        "客户支持库可能要求账户；本次未下载商业安装包"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "ECLRUN 命令行",
+        "category": "program",
+        "entry": "安装后可用 eclrun；2021.4 指南的 Test using the command line 给出批处理运行实例。",
+        "role": "外部进程与集群作业提交入口",
+        "direction": "数据集根名与启动选项输入；作业状态及结果文件输出。",
+        "operations": [
+          "提交单个仿真",
+          "指定安装发行版本",
+          "顺序运行批处理",
+          "按部署提交集群作业"
+        ],
+        "dataContract": "命令参数含模拟器类型和数据集根名；集群需共享可读写数据目录，调度器与 MPI 配置依版本。",
+        "workflow": [
+          "建议：先验证许可与官方小数据集",
+          "建议：在隔离目录用命令行提交",
+          "建议：检查作业日志与结果文件",
+          "建议：需要并行时再核对调度和共享目录"
+        ],
+        "execution": "ECLRUN 管理仿真启动；批处理可顺序提交。集群提交成功不等于求解成功，队列状态与求解输出须分别检查。",
+        "failure": "指南提供 debug 选项并要求共享数据读写检查；完整返回码未核实，建议分查许可、调度、MPI 与模型错误。",
+        "prerequisites": "ECLIPSE 安装与许可服务器；并行/集群另外需要匹配的 MPI、队列配置和访问权限。",
+        "version": "2021.4 安装指南，第 9、14、29 页相关章节",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.software.slb.com/-/media/software-media-items/support/product-documents/eclipse/2021/eclipse-2021-4-installation-guide.pdf?hash=8938EA515E118D83F09CE0D7C68F6904926772C6&la=en"
+          ],
+          "locator": "Test using the command line；Install ECLRUN in cluster"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先验证许可与官方小数据集 → 在隔离目录用命令行提交 → 检查作业日志与结果文件 → 需要并行时再核对调度和共享目录。本次未执行。",
+          "sourceUrl": "https://www.software.slb.com/-/media/software-media-items/support/product-documents/eclipse/2021/eclipse-2021-4-installation-guide.pdf?hash=8938EA515E118D83F09CE0D7C68F6904926772C6&la=en"
+        }
+      },
+      {
+        "name": "ECLIPSE 关键词数据集",
+        "category": "file",
+        "entry": "Simulation Launcher 选数据集，或由 ECLRUN 使用数据集根名启动；安装示例位于 eclipse/data 等目录。",
+        "role": "油藏模型与生产方案的离线仿真输入",
+        "direction": "关键词数据集输入求解器；本条不声明可将所有结果完整反写为输入。",
+        "operations": [
+          "读取模型数据集",
+          "选择 ECLIPSE/E300 求解器",
+          "运行示例或自有数据集"
+        ],
+        "dataContract": "版本相关的关键词输入及配套文件；不能仅凭共同 .DATA 命名推断第三方完全兼容。",
+        "workflow": [
+          "建议：复制版本配套示例",
+          "建议：检查关键词和依赖文件",
+          "建议：用对应求解器运行",
+          "建议：对照日志检查未知关键词与单位制"
+        ],
+        "execution": "数据集经仿真启动入口加载；不是运行时流数据协议。",
+        "failure": "建议核查关键词合法性、单位、引用文件和求解日志；完整语法、警告等级与容错规则需客户参考手册。",
+        "prerequisites": "相应求解器许可、完整输入文件及对应版本关键词参考。",
+        "version": "当前产品说明 + 2021.4 安装指南",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/eclipse-industry-reference-reservoir-simulator",
+            "https://www.software.slb.com/-/media/software-media-items/support/product-documents/eclipse/2021/eclipse-2021-4-installation-guide.pdf?hash=8938EA515E118D83F09CE0D7C68F6904926772C6&la=en"
+          ],
+          "locator": "Product：keyword examples；Installation Guide：example datasets / ECLIPSE keyword file"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：复制版本配套示例 → 检查关键词和依赖文件 → 用对应求解器运行 → 对照日志检查未知关键词与单位制。本次未执行。",
+          "sourceUrl": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/eclipse-industry-reference-reservoir-simulator"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "SLB：ECLIPSE reservoir simulator",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/eclipse-industry-reference-reservoir-simulator",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SLB：ECLIPSE 2021.4 Installation Guide",
+        "url": "https://www.software.slb.com/-/media/software-media-items/support/product-documents/eclipse/2021/eclipse-2021-4-installation-guide.pdf?hash=8938EA515E118D83F09CE0D7C68F6904926772C6&la=en",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "INTERSECT",
+    "profile": {
+      "versionBoundary": "Python 能力按当前官方产品页；迁移/AFI 操作限定为 2021.4 安装指南中的 INTERSECT 配套流程。",
+      "humanEntry": "工程师准备模拟案例并运行油藏/油田管理求解，必要时从 ECLIPSE 输入迁移。",
+      "coverage": "仿真案例内嵌 Python 逻辑及 AFI 输入工作流；不将其他同名 INTERSECT 开源 SDK 当作本产品 API。",
+      "unknowns": [
+        "公开产品页未披露 Python 模块名、函数签名、回调时点及线程规则",
+        "Python 可访问对象和可修改范围需客户开发手册",
+        "迁移不保证所有 ECLIPSE 关键词或物理模型等价"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "案例内 Python 脚本",
+        "category": "program",
+        "entry": "INTERSECT 仿真案例的 Python 脚本集成点；编辑菜单、模块名和装载语法未公开核实。",
+        "role": "案例内定制计算/操作逻辑",
+        "direction": "脚本参与运行；具体模型读写、结果访问和外部 I/O 范围未公开核实。",
+        "operations": [
+          "在仿真案例中集成 Python 例程",
+          "执行定制操作"
+        ],
+        "dataContract": "公开产品页未提供参数类型、对象模型或回调参数；需对应安装版 Python 参考与示例，不补造入口签名。",
+        "workflow": [
+          "建议：取得对应版开发文档与脚本样例",
+          "建议：确认例程触发时点和可访问对象",
+          "建议：在案例副本测试单个无副作用操作",
+          "建议：对照无脚本基线结果"
+        ],
+        "execution": "已核实运行期脚本集成；初始化/步进/终止回调、阻塞规则及并发行为未公开核实。",
+        "failure": "异常如何影响仿真、回滚与日志约定未公开核实；建议客户样例验证脚本失败时行为。",
+        "prerequisites": "INTERSECT 商业授权和兼容脚本环境；是否需单独权益未公开核实。",
+        "version": "当前产品说明，Python 接口主版本未知",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.software.slb.com/products/intersect?entry=ad_google_sis_software_intersect"
+          ],
+          "locator": "Product capabilities：advanced Python scripting routines integrated in simulation case"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得对应版开发文档与脚本样例 → 确认例程触发时点和可访问对象 → 在案例副本测试单个无副作用操作 → 对照无脚本基线结果。本次未执行。",
+          "sourceUrl": "https://www.software.slb.com/products/intersect?entry=ad_google_sis_software_intersect"
+        }
+      },
+      {
+        "name": "AFI / ECLIPSE Migrator",
+        "category": "file",
+        "entry": "Simulation Launcher 的 INTERSECT → Migrator；CLI 的 ecl2ix/ix 亦见官方安装指南。",
+        "role": "模型迁移与 INTERSECT 输入文件集合",
+        "direction": "ECLIPSE 数据集经迁移导出 AFI 配套集合，再由 INTERSECT 读取。",
+        "operations": [
+          "迁移关键词数据集",
+          "生成 AFI 及配套文件",
+          "读取 AFI 运行仿真"
+        ],
+        "dataContract": "AFI 并非唯一自包含文件；指南列出相关 .gsg、.ixf 等配套文件。具体字段和支持关键词矩阵须另核。",
+        "workflow": [
+          "建议：在官方样例副本运行 Migrator",
+          "建议：等待迁移完成再运行 INTERSECT",
+          "建议：保持 AFI 与所有关联文件一致",
+          "建议：修改原数据集后重新生成 AFI",
+          "建议：比较迁移前后物理模型与结果"
+        ],
+        "execution": "迁移命令生成输入但不自动执行仿真；原 ECLIPSE 输入更新后需重新迁移。",
+        "failure": "建议检查迁移日志、关键词支持、关联文件完整性和物理假设；不把迁移成功视为数值等价。",
+        "prerequisites": "INTERSECT 和相应迁移工具安装与许可；可迁移输入模型。",
+        "version": "2021.4 安装指南，第 8–10 页",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.software.slb.com/-/media/software-media-items/support/product-documents/eclipse/2021/eclipse-2021-4-installation-guide.pdf?hash=8938EA515E118D83F09CE0D7C68F6904926772C6&la=en"
+          ],
+          "locator": "Test the INTERSECT installation / AFI generated files"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在官方样例副本运行 Migrator → 等待迁移完成再运行 INTERSECT → 保持 AFI 与所有关联文件一致 → 修改原数据集后重新生成 AFI → 比较迁移前后物理模型与结果。本次未执行。",
+          "sourceUrl": "https://www.software.slb.com/-/media/software-media-items/support/product-documents/eclipse/2021/eclipse-2021-4-installation-guide.pdf?hash=8938EA515E118D83F09CE0D7C68F6904926772C6&la=en"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "SLB：INTERSECT",
+        "url": "https://www.software.slb.com/products/intersect?entry=ad_google_sis_software_intersect",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SLB：2021.4 simulator installation / INTERSECT test",
+        "url": "https://www.software.slb.com/-/media/software-media-items/support/product-documents/eclipse/2021/eclipse-2021-4-installation-guide.pdf?hash=8938EA515E118D83F09CE0D7C68F6904926772C6&la=en",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CMG 油藏模拟套件（IMEX / GEM / STARS）",
+    "profile": {
+      "versionBoundary": "当前官方软件与 Results 产品页未给 SR3 完整版本化规格；不将三个求解器拆成三个同源接口记录。",
+      "humanEntry": "工程师准备并运行对应求解器，用 Results 查看、绘图和比较输出。",
+      "coverage": "确认所有三个求解器的 SR3 结果文件与官方 Results 后处理；未确认公开通用控制 API。",
+      "unknowns": [
+        "SR3 二进制结构、第三方读写 SDK、向后兼容矩阵未公开核实",
+        "自动化批量运行入口、CLI 返回码和许可证权益未核实",
+        "未将非官方 Python/HDF5 读取工具作为官方接口"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "SR3 结果文件",
+        "category": "file",
+        "entry": "求解器生成 SR3 后在 CMG Results 中打开；具体菜单依安装版帮助。",
+        "role": "三类求解器与官方后处理器之间的离线结果交换",
+        "direction": "求解器导出，Results 读取；本条不声称 Results 可修改并重写求解器模型。",
+        "operations": [
+          "读取求解结果",
+          "绘制分析曲线",
+          "比较不同模拟结果及历史数据"
+        ],
+        "dataContract": "CMG SR3 压缩结果格式；公开产品页不构成第三方可实施的完整模式规范。",
+        "workflow": [
+          "建议：运行一个官方小案例",
+          "建议：保存其 SR3 输出",
+          "建议：在 Results 中核对井/网格/时序对象",
+          "建议：与求解器日志和已知指标比较"
+        ],
+        "execution": "官网确认 Results 可随仿真进展实时更新结果；SR3 文件锁、读取刷新周期与增量更新契约未公开核实。",
+        "failure": "产品页未披露解析错误码；建议核对文件完整性、求解器/Results 版本和实际保存的变量。",
+        "prerequisites": "对应求解器与 Results 安装及许可；文件兼容版本需供应商确认。",
+        "version": "当前官方产品页，SR3 版次未知",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.cmgl.ca/solutions/software/results/"
+          ],
+          "locator": "Results：SR3 compressed output from IMEX / GEM / STARS"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：运行一个官方小案例 → 保存其 SR3 输出 → 在 Results 中核对井/网格/时序对象 → 与求解器日志和已知指标比较。本次未执行。",
+          "sourceUrl": "https://www.cmgl.ca/solutions/software/results/"
+        }
+      },
+      {
+        "name": "RESQML 导出（Results）",
+        "category": "semantic",
+        "entry": "CMG Results 的 RESQML 导出功能；具体菜单与导出配置须查安装版帮助。",
+        "role": "从 CMG 后处理结果向地学软件交换模型/属性",
+        "direction": "Results 向外导出；本条不声称 CMG 求解器直接提供双向 RESQML 接口。",
+        "operations": [
+          "选择导出模型/属性",
+          "指定属性和时间步",
+          "导出 RESQML"
+        ],
+        "dataContract": "RESQML 标准对象模型；具体版次、对象类型、属性单位、网格及时间步映射未公开核实。",
+        "workflow": [
+          "建议：取得安装版 Results 的 RESQML 支持说明",
+          "建议：选取小型网格与一个时间步属性",
+          "建议：导出后用目标软件读取",
+          "建议：核对几何、属性、单位和时标"
+        ],
+        "execution": "离线标准模型交换；不能由 RESQML 导出推定支持 ETP 实时传输或所有 Energistics 标准。",
+        "failure": "建议核查导出日志、目标版次支持和属性丢失；公开产品页未给校验器或错误码。",
+        "prerequisites": "CMG Results 的相应安装与授权；目标软件支持兼容 RESQML 对象/版次。",
+        "version": "当前 Results 产品页；RESQML 版次未核实",
+        "implementation": "文件交换",
+        "standardIds": [
+          "p43"
+        ],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.cmgl.ca/solutions/software/results/"
+          ],
+          "locator": "Results：Key Features / Export to RESQML"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得安装版 Results 的 RESQML 支持说明 → 选取小型网格与一个时间步属性 → 导出后用目标软件读取 → 核对几何、属性、单位和时标。本次未执行。",
+          "sourceUrl": "https://www.cmgl.ca/solutions/software/results/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "CMG：Software portfolio",
+        "url": "https://www.cmgl.ca/solutions/software/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "CMG：Results / SR3 output",
+        "url": "https://www.cmgl.ca/solutions/software/results/",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "tNavigator",
+    "profile": {
+      "versionBoundary": "依据当前官方 AI and ML 页面及 Technology Overview 2025；确认 Python API 能力，但未核实具体补丁版函数参考。",
+      "humanEntry": "工程师在建模和模拟模块准备模型，再运行计算、分析结果或编写 Python 自动化。",
+      "coverage": "Python API 用于模型处理、仿真运行及结果抽取；不从宣传概要推定服务端端点或所有对象可写。",
+      "unknowns": [
+        "Python 导入包名、函数签名、环境配置和会话释放未在公开概要核实",
+        "模块授权、客户端/服务器关系和多作业并发规则未知",
+        "错误返回类型、重试与结果数据模式需正式开发文档"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python API",
+        "category": "program",
+        "entry": "tNavigator 的 Python API；具体控制台、导入包、脚本部署目录未公开核实。",
+        "role": "模型与仿真工作流自动化",
+        "direction": "可处理模型、触发计算、抽取结果；逐对象读写边界未公开核实。",
+        "operations": [
+          "编排工作流",
+          "处理模型",
+          "运行仿真",
+          "抽取和分析结果"
+        ],
+        "dataContract": "公开概览没有完整对象模式、单位制、函数参数和结果结构；须从安装版 API 帮助核对。",
+        "workflow": [
+          "建议：取得所用模块的官方 API 参考与示例",
+          "建议：确认模型对象和结果变量名",
+          "建议：在模型副本运行最小自动化",
+          "建议：与 GUI 运行结果对照"
+        ],
+        "execution": "已核实自动化能力；宿主内/外部执行方式、会话生命周期与作业完成通知契约未公开核实。",
+        "failure": "异常、返回码与中断后模型状态未知；建议先验证错误模型、失败作业及日志定位。",
+        "prerequisites": "tNavigator 安装与相应模块授权；Python 环境、附加权益由供应商确认。",
+        "version": "当前官方产品页；API 版本未公开核实",
+        "implementation": "未核实",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.rfdyn.com/industries/machine-learning-ai/"
+          ],
+          "locator": "AI and ML：Python API / workflow automation"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得所用模块的官方 API 参考与示例 → 确认模型对象和结果变量名 → 在模型副本运行最小自动化 → 与 GUI 运行结果对照。本次未执行。",
+          "sourceUrl": "https://www.rfdyn.com/industries/machine-learning-ai/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Rock Flow Dynamics：AI and ML / Python API",
+        "url": "https://www.rfdyn.com/industries/machine-learning-ai/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Rock Flow Dynamics：Technology Overview 2025",
+        "url": "https://rfdyn.com/wp-content/uploads/2025/04/Technology-Overview-2025-Web.pdf",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "FLAC3D",
+    "profile": {
+      "versionBoundary": "对象与生命周期依据官方 FLAC3D 7.0 Python 文档；产品用途按官网，不能推定当前 9 系列完全相同。",
+      "humanEntry": "工程师建立网格、赋材料、分步求解，通过命令/FISH/Python 处理模型与结果。",
+      "coverage": "Python 对 zone、gridpoint 等模型对象的访问及命令执行；与颗粒离散元 PFC 属于不同求解技术。",
+      "unknowns": [
+        "当前主版本迁移与各物理模块对象差异需核查",
+        "文档示例未在本机执行",
+        "Python 持久化不是模型 save 的自动组成部分，须单独设计"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "itasca Python API",
+        "category": "program",
+        "entry": "FLAC3D Python 环境导入 itasca；官方例程以 it.command 调用 FLAC3D 命令。",
+        "role": "宿主模型自动化与结果处理",
+        "direction": "读取模型对象与状态，修改属性并运行命令；范围依各对象方法。",
+        "operations": [
+          "执行模型命令",
+          "查找/遍历 zone 和 gridpoint",
+          "读写材料属性",
+          "注册或移除 Python callback"
+        ],
+        "dataContract": "对象以内部 ID/实例引用访问；单位取决于模型一致单位制。模型重建或恢复后需重新核查引用。",
+        "workflow": [
+          "建议：用官方小模型建立脚本副本",
+          "建议：按 ID 查找并验证对象",
+          "建议：读取一个结果及修改一个参数",
+          "建议：求解并捕获异常",
+          "建议：验证 save/restore 后脚本状态和回调"
+        ],
+        "execution": "Python 状态并非模型状态，不随模型 save 自动保存；python-reset-state false 可保留 Python 状态，回调注册在 new/restore 时有专门规则，须按文档处理。",
+        "failure": "官方示例使用 Python 异常捕获无效力学参数导致的求解错误；建议同时检查模型命令输出和回调状态。",
+        "prerequisites": "FLAC3D 安装及所用物理模块许可；使用与宿主匹配的嵌入式 Python。",
+        "version": "FLAC3D 7.0 文档",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.itascasoftware.com/flac3d700/common/docproject/source/manual/scripting/python/doc/python_flac3d.py.html"
+          ],
+          "locator": "Python FLAC3D：model objects / exceptions / Python state / callbacks"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：用官方小模型建立脚本副本 → 按 ID 查找并验证对象 → 读取一个结果及修改一个参数 → 求解并捕获异常 → 验证 save/restore 后脚本状态和回调。本次未执行。",
+          "sourceUrl": "https://docs.itascasoftware.com/flac3d700/common/docproject/source/manual/scripting/python/doc/python_flac3d.py.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Itasca：FLAC3D",
+        "url": "https://www.itascacg.com/software/flac3d?tab=1",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "FLAC3D 7.0：Python scripting",
+        "url": "https://docs.itascasoftware.com/flac3d700/common/docproject/source/manual/scripting/python/doc/python_flac3d.py.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PFC Suite",
+    "profile": {
+      "versionBoundary": "Python 对象细节固定依据 PFC 6.0 公开文档；当前产品页仅用于核对用途，不把 6.0 签名当作全版本承诺。",
+      "humanEntry": "工程师生成颗粒/边界、定义接触模型、循环求解，并通过 Python 分析颗粒与接触。",
+      "coverage": "PFC 颗粒离散元的宿主 Python，对象与 FLAC3D 连续体网格不同。",
+      "unknowns": [
+        "当前 PFC 版本 API、可选热/流耦合模块及许可未逐项核实",
+        "动态删除/重建颗粒后的引用有效期须按版本验证",
+        "本次未运行官方示例或性能测试"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "itasca PFC Python API",
+        "category": "program",
+        "entry": "PFC 宿主 Python 环境导入 itasca；命令执行和对象方法共同编排模拟。",
+        "role": "颗粒模型自动化、查询和后处理",
+        "direction": "模型命令输入；读取颗粒/接触状态，逐对象可写属性依类参考。",
+        "operations": [
+          "执行 PFC 命令",
+          "按 ID 查找颗粒",
+          "遍历并统计颗粒",
+          "读取颗粒半径和位置"
+        ],
+        "dataContract": "PFC ball 等对象和 ID；接触模型、单位与求解配置随用户模型定义，不是通用矿山业务数据模型。",
+        "workflow": [
+          "建议：复制官方最小颗粒案例",
+          "建议：用 Python 创建或载入模型",
+          "建议：检查颗粒数量与一个已知 ID",
+          "建议：读取半径等属性并与 GUI 比较",
+          "建议：循环求解后重新确认对象有效性"
+        ],
+        "execution": "官方示例使用 python-reset-state false 管理模型命令和 Python 状态；模型对象生命周期与 Python 变量生命周期不能混同。",
+        "failure": "建议验证不存在的 ID、已删除对象和无效命令的行为；完整错误类型与回调保证未在所读页全面核实。",
+        "prerequisites": "PFC Suite 相应安装与许可、匹配嵌入式 Python；不推定 2D 和 3D 授权相同。",
+        "version": "PFC 6.0 公开文档",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.itascacg.com/pfc600/common/docproject/source/manual/scripting/python/doc/python_pfc.py.html"
+          ],
+          "locator": "Python PFC：command / ball count / find / radius"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：复制官方最小颗粒案例 → 用 Python 创建或载入模型 → 检查颗粒数量与一个已知 ID → 读取半径等属性并与 GUI 比较 → 循环求解后重新确认对象有效性。本次未执行。",
+          "sourceUrl": "https://docs.itascacg.com/pfc600/common/docproject/source/manual/scripting/python/doc/python_pfc.py.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Itasca：PFC Suite",
+        "url": "https://itascasoftware.com/products/pfc-suite/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PFC 6.0：Python scripting",
+        "url": "https://docs.itascacg.com/pfc600/common/docproject/source/manual/scripting/python/doc/python_pfc.py.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Deswik.CAD",
+    "profile": {
+      "versionBoundary": "接口依据官方公开 CAD module summary/brochure；文件路径含 2015/2017，但文件未给可据以确认的宿主主版本，当前兼容性未知。",
+      "humanEntry": "矿山工程师在 CAD 中编辑实体、线、属性及图纸，并通过内置开发环境扩展流程。",
+      "coverage": "VB.NET/C# 插件和对象模型；不把 Deswik MDM 的 SaaS API 当成 CAD API。",
+      "unknowns": [
+        "完整 SDK、程序集、编译目标和当前版本获取方式需客户渠道确认",
+        "公开 PDF 可由官方搜索索引检索，本次直接打开部分链接受限",
+        "对象权限、事务、撤销、线程和异常约定没有公开函数级证据"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "VB.NET / C# 插件与脚本",
+        "category": "program",
+        "entry": "Deswik.CAD 内置脚本 IDE 和插件集成机制；菜单及插件目录未公开核实。",
+        "role": "宿主扩展与矿山设计数据处理",
+        "direction": "按官方概要可访问对象属性和方法；逐对象读写/保存/事务权限未核实。",
+        "operations": [
+          "开发 VB.NET 或 C# 插件",
+          "定制工作流",
+          "处理 CAD 数据"
+        ],
+        "dataContract": "宿主对象模型和 .NET 类型；实体 ID、几何坐标、属性结构和序列化契约须取安装版 SDK。",
+        "workflow": [
+          "建议：从供应商取得匹配 SDK 与最小插件样例",
+          "建议：确认 IDE 和程序集版本",
+          "建议：在项目副本读取一个实体属性",
+          "建议：核对编辑后的几何及保存结果"
+        ],
+        "execution": "插件由 CAD 宿主集成；装载/卸载、事务提交及主线程要求未公开核实，不能作为独立无宿主库使用的证据。",
+        "failure": "错误/异常及撤销语义未知；建议核查插件加载日志、编译目标、空对象和模型副本的修改结果。",
+        "prerequisites": "Deswik.CAD 安装及开发权限；.NET 目标框架、SDK 授权和工具链由对应版本文档确认。",
+        "version": "官方 module summary/brochure，宿主主版本未核实",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://deswik.com/wp-content/uploads/2017/06/Deswik.CAD-Module-Summary.pdf",
+            "https://www.deswik.com/wp-content/uploads/2015/10/Deswik.CAD-Brochure.pdf"
+          ],
+          "locator": "Inclusive Format：plugin/scripting interfaces / IDE / VB.NET or C# / object model"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从供应商取得匹配 SDK 与最小插件样例 → 确认 IDE 和程序集版本 → 在项目副本读取一个实体属性 → 核对编辑后的几何及保存结果。本次未执行。",
+          "sourceUrl": "https://deswik.com/wp-content/uploads/2017/06/Deswik.CAD-Module-Summary.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Deswik：CAD Module Summary",
+        "url": "https://deswik.com/wp-content/uploads/2017/06/Deswik.CAD-Module-Summary.pdf",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Deswik：CAD Brochure",
+        "url": "https://www.deswik.com/wp-content/uploads/2015/10/Deswik.CAD-Brochure.pdf",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Datamine Studio RM",
+    "profile": {
+      "versionBoundary": "用途与命令按官方 Latest 帮助；COM 参考入口在 2.0 帮助中可见，3.1 发布记录明确更新脚本对象创建机制，跨版本语法须核对。",
+      "humanEntry": "工程师在 Studio RM 的项目、数据和三维窗口处理钻孔、线框与块体模型，并用脚本/命令重复操作。",
+      "coverage": "Studio 对象自动化与选定线串的 Datamine 文件导出；不把所有 Datamine 产品命令都当作 RM 核心许可能力。",
+      "unknowns": [
+        "完整 COM 对象接口、外部连接方式和当前脚本引擎版本需安装版参考",
+        "不同命令可能属于核心、可选或其他产品，逐项许可未全核",
+        "命令执行的错误码、事务及线程规则未公开核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Studio 脚本 / COM 对象模型",
+        "category": "program",
+        "entry": "宿主脚本环境；Help 的 COM Reference 查对象；Home 的 Studio Script Updater 迁移旧脚本。",
+        "role": "Studio 宿主数据对象与流程自动化",
+        "direction": "按对象接口读取/处理数据；具体方法可写范围与外部应用连接未核实。",
+        "operations": [
+          "访问 Studio 对象模型",
+          "编排数据处理",
+          "迁移旧 ActiveX 创建语法"
+        ],
+        "dataContract": "3.1 官方说明给出 window.external.System.CreateObject(\"Prog.ID\") 作为受控创建机制；Prog.ID 为示意占位而非真实产品对象名。完整模型结构按 COM Reference。",
+        "workflow": [
+          "建议：先读取对应版本 COM Reference",
+          "建议：使用项目副本与官方样例",
+          "建议：用 Script Updater 检查历史脚本",
+          "建议：验证获准对象的创建与最小数据读取",
+          "建议：核对脚本与交互操作结果"
+        ],
+        "execution": "宿主脚本运行；3.1 的受控创建机制会阻止高风险对象，不能由曾经可用的 ActiveX 写法推定当前可执行。",
+        "failure": "可能出现安全更新提示或对象被阻止；完整 HRESULT/异常约定未核实，建议检查许可、对象批准与脚本更新报告。",
+        "prerequisites": "Studio RM 安装和许可；对象批准策略及所用扩展权限按安装环境确认。",
+        "version": "2.0 COM 入口证据；3.1 safer scripting 更改",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.dataminesoftware.com/StudioRM/2.0/COMMON/Ribbon_Help_Menu.htm",
+            "https://docs.dataminesoftware.com/StudioRM/Studio%20RM%203.1%20Release%20Notes.pdf",
+            "https://dataminesoftware.com/studio-rm-3-1-public-release/"
+          ],
+          "locator": "Help：Scripting COM Reference；3.1 Release Notes：Safer Scripting"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先读取对应版本 COM Reference → 使用项目副本与官方样例 → 用 Script Updater 检查历史脚本 → 验证获准对象的创建与最小数据读取 → 核对脚本与交互操作结果。本次未执行。",
+          "sourceUrl": "https://docs.dataminesoftware.com/StudioRM/2.0/COMMON/Ribbon_Help_Menu.htm"
+        }
+      },
+      {
+        "name": "Datamine 线串文件导出",
+        "category": "file",
+        "entry": "Data ribbon → Save → All Strings / Selected Strings；或 write-selected-strings（wrs）。",
+        "role": "三维线串几何从内存模型保存到文件",
+        "direction": "选定内存线串向外导出；本条不声称覆盖所有对象的双向交换。",
+        "operations": [
+          "选择线串对象",
+          "指定外部文件名",
+          "保存选定线串"
+        ],
+        "dataContract": "所选线串及其受支持字段；文件的完整格式规范、坐标系和属性保留范围需安装版数据文件帮助。",
+        "workflow": [
+          "建议：在副本中选择两条已知线串",
+          "建议：使用 Selected Strings 保存到新文件",
+          "建议：在独立项目重新加载验证",
+          "建议：比较线串数量、坐标与属性"
+        ],
+        "execution": "交互命令执行文件保存；模型选择状态会影响导出集合。",
+        "failure": "公开命令页未列完整错误码；建议检查当前选择、可写路径、文件覆盖和重新加载后的几何。",
+        "prerequisites": "Studio RM 相关命令可用、已有线串数据与输出路径权限；版本许可另核。",
+        "version": "官方 Latest 命令帮助，具体主版本另核",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.dataminesoftware.com/StudioRM/Latest/command_help/write-selected-strings.htm"
+          ],
+          "locator": "write-selected-strings：function / ribbon / command alias"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在副本中选择两条已知线串 → 使用 Selected Strings 保存到新文件 → 在独立项目重新加载验证 → 比较线串数量、坐标与属性。本次未执行。",
+          "sourceUrl": "https://docs.dataminesoftware.com/StudioRM/Latest/command_help/write-selected-strings.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Datamine：Studio RM help",
+        "url": "https://docs.dataminesoftware.com/StudioRM/Latest/STUDIO_RM/Index.htm?TocPath=_____1",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Studio RM 2.0：Help menu / scripting COM reference",
+        "url": "https://docs.dataminesoftware.com/StudioRM/2.0/COMMON/Ribbon_Help_Menu.htm",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Studio RM 3.1：Release Notes / safer scripting",
+        "url": "https://docs.dataminesoftware.com/StudioRM/Studio%20RM%203.1%20Release%20Notes.pdf",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Studio RM：write-selected-strings",
+        "url": "https://docs.dataminesoftware.com/StudioRM/Latest/command_help/write-selected-strings.htm",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Datamine：Studio RM 3.1 release",
+        "url": "https://dataminesoftware.com/studio-rm-3-1-public-release/",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  }
+]

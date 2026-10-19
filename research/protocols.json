@@ -1,0 +1,1052 @@
+[
+  {
+    "id": "p01",
+    "name": "OPC UA",
+    "owner": "OPC Foundation",
+    "type": "通信协议",
+    "layer": "设备与上层系统",
+    "sectors": [
+      "materials",
+      "biopharma",
+      "food",
+      "electronics",
+      "equipment",
+      "aerospace",
+      "power",
+      "civil",
+      "mining",
+      "environment"
+    ],
+    "purpose": "统一设备数据访问、服务与信息模型；可连接自动化设备、SCADA 和 MES。",
+    "caution": "需区分客户端/服务器、PubSub、安全策略和 Companion Specification；同名协议不保证模型一致。",
+    "sources": [
+      {
+        "title": "OPC Foundation：Unified Architecture",
+        "url": "https://opcfoundation.org/about/opc-technologies/opc-ua/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p02",
+    "name": "MQTT",
+    "owner": "OASIS",
+    "type": "通信协议",
+    "layer": "消息与数据集成",
+    "sectors": [
+      "materials",
+      "biopharma",
+      "food",
+      "electronics",
+      "equipment",
+      "aerospace",
+      "power",
+      "civil",
+      "mining",
+      "environment"
+    ],
+    "purpose": "发布/订阅消息传输，用于设备、边缘节点与业务系统之间的数据消息。",
+    "caution": "MQTT 本身不定义工业点位语义、数据质量及主题结构；应用需共同约定载荷。",
+    "sources": [
+      {
+        "title": "OASIS：MQTT 5.0 标准",
+        "url": "https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p03",
+    "name": "Eclipse Sparkplug",
+    "owner": "Eclipse Foundation",
+    "type": "信息模型",
+    "layer": "消息与数据集成",
+    "sectors": [
+      "equipment",
+      "food",
+      "materials",
+      "power",
+      "mining",
+      "environment"
+    ],
+    "purpose": "在 MQTT 上规定主题、工业载荷与会话状态，面向 SCADA/IIoT 数据互操作。",
+    "caution": "属于 MQTT 的工业使用约定；需要检查双方 Sparkplug 版本与兼容性，不能以 MQTT 支持替代。",
+    "sources": [
+      {
+        "title": "Eclipse：Sparkplug FAQ",
+        "url": "https://sparkplug.eclipse.org/about/faq/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p04",
+    "name": "Modbus TCP / RTU",
+    "owner": "Modbus Organization",
+    "type": "通信协议",
+    "layer": "现场控制与采集",
+    "sectors": [
+      "materials",
+      "biopharma",
+      "food",
+      "electronics",
+      "equipment",
+      "aerospace",
+      "power",
+      "civil",
+      "mining",
+      "environment"
+    ],
+    "purpose": "通过功能码交换寄存器、线圈等数据，适合控制器、仪表与网关采集。",
+    "caution": "TCP 与串行 RTU 的链路不同；寄存器地址、字节序、单位和倍率需要设备映射表。",
+    "sources": [
+      {
+        "title": "Modbus：Specifications",
+        "url": "https://www.modbus.org/modbus-specifications"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p05",
+    "name": "PROFINET",
+    "owner": "PROFIBUS & PROFINET International",
+    "type": "通信协议",
+    "layer": "现场控制与采集",
+    "sectors": [
+      "equipment",
+      "food",
+      "electronics",
+      "materials",
+      "biopharma"
+    ],
+    "purpose": "生产和过程自动化的工业以太网通信，用于控制器与现场设备连接。",
+    "caution": "需按设备角色、实时能力和工程描述匹配；现场协议能力不代表提供通用业务 REST API。",
+    "sources": [
+      {
+        "title": "PI：PROFINET Technology",
+        "url": "https://www.profibus.com/profinet-technology"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p06",
+    "name": "EtherNet/IP / CIP",
+    "owner": "ODVA",
+    "type": "通信协议",
+    "layer": "现场控制与采集",
+    "sectors": [
+      "equipment",
+      "food",
+      "materials",
+      "biopharma",
+      "electronics"
+    ],
+    "purpose": "基于以太网承载 CIP 对象、消息与服务，连接控制、配置及诊断数据。",
+    "caution": "EtherNet/IP 为专名；设备对象模型、显式/隐式消息和连接参数需一致。",
+    "sources": [
+      {
+        "title": "ODVA：EtherNet/IP Technology Overview",
+        "url": "https://www.odva.org/publication_download/ethernet-ip-technology-overview/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p07",
+    "name": "EtherCAT",
+    "owner": "EtherCAT Technology Group",
+    "type": "通信协议",
+    "layer": "现场控制与采集",
+    "sectors": [
+      "equipment",
+      "electronics",
+      "food",
+      "aerospace"
+    ],
+    "purpose": "实时工业以太网现场总线，面向运动控制、I/O 及测试设备的数据交换。",
+    "caution": "主站、从站、设备描述和同步配置需配套；上层业务系统通常需要控制器或网关接口。",
+    "sources": [
+      {
+        "title": "ETG：EtherCAT Technology",
+        "url": "https://www.ethercat.org/en/technology.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p08",
+    "name": "IO-Link",
+    "owner": "IO-Link Community / PI",
+    "type": "通信协议",
+    "layer": "现场控制与采集",
+    "sectors": [
+      "equipment",
+      "food",
+      "materials",
+      "biopharma",
+      "environment"
+    ],
+    "purpose": "IEC 61131-9 的传感器/执行器点对点数字通信，支持参数、过程值和诊断。",
+    "caution": "这是点对点 I/O 技术；与以太网主干连接需主站，设备参数依赖 IODD。",
+    "sources": [
+      {
+        "title": "IO-Link：Technology",
+        "url": "https://io-link.com/technology"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p09",
+    "name": "MTConnect",
+    "owner": "AMT / MTConnect Institute",
+    "type": "信息模型",
+    "layer": "设备与上层系统",
+    "sectors": [
+      "equipment",
+      "aerospace"
+    ],
+    "purpose": "为数控机床及制造设备定义统一的运行数据语义与访问结构。",
+    "caution": "主要用于设备数据获取；不能直接推定其具备设备运动闭环控制能力。",
+    "sources": [
+      {
+        "title": "MTConnect：架构与标准入口",
+        "url": "https://www.mtconnect.org/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p10",
+    "name": "ISA-95 / B2MML",
+    "owner": "ISA / MESA International",
+    "type": "信息模型",
+    "layer": "生产与企业集成",
+    "sectors": [
+      "materials",
+      "biopharma",
+      "food",
+      "electronics",
+      "equipment",
+      "aerospace",
+      "power",
+      "civil",
+      "mining",
+      "environment"
+    ],
+    "purpose": "ISA-95 定义企业与制造控制集成模型；B2MML 以 XSD/XML 实现其数据模型。",
+    "caution": "模型和 XML Schema 不能自动替代传输、认证及业务状态约定；需匹配版本与实施子集。",
+    "sources": [
+      {
+        "title": "MESA：B2MML 官方仓库",
+        "url": "https://github.com/MESAInternational/B2MML-BatchML"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p11",
+    "name": "ISA-88",
+    "owner": "ISA",
+    "type": "信息模型",
+    "layer": "生产与企业集成",
+    "sectors": [
+      "materials",
+      "biopharma",
+      "food",
+      "environment"
+    ],
+    "purpose": "批次控制的设备、过程、配方和生产记录模型，支撑批加工系统的数据组织。",
+    "caution": "是控制模型与术语体系；没有指定某个统一网络传输协议或通用软件端点。",
+    "sources": [
+      {
+        "title": "ISA：ISA-88 系列",
+        "url": "https://www.isa.org/standards-and-publications/isa-standards/isa-88-standards"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p12",
+    "name": "CAPE-OPEN",
+    "owner": "CO-LaN",
+    "type": "API/SDK",
+    "layer": "工程模型交换",
+    "sectors": [
+      "materials",
+      "biopharma",
+      "food",
+      "environment"
+    ],
+    "purpose": "过程模拟环境与物性、单元操作等计算组件之间的标准软件接口。",
+    "caution": "组件角色与 Thermodynamics / Unit Operations 等规范及版本需匹配，不是现场通信总线。",
+    "sources": [
+      {
+        "title": "CO-LaN：Specifications",
+        "url": "https://www.colan.org/specifications/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p13",
+    "name": "FMI / FMU",
+    "owner": "Modelica Association Project FMI",
+    "type": "API/SDK",
+    "layer": "工程模型交换",
+    "sectors": [
+      "materials",
+      "equipment",
+      "aerospace",
+      "power",
+      "civil",
+      "mining",
+      "environment"
+    ],
+    "purpose": "打包并交换动态模型，定义模型交换、联合仿真等接口；模型通常以 FMU 分发。",
+    "caution": "需匹配 FMI 版本、接口模式、系统架构和求解要求；模型可导出不代表任意平台可直接执行。",
+    "sources": [
+      {
+        "title": "FMI：标准说明与发布包",
+        "url": "https://fmi-standard.org/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p14",
+    "name": "PA-DIM",
+    "owner": "OPC Foundation 等共有人",
+    "type": "信息模型",
+    "layer": "设备与上层系统",
+    "sectors": [
+      "materials",
+      "biopharma",
+      "food",
+      "mining",
+      "environment"
+    ],
+    "purpose": "基于 OPC UA 描述过程自动化仪表的参数、信号及健康状态。",
+    "caution": "是设备信息模型，仍需底层传输与仪表/网关映射；不能仅凭 OPC UA 支持就认定支持 PA-DIM。",
+    "sources": [
+      {
+        "title": "OPC Foundation：PA-DIM",
+        "url": "https://opcfoundation.org/markets-collaboration/pa-dim/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p15",
+    "name": "SiLA 2",
+    "owner": "SiLA Consortium",
+    "type": "通信协议",
+    "layer": "实验室与检测",
+    "sectors": [
+      "biopharma",
+      "materials",
+      "food"
+    ],
+    "purpose": "实验室设备与服务的标准化通信框架，使用 HTTP/2 与 gRPC。",
+    "caution": "需共同支持相同 Feature Definition；SiLA 2 与早期 SiLA 版本的实现条件不同。",
+    "sources": [
+      {
+        "title": "SiLA：Standards",
+        "url": "https://sila-standard.com/standards/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p16",
+    "name": "AnIML",
+    "owner": "AnIML / ASTM E13.15 工作组",
+    "type": "文件格式",
+    "layer": "实验室与检测",
+    "sectors": [
+      "materials",
+      "biopharma",
+      "food",
+      "environment"
+    ],
+    "purpose": "以 XML Schema 和技术定义描述分析化学、生物检测数据与元数据。",
+    "caution": "不同分析技术有对应定义；官网称 emerging ASTM XML standard，本目录不推定所有内容已成为统一正式定稿。",
+    "sources": [
+      {
+        "title": "AnIML：官方概述",
+        "url": "https://animl.org/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p17",
+    "name": "LADS",
+    "owner": "OPC Foundation / SPECTARIS",
+    "type": "信息模型",
+    "layer": "实验室与检测",
+    "sectors": [
+      "biopharma",
+      "materials",
+      "food",
+      "environment"
+    ],
+    "purpose": "以 OPC UA 为基础，为实验室与分析设备的状态和工作流提供信息模型。",
+    "caution": "模型版本、设备功能及适用工作流需与设备实现逐项核对。",
+    "sources": [
+      {
+        "title": "OPC Foundation：LADS",
+        "url": "https://opcfoundation.org/markets-collaboration/lads/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p18",
+    "name": "DICOM",
+    "owner": "DICOM Standards Committee / NEMA",
+    "type": "信息模型",
+    "layer": "医疗影像交换",
+    "sectors": [
+      "biopharma"
+    ],
+    "purpose": "医学影像信息及相关数据的通信、文件存储和管理，关联医疗器械影像工程流程。",
+    "caution": "涉及医疗设备的数据侧；不能把 DICOM 视为制药批生产协议，服务实现需查 Conformance Statement。",
+    "sources": [
+      {
+        "title": "DICOM：Scope and Field of Application",
+        "url": "https://dicom.nema.org/medical/dicom/2023e/output/chtml/part01/chapter_1.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p19",
+    "name": "HL7 FHIR",
+    "owner": "HL7 International",
+    "type": "信息模型",
+    "layer": "医疗业务交换",
+    "sectors": [
+      "biopharma"
+    ],
+    "purpose": "基于资源的医疗信息交换体系，提供医疗系统集成所需的数据与 API 约定。",
+    "caution": "主要是临床与医疗业务数据；与器械制造 MES 的关系需具体接口项目定义，R4/R5 与实施指南需明确。",
+    "sources": [
+      {
+        "title": "HL7：FHIR Overview",
+        "url": "https://fhir.hl7.org/fhir/overview.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p20",
+    "name": "PackML / OPC UA for PackML",
+    "owner": "OMAC / OPC Foundation",
+    "type": "信息模型",
+    "layer": "设备与上层系统",
+    "sectors": [
+      "food",
+      "biopharma",
+      "equipment"
+    ],
+    "purpose": "用统一状态机和数据模型描述包装机械，OPC UA Companion Specification 提供模型表达。",
+    "caution": "PackML 状态与标签模型和 OPC UA 传输实现需分别确认；仅支持 UA 不等于实现 PackML。",
+    "sources": [
+      {
+        "title": "OPC Foundation：PackML 数据模型",
+        "url": "https://reference.opcfoundation.org/specs/OPC-30050/6"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p21",
+    "name": "GS1 EPCIS / CBV",
+    "owner": "GS1",
+    "type": "信息模型",
+    "layer": "生产与企业集成",
+    "sectors": [
+      "food",
+      "biopharma",
+      "equipment",
+      "aerospace"
+    ],
+    "purpose": "记录产品和资产的时间、位置、业务及传感事件，用于生产和供应链追溯。",
+    "caution": "EPCIS 2.0 包含 REST、JSON/JSON-LD 等交换能力；主数据标识、事件粒度和业务词汇仍需统一。",
+    "sources": [
+      {
+        "title": "GS1：EPCIS & CBV",
+        "url": "https://www.gs1.org/standards/epcis"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p22",
+    "name": "JDF / XJDF / JMF",
+    "owner": "CIP4",
+    "type": "文件格式",
+    "layer": "生产与企业集成",
+    "sectors": [
+      "food"
+    ],
+    "purpose": "印刷与包装作业、工艺和资源的数据交换；JMF/XJMF 支持相应消息交互。",
+    "caution": "按 JDF/XJDF 版本和 ICS 实施子集匹配；本条食品领域标签指包装印刷，非食品配方协议。",
+    "sources": [
+      {
+        "title": "CIP4：What is (X)JDF",
+        "url": "https://www.cip4.org/print-automation/jdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p23",
+    "name": "SECS-II（SEMI E5）",
+    "owner": "SEMI",
+    "type": "信息模型",
+    "layer": "设备与上层系统",
+    "sectors": [
+      "electronics"
+    ],
+    "purpose": "定义半导体设备与主机交换的消息内容，服务于设备自动化通信。",
+    "caution": "消息内容与传输层需分开看；常与 HSMS、GEM 配合，不等于这两者。",
+    "sources": [
+      {
+        "title": "SEMI：Information and Control 标准列表",
+        "url": "https://www.semi.org/en/products-services/standards/information_and_control"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p24",
+    "name": "GEM（SEMI E30）",
+    "owner": "SEMI",
+    "type": "信息模型",
+    "layer": "设备与上层系统",
+    "sectors": [
+      "electronics"
+    ],
+    "purpose": "定义制造设备通信和控制的通用设备行为模型，组织 SECS-II 消息的使用。",
+    "caution": "设备实现能力、状态机、事件和远程命令需以具体设备接口手册为准。",
+    "sources": [
+      {
+        "title": "SEMI：SECS/GEM 官方教程",
+        "url": "https://www.semi.org/en/node/128996"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p25",
+    "name": "HSMS（SEMI E37）",
+    "owner": "SEMI",
+    "type": "通信协议",
+    "layer": "设备与上层系统",
+    "sectors": [
+      "electronics"
+    ],
+    "purpose": "基于 TCP/IP 的高速 SECS 消息传输接口，用于半导体工厂设备与主机。",
+    "caution": "需核对通用规范、HSMS-SS 子规范和设备端会话参数；完整规范通常需购买。",
+    "sources": [
+      {
+        "title": "SEMI：E37 标准摘要",
+        "url": "https://store-us.semi.org/products/e03700-semi-e37-high-speed-secs-message-services-hsms-generic-services"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p26",
+    "name": "Equipment Data Acquisition（Interface A）",
+    "owner": "SEMI",
+    "type": "API/SDK",
+    "layer": "设备与上层系统",
+    "sectors": [
+      "electronics"
+    ],
+    "purpose": "SEMI 设备数据采集标准族，支持设备自描述、客户端及采集管理等功能。",
+    "caution": "这里 EDA 指设备数据采集，不是电子设计自动化；按 Freeze 及标准版本确认传输技术，不能一律写成 SOAP 或 gRPC。",
+    "sources": [
+      {
+        "title": "SEMI：EDA Standards Suite",
+        "url": "https://www.semi.org/en/semi-news/topic/semi-eda-standards-suite"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p27",
+    "name": "GDSII / OASIS（SEMI P39）",
+    "owner": "GDSII 历史格式 / SEMI",
+    "type": "文件格式",
+    "layer": "工程模型交换",
+    "sectors": [
+      "electronics"
+    ],
+    "purpose": "集成电路掩模版图的层次化几何信息交换；OASIS 定义紧凑的版图封装格式。",
+    "caution": "是版图文件交换；几何层、单元结构与工艺含义需额外映射，不能推定包含全部工艺及电路语义。",
+    "sources": [
+      {
+        "title": "SEMI：OASIS 标准及 GDSII 背景",
+        "url": "https://store-us.semi.org/products/p03900-semi-p39-specification-for-oasis%C2%AE-open-artwork-system-interchange-standard"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p28",
+    "name": "IPC-CFX（IPC-2591）",
+    "owner": "IPC",
+    "type": "通信协议",
+    "layer": "设备与上层系统",
+    "sectors": [
+      "electronics"
+    ],
+    "purpose": "电子制造设备、软件与业务系统的信息交换，采用标准化消息。",
+    "caution": "官方 FAQ 说明 CFX 消息使用 JSON、AMQP；实际支持的话题和消息版本需查产品实现。",
+    "sources": [
+      {
+        "title": "IPC：CFX FAQ",
+        "url": "https://www.ipc.org/ipc-cfx-faq"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p29",
+    "name": "IPC-HERMES-9852",
+    "owner": "IPC / The Hermes Initiative",
+    "type": "通信协议",
+    "layer": "现场控制与采集",
+    "sectors": [
+      "electronics"
+    ],
+    "purpose": "SMT 产线设备间的板件交接与板信息传递，支持水平设备连接。",
+    "caution": "与 CFX 的纵向消息互补；具体程序名、尺寸和板标识等字段按版本及设备实现确认。",
+    "sources": [
+      {
+        "title": "IPC：Hermes 与 CFX 的区别",
+        "url": "https://www.ipc.org/ipc-cfx-faq"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p30",
+    "name": "STEP AP242",
+    "owner": "ISO / AP242 项目",
+    "type": "信息模型",
+    "layer": "工程模型交换",
+    "sectors": [
+      "equipment",
+      "aerospace",
+      "biopharma"
+    ],
+    "purpose": "三维工程模型、产品结构与产品制造信息（PMI）等数据的交换。",
+    "caution": "仅写 STEP 不足以确认 AP242、版本及 PMI 语义；几何交换成功也不能证明所有工程语义保留。",
+    "sources": [
+      {
+        "title": "prostep ivip：STEP AP242 Fact Sheet",
+        "url": "https://www.prostep.org/en/medialibrary/fact-sheets/iso-10303-242-step-ap242"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p31",
+    "name": "QIF",
+    "owner": "DMSC / ISO 23952",
+    "type": "信息模型",
+    "layer": "实验室与检测",
+    "sectors": [
+      "equipment",
+      "aerospace",
+      "biopharma"
+    ],
+    "purpose": "基于 XML 的质量信息框架，关联几何、PMI、测量计划、资源和检测结果。",
+    "caution": "需要检测软件实现相应部分及映射；不能以可读取普通 XML 来替代 QIF 支持。",
+    "sources": [
+      {
+        "title": "DMSC：QIF Overview",
+        "url": "https://qifstandards.org/overview/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p32",
+    "name": "ARINC 429",
+    "owner": "SAE ITC / AEEC",
+    "type": "通信协议",
+    "layer": "现场控制与采集",
+    "sectors": [
+      "aerospace"
+    ],
+    "purpose": "航电系统间的数据总线、电气接口、数据字与标签格式。",
+    "caution": "用于航电设备与测试系统连接；常需要专用接口硬件，不是 CAD/CAE 软件的默认 API。",
+    "sources": [
+      {
+        "title": "SAE：ARINC429P1-19 摘要",
+        "url": "https://saemobilus.sae.org/standards/arinc429p1-19-429p1-19-digital-information-transfer-system-dits-part-1-functional-description-electrical-interfaces-label-assignments-word-formats"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p33",
+    "name": "TCN / MVB（IEC 61375-3-1）",
+    "owner": "IEC TC 9",
+    "type": "通信协议",
+    "layer": "现场控制与采集",
+    "sectors": [
+      "aerospace"
+    ],
+    "purpose": "列车通信网络系列中的多功能车辆总线，关联轨道车辆控制与测试。",
+    "caution": "TCN 是系列体系，MVB 是其一部分；不能将 MVB 与所有以太网列车网络等同。",
+    "sources": [
+      {
+        "title": "IEC：61375-3-1 摘要",
+        "url": "https://webstore.iec.ch/en/publication/5402"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p34",
+    "name": "railML",
+    "owner": "railML.org",
+    "type": "文件格式",
+    "layer": "工程模型交换",
+    "sectors": [
+      "aerospace",
+      "civil"
+    ],
+    "purpose": "以 XML Schema 交换铁路基础设施、车辆、时刻表及相关领域的数据。",
+    "caution": "需按 2.x/3.x、子模式与业务用例匹配；本标准不是车载实时控制总线。",
+    "sources": [
+      {
+        "title": "railML：Use Cases",
+        "url": "https://wiki2.railml.org/wiki/UC%3AUse_cases"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p35",
+    "name": "IEC 61850",
+    "owner": "IEC TC 57",
+    "type": "信息模型",
+    "layer": "设备与上层系统",
+    "sectors": [
+      "power"
+    ],
+    "purpose": "电力自动化的数据模型、通信服务与工程配置标准系列，包含变电站及其他电力场景。",
+    "caution": "是一组模型、服务及映射；MMS、GOOSE、SV 和 SCL 配置不是同一个接口，需明确所支持部分。",
+    "sources": [
+      {
+        "title": "IEC：61850 系列目录",
+        "url": "https://webstore.iec.ch/en/publication/6028"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p36",
+    "name": "IEC 60870-5-104",
+    "owner": "IEC TC 57",
+    "type": "通信协议",
+    "layer": "设备与上层系统",
+    "sectors": [
+      "power",
+      "environment"
+    ],
+    "purpose": "远动系统的网络化监测与控制数据传输，常用于跨站点运行数据接入。",
+    "caution": "需匹配点表、地址、时标与控制过程；不能把支持 TCP/IP 视为支持 IEC 104。环境标签为远程设施接入场景归类。",
+    "sources": [
+      {
+        "title": "IEC：60870-5 系列含 104 规范",
+        "url": "https://webstore.iec.ch/en/publication/3755"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p37",
+    "name": "CIM / CGMES",
+    "owner": "IEC TC 57",
+    "type": "信息模型",
+    "layer": "工程模型交换",
+    "sectors": [
+      "power"
+    ],
+    "purpose": "CIM 为电力资源及关系定义公共语义；CGMES 规定组合使用相关标准来交换电网模型。",
+    "caution": "需核对 CIM 版本、CGMES profiles 和导入导出子集；本条 CIM 指 Common Information Model。",
+    "sources": [
+      {
+        "title": "IEC：CGMES Structure and Rules",
+        "url": "https://webstore.iec.ch/en/publication/63866"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p38",
+    "name": "OCPP",
+    "owner": "Open Charge Alliance",
+    "type": "通信协议",
+    "layer": "设备与上层系统",
+    "sectors": [
+      "power"
+    ],
+    "purpose": "充电站与充电管理系统之间的状态、交易、控制和配置通信。",
+    "caution": "OCPP 1.6 与 2.0.1 不兼容，2.1 另有扩展；该协议的边界是站与平台，不是车辆与充电桩之间的全部通信。",
+    "sources": [
+      {
+        "title": "OCA：OCPP Protocols",
+        "url": "https://openchargealliance.org/protocols/open-charge-point-protocol/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p39",
+    "name": "IFC",
+    "owner": "buildingSMART / ISO 16739",
+    "type": "信息模型",
+    "layer": "工程模型交换",
+    "sectors": [
+      "civil",
+      "aerospace"
+    ],
+    "purpose": "跨专业交换 BIM 对象、几何、属性与关系，适用于建筑及基础设施。",
+    "caution": "版本、Model View 和属性集合影响交换范围；轨道标签指基础设施 BIM，不指航电或车辆总线。",
+    "sources": [
+      {
+        "title": "buildingSMART：IFC4.3 Introduction",
+        "url": "https://standards.buildingsmart.org/IFC/RELEASE/IFC4_3/HTML/content/introduction.htm"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p40",
+    "name": "BCF",
+    "owner": "buildingSMART",
+    "type": "文件格式",
+    "layer": "工程模型交换",
+    "sectors": [
+      "civil"
+    ],
+    "purpose": "交换与 BIM 模型关联的问题、视点及元素标识，支持设计协同。",
+    "caution": "有文件与 API 等实现方式；BCF 不替代 IFC 的完整几何模型，需保持关联对象标识有效。",
+    "sources": [
+      {
+        "title": "buildingSMART：BCF-XML 官方仓库",
+        "url": "https://github.com/buildingSMART/BCF-XML"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p41",
+    "name": "IDS",
+    "owner": "buildingSMART",
+    "type": "信息模型",
+    "layer": "工程模型交换",
+    "sectors": [
+      "civil"
+    ],
+    "purpose": "以计算机可解释的形式定义 BIM 信息交付要求，可用于模型信息检查。",
+    "caution": "是信息要求规范，不是传输协议；校验结果依赖具体规则、IFC 模型及验证器。",
+    "sources": [
+      {
+        "title": "buildingSMART：Information Delivery Specification",
+        "url": "https://www.buildingsmart.org/standards/bsi-standards/information-delivery-specification-ids/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p42",
+    "name": "WITSML",
+    "owner": "Energistics",
+    "type": "信息模型",
+    "layer": "工程模型交换",
+    "sectors": [
+      "mining"
+    ],
+    "purpose": "交换井、钻井、录井及相关作业对象和数据。",
+    "caution": "WITSML 1.x 与 2.x 的接口体系不同；2.0 使用 ETP，具体实现版本需匹配。",
+    "sources": [
+      {
+        "title": "Energistics：WITSML v2.0",
+        "url": "https://docs.energistics.org/WITSML/WITSML_TOPICS/WITSML-000-000-titlepage.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p43",
+    "name": "RESQML",
+    "owner": "Energistics",
+    "type": "信息模型",
+    "layer": "工程模型交换",
+    "sectors": [
+      "mining"
+    ],
+    "purpose": "地下地质及储层模型数据交换，保存数据间关系、坐标与单位等语义。",
+    "caution": "需要明确版本、对象类型及数据编码；只写支持 Energistics 不能确定支持 RESQML 全集。",
+    "sources": [
+      {
+        "title": "Energistics：标准和产品目录说明",
+        "url": "https://energistics.org/product-catalog"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p44",
+    "name": "PRODML",
+    "owner": "Energistics",
+    "type": "信息模型",
+    "layer": "生产与企业集成",
+    "sectors": [
+      "mining"
+    ],
+    "purpose": "油气生产量、生产设施、时序、流体及测试结果等信息的交换。",
+    "caution": "生产数据对象与传输方式按具体版本和部署确定；不替代所有油田现场控制协议。",
+    "sources": [
+      {
+        "title": "Energistics：PRODML 数据范围",
+        "url": "https://energistics.org/product-catalog"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p45",
+    "name": "Energistics Transfer Protocol（ETP）",
+    "owner": "Energistics",
+    "type": "通信协议",
+    "layer": "消息与数据集成",
+    "sectors": [
+      "mining"
+    ],
+    "purpose": "上游油气系统之间的双向查询、传输、订阅和通知协议。",
+    "caution": "需匹配 ETP 版本、角色和支持的域协议；与 WITSML、RESQML 等数据模型分别确认。",
+    "sources": [
+      {
+        "title": "Energistics：ETP 接口说明",
+        "url": "https://energistics.org/product-catalog"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p46",
+    "name": "SEG-Y",
+    "owner": "SEG",
+    "type": "文件格式",
+    "layer": "工程模型交换",
+    "sectors": [
+      "mining"
+    ],
+    "purpose": "地球物理地震数据交换格式，组织道数据、道头及文本/二进制头信息。",
+    "caution": "Rev 0/1/2/2.1、字节序、坐标和扩展头需确认；同为 SEG-Y 不意味着可无条件正确读取。",
+    "sources": [
+      {
+        "title": "SEG：Technical Standards",
+        "url": "https://seg.org/publications/seg-technical-standards/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p47",
+    "name": "LAS（Log ASCII Standard）",
+    "owner": "CWLS",
+    "type": "文件格式",
+    "layer": "工程模型交换",
+    "sectors": [
+      "mining"
+    ],
+    "purpose": "数字测井曲线与井信息的文本交换，包含曲线与单位等元数据。",
+    "caution": "此处 LAS 为测井 Log ASCII，不是激光点云 LAS；版本、空值与深度单位需明确。",
+    "sources": [
+      {
+        "title": "CWLS：LAS 2.0 规范",
+        "url": "https://cwls.org/wp-content/uploads/2014/09/LAS_20_Update_Jan2014.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p48",
+    "name": "WaterML 2.0",
+    "owner": "OGC",
+    "type": "信息模型",
+    "layer": "水文与环境数据",
+    "sectors": [
+      "environment",
+      "civil"
+    ],
+    "purpose": "描述水文观测数据，Part 1 专注带元数据的时间序列交换。",
+    "caution": "是数据编码/信息模型；数据发布服务的 API 和采集设备协议需要另定。",
+    "sources": [
+      {
+        "title": "OGC：WaterML2 Part 1 规范",
+        "url": "https://portal.ogc.org/files/48531"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p49",
+    "name": "OGC SensorThings API",
+    "owner": "OGC",
+    "type": "API/SDK",
+    "layer": "水文与环境数据",
+    "sectors": [
+      "environment",
+      "civil",
+      "power"
+    ],
+    "purpose": "统一管理和访问传感观测、设备及元数据；Sensing 与 Tasking 为不同部分。",
+    "caution": "需明确标准部分与版本；接口符合性不保证传感数据质量，不能把它直接视为现场 PLC 协议。",
+    "sources": [
+      {
+        "title": "OGC：SensorThings 标准入口",
+        "url": "https://www.ogc.org/standards/sensorthings/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p50",
+    "name": "HJ 212—2025",
+    "owner": "中华人民共和国生态环境部",
+    "type": "通信协议",
+    "layer": "水文与环境数据",
+    "sectors": [
+      "environment",
+      "materials",
+      "mining",
+      "power",
+      "food"
+    ],
+    "purpose": "污染物自动监测监控系统的数据传输、采集处理及上传技术要求。",
+    "caution": "2026-01-01 起实施，代替 HJ 212—2017；用于中国污染源自动监控场景，须按现行标准及现场要求配置。",
+    "sources": [
+      {
+        "title": "生态环境部：HJ 212—2025 发布页",
+        "url": "https://www.mee.gov.cn/ywgz/fgbz/bz/bzwb/jcffbz/202507/t20250711_1123257.shtml"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  }
+]

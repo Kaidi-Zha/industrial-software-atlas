@@ -1,0 +1,510 @@
+[
+  {
+    "name": "Aspen Plus",
+    "vendor": "AspenTech",
+    "sector": "materials",
+    "stage": "工艺仿真",
+    "purpose": "化工流程建模、物料与能量衡算，用于工艺开发及方案评估。",
+    "interfaces": [
+      {
+        "name": "ActiveX / COM Automation",
+        "type": "API/SDK",
+        "detail": "外部程序打开、运行、重初始化和关闭流程，读取仿真结果。"
+      }
+    ],
+    "constraints": "所读官方示例为历史版本 VBA/ActiveX 示例；当前安装版本的对象树、Windows 环境及自动化授权需要另核。",
+    "sources": [
+      {
+        "title": "AspenTech：Aspen Plus ActiveX 自动化示例",
+        "url": "https://esupport.aspentech.com/apex/S_Article?id=000083571"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "DWSIM",
+    "vendor": "DWSIM Project",
+    "sector": "materials",
+    "stage": "工艺仿真",
+    "purpose": "开源化工流程模拟，可构造流程并批量计算。",
+    "interfaces": [
+      {
+        "name": "COM / .NET Automation",
+        "type": "API/SDK",
+        "detail": "创建或载入流程、设置条件、运行求解器与提取结果。"
+      },
+      {
+        "name": "CAPE-OPEN",
+        "type": "API/SDK",
+        "detail": "支持外部物性包（Thermo 1.0/1.1）、单元操作和流程监测插件；需映射组分及相。"
+      }
+    ],
+    "constraints": "COM 仅限 Windows；.NET 程序集、运行时及物性组件应按发行版配置，CAPE-OPEN 的组件类型与版本需逐项匹配。",
+    "sources": [
+      {
+        "title": "DWSIM：Automation 用户指南",
+        "url": "https://dwsim.org/help/main/57-automation.html"
+      },
+      {
+        "title": "DWSIM：CAPE-OPEN 组件支持说明",
+        "url": "https://dwsim.org/wiki/index.php?title=CAPE-OPEN"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "BIOVIA Materials Studio",
+    "vendor": "Dassault Systèmes",
+    "sector": "materials",
+    "stage": "研发设计",
+    "purpose": "材料分子与原子尺度建模，分析聚合物、催化剂、合金和电池材料。",
+    "interfaces": [
+      {
+        "name": "MaterialsScript Python / Perl",
+        "type": "脚本/CLI",
+        "detail": "通过脚本操作模型及调用受支持的计算与分析功能。"
+      }
+    ],
+    "constraints": "Python 脚本为所读 Materials Studio 2026 版本的新功能；旧版不可直接套用。计算模块和服务器许可单独核对。",
+    "sources": [
+      {
+        "title": "BIOVIA：Materials Studio 产品介绍",
+        "url": "https://www.3ds.com/products/biovia/materials-studio"
+      },
+      {
+        "title": "BIOVIA：Materials Studio 2026 发布说明",
+        "url": "https://www.3ds.com/support/documentation/resource-library/t61-2025-materials-studio-2026"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Thermo-Calc",
+    "vendor": "Thermo-Calc Software",
+    "sector": "materials",
+    "stage": "工艺仿真",
+    "purpose": "计算材料相平衡及热力学性质，为合金设计与工艺窗口分析提供依据。",
+    "interfaces": [
+      {
+        "name": "TC-Python",
+        "type": "API/SDK",
+        "detail": "Python SDK 驱动 Thermo-Calc 计算，与其他数值工具耦合。"
+      }
+    ],
+    "constraints": "需要 TC-Python 及相关数据库、计算模块的有效许可；示例与 API 按 Thermo-Calc 发行版匹配。",
+    "sources": [
+      {
+        "title": "Thermo-Calc：TC-Python 帮助与许可条件",
+        "url": "https://thermocalc.com/support/documentation/tc-python-help/"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "COMSOL Multiphysics",
+    "vendor": "COMSOL",
+    "sector": "materials",
+    "stage": "工艺仿真",
+    "purpose": "多物理场建模，可用于传热、反应、流动及材料加工过程研究。",
+    "interfaces": [
+      {
+        "name": "COMSOL Java API",
+        "type": "API/SDK",
+        "detail": "通过模型树接口创建模型、修改参数、求解并提取结果。"
+      },
+      {
+        "name": "LiveLink for MATLAB",
+        "type": "API/SDK",
+        "detail": "MATLAB 调用 COMSOL API，支持建模、计算和结果处理。"
+      }
+    ],
+    "constraints": "LiveLink for MATLAB 为附加产品；物理模块、服务器或编译部署的授权条件不同，Java API 不代表官方原生 Python SDK。",
+    "sources": [
+      {
+        "title": "COMSOL：API 概述",
+        "url": "https://www.comsol.com/support/learning-center/article/overview-of-the-comsol-api-107912"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "LAMMPS",
+    "vendor": "LAMMPS Project / Sandia 等贡献者",
+    "sector": "materials",
+    "stage": "研发设计",
+    "purpose": "开源经典分子动力学计算，用于材料结构、变形及输运性质研究。",
+    "interfaces": [
+      {
+        "name": "C Library / Python API",
+        "type": "API/SDK",
+        "detail": "创建模拟实例、执行命令、读取及修改原子数据。"
+      },
+      {
+        "name": "LAMMPS input scripts",
+        "type": "脚本/CLI",
+        "detail": "以输入脚本定义体系、势函数和运行步骤。"
+      }
+    ],
+    "constraints": "属于研发计算工具；Python 调用需要匹配版本的共享库，计算势与物理条件需自行验证，不能替代产线控制。",
+    "sources": [
+      {
+        "title": "LAMMPS：Library Interfaces",
+        "url": "https://doc.lammps.org/Library.html"
+      },
+      {
+        "title": "LAMMPS：Python Overview",
+        "url": "https://doc.lammps.org/Python_overview.html"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SuperPro Designer",
+    "vendor": "Intelligen",
+    "sector": "biopharma",
+    "stage": "工艺仿真",
+    "purpose": "制药、生物过程的批次或连续流程设计、产能及经济性评估。",
+    "interfaces": [
+      {
+        "name": "COM Server",
+        "type": "API/SDK",
+        "detail": "外部 VBA 等客户端载入设计、调整物流或操作、重算并读取结果。"
+      }
+    ],
+    "constraints": "接口覆盖逐版本扩展；所读新功能页包含历史版本说明，具体方法、Windows 环境及许可按安装版确认。",
+    "sources": [
+      {
+        "title": "Intelligen：SuperPro Designer 产品范围",
+        "url": "https://www.intelligen.com/products/superpro-designer/"
+      },
+      {
+        "title": "Intelligen：COM Server 接口扩展说明",
+        "url": "https://www.intelligen.com/products/superpro-new-features/"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PAS-X MES",
+    "vendor": "Körber",
+    "sector": "biopharma",
+    "stage": "生产执行",
+    "purpose": "管理制药批记录、生产流程及与车间设备、企业系统的集成。",
+    "interfaces": [
+      {
+        "name": "MSI / OPC UA",
+        "type": "通信协议",
+        "detail": "MSI 消息式车间集成组件支持基于 OPC UA 的自动化层连接。"
+      },
+      {
+        "name": "Open API framework",
+        "type": "API/SDK",
+        "detail": "第三方 LIMS、WMS、序列化等系统通过可扩展 API 框架接入。"
+      }
+    ],
+    "constraints": "接口依据为厂商集成产品说明；API 方法、认证、模块授权和消息映射需获取对应版本集成文档。",
+    "sources": [
+      {
+        "title": "Körber：PAS-X 数字集成组件",
+        "url": "https://www.koerber.com/en/solutions/software-and-ai/life-sciences-mes/digital-integration-msi"
+      }
+    ],
+    "evidence": "官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Opcenter Execution Pharma",
+    "vendor": "Siemens",
+    "sector": "biopharma",
+    "stage": "生产执行",
+    "purpose": "制药制造执行、主批记录、电子批记录、物料及设备管理。",
+    "interfaces": [
+      {
+        "name": "OPC / OPC UA client",
+        "type": "通信协议",
+        "detail": "采集自动化层信息，并可与 SIMATIC PCS 7、SIMATIC Batch 集成。"
+      }
+    ],
+    "constraints": "OPC 客户端能力依据该产品官方功能页；企业系统连接器及具体接口授权按项目与版本确认。",
+    "sources": [
+      {
+        "title": "Siemens：Opcenter Execution Pharma 功能说明",
+        "url": "https://www.siemens.com/en-gb/campaigns/pharma-industry-opcenter-execution/"
+      }
+    ],
+    "evidence": "官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "LabWare LIMS / Integration Platform",
+    "vendor": "LabWare",
+    "sector": "biopharma",
+    "stage": "质量检测",
+    "purpose": "样品、检验结果和仪器数据管理，衔接制药质控与生产系统。",
+    "interfaces": [
+      {
+        "name": "RESTful / JSON",
+        "type": "API/SDK",
+        "detail": "API 方式接入仪器及企业系统。"
+      },
+      {
+        "name": "HL7 / ASTM 仪器接口",
+        "type": "通信协议",
+        "detail": "厂商明确列出的标准化仪器或系统集成方式。"
+      },
+      {
+        "name": "XML / CSV",
+        "type": "文件格式",
+        "detail": "文件解析式结果交换。"
+      }
+    ],
+    "constraints": "需 Integration Platform 及对应连接配置；官方仅写 ASTM，未明确具体标准编号，不能推定所有 ASTM 或 HL7 版本均支持。",
+    "sources": [
+      {
+        "title": "LabWare：Integration Platform 支持的接口",
+        "url": "https://www.labware.com/lims/integration"
+      }
+    ],
+    "evidence": "官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Materialise Mimics / Mimics Innovation Suite",
+    "vendor": "Materialise",
+    "sector": "biopharma",
+    "stage": "研发设计",
+    "purpose": "医学影像分割、三维模型处理，用于患者特异性器械研发的上游工程流程。",
+    "interfaces": [
+      {
+        "name": "Mimics Python API",
+        "type": "脚本/CLI",
+        "detail": "脚本自动化影像处理和重复建模任务。"
+      }
+    ],
+    "constraints": "属于器械研发与建模环节；不能将其直接视为生产 MES。脚本模块、医疗产品可用地区与版本需核对，不能由 API 推断临床或生产批准。",
+    "sources": [
+      {
+        "title": "Materialise：Mimics 脚本与自动化",
+        "url": "https://www.materialise.com/zh/healthcare/mimics/scripting-automation"
+      },
+      {
+        "title": "Materialise：官方 MIS Scripting 社区 API 范围",
+        "url": "https://community.materialise.com/c/mis-scripting-forum/5"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "UNICORN / UNICORN OPC Server",
+    "vendor": "Cytiva",
+    "sector": "biopharma",
+    "stage": "设备控制",
+    "purpose": "层析系统的方法执行、过程控制、结果分析及与上层系统连接。",
+    "interfaces": [
+      {
+        "name": "OPC UA（UNICORN OPC Server）",
+        "type": "通信协议",
+        "detail": "通过服务器访问过程数据、报警事件及批次历史结果。"
+      }
+    ],
+    "constraints": "所读为 OPC Server 1.2.1 用户手册；需兼容 UNICORN、服务器组件、权限及设备。不能将手册中的 DA 字样直接等同为仅支持经典 OPC DA。",
+    "sources": [
+      {
+        "title": "Cytiva：UNICORN OPC Server 1.2.1 用户手册",
+        "url": "https://d3.cytivalifesciences.com/prod/IFU/29744019.pdf"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Opcenter Execution Process",
+    "vendor": "Siemens",
+    "sector": "food",
+    "stage": "生产执行",
+    "purpose": "流程型制造执行，可用于食品饮料的工单、配方、物料消耗与追溯。",
+    "interfaces": [
+      {
+        "name": "OPC UA / Automation Gateway",
+        "type": "通信协议",
+        "detail": "以预定义消息和握手机制交换工单、状态及物料事务。"
+      }
+    ],
+    "constraints": "所读 Information Model Kit 说明该能力自 4.4 起提供；需相应许可证、网关和 PLC 信息模型配置。跨行业流程 MES。",
+    "sources": [
+      {
+        "title": "Siemens：Process 4.4 车间集成说明",
+        "url": "https://blogs.sw.siemens.com/opcenter/available-now-opcenter-execution-process-4-4/"
+      },
+      {
+        "title": "Siemens：Information Model Kit §2.4.6",
+        "url": "https://cache.industry.siemens.com/dl/files/835/109814835/att_1140017/v2/109814835_SiemensInformationModelKit_DOC_v3_0_en.pdf"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Sepasoft MES / Batch Procedure",
+    "vendor": "Sepasoft",
+    "sector": "food",
+    "stage": "生产执行",
+    "purpose": "批次配方执行、生产追溯和 OEE 等制造管理，可用于食品批加工。",
+    "interfaces": [
+      {
+        "name": "system.mes.batch.*",
+        "type": "脚本/CLI",
+        "detail": "创建、校验配方、管理批次执行队列。"
+      },
+      {
+        "name": "Recipe XML",
+        "type": "文件格式",
+        "detail": "配方导入导出接口以 XML 表达配方对象。"
+      }
+    ],
+    "constraints": "运行于 Ignition 平台；需要对应 MES/Batch 模块许可，脚本函数与版本绑定，食品场景归类不代表限定行业。",
+    "sources": [
+      {
+        "title": "Sepasoft：BatchMasterRecipe 对象与 XML 方法",
+        "url": "https://docs.sepasoft.com/articles/user-manual/BatchMasterRecipe-Object/"
+      },
+      {
+        "title": "Sepasoft：创建配方并执行批次示例",
+        "url": "https://docs.sepasoft.com/articles/user-manual/create-a-recipe-and-add-a-batch-for-execution"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SIMATIC WinCC Unified",
+    "vendor": "Siemens",
+    "sector": "food",
+    "stage": "设备控制",
+    "purpose": "HMI/SCADA 组态与生产过程可视化，可用于食品和轻工产线监控。",
+    "interfaces": [
+      {
+        "name": "OPC UA / MQTT",
+        "type": "通信协议",
+        "detail": "与自动化系统及 MQTT broker 交换数据。"
+      },
+      {
+        "name": "GraphQL",
+        "type": "API/SDK",
+        "detail": "读取过程数据，支持查询、变更及订阅，具体能力依运行版。"
+      },
+      {
+        "name": "Open Pipe",
+        "type": "API/SDK",
+        "detail": "通过本地管道读写标签及处理报警，适用于支持管道的编程语言。"
+      }
+    ],
+    "constraints": "跨行业监控平台；Open Pipe 功能少于完整 RT Openness。GraphQL 历史数据、PC/面板支持和额外许可必须按版本核对。",
+    "sources": [
+      {
+        "title": "Siemens：WinCC Unified 开放接口",
+        "url": "https://www.siemens.com/en-us/products/simatic-wincc/unified/"
+      },
+      {
+        "title": "Siemens：V20 Open Pipe",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v20/wincc-unified-open-pipe-rt-unified/introduction-rt-unified"
+      },
+      {
+        "title": "Siemens：GraphQL 授权与设备限制",
+        "url": "https://sieportal.siemens.com/en-ww/products-services/10620165?tree=CatalogTree"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "AVEVA Manufacturing Execution System",
+    "vendor": "AVEVA",
+    "sector": "food",
+    "stage": "生产执行",
+    "purpose": "生产执行、物料追溯及质量管理，可用于食品饮料和消费品制造。",
+    "interfaces": [
+      {
+        "name": "MES .NET Stateful / Stateless API",
+        "type": "API/SDK",
+        "detail": "Development Library 提供 API DLL，用于第三方应用开发。"
+      }
+    ],
+    "constraints": "所读接口文档针对 MES 2023 R2；升级系统时 API DLL 也需升级。属于跨行业 MES，不能与 AVEVA Batch API 混用。",
+    "sources": [
+      {
+        "title": "AVEVA：MES 开发库 API DLL",
+        "url": "https://docs.aveva.com/bundle/manufacturing-execution-system/page/352856.html"
+      },
+      {
+        "title": "AVEVA：MES 产品与行业范围",
+        "url": "https://www.aveva.com/en/products/manufacturing-execution-system/"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Esko Automation Engine / WebCenter 集成",
+    "vendor": "Esko",
+    "sector": "food",
+    "stage": "生产执行",
+    "purpose": "包装印刷的印前自动化、作业数据交换及文件审批流程。",
+    "interfaces": [
+      {
+        "name": "WebCenter SDK 集成任务",
+        "type": "API/SDK",
+        "detail": "Automation Engine 通过 Integrate with WebCenter 任务调用多种作业和文档操作。"
+      },
+      {
+        "name": "JDF",
+        "type": "文件格式",
+        "detail": "WebCenter Workflow Connections 可发送 JDF，创建或更新 Automation Engine 作业。"
+      }
+    ],
+    "constraints": "API 属于 WebCenter 集成链路，不能据此宣称 Automation Engine 自带任意 REST 服务；需匹配两个产品的版本与权限。",
+    "sources": [
+      {
+        "title": "Esko：Integrate with WebCenter 任务",
+        "url": "https://docs.esko.com/docs/en-us/webcenter/24.11/installationguide/en-us/common/ae/concept/co_ae_AEWCR_IntegrWithWCRtask.html"
+      },
+      {
+        "title": "Esko：Workflow Connections JDF 交换",
+        "url": "https://docs.esko.com/docs/en-us/webcenter/18/adminguide/en-us/common/wc/concept/co_wc_AEIntegrateWFConnections.html"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CLO",
+    "vendor": "CLO Virtual Fashion",
+    "sector": "food",
+    "stage": "研发设计",
+    "purpose": "轻工服装的数字版型与三维试衣，支持版型向后续生产 CAD 流转。",
+    "interfaces": [
+      {
+        "name": "DXF-AAMA / DXF-ASTM",
+        "type": "文件格式",
+        "detail": "导入和导出二维服装版型，官方兼容表列出两类格式。"
+      }
+    ],
+    "constraints": "本条只证实文件交换；未核查可用 API。跨 CAD 的尺寸、放码和工艺标记需用样例复核，不能将普通 DXF 与服装专用约定等同。",
+    "sources": [
+      {
+        "title": "CLO：Compatible File Format",
+        "url": "https://support.clo3d.com/hc/en-us/articles/115002000227-Compatible-File-Format"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  }
+]

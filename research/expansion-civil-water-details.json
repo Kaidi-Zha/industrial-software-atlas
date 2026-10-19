@@ -1,0 +1,1411 @@
+[
+  {
+    "name": "AutoCAD",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "桌面绘图区、命令行、应用加载与文件打开/保存；不同平台和 LT 的扩展入口不同。",
+      "coverage": "图元、图层、图纸数据库、命令与出图；脚本、进程内插件、外部 COM 和文件交换分列。",
+      "versionBoundary": "主要依据 AutoCAD 2026 帮助；.NET 兼容表同时列 2025/2026 为 .NET 8、2027 为 .NET 10。实际更新包的运行时迁移另核，不能将 Windows 完整版能力套用于 Mac、Web 或 LT。",
+      "unknowns": [
+        "具体安装更新包对应的 .NET 运行时与 SDK 兼容表。",
+        "第三方对象及行业工具集对象在 DXF/DWG 转换中的保留范围。",
+        "各 API 的线程、事务、撤销和无界面运行约定需对应开发手册。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "AutoLISP",
+        "category": "program",
+        "entry": "在命令提示符输入表达式，或加载 .lsp/.fas/.vlx 应用。",
+        "role": "在当前绘图会话内扩展命令并处理对象。",
+        "direction": "脚本 ⇄ 当前图纸对象",
+        "operations": [
+          "调用内置命令",
+          "创建或修改绘图对象",
+          "读取绘图系统变量"
+        ],
+        "dataContract": "脚本状态按图纸命名空间隔离；对象标识、坐标与图纸单位需按实际图纸约定。",
+        "workflow": [
+          "建议：选择目标图纸并确认单位",
+          "建议：加载一个受控脚本",
+          "建议：检查对象变化与命令输出，另存副本"
+        ],
+        "execution": "交互执行；启动脚本发生错误时，当前启动文件剩余部分不再加载。",
+        "failure": "建议保留命令行错误及脚本位置；脚本执行中断后的已改对象与撤销范围需另查。",
+        "prerequisites": "支持 AutoLISP 的产品/平台；VLX 限 Windows；LT 和 Web 的能力按 2026 矩阵核对。",
+        "version": "2026 文档；不推定全部 Visual LISP 扩展跨平台一致。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-16DC15FC-5329-492E-B66A-401D49CF971F.htm",
+            "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-E6429154-36DF-4D84-8ABC-9FCA15B66158.htm"
+          ],
+          "locator": "AutoLISP Applications；平台支持表"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择目标图纸并确认单位 → 加载一个受控脚本 → 检查对象变化与命令输出，另存副本",
+          "sourceUrl": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-16DC15FC-5329-492E-B66A-401D49CF971F.htm"
+        }
+      },
+      {
+        "name": "Managed .NET API",
+        "category": "program",
+        "entry": "使用托管程序集开发并在 AutoCAD 宿主加载；C#、VB.NET 等通过 ObjectARX 托管包装访问能力。",
+        "role": "开发图纸数据库与交互工具。",
+        "direction": "插件 ⇄ 宿主绘图数据库",
+        "operations": [
+          "读写 DWG 数据库",
+          "访问编辑器和命令提示符",
+          "定制界面、发布与绘图功能"
+        ],
+        "dataContract": "托管类包装多数 ObjectARX 类；数据库对象、文档上下文及图纸单位需匹配。",
+        "workflow": [
+          "建议：锁定宿主更新包和目标 .NET/SDK",
+          "建议：从匹配 SDK 的小型插件开始",
+          "建议：核对图元读写与保存结果"
+        ],
+        "execution": "属于宿主内扩展；不能据此推定提供远程 REST 服务或独立计算授权。",
+        "failure": "本次概述未逐项确认事务、锁、线程和异常约定；建议查开发指南并记录加载/运行日志。",
+        "prerequisites": "Windows 完整版 AutoCAD；匹配 SDK、编译工具与运行时；SDK 可得不代表具有产品运行许可。",
+        "version": "2026/2025 SDK 与 .NET 8；2027 对应 .NET 10。具体更新包按厂商兼容说明。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-3A5E2EE7-9A06-4965-A614-AD97A49B849A.htm",
+            "https://help.autodesk.com/cloudhelp/2027/ENU/AutoCAD-Customization/files/GUID-A6C680F2-DE2E-418A-A182-E4884073338A.htm",
+            "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-E6429154-36DF-4D84-8ABC-9FCA15B66158.htm"
+          ],
+          "locator": "Managed Applications；Managed .NET Compatibility"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：锁定宿主更新包和目标 .NET/SDK → 从匹配 SDK 的小型插件开始 → 核对图元读写与保存结果",
+          "sourceUrl": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-3A5E2EE7-9A06-4965-A614-AD97A49B849A.htm"
+        }
+      },
+      {
+        "name": "ObjectARX C++ SDK",
+        "category": "program",
+        "entry": "将编译的 .arx 动态库加载到 AutoCAD 进程；使用 Visual Studio 或 Xcode 开发。",
+        "role": "直接扩展数据库、图形系统、几何引擎与本机命令。",
+        "direction": "进程内插件 ⇄ AutoCAD 核心对象",
+        "operations": [
+          "定义自定义命令",
+          "访问数据库和几何对象",
+          "扩展类及 AutoLISP 函数"
+        ],
+        "dataContract": "C++/Objective-C 编译接口；模块与目标宿主、平台及 SDK 二进制兼容性必须一致。",
+        "workflow": [
+          "建议：确认宿主平台和 SDK 版本",
+          "建议：编译并加载官方小型示例",
+          "建议：调试对象操作后构建发布版本"
+        ],
+        "execution": "插件与 AutoCAD 处于同一地址空间；开发调试版和发布版需分别构建。",
+        "failure": "加载失败、对象生命周期及崩溃处理细节需 SDK 文档；跨版本二进制兼容性未核实。",
+        "prerequisites": "Windows 或 Mac 完整版及匹配编译环境；LT 和 Web 不在 2026 支持范围。",
+        "version": "2026 ObjectARX 应用说明；各平台并非提供所有相同 API。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-3FF72BD0-9863-4739-8A45-B14AF1B67B06.htm",
+            "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-E6429154-36DF-4D84-8ABC-9FCA15B66158.htm"
+          ],
+          "locator": "ObjectARX Applications；平台支持表"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认宿主平台和 SDK 版本 → 编译并加载官方小型示例 → 调试对象操作后构建发布版本",
+          "sourceUrl": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-3FF72BD0-9863-4739-8A45-B14AF1B67B06.htm"
+        }
+      },
+      {
+        "name": "ActiveX / COM Automation",
+        "category": "program",
+        "entry": "由 Windows 外部 Automation controller、VBA 或其他支持 COM 的程序访问 Automation 对象。",
+        "role": "跨应用访问 AutoCAD 会话及图纸数据。",
+        "direction": "外部控制器 ⇄ AutoCAD 对象",
+        "operations": [
+          "创建与操作绘图对象",
+          "读取图纸数据和属性",
+          "响应公开对象事件"
+        ],
+        "dataContract": "对象提供方法、属性和事件；接口覆盖不同于 ObjectARX，不能假设可访问全部专业对象。",
+        "workflow": [
+          "建议：确认使用 Windows 完整版及目标实例",
+          "建议：从只读图纸对象访问开始",
+          "建议：验证一次受控修改及结果保存"
+        ],
+        "execution": "外部控制器通过暴露的 Automation 对象工作；实例连接与退出策略需具体 API 手册。",
+        "failure": "COM 注册、调用异常和事件同步的细则未在概述页完整给出；建议逐项核对对象类型库。",
+        "prerequisites": "Windows；LT 只支持有限的 AutoLISP ActiveX，不支持 VBA/其他语言或第三方 ActiveX 库。Mac/Web 不支持。",
+        "version": "2026 ActiveX 说明；不能把 LT 的有限支持写成完整外部 COM 自动化。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-2090E4E8-9AE0-4E01-B5EB-0843A30EB0E9.htm",
+            "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-E6429154-36DF-4D84-8ABC-9FCA15B66158.htm"
+          ],
+          "locator": "ActiveX Automation：Notes / external controller"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认使用 Windows 完整版及目标实例 → 从只读图纸对象访问开始 → 验证一次受控修改及结果保存",
+          "sourceUrl": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-2090E4E8-9AE0-4E01-B5EB-0843A30EB0E9.htm"
+        }
+      },
+      {
+        "name": "DWG / DXF 文件",
+        "category": "file",
+        "entry": "通过图纸文件打开、保存和格式转换；DXF 结构见官方参考。",
+        "role": "跨工具交付图纸与几何。",
+        "direction": "图纸 ⇄ DWG/DXF 文件",
+        "operations": [
+          "保存和读取图纸数据",
+          "以 DXF 交换绘图对象信息"
+        ],
+        "dataContract": "DXF 用整数 group code 标识数据类型和对象字段含义；还需约定坐标、单位、图层及外部参照。",
+        "workflow": [
+          "建议：固定目标 DWG/DXF 版本",
+          "建议：选择含图层、块和文字的测试图纸",
+          "建议：在接收工具重开并比较对象与单位"
+        ],
+        "execution": "离线文件交换，不提供在线会话和运行状态订阅。",
+        "failure": "建议核对丢失字体、外部参照、代理/自定义对象；格式可读不等于专业对象可编辑。",
+        "prerequisites": "文件权限、接收工具格式支持与所需 Object Enabler；具体转换选项按版本。",
+        "version": "DXF 说明取自 2026 帮助；未验证所有历史 DWG/DXF 版本转换。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-DXF/files/GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3.htm",
+            "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-3A5E2EE7-9A06-4965-A614-AD97A49B849A.htm"
+          ],
+          "locator": "DXF Format；Managed API 的 DWG 读写说明"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：固定目标 DWG/DXF 版本 → 选择含图层、块和文字的测试图纸 → 在接收工具重开并比较对象与单位",
+          "sourceUrl": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-DXF/files/GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Autodesk：AutoCAD 2026 支持的编程接口",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-E6429154-36DF-4D84-8ABC-9FCA15B66158.htm"
+      },
+      {
+        "title": "Autodesk：AutoLISP 应用",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-16DC15FC-5329-492E-B66A-401D49CF971F.htm"
+      },
+      {
+        "title": "Autodesk：AutoCAD 托管 .NET 应用",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-3A5E2EE7-9A06-4965-A614-AD97A49B849A.htm"
+      },
+      {
+        "title": "Autodesk：AutoCAD 托管 .NET 兼容表",
+        "url": "https://help.autodesk.com/cloudhelp/2027/ENU/AutoCAD-Customization/files/GUID-A6C680F2-DE2E-418A-A182-E4884073338A.htm"
+      },
+      {
+        "title": "Autodesk：ObjectARX 应用",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-3FF72BD0-9863-4739-8A45-B14AF1B67B06.htm"
+      },
+      {
+        "title": "Autodesk：ActiveX Automation 与 LT 限制",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Customization/files/GUID-2090E4E8-9AE0-4E01-B5EB-0843A30EB0E9.htm"
+      },
+      {
+        "title": "Autodesk：DXF 格式说明",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-DXF/files/GUID-235B22E0-A567-4CF6-92D3-38A2306D73F3.htm"
+      }
+    ]
+  },
+  {
+    "name": "MicroStation",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "桌面 CAD、Python 工具和文件交付界面。",
+      "coverage": "CAD 图元与设计数据、脚本自动化、DGN/DWG/IFC 等数据交付。",
+      "versionBoundary": "产品页包含 MicroStation 2026；文件与 IFC 具体依据另含 2025 发布页。运行版、Python 绑定与文件转换能力分别匹配。",
+      "unknowns": [
+        "Python 模块的精确安装路径、方法签名、错误码及线程约定。",
+        "IFC 导出的 Schema、MVD 和对象覆盖范围。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "MicroStation Python API",
+        "category": "program",
+        "entry": "在 MicroStation 中使用 Python 开发工具和自动化任务。",
+        "role": "自动化 CAD 和地理空间相关操作。",
+        "direction": "Python 脚本 ⇄ MicroStation 设计环境",
+        "operations": [
+          "自动化任务",
+          "开发自定义工具",
+          "访问官方提供的地理空间上下文能力"
+        ],
+        "dataContract": "作用对象为当前设计及产品提供的 CAD/空间能力；几何单位、坐标系和引用关系需随工程记录。",
+        "workflow": [
+          "建议：确认实际版本的 Python 功能",
+          "建议：选择小型设计文件和一个目标操作",
+          "建议：检查对象、坐标及输出日志"
+        ],
+        "execution": "产品说明确认 Python 扩展；完整的方法级执行契约未核实。",
+        "failure": "异常类型、撤销及脚本取消行为未核实；建议从安装版帮助和示例核查。",
+        "prerequisites": "MicroStation 及支持 Python 的安装版；开发与运行许可按实际部署核对。",
+        "version": "所读产品页包含 2026 能力；未固定 Python API 发布包。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.bentley.com/en/products/microstation/"
+          ],
+          "locator": "Python automation & assistance / Geospatial context"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认实际版本的 Python 功能 → 选择小型设计文件和一个目标操作 → 检查对象、坐标及输出日志",
+          "sourceUrl": "https://www.bentley.com/en/products/microstation/"
+        }
+      },
+      {
+        "name": "DGN / DWG / IFC 等文件交换",
+        "category": "file",
+        "entry": "通过 CAD 文件交付与导入导出功能。",
+        "role": "与其他工程设计和 BIM 工具交换图纸/模型。",
+        "direction": "MicroStation ⇄ 支持文件；IFC 为所引页明确的导出",
+        "operations": [
+          "交换 CAD 数据",
+          "导出 IFC 模型"
+        ],
+        "dataContract": "DGN/DWG 的对象与引用、IFC 的对象属性及坐标需按格式分别检查。",
+        "workflow": [
+          "建议：明确所需格式及导入/导出方向",
+          "建议：用已知模型验证单位和引用",
+          "建议：在接收工具比较几何与属性"
+        ],
+        "execution": "2025 页面确认 RealDWG 2026 与 IFC export；不据此承诺所有 IFC 导入及专业模型编辑能力。",
+        "failure": "建议核对转换报告和缺失对象；IFC 具体版本与 MVD 未在此页完整给出。",
+        "prerequisites": "相应文件转换模块和匹配接收软件；专业对象保留需另验。",
+        "version": "文件证据来自 MicroStation 2025 发布页；目标版本需另核。",
+        "implementation": "文件交换",
+        "standardIds": [
+          "p39"
+        ],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.bentley.com/en/lp/microstation-2025/",
+            "https://www.bentley.com/en/products/microstation/"
+          ],
+          "locator": "File exchange / RealDWG / IFC export"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：明确所需格式及导入/导出方向 → 用已知模型验证单位和引用 → 在接收工具比较几何与属性",
+          "sourceUrl": "https://www.bentley.com/en/lp/microstation-2025/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Bentley：MicroStation 产品与 Python 能力",
+        "url": "https://www.bentley.com/en/products/microstation/"
+      },
+      {
+        "title": "Bentley：MicroStation 2025 文件与 IFC 支持",
+        "url": "https://www.bentley.com/en/lp/microstation-2025/"
+      }
+    ]
+  },
+  {
+    "name": "OpenRoads Designer",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "OpenRoads 桌面设计工作流；SDK 插件通过宿主 key-in 命令加载。",
+      "coverage": "道路设计对象、DGN 数据与文件交付；不将 MicroStation 的任一新增 API 自动视为道路专业 API。",
+      "versionBoundary": "SDK 指南采用 CONNECT Edition 示例；实际产品、SDK、依赖程序集和编译环境需配套。",
+      "unknowns": [
+        "道路专业对象的完整增删改范围及事务约定。",
+        "当前发行版的 Python 及其他新增语言支持未在本条确认。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Managed / Unmanaged SDK",
+        "category": "program",
+        "entry": "在 Developer Shell 配置 SDK；托管示例为 C# Addin，并把 CommandTable.xml 的 key-in 映射到函数。",
+        "role": "在 OpenRoads 宿主扩展专业设计工作流。",
+        "direction": "插件 ⇄ 活动 DGN 与道路设计对象",
+        "operations": [
+          "读取活动 DGN 设计数据",
+          "生成示例中的线路等报告",
+          "添加自定义 key-in 命令"
+        ],
+        "dataContract": "命令映射、AddIn 类型和目标程序集是部署契约；对象坐标、里程及模型引用需使用工程设置。",
+        "workflow": [
+          "建议：安装匹配 SDK 并启动 Developer Shell",
+          "建议：编译 ManagedSDKExample",
+          "建议：在宿主执行一个只读报告并核对工程对象"
+        ],
+        "execution": "SDK 项目作为宿主 Addin 执行；托管与非托管项目的构建步骤不同。",
+        "failure": "建议检查编译依赖、加载信息和模型上下文；错误码、线程和事务行为需具体 API 文档。",
+        "prerequisites": "OpenRoads Designer、SDK、开发环境与相应许可；示例使用 x64 及安装目录依赖。",
+        "version": "CONNECT Edition 例程；未承诺跨版插件二进制兼容。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0012549",
+            "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0012555"
+          ],
+          "locator": "ManagedSDKExample / CommandTable.xml / Addin / Debugging"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：安装匹配 SDK 并启动 Developer Shell → 编译 ManagedSDKExample → 在宿主执行一个只读报告并核对工程对象",
+          "sourceUrl": "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0012549"
+        }
+      },
+      {
+        "name": "DGN / LandXML 及 CAD 数据交换",
+        "category": "file",
+        "entry": "通过设计文件、地形导入与模型交换功能。",
+        "role": "接入地形资料并交付土木 CAD 模型。",
+        "direction": "外部地形 → OpenRoads；CAD 数据交换按各格式能力",
+        "operations": [
+          "导入包含 LandXML 在内的地形资料",
+          "集成 DGN、DWG、DXF、IFC 等 CAD 数据"
+        ],
+        "dataContract": "产品页分别列 Terrain 与 CAD integration；不能把格式列表一概视为完整双向专业对象转换。",
+        "workflow": [
+          "建议：选择具体对象和目标方向",
+          "建议：核对坐标系、单位、线路及地形结构",
+          "建议：在目标工具重开并检查对象覆盖"
+        ],
+        "execution": "离线工程资料交换；专业道路语义保留须按格式和导出设置验证。",
+        "failure": "建议比对地形高程、线路里程与引用；未核实所有格式方向和 Schema 版本。",
+        "prerequisites": "产品所需导入器、有效工程设置和接收软件支持。",
+        "version": "当前技术能力页；LandXML/IFC 版本及子集未逐项确认。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.bentley.com/en/products/openroads-designer/"
+          ],
+          "locator": "Technical capabilities：Platform / Terrain"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择具体对象和目标方向 → 核对坐标系、单位、线路及地形结构 → 在目标工具重开并检查对象覆盖",
+          "sourceUrl": "https://www.bentley.com/en/products/openroads-designer/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Bentley：OpenRoads Designer SDK 开发指南",
+        "url": "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0012549"
+      },
+      {
+        "title": "Bentley：OpenRoads Managed SDK 示例与加载",
+        "url": "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0012555"
+      },
+      {
+        "title": "Bentley：OpenRoads 技术能力与交换格式",
+        "url": "https://www.bentley.com/en/products/openroads-designer/"
+      }
+    ]
+  },
+  {
+    "name": "STAAD.Pro",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "STAAD.Pro 建模/分析界面；运行中的实例可由 OpenSTAAD 访问。",
+      "coverage": "几何、荷载、分析结果和设计数据自动化。",
+      "versionBoundary": "官方 openstaadpy 仓库要求 Windows 11+、运行中的 STAAD.Pro 2025+ 和 Python 3.11+；不把该包装库要求推广到所有历史 OpenSTAAD 版本。",
+      "unknowns": [
+        "各方法的返回码、单位和结果可用阶段。",
+        "运行分析、取消和并发实例的完整调用规则。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "OpenSTAAD COM / openstaadpy",
+        "category": "program",
+        "entry": "外部 COM 调用或 Bentley 官方 Python 包；os_analytical.connect() 连接运行中的实例。",
+        "role": "自动处理结构模型及结果。",
+        "direction": "外部程序 ⇄ 活动 STAAD 模型",
+        "operations": [
+          "访问几何与荷载",
+          "访问分析结果",
+          "访问设计数据"
+        ],
+        "dataContract": "使用当前打开模型；多实例时需明确目标文件。节点/构件标识、单位及工况与求解结果相联系。",
+        "workflow": [
+          "建议：启动并打开已知模型",
+          "建议：连接明确的 STAAD 实例",
+          "建议：读取几何与结果并与界面对照"
+        ],
+        "execution": "包装库依赖实际 STAAD.Pro，不能脱离宿主求解；官方连接例仅证明会话建立。",
+        "failure": "建议核对实例选择、日志和分析状态；具体错误码与方法失败后的模型状态需 API 参考。",
+        "prerequisites": "STAAD.Pro 或 Advanced 有效许可；官方包装库所列系统及 Python 条件。",
+        "version": "Python 包 README 要求 STAAD.Pro 2025+；仓库未固定提交。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://github.com/BentleySystems/openstaadpy/blob/main/README.md"
+          ],
+          "locator": "Overview / Requirements / Usage"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：启动并打开已知模型 → 连接明确的 STAAD 实例 → 读取几何与结果并与界面对照",
+          "sourceUrl": "https://github.com/BentleySystems/openstaadpy/blob/main/README.md"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "BentleySystems：openstaadpy 官方仓库说明",
+        "url": "https://github.com/BentleySystems/openstaadpy/blob/main/README.md"
+      }
+    ]
+  },
+  {
+    "name": "SAP2000",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "SAP2000 桌面模型与分析界面；外部程序或宿主插件调用 CSI API。",
+      "coverage": "参数化建模、修改、执行分析与结果提取；专业对象范围以该产品帮助为准。",
+      "versionBoundary": "CSI 开发页注明 SAP2000 v21、CSiBridge v21 起可开发跨产品工具；并不意味着两个产品的所有对象和功能相同。",
+      "unknowns": [
+        "安装版 API CHM 中的产品特定方法、返回码和单位约定。",
+        "高级分析模块、自动化并发与开发支持的合同权益。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "CSI API / OAPI",
+        "category": "program",
+        "entry": "外部程序、Excel 工具或在 CSI 宿主内加载的插件。",
+        "role": "自动建立工程模型、运行分析并取回结果。",
+        "direction": "调用程序 ⇄ SAP2000 模型",
+        "operations": [
+          "创建与修改模型",
+          "运行模型分析",
+          "提取结果"
+        ],
+        "dataContract": "模型对象、荷载工况与结果表需用产品 API 类型和单位；不可直接把另一产品的全部方法套用。",
+        "workflow": [
+          "建议：查安装版 API 帮助及许可",
+          "建议：在小型模型上确认单位和工况",
+          "建议：执行分析后核对结果及失败状态"
+        ],
+        "execution": "官方开发页确认建模、运行、取回结果；当前调用同步/异步和完成条件由方法帮助确定。",
+        "failure": "建议检查每次方法返回值及求解日志；具体错误码需查安装版 CHM，未核实的内容未列出。",
+        "prerequisites": "有效产品许可、兼容语言/运行时；开发支持可能需 CSIDN 订阅，不能与 API 运行权益混同。",
+        "version": "SAP2000 v21 起跨产品 API 的版本说明；实际安装版方法与模块另外核对。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.csiamerica.com/developer",
+            "https://web.wiki.csiamerica.com/wiki/spaces/kb/pages/2005484"
+          ],
+          "locator": "Developer：Smart Spreadsheets / Cross Product Development / help file"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：查安装版 API 帮助及许可 → 在小型模型上确认单位和工况 → 执行分析后核对结果及失败状态",
+          "sourceUrl": "https://www.csiamerica.com/developer"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "CSI：API 开发与产品兼容范围",
+        "url": "https://www.csiamerica.com/developer"
+      },
+      {
+        "title": "CSI：SAP2000 OAPI 与技术支持边界",
+        "url": "https://web.wiki.csiamerica.com/wiki/spaces/kb/pages/2005484"
+      }
+    ]
+  },
+  {
+    "name": "CSiBridge",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "CSiBridge 桌面模型与分析界面；外部程序或宿主插件调用 CSI API。",
+      "coverage": "参数化建模、修改、执行分析与结果提取；专业对象范围以该产品帮助为准。",
+      "versionBoundary": "CSI 开发页注明 SAP2000 v21、CSiBridge v21 起可开发跨产品工具；并不意味着两个产品的所有对象和功能相同。",
+      "unknowns": [
+        "安装版 API CHM 中的产品特定方法、返回码和单位约定。",
+        "高级分析模块、自动化并发与开发支持的合同权益。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "CSI API / OAPI",
+        "category": "program",
+        "entry": "外部程序、Excel 工具或在 CSI 宿主内加载的插件。",
+        "role": "自动建立工程模型、运行分析并取回结果。",
+        "direction": "调用程序 ⇄ CSiBridge 模型",
+        "operations": [
+          "创建与修改模型",
+          "运行模型分析",
+          "提取结果"
+        ],
+        "dataContract": "模型对象、荷载工况与结果表需用产品 API 类型和单位；不可直接把另一产品的全部方法套用。",
+        "workflow": [
+          "建议：查安装版 API 帮助及许可",
+          "建议：在小型模型上确认单位和工况",
+          "建议：执行分析后核对结果及失败状态"
+        ],
+        "execution": "官方开发页确认建模、运行、取回结果；当前调用同步/异步和完成条件由方法帮助确定。",
+        "failure": "建议检查每次方法返回值及求解日志；具体错误码需查安装版 CHM，未核实的内容未列出。",
+        "prerequisites": "有效产品许可、兼容语言/运行时；开发支持可能需 CSIDN 订阅，不能与 API 运行权益混同。",
+        "version": "CSiBridge v21 起跨产品 API 的版本说明；实际安装版方法与模块另外核对。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.csiamerica.com/developer"
+          ],
+          "locator": "Developer：Smart Spreadsheets / Cross Product Development / help file"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：查安装版 API 帮助及许可 → 在小型模型上确认单位和工况 → 执行分析后核对结果及失败状态",
+          "sourceUrl": "https://www.csiamerica.com/developer"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "CSI：API 开发与产品兼容范围",
+        "url": "https://www.csiamerica.com/developer"
+      }
+    ]
+  },
+  {
+    "name": "MIDAS CIVIL NX",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "Apps → API Settings 配置连接；外部脚本或插件访问 API。",
+      "coverage": "通过产品 API 连接操作受支持的工程对象；连接设置与具体业务端点分开。",
+      "versionBoundary": "本条为 CIVIL NX；公开指南主要为 2024 起文档。Base URL 随产品、地区或服务器可能不同，必须从产品设置读取。",
+      "unknowns": [
+        "所有工程对象的 Schema、事务、分析任务与错误契约。",
+        "现售产品套餐中的 API 权益与请求限制。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "CIVIL NX Open API（REST）",
+        "category": "program",
+        "entry": "在 API Settings 启用连接并取得 Base URL/MAPI-Key，再按产品端点规范请求。",
+        "role": "连接外部工程脚本与受支持的结构数据及操作。",
+        "direction": "外部请求 ⇄ 已连接的 CIVIL NX 会话",
+        "operations": [
+          "配置 API 会话",
+          "通过公开 API 操作支持的工程数据",
+          "用官方示例编排工程任务"
+        ],
+        "dataContract": "Base URL 与 MAPI-Key 取自当前产品；节点、材料、荷载等实际 JSON 字段及单位以目标端点为准，概述中的 api.example.com 不是产品地址。",
+        "workflow": [
+          "建议：在产品 API Settings 连接并核对地址",
+          "建议：选择官方最小读操作确认工程与单位",
+          "建议：再验证一项受控写操作或分析任务"
+        ],
+        "execution": "产品需与 API 服务保持连接；连接成功不等于所有分析功能或端点都可执行。",
+        "failure": "建议区分身份/连接失败与工程数据错误；具体错误响应和重试规则需 API Manual。",
+        "prerequisites": "CIVIL NX、账号/API 权限及网络；MAPI-Key 属于访问凭据，不应写入共享工程。",
+        "version": "引用 2024 年设置和使用说明；未固定当前服务器 API 版本。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://support.midasuser.com/hc/en-us/articles/30130748041369-How-to-use-MIDAS-CIVIL-NX-Open-API",
+            "https://support.midasuser.com/hc/ja/articles/27745256204057-API%E8%A8%AD%E5%AE%9A",
+            "https://support.midasuser.com/hc/en-us/articles/30508934444569-Base-URL-and-API-KEY"
+          ],
+          "locator": "How to use；API Settings；Base URL and API-KEY"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在产品 API Settings 连接并核对地址 → 选择官方最小读操作确认工程与单位 → 再验证一项受控写操作或分析任务",
+          "sourceUrl": "https://support.midasuser.com/hc/en-us/articles/30130748041369-How-to-use-MIDAS-CIVIL-NX-Open-API"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "MIDAS：CIVIL NX Open API 使用指南",
+        "url": "https://support.midasuser.com/hc/en-us/articles/30130748041369-How-to-use-MIDAS-CIVIL-NX-Open-API"
+      },
+      {
+        "title": "MIDAS：API 设置与连接状态",
+        "url": "https://support.midasuser.com/hc/ja/articles/27745256204057-API%E8%A8%AD%E5%AE%9A"
+      },
+      {
+        "title": "MIDAS：Base URL 与 API Key",
+        "url": "https://support.midasuser.com/hc/en-us/articles/30508934444569-Base-URL-and-API-KEY"
+      }
+    ]
+  },
+  {
+    "name": "Archicad",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "Archicad 桌面与 Python Palette；也可从外部 Python 环境连接运行中的实例。",
+      "coverage": "官方 Python 包包装 JSON Automation API；其覆盖与完整 C++ Add-On API 不同。",
+      "versionBoundary": "入门教程以 Archicad 24+、Python 3.7+ 为条件；滚动包文档含多代 release，不应把示例最低条件视为全部当前版本兼容矩阵。",
+      "unknowns": [
+        "特定安装版支持的完整命令集和元素建模范围。",
+        "批量属性修改的回滚、权限及并发行为。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "JSON Automation API / archicad Python",
+        "category": "program",
+        "entry": "HTTP/JSON 接口；官方 archicad 包通过 ACConnection.connect(port) 连接运行中的实例。",
+        "role": "自动化元素查询、属性/分类和项目导航任务。",
+        "direction": "外部脚本 ⇄ Archicad Automation 命令",
+        "operations": [
+          "查询元素和属性",
+          "设置受支持的属性与分类",
+          "组织支持的布局和导航项"
+        ],
+        "dataContract": "包按 Archicad release 提供命令/类型；实例有 version、build、lang，列表返回值中可包含 ExecutionResult 或错误对象。",
+        "workflow": [
+          "建议：确认宿主版本并连接目标端口",
+          "建议：读取实例信息及元素属性",
+          "建议：验证一项属性修改并检查返回结果"
+        ],
+        "execution": "ACConnection 表示活动连接；未连接时抛 ConnectionError。各命令返回值需按对应 release 判断。",
+        "failure": "建议逐项处理返回的错误/执行结果，避免把请求成功等同于所有元素修改成功。",
+        "prerequisites": "运行中的 Archicad 和匹配 Python 包；依赖宿主工程，不是独立 BIM 求解服务。",
+        "version": "2020 入门文档与当前多版本 API 参考；未固定安装 release。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://archicadapi.graphisoft.com/getting-started-with-Archicad-python-connection",
+            "https://archicadapi.graphisoft.com/archicadPythonPackage/archicad.html"
+          ],
+          "locator": "Automation API Basics；ACConnection.connect；Commands"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认宿主版本并连接目标端口 → 读取实例信息及元素属性 → 验证一项属性修改并检查返回结果",
+          "sourceUrl": "https://archicadapi.graphisoft.com/getting-started-with-Archicad-python-connection"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Graphisoft：Archicad Python/JSON 入门",
+        "url": "https://archicadapi.graphisoft.com/getting-started-with-Archicad-python-connection"
+      },
+      {
+        "title": "Graphisoft：archicad Python 包 API 参考",
+        "url": "https://archicadapi.graphisoft.com/archicadPythonPackage/archicad.html"
+      }
+    ]
+  },
+  {
+    "name": "Rhino / Grasshopper",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "Rhino 命令行、Script Editor 与 Grasshopper 可视化定义。",
+      "coverage": "Python/C# 脚本、RhinoCommon 插件与几何文件交换；第三方 Grasshopper 组件另查。",
+      "versionBoundary": "主要参考 Rhino 8 开发指南；Rhino 8 的程序化文件 IO 与旧版基于命令导出的方式有差异。",
+      "unknowns": [
+        "具体几何操作的容差、失败返回和执行上下文。",
+        "第三方 Grasshopper 组件的许可、依赖与跨平台兼容性。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python / C# / RhinoCommon",
+        "category": "program",
+        "entry": "Script Editor、Grasshopper 脚本组件或 RhinoCommon 插件。",
+        "role": "构建和处理工程几何及参数化工具。",
+        "direction": "脚本/插件 ⇄ Rhino 几何与文档",
+        "operations": [
+          "编写几何处理脚本",
+          "开发 Rhino 插件",
+          "开发 Grasshopper 组件"
+        ],
+        "dataContract": "几何对象、文档对象、单位和容差需区分；Grasshopper 数据上下文不自动等同于 Rhino 活动文档。",
+        "workflow": [
+          "建议：选择 Rhino 8 对应语言和上下文",
+          "建议：在小型几何上执行目标操作",
+          "建议：核对文档对象、单位和几何有效性"
+        ],
+        "execution": "开发入口覆盖脚本和插件；本条不把可视化定义都推定为可独立服务器执行。",
+        "failure": "建议检查几何有效性及方法失败结果；完整线程、撤销和取消规则需对应 SDK。",
+        "prerequisites": "Rhino 许可、匹配语言运行环境与必要组件；RhinoCommon 与独立文件库能力不同。",
+        "version": "Rhino 8 指南；不能将旧 IronPython 示例默认当作当前 CPython 代码。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://developer.rhino3d.com/en/",
+            "https://developer.rhino3d.com/guides/scripting/"
+          ],
+          "locator": "Developer documentation / Scripting guides"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择 Rhino 8 对应语言和上下文 → 在小型几何上执行目标操作 → 核对文档对象、单位和几何有效性",
+          "sourceUrl": "https://developer.rhino3d.com/en/"
+        }
+      },
+      {
+        "name": "程序化文件读写",
+        "category": "file",
+        "entry": "Rhino 8 文件 IO API；按格式使用对应读写选项。",
+        "role": "将几何交付给后续设计或制造工具。",
+        "direction": "Rhino 几何/文档 ⇄ 支持的文件",
+        "operations": [
+          "通过 API 导入文件",
+          "通过 API 导出几何"
+        ],
+        "dataContract": "各格式支持不同对象和导出选项；名称、图层、几何公差与单位需单独验证。",
+        "workflow": [
+          "建议：选择已支持的目标格式和选项",
+          "建议：导出带已知属性的小型几何",
+          "建议：重导入后比较拓扑、单位和属性"
+        ],
+        "execution": "Rhino 8 引入相应程序化 IO；旧版通常通过活动文档及导出命令处理。",
+        "failure": "建议检查每个格式的选项与错误返回；不能由一次可读证明所有对象无损。",
+        "prerequisites": "支持该格式的 Rhino 版本/插件；实际格式清单及选项以对应 SDK 文档。",
+        "version": "所引 Code-Driven File IO 指南明确区别 Rhino 8 与更早版本。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://github.com/mcneel/developer.rhino3d.com/blob/main/content/en/guides/rhinocommon/code-driven-file-io/index.md"
+          ],
+          "locator": "Code-Driven File IO"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择已支持的目标格式和选项 → 导出带已知属性的小型几何 → 重导入后比较拓扑、单位和属性",
+          "sourceUrl": "https://github.com/mcneel/developer.rhino3d.com/blob/main/content/en/guides/rhinocommon/code-driven-file-io/index.md"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "McNeel：Rhino 与 Grasshopper 开发文档",
+        "url": "https://developer.rhino3d.com/en/"
+      },
+      {
+        "title": "McNeel：Rhino 脚本指南",
+        "url": "https://developer.rhino3d.com/guides/scripting/"
+      },
+      {
+        "title": "McNeel：Rhino 8 程序化文件读写指南源文件",
+        "url": "https://github.com/mcneel/developer.rhino3d.com/blob/main/content/en/guides/rhinocommon/code-driven-file-io/index.md"
+      }
+    ]
+  },
+  {
+    "name": "HEC-RAS",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "桌面工程、计划和 RAS Mapper；通过 HDF5 文件交给外部分析程序。",
+      "coverage": "工程资料组织与计算结果读取；第三方 Python 包不作为官方控制 API 的依据。",
+      "versionBoundary": "工程说明为滚动 latest 页面（核查日期所见为 7.0）；HDF5 数组布局的直接依据为 6.2 二维泥沙手册，其他版本/求解对象需重新核对。",
+      "unknowns": [
+        "官方远程/COM 控制接口的当前版本和完整方法契约。",
+        "目标计算版本 HDF5 的数据集、坐标和维度变化。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "工程文件 / HDF5 结果",
+        "category": "file",
+        "entry": "工程 .prj 联结计划、几何和流量等文件；每个计划对应 .pXX.hdf 输出。",
+        "role": "把水力计算结果交给 Python、MATLAB 或 HDF5 工具分析。",
+        "direction": "HEC-RAS 结果 → 外部程序；工程文件用于宿主重开",
+        "operations": [
+          "读取工程及关联文件",
+          "读取 HDF5 结果块",
+          "提取所需时间和空间结果"
+        ],
+        "dataContract": "6.2 二维泥沙结果按 Output Blocks 组织；所述数组行表示时间，列表示 cell/face 等位置。应保留计划、变量与位置对应。",
+        "workflow": [
+          "建议：固定版本、计划和输出变量",
+          "建议：完成小型算例并选对应 HDF5",
+          "建议：对照时间轴、空间索引和 RAS Mapper 数值"
+        ],
+        "execution": "文件读取与求解控制分离；HDF5 文件存在不能单独证明求解完整或稳定。",
+        "failure": "建议检查计算日志、输出范围及缺失数据集；不把 .OXX 二进制结果误当作同一 HDF5 文件。",
+        "prerequisites": "已生成且权限可读的结果、相应 HDF5 阅读器；无需从 Python 发起控制即可后处理。",
+        "version": "工程文件说明与 6.2 HDF5 结构分开引用；未承诺全部 7.0 结果结构相同。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.hec.usace.army.mil/confluence/rasdocs/rasum/latest/working-with-projects",
+            "https://www.hec.usace.army.mil/confluence/rasdocs/h2sd/ras2dsed/6.2/viewing-results/hdf5-output-and-the-log-file/exploring-the-hdf5-file"
+          ],
+          "locator": "Working with Projects；Exploring the HDF5 File"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：固定版本、计划和输出变量 → 完成小型算例并选对应 HDF5 → 对照时间轴、空间索引和 RAS Mapper 数值",
+          "sourceUrl": "https://www.hec.usace.army.mil/confluence/rasdocs/rasum/latest/working-with-projects"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "USACE：HEC-RAS 工程与文件组成",
+        "url": "https://www.hec.usace.army.mil/confluence/rasdocs/rasum/latest/working-with-projects"
+      },
+      {
+        "title": "USACE：HEC-RAS 6.2 HDF5 输出结构",
+        "url": "https://www.hec.usace.army.mil/confluence/rasdocs/h2sd/ras2dsed/6.2/viewing-results/hdf5-output-and-the-log-file/exploring-the-hdf5-file"
+      }
+    ]
+  },
+  {
+    "name": "HEC-HMS",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "桌面项目管理或带 -script/-s 参数的程序入口；Java/Jython API。",
+      "coverage": "打开工程、执行已定义运行和关闭计算；批处理脚本与完整工程准备相区别。",
+      "versionBoundary": "API 入口核对至 4.13；直接运行示例含 4.4 环境路径。应以安装版参考替换路径，不能直接将 Jython 当作任意 CPython 3 环境。",
+      "unknowns": [
+        "特定版本全部 API 方法、异常与任务取消约定。",
+        "大规模并行运行及实例隔离条件。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Java / Jython API 与脚本入口",
+        "category": "program",
+        "entry": "通过 HEC-HMS 程序的 -script/-s 加脚本路径运行；外部 Jython/IDE 需配置 Java 与本地库。",
+        "role": "批量编排已有流域模型计算。",
+        "direction": "脚本 → 工程计算；结果 → 工程输出",
+        "operations": [
+          "打开已有工程",
+          "运行指定 computeRun",
+          "关闭工程与计算引擎"
+        ],
+        "dataContract": "工程路径、运行名称及依赖数据必须有效；脚本应使用该版 Java/Jython API，而非推定普通 Python 模块。",
+        "workflow": [
+          "建议：先在桌面验证一个已有运行",
+          "建议：配置匹配 API 并从程序入口启动脚本",
+          "建议：核对计算结果后关闭工程/引擎"
+        ],
+        "execution": "官方示例给出 Project.open、computeRun、close、Hms.shutdownEngine 的顺序；不代表覆盖全部建模动作。",
+        "failure": "建议记录启动输出和计算日志；退出码与运行失败的详细约定需安装版帮助。",
+        "prerequisites": "HEC-HMS 及模型依赖；从程序入口运行可使用内嵌解释器，外部环境还需匹配类路径/本地库。",
+        "version": "4.13 Scripting 页面提供 Java/Jython 参考；历史示例环境不可直接作为当前安装命令。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.hec.usace.army.mil/confluence/hmsdocs/hmsum/4.13/scripting",
+            "https://www.hec.usace.army.mil/confluence/hmsdocs/hmsguides/basic-model-setup/hec-hms-project-management-improvements/running-hec-hms-with-jython"
+          ],
+          "locator": "Scripting；Running HEC-HMS with Jython"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先在桌面验证一个已有运行 → 配置匹配 API 并从程序入口启动脚本 → 核对计算结果后关闭工程/引擎",
+          "sourceUrl": "https://www.hec.usace.army.mil/confluence/hmsdocs/hmsum/4.13/scripting"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "USACE：HEC-HMS 4.13 脚本与 Java/Jython API",
+        "url": "https://www.hec.usace.army.mil/confluence/hmsdocs/hmsum/4.13/scripting"
+      },
+      {
+        "title": "USACE：通过 Jython 运行 HEC-HMS",
+        "url": "https://www.hec.usace.army.mil/confluence/hmsdocs/hmsguides/basic-model-setup/hec-hms-project-management-improvements/running-hec-hms-with-jython"
+      }
+    ]
+  },
+  {
+    "name": "MODFLOW 6",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "输入文件、模型执行程序；FloPy 与 MODFLOW API 构成不同自动化入口。",
+      "coverage": "工程文件的生成/后处理，以及求解过程中的数据访问和回调控制分开登记。",
+      "versionBoundary": "官方 modflowapi 当前仓库要求 Python 3.11+；所引 Quickstart 为 0.3.0.dev0 文档。共享库、包装包、模型输入与安装版应一起固定。",
+      "unknowns": [
+        "目标共享库的全部可访问变量与可写时机。",
+        "生产环境使用的稳定包版本、失败恢复及线程安全规则。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "MODFLOW API / modflowapi",
+        "category": "program",
+        "entry": "加载 MODFLOW 6 API 共享库，由 modflowapi 包及回调函数驱动。",
+        "role": "在求解生命周期内读取或调整模型数据。",
+        "direction": "Python ⇄ 求解库/模型数据",
+        "operations": [
+          "在初始化等阶段回调",
+          "在应力期或时间步调整数据",
+          "读取求解阶段的数据"
+        ],
+        "dataContract": "回调阶段包括初始化、应力期、时间步和外迭代；修改变量必须遵守阶段与模型包结构。共享库不是仅有可执行文件即可替代。",
+        "workflow": [
+          "建议：固定共享库与 modflowapi 版本",
+          "建议：从官方小型回调例开始",
+          "建议：对照无修改运行并检查各时段的结果"
+        ],
+        "execution": "Quickstart 把回调传给 run_simulation；每种回调的执行频率和阶段不同。",
+        "failure": "建议同时检查 Python 异常、求解收敛和预算结果；失败后的恢复与取消需当前 API 文档。",
+        "prerequisites": "匹配的 MODFLOW API 共享库、输入工程与 Python 依赖；官方项目由 USGS/Deltares 联合开发。",
+        "version": "仓库 Python 3.11+；Quickstart 0.3.0.dev0，开发文档不等于稳定版承诺。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://github.com/MODFLOW-ORG/modflowapi",
+            "https://modflowapi.readthedocs.io/en/latest/examples/notebooks/Quickstart.html"
+          ],
+          "locator": "README；Quickstart：Callbacks / run_simulation"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：固定共享库与 modflowapi 版本 → 从官方小型回调例开始 → 对照无修改运行并检查各时段的结果",
+          "sourceUrl": "https://github.com/MODFLOW-ORG/modflowapi"
+        }
+      },
+      {
+        "name": "FloPy 文件建模与结果处理",
+        "category": "program",
+        "entry": "USGS 官方介绍的 FloPy Python 包，用于生成输入、启动模型和处理输出。",
+        "role": "组织 MODFLOW 6 工程计算。",
+        "direction": "Python → 模型文件/运行；输出 → Python",
+        "operations": [
+          "创建模型输入",
+          "运行 MODFLOW 模型",
+          "读取及后处理输出"
+        ],
+        "dataContract": "FloPy 支持多代 MODFLOW；本条目标为 MODFLOW 6，包类型、空间网格和单位应与该版模型匹配。",
+        "workflow": [
+          "建议：选定 FloPy 与求解程序版本",
+          "建议：创建小型 MODFLOW 6 工程并保存输入",
+          "建议：运行后核对水头、预算及空间索引"
+        ],
+        "execution": "文件/进程式建模与运行，不等同于 MODFLOW API 的求解器内回调。",
+        "failure": "建议检查写入文件、进程反馈和水量平衡；具体异常与失败返回需 FloPy 对应版本参考。",
+        "prerequisites": "FloPy、兼容的 MODFLOW 求解程序与模型依赖；Python 包本身不能替代求解引擎。",
+        "version": "USGS 介绍确认 MODFLOW 6 支持，未固定 FloPy 发布号。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.usgs.gov/software/flopy-python-package-creating-running-and-post-processing-modflow-based-models"
+          ],
+          "locator": "USGS FloPy 软件说明"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选定 FloPy 与求解程序版本 → 创建小型 MODFLOW 6 工程并保存输入 → 运行后核对水头、预算及空间索引",
+          "sourceUrl": "https://www.usgs.gov/software/flopy-python-package-creating-running-and-post-processing-modflow-based-models"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "USGS/Deltares：modflowapi 官方项目",
+        "url": "https://github.com/MODFLOW-ORG/modflowapi"
+      },
+      {
+        "title": "MODFLOW-ORG：MODFLOW API 回调式求解入门",
+        "url": "https://modflowapi.readthedocs.io/en/latest/examples/notebooks/Quickstart.html"
+      },
+      {
+        "title": "USGS：FloPy 创建、运行和处理 MODFLOW 模型",
+        "url": "https://www.usgs.gov/software/flopy-python-package-creating-running-and-post-processing-modflow-based-models"
+      }
+    ]
+  },
+  {
+    "name": "GPS-X",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "Layout 建模界面、Simulation mode 与 Python Script Manager。",
+      "coverage": "读写模拟变量、设置运行时间与通过回调组织数据采集；不表示直接连接现场设备。",
+      "versionBoundary": "直接依据 GPS-X 8.5 教程14，要求 Advanced Tools 模块；该教程默认 Python 3.7，当前产品组合与解释器需另核。",
+      "unknowns": [
+        "现售版本支持的解释器和 Advanced Tools 许可范围。",
+        "完整变量名、单位、外部连接及异常接口清单。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python Script Manager / gpsx API",
+        "category": "program",
+        "entry": "在 Simulation mode 的 Python Script Manager 创建、添加和运行脚本。",
+        "role": "控制受支持的仿真变量并收集计算数据。",
+        "direction": "Python ⇄ GPS-X 模拟变量",
+        "operations": [
+          "用 getValue/setValue 读写变量",
+          "用 setTstop 设置结束时间",
+          "通过 start/cint/eor 回调采集数据"
+        ],
+        "dataContract": "变量按产品的 cryptic name 定位并需正确 Python 类型；改变输入后，相关输出直到继续计算才更新，不能立即当作新稳态结果。",
+        "workflow": [
+          "建议：验证 Advanced Tools 与一个已有 layout",
+          "建议：添加教程脚本并核对变量与单位",
+          "建议：在通信间隔后读取输出并检查结束回调"
+        ],
+        "execution": "start 运行初始一次，cint 每通信间隔，eor 结束一次；runSim 发起仿真。",
+        "failure": "教程模板的 try/except 打印错误并退出当前函数后继续其余脚本；需检查 Output，不能只看脚本是否退出。",
+        "prerequisites": "GPS-X、Advanced Tools、匹配 Python 及已验证 layout。",
+        "version": "8.5 教程；Python 3.7 为该教程默认值，并非所有新版固定要求。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.hydromantis.com/help/GPS-X/docs/8.5/Tutorial/15_Tutorial14.htm"
+          ],
+          "locator": "Tutorial14：Basics / Basic Simulation"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：验证 Advanced Tools 与一个已有 layout → 添加教程脚本并核对变量与单位 → 在通信间隔后读取输出并检查结束回调",
+          "sourceUrl": "https://www.hydromantis.com/help/GPS-X/docs/8.5/Tutorial/15_Tutorial14.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Hydromantis：GPS-X 8.5 Python 教程14",
+        "url": "https://www.hydromantis.com/help/GPS-X/docs/8.5/Tutorial/15_Tutorial14.htm"
+      }
+    ]
+  },
+  {
+    "name": "BioWin",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "BioWin 图形化模型与数据库导出菜单。",
+      "coverage": "覆盖官方手册可确认的结果文件交换；未核实通用公开求解控制 API。",
+      "versionBoundary": "详细 CSV 依据为 BioWin 5 手册的公开检索内容；6.0 发布说明另列 Excel 数据/图表报告。PDF 全文抓取受限，不能推定当前版菜单和接口完全相同。",
+      "unknowns": [
+        "现售版本 CSV/Excel 的实际菜单、字段及许可。",
+        "外部程序自动启动或控制求解的公开 API 与错误契约。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "TXT / CSV / Excel 数据交付",
+        "category": "file",
+        "entry": "Database 的 Export / Custom Export to File；6.0 另有 Excel 报告功能。",
+        "role": "把处理过程结果交给外部表格或分析程序。",
+        "direction": "BioWin 结果 → 文件/电子表格",
+        "operations": [
+          "选择导出的模型元素和变量",
+          "输出 TXT/CSV 数据",
+          "在相应新版生成为 Excel 报告"
+        ],
+        "dataContract": "CSV 为逗号分隔，TXT 可为制表符分隔；导出内容取决于元素、变量及顺序，应另外核对单位和时间。",
+        "workflow": [
+          "建议：在安装版核对导出菜单，预设所选参数的 monitoring 并运行动态仿真",
+          "建议：选择已监测的少量元素和变量导出",
+          "建议：与 BioWin 原结果比较时间、单位和列顺序；Excel 报告另核"
+        ],
+        "execution": "这是结果交换路径，不是在线协议或已确认的程序求解接口。",
+        "failure": "建议检查分隔符、小数点、单位及缺失时段；结构化失败返回与批量导出接口未核实。",
+        "prerequisites": "BioWin 5 的 Custom Export 须预先为相应元素参数设置 monitoring 并运行动态仿真；导出对话框不代为设置监测。Excel 报告另按 6.0 功能核对。",
+        "version": "BioWin 5 手册 General Operation / Custom Export；6.0 发布说明，仅据公开可检索资料。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.envirosim.com/downloads/BW5Manual.pdf",
+            "https://envirosim.com/WhatsNewin60.pdf"
+          ],
+          "locator": "Manual：Custom Export Utility；What’s New in 6.0"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在安装版核对导出菜单，预设所选参数的 monitoring 并运行动态仿真 → 选择已监测的少量元素和变量导出 → 与 BioWin 原结果比较时间、单位和列顺序；Excel 报告另核",
+          "sourceUrl": "https://www.envirosim.com/downloads/BW5Manual.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "EnviroSim：BioWin 5 用户手册",
+        "url": "https://www.envirosim.com/downloads/BW5Manual.pdf"
+      },
+      {
+        "title": "EnviroSim：BioWin 6.0 新增 Excel 报告",
+        "url": "https://envirosim.com/WhatsNewin60.pdf"
+      }
+    ]
+  },
+  {
+    "name": "InfoWorks ICM",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "GeoPlan、Ruby script editor 或 Network → Run add-on。",
+      "coverage": "当前网络的数据编辑与重复操作自动化；更广的 ICMExchange 执行能力需独立接口资料。",
+      "versionBoundary": "2024 帮助说明脚本菜单注册，2027 文档说明 Ruby 3.4.6 与迁移；两代能力分开记录，不把 2027 解释器要求用于全部旧工程。",
+      "unknowns": [
+        "全部 Ruby 对象/方法、求解任务及 ICMExchange 许可。",
+        "批量操作的事务、并发及取消规则。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Ruby scripts / Run add-on",
+        "category": "program",
+        "entry": "在当前网络运行 Ruby；可在应用数据 scripts 目录用两列 scripts.csv 注册菜单名称与脚本路径。",
+        "role": "自动执行重复的网络数据操作。",
+        "direction": "Ruby 脚本 ⇄ 当前网络数据",
+        "operations": [
+          "运行网络编辑脚本",
+          "校验和运行编辑器中的 Ruby",
+          "把脚本注册为菜单命令"
+        ],
+        "dataContract": "脚本作用于选定网络；scripts.csv 是插件菜单配置文件，不能视为模型交换规范。",
+        "workflow": [
+          "建议：选择测试网络和匹配 Ruby 版本",
+          "建议：运行一个最小脚本或注册菜单项",
+          "建议：检查网络变更、错误提示和撤销"
+        ],
+        "execution": "2027 编辑器可运行引用脚本；旧 Ruby 行为或外部库可能不兼容。",
+        "failure": "2027 帮助说明失败时显示可能原因及失败脚本导出目录；Undo 可撤销由所运行脚本产生的网络变更。",
+        "prerequisites": "InfoWorks ICM、网络访问/编辑权限和对应脚本环境；求解扩展与 Exchange 权益需另核。",
+        "version": "2024 插件注册 + 2027 Ruby 编辑器；未验证跨版本脚本兼容。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.autodesk.com/cloudhelp/2024/ENU/ICM-Help/files/GUID-943A85D0-EA0F-4BC3-AA50-7C55A3250D5D.htm",
+            "https://help.autodesk.com/cloudhelp/2027/ENU/ICM-Help/files/GUID-57F599CF-9FDE-405D-8C78-030694266390.htm"
+          ],
+          "locator": "Running Add-ons；Ruby Script / Running / Compatibility"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择测试网络和匹配 Ruby 版本 → 运行一个最小脚本或注册菜单项 → 检查网络变更、错误提示和撤销",
+          "sourceUrl": "https://help.autodesk.com/cloudhelp/2024/ENU/ICM-Help/files/GUID-943A85D0-EA0F-4BC3-AA50-7C55A3250D5D.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Autodesk：InfoWorks ICM 2024 Ruby 插件运行",
+        "url": "https://help.autodesk.com/cloudhelp/2024/ENU/ICM-Help/files/GUID-943A85D0-EA0F-4BC3-AA50-7C55A3250D5D.htm"
+      },
+      {
+        "title": "Autodesk：InfoWorks ICM 2027 Ruby 编辑与错误反馈",
+        "url": "https://help.autodesk.com/cloudhelp/2027/ENU/ICM-Help/files/GUID-57F599CF-9FDE-405D-8C78-030694266390.htm"
+      }
+    ]
+  },
+  {
+    "name": "InfoWater Pro",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "InfoWater Pro / ArcGIS Pro 界面和 Python Notebook，也可使用其他配置正确的 IDE。",
+      "coverage": "官方 Python 结果管理对象的查询与元数据读取；不推定该扩展可写模型或直接启动求解。",
+      "versionBoundary": "官方在线指南未固定产品版本；包与结果文件格式需和实际 InfoWater Pro / ArcGIS Pro 安装配套。",
+      "unknowns": [
+        "通过此扩展写模型、启动求解的能力尚未核实。",
+        "方法错误返回、并发读文件及结果文件版本兼容性。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "infowater.output.manager Python",
+        "category": "program",
+        "entry": "从 infowater.output.manager 导入 Manager，并以结果文件路径创建对象。",
+        "role": "对已有给水管网结果进行自定义分析。",
+        "direction": "结果文件 → Python 查询程序",
+        "operations": [
+          "读取压力等结果范围数据",
+          "获取输出元数据",
+          "在 Notebook 中处理结果"
+        ],
+        "dataContract": "Manager 的方法参数涉及对象类型、字段和范围；get_metadata 可检查可用字段、单位、类型及索引，不能仅凭显示名称猜测。",
+        "workflow": [
+          "建议：选择已完成计算的 HYDQUA.OUT 等目标结果",
+          "建议：建立 Manager 并读取 metadata",
+          "建议：查询一项节点结果并与界面对照"
+        ],
+        "execution": "读取结果对象；此路径不证明具备实时现场采集或模型写入。",
+        "failure": "建议检查路径、结果完整性和字段索引；异常类型及无效字段行为需类参考。",
+        "prerequisites": "匹配的 InfoWater Pro、ArcGIS Pro/Python 环境和可读的结果文件。",
+        "version": "在线未固定版指南；具体安装版包参考优先。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.autodesk.com/cloudhelp/ENU/INFWP-UserGuide/files/GUID-9E060B16-9E1A-4C96-9A2D-E51D521EBA0A.htm"
+          ],
+          "locator": "Python scripting Introduction：Manager / metadata"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择已完成计算的 HYDQUA.OUT 等目标结果 → 建立 Manager 并读取 metadata → 查询一项节点结果并与界面对照",
+          "sourceUrl": "https://help.autodesk.com/cloudhelp/ENU/INFWP-UserGuide/files/GUID-9E060B16-9E1A-4C96-9A2D-E51D521EBA0A.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Autodesk：InfoWater Pro Python 结果读取入门",
+        "url": "https://help.autodesk.com/cloudhelp/ENU/INFWP-UserGuide/files/GUID-9E060B16-9E1A-4C96-9A2D-E51D521EBA0A.htm"
+      }
+    ]
+  },
+  {
+    "name": "Delft3D Flexible Mesh / D-Flow FM",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "Delft3D FM 工程界面、DIMR 命令行及 Deltares Python 前后处理工具。",
+      "coverage": "DIMR 配置驱动运行；文件/Python 建模工具与求解器内实时 API 分开。",
+      "versionBoundary": "所引 DIMR 技术手册为 DRAFT 首版，§1.3 列适用 Delft3D FM Suite 2017 及以后；另据 Riverlab 示例和 dfm_tools 0.47.1 文档。启动脚本以安装包为准；Python modelbuilder 为 proof of concept。",
+      "unknowns": [
+        "实际安装版各耦合组件的接口及时间步契约。",
+        "完整模型构建脚本的稳定 API、外部数据许可与二进制分发条件。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "DIMR 命令行 / XML 配置",
+        "category": "program",
+        "entry": "导出模型及 dimr_config.xml 后，用该安装包的 run_dimr.bat / run_dimr.sh 运行。",
+        "role": "部署模型组件并执行集成计算。",
+        "direction": "XML/模型文件 → DIMR/计算组件 → 输出",
+        "operations": [
+          "加载集成模型配置",
+          "命令行运行模型",
+          "按安装包提供的并行入口运行配置"
+        ],
+        "dataContract": "配置文件引用组件及数据路径；耦合和并行方式取决于实际配置与组件版本。不能只保留 XML 而丢失依赖文件。",
+        "workflow": [
+          "建议：从 GUI 导出一套可运行工程",
+          "建议：在匹配环境执行串行小型案例",
+          "建议：检查输出与日志后再核对耦合或并行设置"
+        ],
+        "execution": "DIMR 可从命令行运行；Windows/Linux 启动脚本、库路径和集群提交方法不同。",
+        "failure": "手册说明错误参数可显示 usage；建议同时检查组件日志和物理量，不能只以进程结束验收。",
+        "prerequisites": "匹配的 DIMR 与求解组件、完整工程及平台运行库；MPI 等条件按并行配置。",
+        "version": "DIMR 手册为 DRAFT 首版，适用范围列 2017 及以后；具体脚本和路径以安装包为准，不照搬历史绝对路径。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://content.oss.deltares.nl/delft3d/DIMR_Technical_reference_Manual.pdf",
+            "https://github.com/Deltares/Delft3D/blob/main/doc/compiling_Linux.md",
+            "https://oss.deltares.nl/web/riverlab-models/creating-a-delft3d-model"
+          ],
+          "locator": "DIMR §2；官方编译文档 Run；Riverlab"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从 GUI 导出一套可运行工程 → 在匹配环境执行串行小型案例 → 检查输出与日志后再核对耦合或并行设置",
+          "sourceUrl": "https://content.oss.deltares.nl/delft3d/DIMR_Technical_reference_Manual.pdf"
+        }
+      },
+      {
+        "name": "工程文件 / NetCDF / dfm_tools",
+        "category": "file",
+        "entry": "文本模型文件、NetCDF 网格及 Deltares 官方维护的 Python 工具链。",
+        "role": "生成输入、处理网格和结果。",
+        "direction": "Python/文件 ⇄ D-Flow FM 工程数据",
+        "operations": [
+          "使用 HYDROLIB-core 写模型输入",
+          "处理 NetCDF/UGRID 网格",
+          "组织边界与模型文件"
+        ],
+        "dataContract": "dfm_tools 示例组合 MeshKernelPy、HYDROLIB-core、xarray 与 xugrid；.mdu/.ext/.bc 与 *_net.nc 作用不同，空间坐标与网格位置须保留。",
+        "workflow": [
+          "建议：锁定工具版本与目标求解器",
+          "建议：从离线小型网格/边界生成模型文件",
+          "建议：核对坐标、网格和输入后在求解器验证"
+        ],
+        "execution": "modelbuilder 示例明确是概念验证，函数/输入可能变化；它不构成对任意生产模型的稳定 API 保证。",
+        "failure": "建议核对文件引用、网格有效性和外部强迫数据；工具和示例数据未运行验证。",
+        "prerequisites": "相应 Python 依赖、计算程序与数据权限；在线示例的数据下载还要求相应外部服务账号。",
+        "version": "dfm_tools 文档 0.47.1 与 Riverlab 示例；实际项目固定包版本。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://deltares.github.io/dfm_tools/notebooks/modelbuilder_example.html",
+            "https://oss.deltares.nl/web/riverlab-models/creating-a-delft3d-model"
+          ],
+          "locator": "Modelbuilder 概述与文件生成；Creating a Delft3D FM model"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：锁定工具版本与目标求解器 → 从离线小型网格/边界生成模型文件 → 核对坐标、网格和输入后在求解器验证",
+          "sourceUrl": "https://deltares.github.io/dfm_tools/notebooks/modelbuilder_example.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Deltares：DIMR 技术手册",
+        "url": "https://content.oss.deltares.nl/delft3d/DIMR_Technical_reference_Manual.pdf"
+      },
+      {
+        "title": "Deltares：Delft3D FM 文件建模与运行",
+        "url": "https://oss.deltares.nl/web/riverlab-models/creating-a-delft3d-model"
+      },
+      {
+        "title": "Deltares：Delft3D 官方 Linux 编译与运行说明",
+        "url": "https://github.com/Deltares/Delft3D/blob/main/doc/compiling_Linux.md"
+      },
+      {
+        "title": "Deltares：dfm_tools 模型构建示例",
+        "url": "https://deltares.github.io/dfm_tools/notebooks/modelbuilder_example.html"
+      }
+    ]
+  }
+]

@@ -1,0 +1,2295 @@
+[
+  {
+    "name": "KLayout",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "PyPI 包仅提供完整 API 的子集，缺少用户界面类。",
+      "humanEntry": "版图编辑器；Macro Development 环境；独立 Python 解释器。",
+      "coverage": "版图几何、层与单元处理；GUI 脚本和独立 Python 包的覆盖不同。",
+      "unknowns": [
+        "当前安装版与在线文档是否一致。",
+        "各文件格式保留的层、属性和层级范围需按导出选项验证。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python / Ruby API",
+        "category": "program",
+        "entry": "GUI 的宏环境；独立 Python 的 klayout.db；命令行 -r 加载脚本、-b 进入批处理。",
+        "role": "调用版图数据库和几何处理功能。",
+        "direction": "脚本 ⇄ 版图对象",
+        "operations": [
+          "创建 Layout、Cell 与图层",
+          "添加和处理几何对象",
+          "将版图写入文件"
+        ],
+        "dataContract": "对象包含单元、图层及几何；dbu 定义数据库单位。PyPI 子集包含 db、tl、rdb，不含界面类。",
+        "workflow": [
+          "建议：选择 GUI 宏或独立 klayout.db",
+          "建议：新建或加载测试版图并确认 dbu",
+          "建议：执行处理，检查对象和输出文件"
+        ],
+        "execution": "-r 运行脚本后退出；-b 为无界面批处理。GUI 类在无界面模式中受限。",
+        "failure": "具体 API 异常类型未逐项核实；建议保存脚本日志，检查缺失模块和输出文件。",
+        "prerequisites": "KLayout 或匹配的 Python 包；GUI 脚本与 PyPI 包的类覆盖需分开核对。",
+        "version": "在线命令行及 Python 模块文档；未固定安装版。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.klayout.org/klayout-pypi/",
+            "https://www.klayout.de/command_args.html"
+          ],
+          "locator": "Python 模块：Sample、包覆盖；Command-Line Arguments：-b、-r、-zz。"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "import klayout.db as db\nly = db.Layout()\nly.dbu = 0.001",
+          "sourceUrl": "https://www.klayout.org/klayout-pypi/"
+        }
+      },
+      {
+        "name": "GDSII / OASIS / CIF / DXF / Gerber",
+        "category": "file",
+        "entry": "GUI 打开版图；文件路径参数；Layout 对象的文件读写。",
+        "role": "将版图送入编辑、分析或后续制造资料处理。",
+        "direction": "外部文件 ⇄ 版图数据库",
+        "operations": [
+          "读取官方列出的版图/绘图格式",
+          "从数据库写出版图"
+        ],
+        "dataContract": "文件承载几何与相应版图组织；不同格式的层级、属性及单位映射未在本次逐项核实。",
+        "workflow": [
+          "建议：用小型参考版图验证目标格式",
+          "建议：确认层号、数据库单位与层级",
+          "建议：另存并重开结果，比较几何与属性"
+        ],
+        "execution": "文件交换；命令行文件参数可一次加载多个版图，独立包可写 GDS。",
+        "failure": "没有通用格式转换成功判据；建议比对单元数、层号、边界与导入消息。",
+        "prerequisites": "可读写目录、格式对应的读写选项；制造用途需核对工艺要求。",
+        "version": "官方模块列出格式，未确认各格式方言和版本。",
+        "implementation": "文件交换",
+        "standardIds": [
+          "p27"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.klayout.org/klayout-pypi/",
+            "https://www.klayout.de/command_args.html"
+          ],
+          "locator": "Python 模块开头的格式列表；Sample 的 ly.write；命令行文件参数。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：用小型参考版图验证目标格式 → 确认层号、数据库单位与层级 → 另存并重开结果，比较几何与属性",
+          "sourceUrl": "https://www.klayout.org/klayout-pypi/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "KLayout 官方 Python 模块说明",
+        "url": "https://www.klayout.org/klayout-pypi/"
+      },
+      {
+        "title": "KLayout 官方命令行选项",
+        "url": "https://www.klayout.de/command_args.html"
+      }
+    ]
+  },
+  {
+    "name": "OpenROAD",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "Python 支持有限：不支持 read_verilog、write_verilog、write_abstract_lef。工艺适配依赖对应 PDK 与流程配置。依据为 latest 在线文档，未固定安装提交。",
+      "humanEntry": "命令行 Tcl/Python；GUI 可加载设计；流程脚本环境。",
+      "coverage": "数字芯片布局布线、设计数据库与流程自动化；Python 只覆盖部分命令。",
+      "unknowns": [
+        "最新文档与实际构建提交的差异。",
+        "特定 PDK 与时序/物理约束配置。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Tcl / Python",
+        "category": "program",
+        "entry": "Tcl source 文件；Python 使用 openroad -python script.py。",
+        "role": "自动执行设计读入与物理实现步骤。",
+        "direction": "脚本 ⇄ 工具与设计数据库",
+        "operations": [
+          "读入工艺和设计数据",
+          "调用布局布线功能",
+          "保存数据库或导出设计"
+        ],
+        "dataContract": "Tcl 命令参数与 OpenDB 设计对象；Python 的 read_verilog、write_verilog、write_abstract_lef 不受支持。",
+        "workflow": [
+          "建议：固定构建和 PDK",
+          "建议：先跑官方 test 目录的小设计",
+          "建议：检查日志、约束和输出后再扩展流程"
+        ],
+        "execution": "Tcl source 顺序执行；默认遇错停止读取后续命令。file_continue_on_error=1 可继续；exit_on_error=1 可使进程退出。",
+        "failure": "日志打印命令错误；建议先确认脚本停止位置，避免把部分执行结果当完整流程。",
+        "prerequisites": "OpenROAD 构建、工艺库与设计约束；Python 需构建支持。",
+        "version": "latest 文档；命令覆盖随构建变化。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://openroad.readthedocs.io/en/latest/main/src/README.html"
+          ],
+          "locator": "OpenROAD API 开头；source 后的错误行为；Example scripts。"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "read_lef liberty1.lef\nread_def reg1.def\nwrite_db reg1.db",
+          "sourceUrl": "https://openroad.readthedocs.io/en/latest/main/src/README.html"
+        }
+      },
+      {
+        "name": "LEF / DEF / Verilog / OpenDB",
+        "category": "file",
+        "entry": "read_lef、read_def、read_verilog、read_db 等命令。",
+        "role": "建立和保存物理设计数据库、交换几何与网表。",
+        "direction": "文件 ⇄ OpenDB",
+        "operations": [
+          "读取 LEF/DEF 和 Verilog",
+          "链接网表",
+          "写出 DEF、Verilog 或 OpenDB"
+        ],
+        "dataContract": "LEF 提供工艺/宏信息，DEF 提供设计实现数据，Verilog 提供网表；OpenDB 用于重载内部设计。DEF 输出可选 5.8 至 5.3。",
+        "workflow": [
+          "建议：先载工艺 LEF 和单元库",
+          "建议：载入 DEF 或网表并链接",
+          "建议：写出结果并用对应读取流程复核"
+        ],
+        "execution": "文件命令构建统一数据库；写_db 后可直接 read_db，省去重读 LEF/DEF/Verilog。",
+        "failure": "建议核对未解析单元、层名与链接消息；Python 不支持的命令需改用 Tcl。跨版本 OpenDB 兼容性未核实。",
+        "prerequisites": "相互匹配的工艺库、网表和设计文件；对应语言接口支持。",
+        "version": "DEF 可选版本由该页明确列出；其他格式兼容细则需查所用构建。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://openroad.readthedocs.io/en/latest/main/src/README.html"
+          ],
+          "locator": "读写命令列表；LEF/DEF 与 Verilog 建库说明；Read/Write database。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先载工艺 LEF 和单元库 → 载入 DEF 或网表并链接 → 写出结果并用对应读取流程复核",
+          "sourceUrl": "https://openroad.readthedocs.io/en/latest/main/src/README.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "OpenROAD 官方 API 文档",
+        "url": "https://openroad.readthedocs.io/en/latest/main/src/README.html"
+      }
+    ]
+  },
+  {
+    "name": "KiCad",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "KiCad 9/10 的 IPC API 仅连接运行中的 PCB GUI，不支持直接绘图导出。在线开发文档将无界面模式、原理图插件和 API 导出列为 KiCad 11 新增能力。",
+      "humanEntry": "PCB 编辑器的插件按钮、PCB GUI 会话；独立 kicad-cli。",
+      "coverage": "IPC API 访问受支持编辑器对象；CLI 负责版本支持的导出操作。",
+      "unknowns": [
+        "KiCad 11 描述属于在线开发文档，实际可用版本需核对。",
+        "插件所需对象与绘图命令是否被目标版覆盖。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "IPC API / kicad-python",
+        "category": "program",
+        "entry": "外部插件/程序连接 KiCad 创建的本机 socket 或 Windows 命名管道；Python 通过官方客户端。",
+        "role": "与运行中的编辑器协作，扩展 PCB 操作。",
+        "direction": "客户端 ⇄ KiCad GUI",
+        "operations": [
+          "连接编辑器实例",
+          "操作该版本覆盖的对象",
+          "注册插件操作"
+        ],
+        "dataContract": "KICAD_API_SOCKET 指定连接位置；KICAD_API_TOKEN 随会话生成。插件使用 plugin.json；API 日志按 Protobuf 消息记录请求和响应。",
+        "workflow": [
+          "建议：先确认 9/10 或 11 的功能范围",
+          "建议：在插件目录注册 plugin.json 并连接单一测试实例",
+          "建议：用 API 日志和编辑器回读结果"
+        ],
+        "execution": "9/10 依赖 GUI；插件是外部进程，Python 插件使用独立环境。会话重启会改变 token；首次依赖安装会延迟按钮出现。",
+        "failure": "10.0.1 起 stdout/stderr 进入警告消息；EnableAPILogging=1 可生成 api.log。建议检查环境创建和连接实例。",
+        "prerequisites": "KiCad 9.0 及以上、官方客户端依赖；受支持的编辑器和匹配插件清单。",
+        "version": "9/10 仅 PCB GUI 且不绘图导出；开发文档把无界面、原理图与 API 导出归于 11。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://dev-docs.kicad.org/en/apis-and-binding/ipc-api/for-addon-developers/"
+          ],
+          "locator": "API Status and Goals；Connecting；Plugin Action registration；Debugging。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先确认 9/10 或 11 的功能范围 → 在插件目录注册 plugin.json 并连接单一测试实例 → 用 API 日志和编辑器回读结果",
+          "sourceUrl": "https://dev-docs.kicad.org/en/apis-and-binding/ipc-api/for-addon-developers/"
+        }
+      },
+      {
+        "name": "kicad-cli",
+        "category": "program",
+        "entry": "终端运行 kicad-cli；子命令的 --help 或 -h。",
+        "role": "批量生成 PCB/原理图输出文件。",
+        "direction": "设计文件 → CLI → 导出文件",
+        "operations": [
+          "按子命令绘图或导出",
+          "生成分层 Gerber",
+          "查询所用版命令帮助"
+        ],
+        "dataContract": "输入为设计路径；pcb export gerbers 每层一个文件。输出目录、图层列表、精度等由参数指定。",
+        "workflow": [
+          "建议：先查看本机子命令帮助",
+          "建议：在独立输出目录导出样板设计",
+          "建议：检查层数和文件内容再接制造流程"
+        ],
+        "execution": "独立命令执行；7.0 手册说明 fp、pcb、sch、sym、version 五类子命令。命令集合随版本扩展。",
+        "failure": "退出码表未在本次核实；建议记录终端输出并检查产物，区别 gerber 与 gerbers。",
+        "prerequisites": "已安装对应 KiCad CLI；有保存的设计文件和输出目录权限。",
+        "version": "示例据 7.0 版本化手册，目标版以本机 --help 为准。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.kicad.org/7.0/en/cli/cli.html",
+            "https://dev-docs.kicad.org/en/apis-and-binding/ipc-api/for-addon-developers/"
+          ],
+          "locator": "CLI Introduction；PCB Gerber export: one layer per file。"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "kicad-cli pcb export gerbers example.kicad_pcb",
+          "sourceUrl": "https://docs.kicad.org/7.0/en/cli/cli.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "KiCad 官方：插件开发者的 IPC API 文档",
+        "url": "https://dev-docs.kicad.org/en/apis-and-binding/ipc-api/for-addon-developers/"
+      },
+      {
+        "title": "KiCad 官方 PCB 编辑器手册",
+        "url": "https://docs.kicad.org/master/ca/pcbnew/pcbnew.html"
+      },
+      {
+        "title": "KiCad 官方 7.0 命令行手册",
+        "url": "https://docs.kicad.org/7.0/en/cli/cli.html"
+      }
+    ]
+  },
+  {
+    "name": "Altium Designer",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "脚本系统仅支持 Delphi RTL 的子集。API 持续变化，部分旧示例可能失效，需结合实际版本复核。",
+      "humanEntry": "Projects 面板中的脚本项目；File » Run Script；脚本编辑器。",
+      "coverage": "在桌面设计会话里执行脚本并访问受支持的编辑器对象。",
+      "unknowns": [
+        "当前版 API 与旧文档/旧示例的差异。",
+        "各编辑器对象的写入事务与错误约定需查 API。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "DelphiScript",
+        "category": "program",
+        "entry": "脚本项目的 DelphiScript 单元/表单；File » Run Script 选择过程，编辑器可用 F9。",
+        "role": "自动执行设计任务或用表单承接用户输入。",
+        "direction": "用户/脚本 → Altium 会话；过程可返回或显示结果",
+        "operations": [
+          "创建脚本过程或表单",
+          "选择无参数入口执行",
+          "停止或调试脚本"
+        ],
+        "dataContract": "Delphi RTL 的子集与 Altium API；选择运行对话框仅显示无参数过程/函数，有参数过程由脚本内部调用。",
+        "workflow": [
+          "建议：新建脚本项目并加入单元",
+          "建议：将无参数过程设为入口",
+          "建议：用测试设计执行并核对结果"
+        ],
+        "execution": "依赖 Altium 应用内的脚本系统；Run » Stop 或 Ctrl+F3 可停止脚本。",
+        "failure": "建议使用编辑器调试，区分脚本入口未列出、编译问题与 API 对象无效；统一异常规范未核实。",
+        "prerequisites": "可运行脚本的 Altium 安装、脚本项目和受支持的运行时函数。",
+        "version": "官方提醒 API 更新会使旧示例失效，精确发布版未固定。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.altium.com/documentation/altium-designer/scripting/writing-scripts",
+            "https://www.altium.com/documentation/altium-designer/scripting/running-scripts"
+          ],
+          "locator": "Running the Script；A DelphiScript Form。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：新建脚本项目并加入单元 → 将无参数过程设为入口 → 用测试设计执行并核对结果",
+          "sourceUrl": "https://www.altium.com/documentation/altium-designer/scripting/writing-scripts"
+        }
+      },
+      {
+        "name": "Altium Designer Scripting API",
+        "category": "program",
+        "entry": "脚本内的 Client 与各编辑器对象接口；对象需要正确的活动设计文档。",
+        "role": "读取或修改设计对象、扩展编辑器操作。",
+        "direction": "脚本 ⇄ 设计文档与编辑器对象",
+        "operations": [
+          "访问编辑器对象接口",
+          "调用相应设计操作",
+          "将脚本绑定为应用命令"
+        ],
+        "dataContract": "对象接口随服务器/编辑器分开；教程提醒 PCB 对象脚本必须在对应文档上下文中执行。精确对象 Schema 和事务规则需查版本手册。",
+        "workflow": [
+          "建议：先打开并聚焦目标设计文档",
+          "建议：从官方对象示例检查读写范围",
+          "建议：在副本运行并保存后复核"
+        ],
+        "execution": "在 Altium 桌面会话内运行；ScriptingSystem:RunScript 可把脚本过程绑定到菜单/工具栏命令。",
+        "failure": "错误活动文档可能导致对象接口调用失败；建议先检查文档类型和对象有效性，再查脚本调试信息。",
+        "prerequisites": "对应设计编辑器、脚本支持和可编辑文档；云端 API 不在本条覆盖中。",
+        "version": "公开 API 文档包含旧版本内容，需对照安装版验证。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://valhalla.altium.com/Learning-Guides/TU0121%20Getting%20Started%20with%20Scripting.pdf",
+            "https://www.altium.com/documentation/altium-designer/scripting/running-scripts",
+            "https://www.altium.com/documentation/altium-designer/scripting/writing-scripts"
+          ],
+          "locator": "教程 Client/Object Interfaces；Running Scripts 的应用命令与定制入口。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先打开并聚焦目标设计文档 → 从官方对象示例检查读写范围 → 在副本运行并保存后复核",
+          "sourceUrl": "https://valhalla.altium.com/Learning-Guides/TU0121%20Getting%20Started%20with%20Scripting.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Altium Designer 官方产品页",
+        "url": "https://www.altium.com/altium-designer"
+      },
+      {
+        "title": "Altium 官方 DelphiScript 支持说明",
+        "url": "https://www.altium.com/documentation/altium-designer/scripting/delphiscript/support"
+      },
+      {
+        "title": "Altium 官方：编写脚本",
+        "url": "https://www.altium.com/documentation/altium-designer/scripting/writing-scripts"
+      },
+      {
+        "title": "Altium 官方：运行脚本",
+        "url": "https://www.altium.com/documentation/altium-designer/scripting/running-scripts"
+      },
+      {
+        "title": "Altium 官方脚本入门教程",
+        "url": "https://valhalla.altium.com/Learning-Guides/TU0121%20Getting%20Started%20with%20Scripting.pdf"
+      }
+    ]
+  },
+  {
+    "name": "Ansys HFSS",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "需要兼容的 AEDT 安装、HFSS 求解器授权和 PyAEDT 版本；可用导出取决于求解类型与结果状态。",
+      "humanEntry": "AEDT 的 HFSS 设计窗口；Python 的 PyAEDT；设计和求解结果导出。",
+      "coverage": "自动创建/连接设计、配置求解与后处理；工程文件和结果文件承担不同交换任务。",
+      "unknowns": [
+        "PyAEDT 与 AEDT/许可组合的完整兼容矩阵。",
+        "各求解类型支持的导出与远程部署安全配置。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "PyAEDT Hfss API",
+        "category": "program",
+        "entry": "Python 导入 Hfss 类，指定 project、design、version；可新建或连接已有 AEDT。",
+        "role": "以对象方式组织 HFSS 设计、求解和后处理。",
+        "direction": "Python ⇄ AEDT/HFSS",
+        "operations": [
+          "创建或连接设计",
+          "设置变量、边界和求解任务",
+          "访问报告并保存工程"
+        ],
+        "dataContract": "构造参数含工程、设计、求解类型、版本、进程和远程机器；方法返回类型逐方法定义。",
+        "workflow": [
+          "建议：固定 AEDT/PyAEDT 和求解器许可",
+          "建议：先连接测试工程并读取设计名",
+          "建议：提交受控求解，导出并按需要释放会话"
+        ],
+        "execution": "可选 non_graphical、new_desktop、close_on_exit。远程 machine/port 用法要求 2022 R2 及以上且服务端已启动。",
+        "failure": "工程锁存在且 remove_lock=False 时可抛异常；建议保留 logger 信息，检查设计/许可/连接。其他错误按具体方法返回值处理。",
+        "prerequisites": "兼容的 AEDT 与 HFSS 许可、PyAEDT 环境；远程需配置服务端。",
+        "version": "依据 stable 文档；version 参数中 261/2026.1 表示 2026.1，页面个别例文描述矛盾，未采用。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.hfss.Hfss.html"
+          ],
+          "locator": "Hfss Parameters：version、machine、remove_lock；Methods。"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "from ansys.aedt.core import Hfss\nhfss = Hfss()",
+          "sourceUrl": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.hfss.Hfss.html"
+        }
+      },
+      {
+        "name": "AEDT / AEDTZ",
+        "category": "file",
+        "entry": "Hfss(project=工程路径)；AEDT 桌面工程管理和归档。",
+        "role": "在会话间保存或传递工程。",
+        "direction": "工程文件 → AEDT；工程 → 保存/归档文件",
+        "operations": [
+          "打开 AEDT 工程或 AEDTZ 归档",
+          "save_project 保存工程",
+          "archive_project 归档"
+        ],
+        "dataContract": "project 接受名称或工程/归档路径；与设计引用、结果完整性相关的归档选项需对照具体方法。",
+        "workflow": [
+          "建议：确认路径和目标工程版本",
+          "建议：在独立目录打开工程并检查设计",
+          "建议：保存或归档后重开检查"
+        ],
+        "execution": "文件加载依赖 AEDT 会话；缺省 project 会尝试活动工程，必要时创建空工程。",
+        "failure": "建议核对锁、路径权限和工程缺失引用；构造示例显示未知名称可能新建工程，须确认打开的是预期文件。",
+        "prerequisites": "AEDT 安装及许可、可访问工程和依赖文件。",
+        "version": "stable 构造说明；跨 AEDT 版本向下兼容性未核实。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.hfss.Hfss.html"
+          ],
+          "locator": "Hfss 的 project 参数、Examples、save_project/archive_project 方法。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认路径和目标工程版本 → 在独立目录打开工程并检查设计 → 保存或归档后重开检查",
+          "sourceUrl": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.hfss.Hfss.html"
+        }
+      },
+      {
+        "name": "Touchstone sNp / CSV",
+        "category": "file",
+        "entry": "已求解 HFSS 设计的 export_touchstone 与 export_parametric_results。",
+        "role": "将网络参数和参数化结果交给外部分析。",
+        "direction": "HFSS 结果 → 文件",
+        "operations": [
+          "按 setup/sweep 导出 Touchstone",
+          "按参数化方案导出 CSV"
+        ],
+        "dataContract": "Touchstone 导出可指定 setup、sweep、变体和阻抗归一化；CSV 可选是否带单位。端口顺序与具体列定义需检查实际文件。",
+        "workflow": [
+          "建议：确认求解结果和方案名",
+          "建议：显式选择输出路径与单位/阻抗设置",
+          "建议：检查函数返回值并用外部工具核对数据"
+        ],
+        "execution": "调用现有结果的导出方法；本条不自动触发求解。",
+        "failure": "Touchstone 成功返回文件名、失败返回 False；CSV 成功 True、失败 False。建议同时检查输出存在性与数据维度。",
+        "prerequisites": "对应方案已计算且结果可用，输出路径可写。",
+        "version": "stable API；求解类型与结果支持范围依实际版本。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.hfss.Hfss.export_touchstone.html",
+            "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.hfss.Hfss.export_parametric_results.html"
+          ],
+          "locator": "两个方法的 Parameters、Returns 与 Examples。"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "hfss.export_parametric_results(\"ParametricSetup1\", \"results.csv\")",
+          "sourceUrl": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.hfss.Hfss.export_parametric_results.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Ansys HFSS 官方介绍",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v252/en/PDFs/An%20Introduction%20to%20HFSS.pdf"
+      },
+      {
+        "title": "PyAEDT 官方 Hfss API",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.hfss.Hfss.html"
+      },
+      {
+        "title": "PyAEDT 官方 Hfss.export_touchstone",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.hfss.Hfss.export_touchstone.html"
+      },
+      {
+        "title": "PyAEDT 官方 Hfss.export_parametric_results",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.hfss.Hfss.export_parametric_results.html"
+      }
+    ]
+  },
+  {
+    "name": "Victory TCAD / DeckBuild",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "Victory Process、Victory Device 等求解器与 DeckBuild/Interactive Tools 的模块及授权需分别确认；部分官方手册需账号。此处的 Python 接口属于 DeckBuild。",
+      "humanEntry": "DeckBuild 的输入编辑、逐行调试和运行窗口；Victory Visual 查看结果。",
+      "coverage": "控制 TCAD 输入流程与参数提取；Python 扩展位于 DeckBuild。",
+      "unknowns": [
+        "当前版 Python 模块的公开签名、返回类型和异常规范。",
+        "DeckBuild 与具体求解器的许可组合。",
+        "核查时 Victory Visual 产品页正文访问受限；Python 模块能力沿用已核查官方说明，精确开发契约仍缺公开证据。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "DeckBuild 仿真 deck",
+        "category": "program",
+        "entry": "DeckBuild 输入 deck 编辑器与运行环境。",
+        "role": "编排工艺/器件计算并提取参数。",
+        "direction": "输入 deck → 求解器；结果 → 提取/可视化",
+        "operations": [
+          "变量、循环和条件控制",
+          "SOURCE 引入外部文件",
+          "EXTRACT 提取工艺/器件参数"
+        ],
+        "dataContract": "输入 deck 含求解器语句及流程控制；EXTRACT 可产出厚度、电压和曲线等结果，具体语法依求解器。",
+        "workflow": [
+          "建议：从安装版官方示例确认所需求解器",
+          "建议：逐行运行小 deck 并核对输入结构",
+          "建议：查看提取曲线与日志再批量执行"
+        ],
+        "execution": "DeckBuild 提供逐行运行、调试和流程集成；SOURCE 例程依赖 Victory Device 2D。",
+        "failure": "官方产品简介确认有错误信息与调试功能；退出码、失败续跑规则与完整诊断字段未核实。",
+        "prerequisites": "DeckBuild 和 deck 需要的求解器；示例目录及关联输入文件。",
+        "version": "示例按所装版本适用；SOURCE 官方案例标明模块需求。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://silvaco.com/wp-content/uploads/product/pdf/Interactive_Tools_brief.pdf",
+            "https://silvaco.com/examples/examples-tcad/examples-tcad-tool/examples-tcad-tool-deckbuild/examples-tcad-tool-deckbuild-deckbuild/deckbuild-ex04/"
+          ],
+          "locator": "Interactive Tools：TCAD Input Deck and Runtime Environment；SOURCE 示例 Required Modules。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从安装版官方示例确认所需求解器 → 逐行运行小 deck 并核对输入结构 → 查看提取曲线与日志再批量执行",
+          "sourceUrl": "https://silvaco.com/wp-content/uploads/product/pdf/Interactive_Tools_brief.pdf"
+        }
+      },
+      {
+        "name": "DeckBuild Python 3 模块",
+        "category": "program",
+        "entry": "DeckBuild 集成的 Python 3 扩展环境。",
+        "role": "定制仿真控制、提取逻辑与界面组件。",
+        "direction": "Python ⇄ DeckBuild/仿真流程",
+        "operations": [
+          "控制仿真器",
+          "扩展参数提取",
+          "扩展 GUI 组件"
+        ],
+        "dataContract": "官方产品页确认功能范围；模块导入名、对象 Schema、方法签名及输出类型未公开核实。",
+        "workflow": [
+          "建议：获取安装版 Python 模块文档和示例",
+          "建议：核对可访问的仿真器及函数签名",
+          "建议：先验证只读提取再增加控制操作"
+        ],
+        "execution": "宿主为 DeckBuild；是否支持独立 Python 进程及会话释放方式未核实。",
+        "failure": "异常、取消、超时和重入规则未核实；建议查安装版手册并保留宿主日志。",
+        "prerequisites": "DeckBuild、匹配 Python 环境和相关求解器许可；部分手册需客户账号。",
+        "version": "官方页面只说明 Python 3，未给出本次可核实的模块版本。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://silvaco.com/solutions/ftco/victory-visual/"
+          ],
+          "locator": "DeckBuild — the run-time environment；Can I script or automate it with Python。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：获取安装版 Python 模块文档和示例 → 核对可访问的仿真器及函数签名 → 先验证只读提取再增加控制操作",
+          "sourceUrl": "https://silvaco.com/solutions/ftco/victory-visual/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Silvaco 官方 Interactive Tools 产品简介",
+        "url": "https://silvaco.com/wp-content/uploads/product/pdf/Interactive_Tools_brief.pdf"
+      },
+      {
+        "title": "Silvaco 官方：Victory Visual 与 DeckBuild",
+        "url": "https://silvaco.com/solutions/ftco/victory-visual/"
+      },
+      {
+        "title": "Silvaco 官方 DeckBuild SOURCE 示例",
+        "url": "https://silvaco.com/examples/examples-tcad/examples-tcad-tool/examples-tcad-tool-deckbuild/examples-tcad-tool-deckbuild-deckbuild/deckbuild-ex04/"
+      }
+    ]
+  },
+  {
+    "name": "NX / NX CAM",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "CAD/CAM 功能及 NX Open 开发、执行权限随版本、产品包和授权变化；数控输出需要适配机床的后处理器。",
+      "humanEntry": "NX 的 CAD/CAM 工作区；NX Open 开发环境；CAM 后处理与机床仿真。",
+      "coverage": "自动化设计/加工准备，并将刀路转为指定机床的 NC 输出。",
+      "unknowns": [
+        "当前发布版 NX Open 函数、运行入口和签名/授权要求。",
+        "目标机床后处理器的配置、许可和验证状态。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "NX Open",
+        "category": "program",
+        "entry": "NX Common API 的语言库及开发工具；具体装载入口需查安装版帮助。",
+        "role": "自动化 CAD/CAM 应用操作。",
+        "direction": "应用程序 ⇄ NX 对象",
+        "operations": [
+          "通过受支持语言访问 NX 功能",
+          "创建定制自动化程序"
+        ],
+        "dataContract": "官方培训列明 Visual Basic.NET、C#、C/C++、Python、Java；精确对象模型、函数返回及事务规则需查询版本化开发文档。",
+        "workflow": [
+          "建议：固定 NX 版本和需调用模块",
+          "建议：核对 Author 开发许可及运行权限",
+          "建议：从安装版官方样例验证入口和一项设计操作"
+        ],
+        "execution": "开发与执行是不同授权场景；公共产品册确认有 NX Open Python Author，当前许可细则需向支持核实。",
+        "failure": "公开课程不提供错误码或线程约定；建议查安装版 API 异常与对象生命周期说明。",
+        "prerequisites": "NX、目标模块、对应开发库和编译/解释环境；开发授权依产品包。",
+        "version": "课程版本 1926.0；Author 依据较早产品册，未据此确认当前全部许可规则。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=TR-OPENAPI____NX___1926.0_B3",
+            "https://blogs.sw.siemens.com/wp-content/uploads/sites/2/2020/11/NX-Add-on-Module-Brochure.pdf"
+          ],
+          "locator": "NX Open API 课程简介；Add-on Module 产品册 NX Open Python Author。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：固定 NX 版本和需调用模块 → 核对 Author 开发许可及运行权限 → 从安装版官方样例验证入口和一项设计操作",
+          "sourceUrl": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=TR-OPENAPI____NX___1926.0_B3"
+        }
+      },
+      {
+        "name": "G-code / NC 程序",
+        "category": "file",
+        "entry": "NX CAM 后处理；G-code 驱动机床仿真。",
+        "role": "把加工计划转为与机床配置匹配的程序。",
+        "direction": "刀路 → 后处理 → NC 文件",
+        "operations": [
+          "生成 NC 程序",
+          "按机床配置后处理",
+          "以 G-code 检查机床运动"
+        ],
+        "dataContract": "NC 程序依机床控制器和后处理器约定；通用产品页没有给出控制器方言或数据 Schema。",
+        "workflow": [
+          "建议：选择实际机床/控制器与后处理",
+          "建议：生成测试件程序并执行软件仿真",
+          "建议：复核坐标、刀具与加工结果后进入现场验证"
+        ],
+        "execution": "文件生成与仿真位于 CAM 流程；仿真通过不等于已经在实机执行。",
+        "failure": "建议检查后处理消息、运动干涉和坐标设置；本次未核实后处理器状态码与现场传输协议。",
+        "prerequisites": "NX CAM 许可、适配后处理器和机床模型。",
+        "version": "产品页确认能力，精确后处理器版本未核实。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.siemens.com/en-us/products/nx-manufacturing/cam-software/"
+          ],
+          "locator": "Postprocessing；Machining simulation；Integrated simulation。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择实际机床/控制器与后处理 → 生成测试件程序并执行软件仿真 → 复核坐标、刀具与加工结果后进入现场验证",
+          "sourceUrl": "https://www.siemens.com/en-us/products/nx-manufacturing/cam-software/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens 官方 NX CAM 软件",
+        "url": "https://www.siemens.com/en-us/products/nx-manufacturing/cam-software/"
+      },
+      {
+        "title": "Siemens Xcelerator Academy：NX Open API",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=TR-OPENAPI____NX___1926.0_B3"
+      },
+      {
+        "title": "Siemens 官方 NX Add-on Module 产品册",
+        "url": "https://blogs.sw.siemens.com/wp-content/uploads/sites/2/2020/11/NX-Add-on-Module-Brochure.pdf"
+      }
+    ]
+  },
+  {
+    "name": "SOLIDWORKS Design",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "依据为 SOLIDWORKS 2025 API 开发说明；需要相应软件安装、SDK 和 Visual Studio。PDM 与 Document Manager 另有 API 和授权要求。",
+      "humanEntry": "SOLIDWORKS 设计会话与宏；Visual Studio 中的 API 插件模板。",
+      "coverage": "通过 SOLIDWORKS 对象模型扩展设计操作；本条不涵盖 PDM/Document Manager 的接口。",
+      "unknowns": [
+        "具体方法的返回码、对象释放和线程规则。",
+        "所需 API 是否属于目标版本/模块。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "SOLIDWORKS API / API SDK",
+        "category": "program",
+        "entry": "安装媒体中的 API SDK；Visual Studio 的 C#/VB.NET 插件模板、C++/CLI COM 向导；软件中的宏运行入口。",
+        "role": "将设计操作封装为宏或插件。",
+        "direction": "宏/插件 ⇄ SOLIDWORKS 设计对象",
+        "operations": [
+          "使用 SDK 模板开发插件",
+          "通过对象模型访问设计对象",
+          "执行已有宏"
+        ],
+        "dataContract": "对象模型从 SldWorks 展开；具体设计对象和读写操作需核查相应 API 方法，SDK 安装说明本身不定义全部返回值。",
+        "workflow": [
+          "建议：核对软件、Visual Studio 与 SDK",
+          "建议：用官方模板建立最小插件或宏",
+          "建议：在设计副本验证读取/修改与卸载行为"
+        ],
+        "execution": "宏与插件都依赖宿主环境；装载、卸载和会话连接方式需查所选模板。",
+        "failure": "建议按方法查看返回值/错误枚举，并核对活动文档类型；统一错误和线程约定未逐项核实。",
+        "prerequisites": "SOLIDWORKS 安装、匹配 API SDK、Visual Studio 和目标设计模块许可。",
+        "version": "SDK 入门及对象图为 2025；宏入口资料为 2024，需核对当前菜单和模板兼容性。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.solidworks.com/2025/english/api/sldworksapiprogguide/GettingStarted/SolidWorks_API_Getting_Started_Overview.htm",
+            "https://help.solidworks.com/2024/english/api/sldworksapiprogguide/GettingStarted/Run_SolidWorks_Macro.htm?id=1.2.1.2",
+            "https://help.solidworks.com/2025/english/api/sldworksapi/SWObjectModel.pdf"
+          ],
+          "locator": "Getting Started Overview：SDK 安装与插件模板；API Access Diagram；Run SOLIDWORKS Macro。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对软件、Visual Studio 与 SDK → 用官方模板建立最小插件或宏 → 在设计副本验证读取/修改与卸载行为",
+          "sourceUrl": "https://help.solidworks.com/2025/english/api/sldworksapiprogguide/GettingStarted/SolidWorks_API_Getting_Started_Overview.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "SOLIDWORKS Design 官方产品页",
+        "url": "https://www.solidworks.com/product/solidworks-design"
+      },
+      {
+        "title": "SOLIDWORKS 2025 API 入门概览",
+        "url": "https://help.solidworks.com/2025/english/api/sldworksapiprogguide/GettingStarted/SolidWorks_API_Getting_Started_Overview.htm"
+      },
+      {
+        "title": "SOLIDWORKS 官方 2024 运行宏说明",
+        "url": "https://help.solidworks.com/2024/english/api/sldworksapiprogguide/GettingStarted/Run_SolidWorks_Macro.htm?id=1.2.1.2"
+      },
+      {
+        "title": "SOLIDWORKS 官方 2025 API 对象图",
+        "url": "https://help.solidworks.com/2025/english/api/sldworksapi/SWObjectModel.pdf"
+      }
+    ]
+  },
+  {
+    "name": "Mastercam",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "SDK 获取与详细开发文档依赖开发者计划；当前 SDK 精确版本未核实。多轴、机床仿真和后处理器能力随模块及机床配置变化。",
+      "humanEntry": "CAD/CAM 加工编程环境；第三方开发者计划；后处理输出。",
+      "coverage": "插件/API 定制与 NC 文件生成；详细开发契约主要需 SDK 文档。",
+      "unknowns": [
+        "当前 C-Hook SDK 的获取条件、版本和完整签名。",
+        "插件生命周期、线程、返回码和异常约定。",
+        "核查时第三方开发者页只返回有限正文；SDK 的当前申请和获取步骤需通过官方开发者渠道确认。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "C-Hook SDK / 开放 API",
+        "category": "program",
+        "entry": "Mastercam 第三方开发者计划取得 SDK；插件装载入口需按 SDK 版本确认。",
+        "role": "定制 CAM 功能与加工流程。",
+        "direction": "定制程序 ⇄ Mastercam",
+        "operations": [
+          "扩展软件功能",
+          "自动化重复加工准备"
+        ],
+        "dataContract": "官方资料确认 C-Hook SDK 和开放 API；具体几何、刀路对象、函数签名与返回类型未在公开资料核实。",
+        "workflow": [
+          "建议：申请对应版本开发资料",
+          "建议：核对对象与目标模块的访问权限",
+          "建议：以官方 SDK 示例验证装载、操作和退出"
+        ],
+        "execution": "插件与宿主版本、模块配置相关；当前精确生命周期未公开核实。",
+        "failure": "建议先查 SDK 的错误约定、对象所有权和调试方式；不能依据产品宣传建立错误处理逻辑。",
+        "prerequisites": "开发者计划/SDK、Mastercam 安装及对应加工模块许可。",
+        "version": "未核实当前 SDK 精确版本；核查时开发者页可读正文有限，产品页仍确认开放 API。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.mastercam.com/community/3rd-party-developers/",
+            "https://www.mastercam.com/solutions/products/mill-solutions/"
+          ],
+          "locator": "Third-Party Developers；Mill 的 Powerful Customization。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：申请对应版本开发资料 → 核对对象与目标模块的访问权限 → 以官方 SDK 示例验证装载、操作和退出",
+          "sourceUrl": "https://www.mastercam.com/community/3rd-party-developers/"
+        }
+      },
+      {
+        "name": "G-code / 后处理输出",
+        "category": "file",
+        "entry": "CAM 刀路完成后的机床后处理器。",
+        "role": "将加工路径输出为 CNC 加工指令。",
+        "direction": "CAM 刀路 → NC 程序",
+        "operations": [
+          "生成加工路径",
+          "经后处理输出 G-code",
+          "检查加工操作"
+        ],
+        "dataContract": "格式与机床控制器/后处理器相关；官方概览未给出各控制器方言或固定扩展名。",
+        "workflow": [
+          "建议：匹配机床与加工模块",
+          "建议：生成样板件刀路和 NC 文件",
+          "建议：复核仿真与程序，再按工厂流程验证"
+        ],
+        "execution": "生成的是机床程序文件，后续传输和机床执行单独验证。",
+        "failure": "建议核查后处理警告、坐标、刀具和机床运动；自动验收判据和错误码未核实。",
+        "prerequisites": "Mastercam 加工模块、机床适配的后处理器及模型。",
+        "version": "产品页确认工作流；具体后处理器发布版未核实。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.mastercam.com/solutions/products/",
+            "https://www.mastercam.com/solutions/products/mill-solutions/"
+          ],
+          "locator": "CAD/CAM Software FAQs；Mill 的 Powerful Customization。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：匹配机床与加工模块 → 生成样板件刀路和 NC 文件 → 复核仿真与程序，再按工厂流程验证",
+          "sourceUrl": "https://www.mastercam.com/solutions/products/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Mastercam 官方第三方开发者计划",
+        "url": "https://www.mastercam.com/community/3rd-party-developers/"
+      },
+      {
+        "title": "Mastercam 官方铣削产品说明",
+        "url": "https://www.mastercam.com/solutions/products/mill-solutions/"
+      },
+      {
+        "title": "Mastercam 官方产品与 CAD/CAM 工作流",
+        "url": "https://www.mastercam.com/solutions/products/"
+      }
+    ]
+  },
+  {
+    "name": "RobotStudio",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "2026 SDK 要求旧 .NET Framework 插件迁移。引用 ABB.Robotics.RobotStudio.dll 的插件运行需 Premium；控制器访问另受 RobotWare、权限和配置约束。",
+      "humanEntry": "工作站建模与仿真界面；Add-Ins；控制器连接界面。",
+      "coverage": "工作站 SDK 扩展仿真应用；PC SDK 连接真实/虚拟 ABB 控制器。",
+      "unknowns": [
+        "旧插件向 .NET 10 的迁移工作量。",
+        "RobotWare、控制器系统选项与目标 API 权限。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "RobotStudio SDK",
+        "category": "program",
+        "entry": ".rsaddin 清单和程序集；HostedAddInBase 回调或插件入口；SmartComponents。",
+        "role": "扩展工作站、仿真和交互工具。",
+        "direction": "插件 ⇄ RobotStudio 工作站",
+        "operations": [
+          "创建插件和 SmartComponents",
+          "访问工作站与仿真功能",
+          "响应激活/停用与装载事件"
+        ],
+        "dataContract": "基于 .NET 程序集和 SDK 对象；.rsaddin 指向程序集。具体工作站对象及操作需查 API 参考。",
+        "workflow": [
+          "建议：用安装版模板创建插件",
+          "建议：核对 .rsaddin 与程序集路径",
+          "建议：在测试工作站检查激活、停用和卸载行为"
+        ],
+        "execution": "官方说明可延迟加载；OnLoad 首次装载时调用，激活/停用有相应回调。入口避免长时间阻塞主初始化线程。",
+        "failure": "同应用域插件可使宿主崩溃；建议先验证装载路径、依赖和版本，保留调试/宿主日志。",
+        "prerequisites": "2026 SDK 依赖 .NET 10 与对应环境；引用 ABB.Robotics.RobotStudio.dll 的运行需 Premium。",
+        "version": "2026 SDK；旧 .NET Framework 插件需迁移，具体开发工具要求以安装指南为准。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://developercenter.robotstudio.com/api/robotstudio/",
+            "https://developercenter.robotstudio.com/api/robotstudio/articles/Introduction/Installation.html",
+            "https://developercenter.robotstudio.com/api/robotstudio/articles/Concepts/AddinConcept/LoadingAdd-In.html"
+          ],
+          "locator": "SDK Migration；Installation Licensing；Loading of Add-Ins。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：用安装版模板创建插件 → 核对 .rsaddin 与程序集路径 → 在测试工作站检查激活、停用和卸载行为",
+          "sourceUrl": "https://developercenter.robotstudio.com/api/robotstudio/"
+        }
+      },
+      {
+        "name": "PC SDK",
+        "category": "runtime",
+        "entry": "独立 .NET 应用或 RobotStudio 插件；Controller 连接真实/虚拟 IRC5、OmniCore。",
+        "role": "读取控制器数据、控制允许的资源并接收状态事件。",
+        "direction": "应用 ⇄ 控制器",
+        "operations": [
+          "连接并登录控制器",
+          "访问 RAPID/配置等受权域",
+          "监听控制器状态事件"
+        ],
+        "dataContract": "Controller 对象与各领域对象；写部分域需 Mastership 和用户权限，事件提供状态变化。",
+        "workflow": [
+          "建议：先在虚拟控制器验证连接和权限",
+          "建议：读取初始状态，再订阅变化",
+          "建议：修改时申请并释放 Mastership，结束时清理订阅和资源"
+        ],
+        "execution": "独立应用需登录/退出；当前 Controller 参考说明 RobotStudio 插件由宿主处理登录。需显式 Dispose；控制器事件在独立线程到达。",
+        "failure": "连接/权限和 Mastership 需核对；事件不保证初次触发，须主动读初始状态。旧 ReleaseUnmanagedResources 自 5.60 起无效。",
+        "prerequisites": "PC SDK、控制器网络与账号权限；RobotWare 和 SDK 版本匹配。",
+        "version": "当前 SDK 支持 .NET 10/.NET Framework 4.8；2026.1 及以后 RobotStudio 插件须 .NET 10。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://developercenter.robotstudio.com/api/pcsdk/",
+            "https://developercenter.robotstudio.com/api/pcsdk/articles/Manual/Using-the-PC-SDK/Accessing-the-controller.html",
+            "https://developercenter.robotstudio.com/api/pcsdk/api/ABB.Robotics.Controllers.Controller.html"
+          ],
+          "locator": "PC SDK 首页；Accessing the controller：Logon、Mastership、events、Dispose；Controller Logon/Logoff Remarks。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先在虚拟控制器验证连接和权限 → 读取初始状态，再订阅变化 → 修改时申请并释放 Mastership，结束时清理订阅和资源",
+          "sourceUrl": "https://developercenter.robotstudio.com/api/pcsdk/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "ABB 官方 RobotStudio SDK",
+        "url": "https://developercenter.robotstudio.com/api/robotstudio/"
+      },
+      {
+        "title": "ABB 官方 SDK 安装与授权",
+        "url": "https://developercenter.robotstudio.com/api/robotstudio/articles/Introduction/Installation.html"
+      },
+      {
+        "title": "ABB 官方 PC SDK",
+        "url": "https://developercenter.robotstudio.com/api/pcsdk/"
+      },
+      {
+        "title": "ABB 官方：插件加载生命周期",
+        "url": "https://developercenter.robotstudio.com/api/robotstudio/articles/Concepts/AddinConcept/LoadingAdd-In.html"
+      },
+      {
+        "title": "ABB 官方：PC SDK 访问控制器",
+        "url": "https://developercenter.robotstudio.com/api/pcsdk/articles/Manual/Using-the-PC-SDK/Accessing-the-controller.html"
+      },
+      {
+        "title": "ABB 官方 Controller 类",
+        "url": "https://developercenter.robotstudio.com/api/pcsdk/api/ABB.Robotics.Controllers.Controller.html"
+      }
+    ]
+  },
+  {
+    "name": "TwinCAT 3",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "OPC UA 需要 TF6100 相应组件与授权；ADS 路由、系统权限和安全配置需按部署环境确认。",
+      "humanEntry": "XAE 工程环境与 XAR 运行系统；ADS 客户端；TF6100 配置与测试客户端。",
+      "coverage": "运行时变量和状态通信；OPC UA 由 TF6100 组件提供。",
+      "unknowns": [
+        "具体 ADS 服务的索引、数据类型及运行时端口。",
+        "TF6100 支持的服务、证书与变量暴露配置。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "ADS",
+        "category": "runtime",
+        "entry": "TwinCAT 消息路由与 ADS 服务；外部应用通常通过 ADS 客户端库。",
+        "role": "交换运行时变量、过程映像和状态。",
+        "direction": "客户端 ⇄ ADS 设备；通知由设备推送",
+        "operations": [
+          "读取/写入数据",
+          "查询符号和状态",
+          "订阅变化通知"
+        ],
+        "dataContract": "服务针对 ADS 设备与索引/数据长度；ReadWrite 响应含 Result 和返回数据，Result 为 ADS 错误号。",
+        "workflow": [
+          "建议：确认目标运行时地址、端口和路由",
+          "建议：从已知变量只读请求检查类型长度",
+          "建议：再按权限验证写入和通知"
+        ],
+        "execution": "官方说明支持同步/异步、周期/事件方式；实际调用模式由客户端和服务选择。",
+        "failure": "检查 ADS 错误号与路由/服务目标；建议区分连接成功、请求成功和业务状态正确。",
+        "prerequisites": "运行中的 TwinCAT 目标、已配置 ADS 路由、目标数据访问权限。",
+        "version": "TwinCAT 3 官方协议说明；具体设备服务范围按运行时文档。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://infosys.beckhoff.com/content/1033/tcinfosys3/11291871243.html",
+            "https://infosys.beckhoff.com/content/1033/tc3_grundlagen/115884043.html"
+          ],
+          "locator": "ADS 功能列表；ADS Read Write 的请求/响应数据结构。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认目标运行时地址、端口和路由 → 从已知变量只读请求检查类型长度 → 再按权限验证写入和通知",
+          "sourceUrl": "https://infosys.beckhoff.com/content/1033/tcinfosys3/11291871243.html"
+        }
+      },
+      {
+        "name": "ADS C/C++ / .NET",
+        "category": "program",
+        "entry": "安装 ADS C/C++ 或 .NET 组件，调用客户端读写和通知 API。",
+        "role": "把自定义上层应用接入 ADS。",
+        "direction": "应用 ⇄ ADS 运行时",
+        "operations": [
+          "同步 ReadWrite",
+          "接收 AdsNotification",
+          "访问可用 ADS 服务"
+        ],
+        "dataContract": ".NET 手册为读写缓冲、索引和通知定义接口；每个值的类型、大小和地址须与目标符号/服务一致。",
+        "workflow": [
+          "建议：匹配库版本与目标运行时",
+          "建议：测试已知类型的读取和返回检查",
+          "建议：核对通知订阅及应用退出的资源释放"
+        ],
+        "execution": "本次手册确认同步 ReadWrite 和事件通知；不同 API 代际的异步/句柄释放签名需查具体版本。",
+        "failure": "建议检查每次调用的错误返回/异常和数据长度；通知回调线程约定未逐项核实。",
+        "prerequisites": "官方库、运行时地址与 ADS 路由；库本身可从 Beckhoff 获取，目标运行时许可另核对。",
+        "version": "手册版本和所用 Ads .NET 代际需匹配；不混用旧版方法签名。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://infosys.beckhoff.com/content/1033/tcinfosys3/4340785803.html",
+            "https://download.beckhoff.com/download/Document/automation/twincat3/TwinCAT_3_ADS_NET_EN.pdf"
+          ],
+          "locator": "Technologies 的 ADS 组件；ADS .NET 手册 ReadWrite、AdsNotification。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：匹配库版本与目标运行时 → 测试已知类型的读取和返回检查 → 核对通知订阅及应用退出的资源释放",
+          "sourceUrl": "https://infosys.beckhoff.com/content/1033/tcinfosys3/4340785803.html"
+        }
+      },
+      {
+        "name": "OPC UA（TF6100）",
+        "category": "runtime",
+        "entry": "TF6100 Server/Client；Configurator 与官方 Sample Client。",
+        "role": "以 OPC UA 暴露 TwinCAT 运行时或连接其他服务端。",
+        "direction": "UA 客户端 ⇄ 服务器；可用操作受节点权限控制",
+        "operations": [
+          "配置 Server 对运行时的访问",
+          "使用 Client 连接远端服务器",
+          "用 Sample Client 验证节点数据"
+        ],
+        "dataContract": "客户端使用服务器端点和节点地址；可见变量及类型由服务器配置，精确命名空间和访问权限需实机确认。",
+        "workflow": [
+          "建议：核对 TF6100 组件、许可和变量配置",
+          "建议：用官方 Sample Client 检查端点与证书",
+          "建议：浏览节点并核验类型、读写权限"
+        ],
+        "execution": "Server、Client、Configurator、Gateway 各有角色；快速开始使用本机 opc.tcp://localhost:4840，现场地址由部署配置。",
+        "failure": "建议检查连接/证书和运行时映射；本次未核实各版本状态码和断线恢复策略。",
+        "prerequisites": "对应 TF6100 模块/许可、TwinCAT 运行时、证书及网络权限。",
+        "version": "TF6100 产品族；核查时概览原链接访问受限，组件说明依据先前核查与官方快速开始。",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_gateway/15549189643.html",
+            "https://infosys.beckhoff.com/content/1031/tf6100_tc3_opcua_server/15618696331.html"
+          ],
+          "locator": "TF6100 Overview 组件表；OPC UA Server Quick Start。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对 TF6100 组件、许可和变量配置 → 用官方 Sample Client 检查端点与证书 → 浏览节点并核验类型、读写权限",
+          "sourceUrl": "https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_gateway/15549189643.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Beckhoff 官方 TwinCAT ADS",
+        "url": "https://infosys.beckhoff.com/content/1033/tcinfosys3/11291871243.html"
+      },
+      {
+        "title": "Beckhoff 官方 TwinCAT 技术接口",
+        "url": "https://infosys.beckhoff.com/content/1033/tcinfosys3/4340785803.html"
+      },
+      {
+        "title": "Beckhoff 官方 TF6100 组件概览",
+        "url": "https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_gateway/15549189643.html"
+      },
+      {
+        "title": "Beckhoff 官方 ADS Read Write",
+        "url": "https://infosys.beckhoff.com/content/1033/tc3_grundlagen/115884043.html"
+      },
+      {
+        "title": "Beckhoff 官方 TwinCAT 3 ADS .NET 手册",
+        "url": "https://download.beckhoff.com/download/Document/automation/twincat3/TwinCAT_3_ADS_NET_EN.pdf"
+      },
+      {
+        "title": "Beckhoff 官方 OPC UA Server 快速开始",
+        "url": "https://infosys.beckhoff.com/content/1031/tf6100_tc3_opcua_server/15618696331.html"
+      }
+    ]
+  },
+  {
+    "name": "Ignition",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "功能取决于安装模块、驱动、授权和连接权限；8.3 函数需按 Gateway/Perspective 等作用域核实。",
+      "humanEntry": "Gateway 的 Connections > OPC；Designer/项目脚本与 Gateway/Perspective 作用域。",
+      "coverage": "OPC UA 设备通信和服务器接入；system.opcua 管理连接并调用方法。",
+      "unknowns": [
+        "驱动/模块许可及设备支持范围。",
+        "目标服务器的节点、方法输入和写权限。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "OPC UA（OPC UA 模块）",
+        "category": "runtime",
+        "entry": "Gateway 配置设备驱动或第三方 OPC UA 连接；Quick Client 浏览并验证值。",
+        "role": "采集设备数据或向其他系统提供 UA 数据。",
+        "direction": "Ignition ⇄ 设备/外部 UA 服务",
+        "operations": [
+          "配置设备或 UA 连接",
+          "浏览节点并查看实时值",
+          "检查服务器与订阅诊断"
+        ],
+        "dataContract": "UA 端点、节点标识、数据类型和访问权限由目标服务器决定。连接可设只读，此时所有写入失败。",
+        "workflow": [
+          "建议：在 Gateway 建立受支持连接",
+          "建议：用 Quick Client 核对节点和值",
+          "建议：检查连接详情后配置项目采集"
+        ],
+        "execution": "连接有启用/故障状态和运行时间；详情页分服务器、客户端诊断，客户端列订阅与发布速率。",
+        "failure": "Faulted 状态可打开错误详情；服务器诊断默认关闭且部分服务器不支持。建议检查证书、身份与只读设置。",
+        "prerequisites": "OPC UA 模块、受支持驱动/设备或外部服务器、网络和身份/证书配置。",
+        "version": "8.3 文档；8.3.3 调整身份验证选项，8.3.9 的诊断启用另有角色要求。",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.docs.inductiveautomation.com/docs/8.3/ignition-modules/opc-ua",
+            "https://www.docs.inductiveautomation.com/docs/8.3/ignition-modules/opc-ua/opc-ua-connections"
+          ],
+          "locator": "OPC UA：Quick Client；Connections：Status、Diagnostic Information、Read Only。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在 Gateway 建立受支持连接 → 用 Quick Client 核对节点和值 → 检查连接详情后配置项目采集",
+          "sourceUrl": "https://www.docs.inductiveautomation.com/docs/8.3/ignition-modules/opc-ua"
+        }
+      },
+      {
+        "name": "system.opcua",
+        "category": "program",
+        "entry": "Gateway 或 Perspective Session 的 Python 脚本。",
+        "role": "以脚本新增/删除 UA 连接并调用 UA 方法。",
+        "direction": "脚本 → 连接配置；脚本 ⇄ UA 方法",
+        "operations": [
+          "addConnection 新增连接",
+          "removeConnection 删除连接",
+          "callMethod 调用对象方法"
+        ],
+        "dataContract": "callMethod 输入连接名、对象 NodeId、方法 NodeId、参数列表；返回调用 StatusCode、各输入 StatusCode、输出值三元组。addConnection 无返回值。",
+        "workflow": [
+          "建议：先确定服务器方法及参数类型",
+          "建议：使用明确连接名与 NodeId 调用",
+          "建议：检查总状态和每个参数状态，再处理输出"
+        ],
+        "execution": "8.3 列明 Gateway、Perspective Session 作用域；方法调用的端到端超时/线程约定需结合服务器和运行上下文核对。",
+        "failure": "callMethod 返回的 StatusCode 包含值、名称、描述；建议同时核对输入参数状态，连接创建需回看连接状态。",
+        "prerequisites": "已建立且受权的 UA 连接，方法存在并允许调用；配置函数需正确安全策略与会话设置。",
+        "version": "Ignition 8.3，页面更新 2026-09-08。",
+        "implementation": "内置接口",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.inductiveautomation.com/docs/8.3/appendix/scripting-functions/system-opcua/system-opcua-callMethod",
+            "https://docs.inductiveautomation.com/docs/8.3/appendix/scripting-functions/system-opcua/system-opcua-addConnection"
+          ],
+          "locator": "callMethod 的 Syntax、Returns、StatusCode；addConnection 的 Parameters、Returns、Scope。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先确定服务器方法及参数类型 → 使用明确连接名与 NodeId 调用 → 检查总状态和每个参数状态，再处理输出",
+          "sourceUrl": "https://docs.inductiveautomation.com/docs/8.3/appendix/scripting-functions/system-opcua/system-opcua-callMethod"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Ignition 官方 OPC UA 模块说明",
+        "url": "https://s3.amazonaws.com/files.inductiveautomation.com/sellsheets/modules/ProductDataSheet-Module-OPCUA.pdf"
+      },
+      {
+        "title": "Ignition 8.3 官方 system.opcua 文档",
+        "url": "https://docs.inductiveautomation.com/docs/8.3/appendix/scripting-functions/system-opcua"
+      },
+      {
+        "title": "Ignition 官方工业应用平台说明",
+        "url": "https://assets.inductiveautomation.com/static/pdf/Product%20Sheet_Ignitionv7.9.bd5cdac4bb33.pdf"
+      },
+      {
+        "title": "Ignition 官方 8.3 OPC UA 模块手册",
+        "url": "https://www.docs.inductiveautomation.com/docs/8.3/ignition-modules/opc-ua"
+      },
+      {
+        "title": "Ignition 官方 8.3 OPC UA 连接与诊断",
+        "url": "https://www.docs.inductiveautomation.com/docs/8.3/ignition-modules/opc-ua/opc-ua-connections"
+      },
+      {
+        "title": "Ignition 官方 8.3 callMethod",
+        "url": "https://docs.inductiveautomation.com/docs/8.3/appendix/scripting-functions/system-opcua/system-opcua-callMethod"
+      },
+      {
+        "title": "Ignition 官方 8.3 addConnection",
+        "url": "https://docs.inductiveautomation.com/docs/8.3/appendix/scripting-functions/system-opcua/system-opcua-addConnection"
+      }
+    ]
+  },
+  {
+    "name": "CATIA V5",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "CAA 安装指南基于 V5-6R2025；需匹配版本、编译器和开发授权。完整开发指南需 Support 访问权限。3DEXPERIENCE CATIA 的接口适配需另行核实。",
+      "humanEntry": "CATIA V5 设计工作台；CAA 开发与调试环境。",
+      "coverage": "以 CAA 扩展 V5 功能，重点在编译部署的开发接口。",
+      "unknowns": [
+        "具体 CAA 组件的对象模型、函数与错误契约。",
+        "当前 SDK/编译器兼容矩阵与开发许可。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "CAA V5 API",
+        "category": "program",
+        "entry": "安装 CAA 媒体及开发环境，编译并部署官方 use case；具体命令入口需查开发指南。",
+        "role": "开发 V5 原生扩展与定制功能。",
+        "direction": "定制 C++ 代码 ⇄ CATIA 组件",
+        "operations": [
+          "安装 API 和配置许可",
+          "编译示例",
+          "运行与调试 CAA use case"
+        ],
+        "dataContract": "CAA 文档按接口、类和方法组织；精确业务对象、参数、返回/错误类型需查看获授权的开发指南。",
+        "workflow": [
+          "建议：核对 V5 的 GA/SP/HF 与 CAA 媒体",
+          "建议：按官方安装指南配置许可和编译器",
+          "建议：编译官方样例并在测试会话验证装载"
+        ],
+        "execution": "安装指南覆盖编译、执行与调试；具体扩展装载、卸载与对象所有权未从公开页核实。",
+        "failure": "建议区分编译依赖、许可、装载和运行错误；具体状态码及线程约定需 CAA 手册。",
+        "prerequisites": "CATIA V5、匹配 CAA 媒体、C++/Visual Studio 基础和开发授权；完整指南需 Support 权限。",
+        "version": "2026-05-11 发布的安装指南基于 V5-6R2025，可类推安装步骤但仍需核对目标发布版。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.3ds.com/support/documentation/resource-library/installation-catia-v5-and-caa-api",
+            "https://www.3ds.com/support/documentation/developer-guides"
+          ],
+          "locator": "Installation of CATIA V5 and CAA API；Developer guides 的 CAA 媒体与 Support 要求。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对 V5 的 GA/SP/HF 与 CAA 媒体 → 按官方安装指南配置许可和编译器 → 编译官方样例并在测试会话验证装载",
+          "sourceUrl": "https://www.3ds.com/support/documentation/resource-library/installation-catia-v5-and-caa-api"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Dassault Systèmes 官方 CATIA V5 与 CAA API 安装指南",
+        "url": "https://www.3ds.com/support/documentation/resource-library/installation-catia-v5-and-caa-api"
+      },
+      {
+        "title": "Dassault Systèmes 官方开发者指南入口",
+        "url": "https://www.3ds.com/support/documentation/developer-guides"
+      },
+      {
+        "title": "Dassault Systèmes 官方 Vertical Aerospace 案例",
+        "url": "https://www.3ds.com/sites/default/files/2021-02/vertical-aerospace-cs-electric-aircraft.pdf"
+      }
+    ]
+  },
+  {
+    "name": "Abaqus",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "Python 证据包含较早的官方技术文章；具体 Python 版本、模块、求解器授权和结果数据库兼容性需对照所用 Abaqus 发布版。",
+      "humanEntry": "Abaqus/CAE 或 Viewer 的脚本环境；Abaqus Python 命令行；ODB 结果数据库。",
+      "coverage": "建模自动化和结果提取；Viewer 图形后处理与独立 ODB 数据访问的许可/功能不同。",
+      "unknowns": [
+        "当前 Abaqus Python 版本与旧脚本兼容性。",
+        "具体 CAE 对象写入、错误类型与 ODB 版本兼容规则。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Abaqus Scripting Interface / Python",
+        "category": "program",
+        "entry": "CAE/Viewer 脚本环境；odbAccess/openOdb 访问结果数据库。",
+        "role": "把建模/后处理流程自动化，按对象层级提取结果。",
+        "direction": "脚本 ⇄ 模型；ODB → 脚本输出",
+        "operations": [
+          "打开 ODB",
+          "选择 step/frame/fieldOutputs",
+          "按区域筛选并提取数值"
+        ],
+        "dataContract": "ODB 分模型与结果数据；step 名为键，frame 按索引；场输出含位置、区域和数值。getSubset 可按区域/位置筛选。",
+        "workflow": [
+          "建议：先核对目标 ODB、分析步与输出变量",
+          "建议：选择帧及节点/单元集",
+          "建议：将提取量与 Viewer 可见结果交叉核对"
+        ],
+        "execution": "在 Viewer 中可结合插件、图像和图表；独立 Abaqus Python 可访问 ODB，图形后处理能力不同。",
+        "failure": "建议先验证键名、实例/集合和帧索引；原官方文章含文字拼写错误，因此未直接复制其对象路径代码。具体异常需查安装版 API。",
+        "prerequisites": "Abaqus Python 与匹配 ODB；CAE/Viewer 功能按相应许可；旧官方文章称纯 ODB 访问可不占 Viewer 许可，当前部署需确认。",
+        "version": "技术文章为较早版本，当前 Python 和许可条件未逐项核实。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://blog.3ds.com/ko/brands/simulia/tip-abaqus-scripting-interface-abaqus-odb/",
+            "https://blog.3ds.com/ko/brands/simulia/tip-abaqus-python-scripting/"
+          ],
+          "locator": "ODB 数据模型；openOdb、steps、frames、fieldOutputs、getSubset 的逐步说明。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先核对目标 ODB、分析步与输出变量 → 选择帧及节点/单元集 → 将提取量与 Viewer 可见结果交叉核对",
+          "sourceUrl": "https://blog.3ds.com/ko/brands/simulia/tip-abaqus-scripting-interface-abaqus-odb/"
+        }
+      },
+      {
+        "name": "abaqus python",
+        "category": "program",
+        "entry": "终端的 Abaqus 命令环境，运行 Python 脚本。",
+        "role": "在独立命令行处理 ODB 或其他可用 Abaqus Python 功能。",
+        "direction": "脚本/ODB → 执行进程 → 输出",
+        "operations": [
+          "执行 Python 脚本",
+          "读取脚本参数",
+          "提取结果数据"
+        ],
+        "dataContract": "官方示例用 sys.argv 取命令行参数；数据文件路径与结果输出由脚本决定，统一 CLI 输出 Schema 未核实。",
+        "workflow": [
+          "建议：确认调用到正确 Abaqus 安装",
+          "建议：先用只读 ODB 脚本处理小结果",
+          "建议：记录终端消息和输出文件后核验数值"
+        ],
+        "execution": "独立 Python 入口不自动获得 CAE/Viewer 全部图形后处理对象。具体进程退出规则需版本手册。",
+        "failure": "CLI 退出码和统一异常表未核实；建议记录标准输出/错误，并验证 ODB 可访问及脚本产物。",
+        "prerequisites": "Abaqus 命令环境、匹配解释器和脚本依赖；所调用功能许可另核对。",
+        "version": "命令依据较早官方技术示例；目标安装版需复核语法与依赖。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://blog.3ds.com/ko/brands/simulia/tip-abaqus-python-scripting/",
+            "https://blog.3ds.com/ko/brands/simulia/tip-abaqus-scripting-interface-abaqus-odb/"
+          ],
+          "locator": "官方 Python 示例的命令行参数与 ODB 处理入口。"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "abaqus python myScript.py myData.csv",
+          "sourceUrl": "https://blog.3ds.com/ko/brands/simulia/tip-abaqus-python-scripting/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Dassault Systèmes 官方 Abaqus 产品页",
+        "url": "https://www.3ds.com/products/simulia/abaqus"
+      },
+      {
+        "title": "Dassault Systèmes 官方航空防务仿真说明",
+        "url": "https://www.3ds.com/products/simulia/aerospace-defense"
+      },
+      {
+        "title": "Dassault Systèmes 官方：Abaqus Scripting Interface 的 ODB 结果处理",
+        "url": "https://blog.3ds.com/ko/brands/simulia/tip-abaqus-scripting-interface-abaqus-odb/"
+      },
+      {
+        "title": "Dassault Systèmes 官方 Abaqus Python 脚本示例说明",
+        "url": "https://blog.3ds.com/ko/brands/simulia/tip-abaqus-python-scripting/"
+      }
+    ]
+  },
+  {
+    "name": "Ansys STK",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "需要安装并授权 STK/Engine。Python 入门示例为 STK 13.1，要求 Python 3.10 及以上；远程 API 另需 grpcio/protobuf。Connect 与 Object Model 的功能范围不同，COM 不支持异步 Connect。",
+      "humanEntry": "STK 场景界面；Python 对象接口；Edit > Preferences > Connect 的端口设置。",
+      "coverage": "对象方式与命令方式并存；任务模型控制和数据获取具有不同返回形式。",
+      "unknowns": [
+        "具体业务对象/命令是否由目标许可启用。",
+        "远程连接认证与部署配置。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "STK Python API",
+        "category": "program",
+        "entry": "安装随 STK 提供的 wheel，连接 Desktop 或启动 STK Engine。",
+        "role": "通过类型化对象管理场景并获取数据。",
+        "direction": "Python ⇄ STK 对象/数据提供器",
+        "operations": [
+          "启动或连接引擎",
+          "访问对象模型",
+          "读取 Data Providers 结果"
+        ],
+        "dataContract": "Python 对象有枚举和类型提示；对象模型可返回按类型组织的数据，时间序列可为数组。具体数据提供器列结构需逐项核实。",
+        "workflow": [
+          "建议：匹配 wheel 与 STK/Engine",
+          "建议：先读取安装版本并建立最小场景",
+          "建议：验证所需对象和数据提供器后扩展"
+        ],
+        "execution": "Engine 可在 Windows/Linux 使用；可选 gRPC 进行进程外/远程交互。具体停止/释放调用需查所用对象版本。",
+        "failure": "Python 安装需匹配依赖和许可；建议先按官方入门测试版本访问，再查具体 API 异常和远程配置。",
+        "prerequisites": "STK/Engine 已安装并授权、Python 3.10 及以上；gRPC 模式另需 grpcio/protobuf。",
+        "version": "Python 文档为 2026 R1 / STK 13.1.0；wheel 使用 bin/AgPythonAPI 随附版本。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.agi.com/stkdevkit/Content/python/pythonGettingStarted.htm",
+            "https://help.agi.com/stkdevkit/Content/coreLibraries.htm"
+          ],
+          "locator": "Python Getting Started：Prerequisites、Install wheel；Core Libraries：Object Model。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：匹配 wheel 与 STK/Engine → 先读取安装版本并建立最小场景 → 验证所需对象和数据提供器后扩展",
+          "sourceUrl": "https://help.agi.com/stkdevkit/Content/python/pythonGettingStarted.htm"
+        }
+      },
+      {
+        "name": "Connect 命令",
+        "category": "program",
+        "entry": "通过 TCP/IP socket 或 COM 发送 Connect 字符串命令。",
+        "role": "批量设置场景对象或生成报告。",
+        "direction": "命令 → STK；ACK/NACK/报告字符串 → 调用方",
+        "operations": [
+          "设置一个或多个对象属性",
+          "执行可用 Connect 命令",
+          "获取预定义样式报告"
+        ],
+        "dataContract": "命令语法与对象路径由 Connect 参考定义；报告以字符串返回；并非所有对象属性均可通过 Connect 读取。",
+        "workflow": [
+          "建议：先查目标命令与许可",
+          "建议：在测试场景发送单个命令",
+          "建议：检查 ACK/NACK，再解析报告字符串"
+        ],
+        "execution": "TCP/IP 可本机/跨机；COM 不支持异步 Connect。报告/图表依赖目标安装上的样式。",
+        "failure": "ACK/NACK 确认命令是否被接受；Verbose 可辅助调试，但不保证详细错误。建议额外核验场景状态。",
+        "prerequisites": "STK 会话、启用的接口及命令对应功能。",
+        "version": "Connect 页面标 STK 13.0，Core Libraries 标 STK 13.1.0；逐命令核对版本。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.agi.com/stk/Subsystems/connect/Content/start.htm",
+            "https://help.agi.com/stkdevkit/Content/coreLibraries.htm"
+          ],
+          "locator": "Getting Started with Connect；Core Libraries 的 Connect 优缺点。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先查目标命令与许可 → 在测试场景发送单个命令 → 检查 ACK/NACK，再解析报告字符串",
+          "sourceUrl": "https://help.agi.com/stk/Subsystems/connect/Content/start.htm"
+        }
+      },
+      {
+        "name": "Connect over TCP/IP",
+        "category": "runtime",
+        "entry": "在 Connect 偏好设置确认监听端口，客户端建立 socket。",
+        "role": "从外部进程/机器驱动 STK Connect。",
+        "direction": "socket 客户端 ⇄ STK",
+        "operations": [
+          "传输 Connect 命令",
+          "接收确认和报告"
+        ],
+        "dataContract": "应用层是 Connect 命令及 ACK/NACK/结果字符串；TCP/IP 只提供传输。消息边界和编码需查 Connect 协议细节。",
+        "workflow": [
+          "建议：在 STK Preferences 确认实际端口",
+          "建议：建立测试 socket 并发送已核实命令",
+          "建议：检查完整响应再处理后续命令"
+        ],
+        "execution": "默认端口 5001，可修改；连接保持、并发和断线重连细则未核实。",
+        "failure": "建议区分 socket 连接错误和 NACK；超时、粘包处理与重试语义未从入门页核实。",
+        "prerequisites": "STK 开启 Connect 监听、网络可达；部署安全和访问控制另行核对。",
+        "version": "官方入门页标 STK 13.0；端口以现场设置为准。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.agi.com/stk/Subsystems/connect/Content/start.htm",
+            "https://help.agi.com/stkdevkit/Content/coreLibraries.htm"
+          ],
+          "locator": "Getting Started：TCP/IP 默认端口；Core Libraries：TCP/IP 支持本机与远端。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在 STK Preferences 确认实际端口 → 建立测试 socket 并发送已核实命令 → 检查完整响应再处理后续命令",
+          "sourceUrl": "https://help.agi.com/stk/Subsystems/connect/Content/start.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Ansys 官方 STK 产品页",
+        "url": "https://ansys.synopsys.com/products/missions/ansys-stk"
+      },
+      {
+        "title": "STK 官方 Python API 入门",
+        "url": "https://help.agi.com/stkdevkit/Content/python/pythonGettingStarted.htm"
+      },
+      {
+        "title": "STK 官方 Connect 入门",
+        "url": "https://help.agi.com/stk/Subsystems/connect/Content/start.htm"
+      },
+      {
+        "title": "STK 官方 Core Libraries",
+        "url": "https://help.agi.com/stkdevkit/Content/coreLibraries.htm"
+      }
+    ]
+  },
+  {
+    "name": "OpenVSP",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "主要服务参数化几何与概念分析；生产详设和制造定义需通过对应工程流程完成。API 包、运行库和 Python 环境需与发行版匹配。",
+      "humanEntry": "几何建模 GUI；发行版中的 scripts、CustomScripts、python 与 matlab_api 示例。",
+      "coverage": "通过 C++ API 及语言绑定自动化参数化建模/分析，支持无界面集成。",
+      "unknowns": [
+        "所用二进制与 Python/操作系统 ABI 的对应。",
+        "各语言绑定是否覆盖需要的 GUI 类和分析器。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "C++ / Python / MATLAB API",
+        "category": "program",
+        "entry": "C++ API；Python/Matlab 绑定；发行版安装说明与 tests。",
+        "role": "在外部程序中建立/修改几何并组织分析。",
+        "direction": "代码 ⇄ OpenVSP 模型/分析结果",
+        "operations": [
+          "参数化建模与修改",
+          "执行暴露的分析工具",
+          "读取 API 错误对象"
+        ],
+        "dataContract": "使用模型、几何/参数标识与结果对象；具体签名按功能组定义。失败可返回默认值并在 ErrorMgrSingleton 压入 ErrorObj。",
+        "workflow": [
+          "建议：匹配发行版与语言运行库",
+          "建议：从发行版 tests 建立最小模型",
+          "建议：逐步检查返回值和错误栈后执行分析"
+        ],
+        "execution": "官方支持无界面系统；Python 必须与构建所用版本一致。普通 API、GUI 模式、独立进程配置需按文档选用。",
+        "failure": "调用后可查 GetErrorLastCallFlag、GetNumTotalErrors、PopLastError；仅无 Python 异常不足以判断成功。",
+        "prerequisites": "发行版 API 库及匹配 Python/Matlab 环境；GUI 功能需相应配置。",
+        "version": "latest 文档；主页的 3.21.2/Python 3.6 为历史兼容示例，当前版本需查随附 README。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://openvsp.org/pyapi_docs/latest/",
+            "https://openvsp.org/pyapi_docs/latest/groups/APIError.html",
+            "https://openvsp.org/pyapi_docs/latest/groups/Vehicle.html"
+          ],
+          "locator": "API 首页：Instructions、配置模式；API Error Functions：ErrorMgrSingleton。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：匹配发行版与语言运行库 → 从发行版 tests 建立最小模型 → 逐步检查返回值和错误栈后执行分析",
+          "sourceUrl": "https://openvsp.org/pyapi_docs/latest/"
+        }
+      },
+      {
+        "name": "AngelScript",
+        "category": "program",
+        "entry": "发行版 scripts 与 CustomScripts 中的 AngelScript；按脚本入口运行。",
+        "role": "复用建模 API，定义自定几何和分析脚本。",
+        "direction": "脚本 ⇄ OpenVSP 几何/分析",
+        "operations": [
+          "运行官方 API 示例",
+          "定义 CustomGeom",
+          "组织参数化研究"
+        ],
+        "dataContract": "API 示例采用 AngelScript，CustomGeom 也有官方样例；对象/标识与具体脚本语法需按发行版示例。",
+        "workflow": [
+          "建议：先打开发行版 scripts 示例",
+          "建议：对照 CustomScripts 的输入参数与几何生成",
+          "建议：在小模型核验输出及 API 错误"
+        ],
+        "execution": "脚本入口和退出/重置规则未在 API 首页详述；需要随附示例和对应版本帮助。",
+        "failure": "建议使用 API 错误检查与模型显示核验；脚本编译和运行错误格式未核实。",
+        "prerequisites": "OpenVSP 发行版和匹配示例；自定义几何需满足宿主接口约定。",
+        "version": "示例由发行版提供，需与当前安装版本一致。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://openvsp.org/pyapi_docs/latest/",
+            "https://openvsp.org/pyapi_docs/latest/groups/APIError.html"
+          ],
+          "locator": "API 首页 Examples；API Error Functions。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先打开发行版 scripts 示例 → 对照 CustomScripts 的输入参数与几何生成 → 在小模型核验输出及 API 错误",
+          "sourceUrl": "https://openvsp.org/pyapi_docs/latest/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "OpenVSP 官方项目代码仓库",
+        "url": "https://github.com/OpenVSP/OpenVSP"
+      },
+      {
+        "title": "OpenVSP 官方 Python API 文档",
+        "url": "https://openvsp.org/pyapi_docs/latest/"
+      },
+      {
+        "title": "OpenVSP 官方 API Error Functions",
+        "url": "https://openvsp.org/pyapi_docs/latest/groups/APIError.html"
+      },
+      {
+        "title": "OpenVSP 官方 Vehicle Functions",
+        "url": "https://openvsp.org/pyapi_docs/latest/groups/Vehicle.html"
+      }
+    ]
+  },
+  {
+    "name": "Simpack（含 Rail 模块）",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "Rail 与 Multi-Domain Interfaces 需要对应模块授权。FMI 支持版本未核实；联算步长与平台兼容性需另查。",
+      "humanEntry": "Simpack Pre/Solver/Post 与 Rail 工作流；Multi-Domain Interfaces 配置。",
+      "coverage": "模型联算、FMU 交换、MATLAB 结果输出分属不同模块。",
+      "unknowns": [
+        "FMI 精确版本与各平台二进制兼容矩阵。",
+        "联算回调、时间推进、错误码、取消与重连规则。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "FMI / FMU Import & Export",
+        "category": "model",
+        "entry": "Multi-Domain Interfaces 的 FMU 导入/导出功能。",
+        "role": "将 Simpack 与其他系统仿真模型连接。",
+        "direction": "FMU → Simpack；Simpack → FMU",
+        "operations": [
+          "导入 Model Exchange FMU",
+          "导入 Co-Simulation FMU",
+          "导出主要面向 Co-Simulation 的 FMU"
+        ],
+        "dataContract": "导入 Model Exchange 时由 Simpack Solver 积分连续状态；Co-Simulation 按用户设定等间隔采样点交互。变量单位/因果关系、平台依赖需核对目标 FMU。",
+        "workflow": [
+          "建议：核对 FMI 版本与模块许可",
+          "建议：检查 FMU 变量、平台和联算步长",
+          "建议：用简单激励对比单独仿真和联算结果"
+        ],
+        "execution": "ME 与 CS 的求解责任不同；导出页仅称主要支持 CS，未确认其他导出模式范围。",
+        "failure": "公开产品页未给错误码与初始化/终止函数细则；建议查模块手册和求解日志。",
+        "prerequisites": "FMU 接口模块授权、兼容 FMU 与求解平台。",
+        "version": "官方未在此页列出 FMI 版本，需查实际发布版。",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p13"
+        ],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://akamai.3ds.com/products/simulia/simpack/multi-domain-interfaces"
+          ],
+          "locator": "Simpack Functional Mock-up Interface。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对 FMI 版本与模块许可 → 检查 FMU 变量、平台和联算步长 → 用简单激励对比单独仿真和联算结果",
+          "sourceUrl": "https://akamai.3ds.com/products/simulia/simpack/multi-domain-interfaces"
+        }
+      },
+      {
+        "name": "SIMAT",
+        "category": "model",
+        "entry": "Simpack 与 MATLAB/Simulink 的 SIMAT 联算配置。",
+        "role": "交换联算信号，或输出线性系统矩阵。",
+        "direction": "Simpack ⇄ Simulink；ABCD → MATLAB",
+        "operations": [
+          "联合仿真",
+          "导出 ABCD 矩阵"
+        ],
+        "dataContract": "联算对象为 Simpack 与 Simulink 模型；输入输出信号、单位和采样约定需模块手册，ABCD 为线性系统矩阵输出。",
+        "workflow": [
+          "建议：确认两端软件和 SIMAT 许可",
+          "建议：定义输入输出及采样设置",
+          "建议：验证简单模型的联算与矩阵维度"
+        ],
+        "execution": "联算与线性矩阵接口是该模块两项功能；不是 MatSIM 嵌入编译模型的同一流程。",
+        "failure": "初始化顺序、超时、取消及求解失败返回方式未公开核实；建议查两端求解日志。",
+        "prerequisites": "Simpack、MATLAB/Simulink 与对应模块；版本组合需供应商兼容说明。",
+        "version": "产品页确认功能，具体兼容发布版未给出。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://akamai.3ds.com/products/simulia/simpack/multi-domain-interfaces"
+          ],
+          "locator": "SIMAT；与 MatSIM 段的模块区分。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认两端软件和 SIMAT 许可 → 定义输入输出及采样设置 → 验证简单模型的联算与矩阵维度",
+          "sourceUrl": "https://akamai.3ds.com/products/simulia/simpack/multi-domain-interfaces"
+        }
+      },
+      {
+        "name": "IPC Co-Simulation / TCP/IP sockets",
+        "category": "model",
+        "entry": "IPC Co-Simulation 模块的 TCP/IP socket 联算接口。",
+        "role": "与外部仿真软件或硬件交换联算数据。",
+        "direction": "Simpack ⇄ 外部软件/硬件",
+        "operations": [
+          "建立联算耦合",
+          "交换模型信号"
+        ],
+        "dataContract": "公开页仅确认 TCP/IP sockets；报文格式、端口、字节序、信号 Schema、时间同步和握手未核实。",
+        "workflow": [
+          "建议：取得模块协议与兼容说明",
+          "建议：明确服务器/客户端角色及报文结构",
+          "建议：用回环或测试模型验证时序和故障行为"
+        ],
+        "execution": "连接角色、生命周期、实时性及重连约定需模块文档。",
+        "failure": "建议先核对握手、步长、超时和求解错误如何传播；公开说明不足以直接实现客户端。",
+        "prerequisites": "对应 Simpack 模块授权、外部适配程序或硬件与网络配置。",
+        "version": "产品页未列接口协议版本或固定端口。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://akamai.3ds.com/products/simulia/simpack/multi-domain-interfaces"
+          ],
+          "locator": "IPC Co-Simulation。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得模块协议与兼容说明 → 明确服务器/客户端角色及报文结构 → 用回环或测试模型验证时序和故障行为",
+          "sourceUrl": "https://akamai.3ds.com/products/simulia/simpack/multi-domain-interfaces"
+        }
+      },
+      {
+        "name": "MAT",
+        "category": "file",
+        "entry": "MATLAB Result Export 模块；随常规结果生成导出。",
+        "role": "把已选 Simpack 仿真结果交给 MATLAB。",
+        "direction": "Simpack 结果 → .mat 文件",
+        "operations": [
+          "输出模型指定的结果",
+          "用 MATLAB 读取并分析"
+        ],
+        "dataContract": "官方说明输出原生 MATLAB .mat；信号名、时间轴、单位和 MAT 文件版本未在产品页详述。",
+        "workflow": [
+          "建议：确认输出模块和所选结果",
+          "建议：运行受控模型并导出 MAT",
+          "建议：核对时间轴、单位和结果维度"
+        ],
+        "execution": "结果导出与一般结果生成配合，属于文件交付；不保持在线联算连接。",
+        "failure": "建议检查求解是否完成及文件内容；失败码、空文件和部分结果处理规则未核实。",
+        "prerequisites": "Simpack MATLAB Result Export 模块；可读相应 MAT 文件的分析环境。",
+        "version": "具体 MAT 格式版本需查所用 Simpack 发布版。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://akamai.3ds.com/products/simulia/simpack/multi-domain-interfaces"
+          ],
+          "locator": "MATLAB Result Export。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认输出模块和所选结果 → 运行受控模型并导出 MAT → 核对时间轴、单位和结果维度",
+          "sourceUrl": "https://akamai.3ds.com/products/simulia/simpack/multi-domain-interfaces"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Dassault Systèmes 官方 Simpack 产品与 Rail 用途",
+        "url": "https://www.3ds.com/products/simulia/simpack"
+      },
+      {
+        "title": "Dassault Systèmes 官方 Simpack 多域接口",
+        "url": "https://akamai.3ds.com/products/simulia/simpack/multi-domain-interfaces"
+      }
+    ]
+  },
+  {
+    "name": "Simcenter Amesim",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "接口依据包含 2019.2 官方课程和发布说明；当前版本的精确 API、FMI 版本、可导出组件及授权未逐项核实。",
+      "humanEntry": "系统建模 GUI；内置 App Designer 与 Python；模型 FMU 导出流程。",
+      "coverage": "Python 应用自动化与模型交换；公开依据以 2019.2 为主。",
+      "unknowns": [
+        "当前版本的完整 Python 函数与调用/错误约定。",
+        "FMU 的 FMI 版本、ME/CS 范围和组件授权要求。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python Script API",
+        "category": "program",
+        "entry": "Amesim 集成 Python 与 App Designer；课程介绍 Script API。",
+        "role": "定制应用并自动化系统仿真任务。",
+        "direction": "Python 应用 ⇄ Amesim 功能",
+        "operations": [
+          "编写应用",
+          "使用 Script API 自动化任务",
+          "定义界面动作与信号/槽"
+        ],
+        "dataContract": "公开课程说明 API 与应用开发，但未列函数签名、模型对象、结果返回类型或进程边界。",
+        "workflow": [
+          "建议：获取对应安装版 Python 文档",
+          "建议：核对目标函数、对象与许可",
+          "建议：用随附样例验证任务和结果"
+        ],
+        "execution": "2019.2 发布说明支持 Python 3 并可迁移 Python 2 Apps；现行解释器和宿主生命周期需核对。",
+        "failure": "建议核对 Python 环境、依赖和目标模型；异常、取消与线程规则未公开核实。",
+        "prerequisites": "Amesim 安装、相关库/模块许可及匹配 Python 环境；详细课程/支持资料可能需账号。",
+        "version": "官方课程与发布说明对应 2019.2，不据其推断当前精确 API。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=1D+AmePyApp-PRLMS__2019.2_B9",
+            "https://blogs.sw.siemens.com/simcenter/simcenter-system-simulation-solutions-2019-2-whats-new/"
+          ],
+          "locator": "课程 PRIMARY COURSE TOPICS；2019.2 User experience。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：获取对应安装版 Python 文档 → 核对目标函数、对象与许可 → 用随附样例验证任务和结果",
+          "sourceUrl": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=1D+AmePyApp-PRLMS__2019.2_B9"
+        }
+      },
+      {
+        "name": "FMU 导出",
+        "category": "model",
+        "entry": "Amesim 模型导出流程；具体菜单和参数按所用版帮助确认。",
+        "role": "把系统模型交由其他兼容仿真器使用。",
+        "direction": "Amesim 模型 → FMU",
+        "operations": [
+          "导出含 Modelica/Simulink 组件的模型",
+          "携带所需内部资源"
+        ],
+        "dataContract": "2019.2 说明确认可在 Windows/Linux 导出含上述组件的 FMU；FMI 版本、变量清单和 ME/CS 支持未在 Amesim 对应段落核实。",
+        "workflow": [
+          "建议：先核对版本与可导出组件",
+          "建议：在导出设置确认 FMI 模式及平台",
+          "建议：用目标工具载入并比对简单输入输出"
+        ],
+        "execution": "FMU 是模型交付，不等同于 Webapp Server API。目标工具负责相应加载/运行流程。",
+        "failure": "建议查导出日志与目标导入错误，并验证初始化、单位、时间步和结果；具体错误协议未核实。",
+        "prerequisites": "Amesim、可导出的模型/组件、对应授权及兼容目标工具。",
+        "version": "能力证据为 2019.2；紧邻段落的 Flomaster FMI 2.0 信息未作为 Amesim 版本依据。",
+        "implementation": "文件交换",
+        "standardIds": [
+          "p13"
+        ],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://blogs.sw.siemens.com/simcenter/simcenter-system-simulation-solutions-2019-2-whats-new/"
+          ],
+          "locator": "Openness 中明确以 Simcenter Amesim 为主语的 FMU 导出段。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先核对版本与可导出组件 → 在导出设置确认 FMI 模式及平台 → 用目标工具载入并比对简单输入输出",
+          "sourceUrl": "https://blogs.sw.siemens.com/simcenter/simcenter-system-simulation-solutions-2019-2-whats-new/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens 官方航空燃油系统仿真课程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=ILTLG018017___LMS__2020.2_B1105"
+      },
+      {
+        "title": "Siemens 官方 Python 与 App Designer 课程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=1D+AmePyApp-PRLMS__2019.2_B9"
+      },
+      {
+        "title": "Siemens 官方系统仿真软件 2019.2 发布说明",
+        "url": "https://blogs.sw.siemens.com/simcenter/simcenter-system-simulation-solutions-2019-2-whats-new/"
+      }
+    ]
+  },
+  {
+    "name": "Cadence Virtuoso Studio",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "SKILL、OCEAN 函数范围随 Layout Suite、ADE、ViVA 等组件及版本变化；求解器与 PDK 需配置和授权。OCEAN 依据为较早的官方 ViVA 数据表，IC25.1 命令兼容性未逐项核实。",
+      "humanEntry": "原理图/版图/ADE；CIW 与 SKILL IDE；ViVA 波形分析。",
+      "coverage": "SKILL 自动化设计对象与工具配置；OCEAN 组织批量仿真及波形后处理。",
+      "unknowns": [
+        "IC25.1 对旧 OCEAN 代码的逐命令兼容性。",
+        "PDK、模拟器与各组件许可对脚本覆盖的影响。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "SKILL",
+        "category": "program",
+        "entry": "CIW 通过 load() 加载脚本；SKILL IDE 编辑、执行和调试。",
+        "role": "访问版图数据库并定制工具/设计流程。",
+        "direction": "脚本 ⇄ Virtuoso 数据库/界面",
+        "operations": [
+          "加载并运行函数",
+          "读取/修改受支持设计对象",
+          "配置工具与开发 PCell"
+        ],
+        "dataContract": "数据库、工具配置和 PCell 对象的具体函数契约在相应 SKILL Reference 中；公开 IDE 文说明 load() 和调试机制。",
+        "workflow": [
+          "建议：在正确组件中加载测试脚本",
+          "建议：用断点检查对象与参数",
+          "建议：验证设计结果并记录依赖函数"
+        ],
+        "execution": "在 Virtuoso 设计环境运行；IDE 支持 SKILL/SKILL++，跟踪变量与调用栈。完整对象生命周期需查 API 手册。",
+        "failure": "用 Stack Assistant、Trace 与 SKILL Lint 核对参数和调用位置；具体异常语义按函数。",
+        "prerequisites": "Virtuoso 对应组件、设计数据库与 PDK；Support Portal 手册需账号/主机信息。",
+        "version": "IDE 文章发表于 2023-12-15；最新产品表确认 SKILL，但精确函数覆盖随组件/版本。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.cadence.com/en_US/home/resources/datasheets/virtuoso-layout-suite-ds.html",
+            "https://community.cadence.com/cadence_blogs_8/b/cic/posts/knowledge-booster-training-bytes-using-skill-ide-in-virtuoso-studio"
+          ],
+          "locator": "Layout Suite Overview；SKILL IDE 的 load、Tracing、Stack Tracing、Lint。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在正确组件中加载测试脚本 → 用断点检查对象与参数 → 验证设计结果并记录依赖函数",
+          "sourceUrl": "https://www.cadence.com/en_US/home/resources/datasheets/virtuoso-layout-suite-ds.html"
+        }
+      },
+      {
+        "name": "OCEAN",
+        "category": "program",
+        "entry": "ViVA/模拟设计环境的 OCEAN 命令行与脚本。",
+        "role": "批量仿真并计算模拟、RF、混合信号设计指标。",
+        "direction": "脚本 → 仿真；波形/结果 → 后处理",
+        "operations": [
+          "批量运行仿真",
+          "分析波形",
+          "计算复杂设计指标"
+        ],
+        "dataContract": "命令作用于仿真结果、波形和测量；具体分析名、结果库/信号命名、单位与返回类型需 OCEAN Reference。",
+        "workflow": [
+          "建议：先用 ADE/ViVA 确认仿真和目标波形",
+          "建议：查安装版 OCEAN 函数及许可",
+          "建议：用小规模脚本比较交互式结果"
+        ],
+        "execution": "官方数据表确认命令行批处理；仿真排队、同步/异步和会话结束规则未在数据表详述。",
+        "failure": "建议区分求解失败、缺失结果与测量表达式错误；统一错误码、超时与恢复方式未核实。",
+        "prerequisites": "对应 Virtuoso/ADE/ViVA 组件及仿真求解器许可、PDK 与输入模型。",
+        "version": "接口依据为较早 ViVA 数据表；当前 IC25.1 兼容性需逐项查手册。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/custom-ic-analog-rf-design/virtuoso-visualization-analysis-ds.pdf"
+          ],
+          "locator": "Post-processing and scripting。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先用 ADE/ViVA 确认仿真和目标波形 → 查安装版 OCEAN 函数及许可 → 用小规模脚本比较交互式结果",
+          "sourceUrl": "https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/custom-ic-analog-rf-design/virtuoso-visualization-analysis-ds.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Cadence 官方 Virtuoso Studio 产品页",
+        "url": "https://www.cadence.com/en_US/home/tools/custom-ic-analog-rf-design/virtuoso-studio.html"
+      },
+      {
+        "title": "Cadence 官方 Virtuoso Layout Suite 数据表",
+        "url": "https://www.cadence.com/en_US/home/resources/datasheets/virtuoso-layout-suite-ds.html"
+      },
+      {
+        "title": "Cadence 官方 Virtuoso Visualization and Analysis 数据表",
+        "url": "https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/custom-ic-analog-rf-design/virtuoso-visualization-analysis-ds.pdf"
+      },
+      {
+        "title": "Cadence 官方 SKILL IDE 使用说明",
+        "url": "https://community.cadence.com/cadence_blogs_8/b/cic/posts/knowledge-booster-training-bytes-using-skill-ide-in-virtuoso-studio"
+      }
+    ]
+  },
+  {
+    "name": "Synopsys Sentaurus TCAD",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "各求解器、Workbench 和 Visual 的功能及授权需分别确认。Workbench 内部 Tcl 命令块、命令行工具和当前精确 API 未核实。产品页列出的 X-2025.06 未逐项对应各组件接口。",
+      "humanEntry": "Workbench 管理仿真项目，Sentaurus Visual 查看结构/曲线；Visual 的 Tcl 脚本。",
+      "coverage": "本条已核实的编程接口属于 Visual；Workbench 参数化与任务编排另有工作流能力。",
+      "unknowns": [
+        "当前 Visual 命令/数据对象与返回类型。",
+        "Workbench 自身 Tcl/CLI 的当前详细契约。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Tcl（Sentaurus Visual）",
+        "category": "program",
+        "entry": "Sentaurus Visual 的 Tcl 命令/脚本环境；Workbench 可关联结果可视化。",
+        "role": "对 TCAD 输出执行曲线后处理和参数提取。",
+        "direction": "结果数据 → Tcl 处理 → 曲线/参数",
+        "operations": [
+          "控制可视化工具",
+          "生成曲线",
+          "提取结果参数"
+        ],
+        "dataContract": "支持 1D/2D/3D TCAD 可视化；精确数据集句柄、变量/单位、命令参数和返回类型需 Visual 手册。",
+        "workflow": [
+          "建议：以官方安装版示例加载已有结果",
+          "建议：核对变量、坐标和数据集对象",
+          "建议：对比手工分析与 Tcl 生成曲线/参数"
+        ],
+        "execution": "2025 产品册确认 Tcl 后处理；2012 官方文章说明交互操作可回显为命令，但当前录制/重放入口需核对。",
+        "failure": "错误码、批处理退出状态和失败续跑约定未公开核实；建议保存 Tcl 控制台/作业日志并检查输出。",
+        "prerequisites": "Sentaurus Visual 许可、兼容 TCAD 结果；完整文档通常通过客户支持获取。",
+        "version": "2025 产品册确认持续支持；2012 交互回显说明仅作历史入口线索。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.synopsys.com/content/dam/synopsys/silicon-engineering/documents/brochures/sentauras-tcad-brochure.pdf",
+            "https://www.synopsys.com/content/dam/synopsys/silicon/newsletters/tcad-news-summer2012-nl.pdf"
+          ],
+          "locator": "产品册 Sentaurus Visual；2012 新闻第 15 页 Tcl commands。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：以官方安装版示例加载已有结果 → 核对变量、坐标和数据集对象 → 对比手工分析与 Tcl 生成曲线/参数",
+          "sourceUrl": "https://www.synopsys.com/content/dam/synopsys/silicon-engineering/documents/brochures/sentauras-tcad-brochure.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Synopsys 官方 TCAD 产品页",
+        "url": "https://www.synopsys.com/manufacturing/tcad.html"
+      },
+      {
+        "title": "Synopsys 官方 Sentaurus TCAD 产品册（2025）",
+        "url": "https://www.synopsys.com/content/dam/synopsys/silicon-engineering/documents/brochures/sentauras-tcad-brochure.pdf"
+      },
+      {
+        "title": "Synopsys 官方 TCAD News（2012 年夏季）",
+        "url": "https://www.synopsys.com/content/dam/synopsys/silicon/newsletters/tcad-news-summer2012-nl.pdf"
+      }
+    ]
+  },
+  {
+    "name": "Opcenter Execution Semiconductor",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "REST API 依据为 2310、2404；.NET API 依据为官方培训中的 Core 模块。具体端点和授权需按部署版本确认；设备连接方案及 SECS/GEM 支持方式未核实。",
+      "humanEntry": "MES 的车间执行/建模界面；REST API 服务；Execution Core .NET 开发环境。",
+      "coverage": "REST 处理公开资料确认的车间和建模事务；.NET 能力归属 Core，细节依客户文档。",
+      "unknowns": [
+        "REST 的部署 URL、认证、请求 Schema、端点和幂等性。",
+        "Core .NET API 的程序集、对象及事务/线程/错误约定。",
+        "SECS/GEM 连接方式及产品/模块归属。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "REST API",
+        "category": "program",
+        "entry": "部署中的 Opcenter REST 服务；具体根 URL 和认证由版本与现场配置确定。",
+        "role": "把外部应用连接到车间及建模事务。",
+        "direction": "外部应用 ⇄ MES 服务",
+        "operations": [
+          "提交车间/建模事务",
+          "查询多字段选择值",
+          "接收独立节点组织的错误响应"
+        ],
+        "dataContract": "2310 说明返回信息分节点、配置使用 JSON，并改进选择值调用；公开资料未给资源路径、字段 Schema、HTTP 状态码或认证。",
+        "workflow": [
+          "建议：取得部署版 API 参考/接口描述",
+          "建议：确认服务身份、端点和事务对象",
+          "建议：在测试环境验证成功、业务拒绝与重试场景"
+        ],
+        "execution": "2310/2404 均确认 REST 增强；事务提交、提交后生效、重试和并发冲突规则需专属文档。",
+        "failure": "2310 提到更清晰错误响应；服务器失败事务重试属于可配置产品增强，不据此视为每个客户端请求可安全重放。",
+        "prerequisites": "相应 Opcenter 部署/服务许可、认证与数据权限；需客户接口文档。",
+        "version": "详细证据为 2310 和 2404，不能据此固定当前端点或鉴权方式。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://static.sw.cdn.siemens.com/siemens-disw-assets/public/7zFu8YrKuQQdux402fYJ7P/en-US/Siemens-SW-Siemens-Opcenter-Execution-Semiconductor-2310-FS-85615-D3.pdf",
+            "https://blogs.sw.siemens.com/opcenter/whats-new-in-opcenter-execution-semiconductor-2404/"
+          ],
+          "locator": "2310 REST API enhancements、Server enhancement；2404 REST API enhancements。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得部署版 API 参考/接口描述 → 确认服务身份、端点和事务对象 → 在测试环境验证成功、业务拒绝与重试场景",
+          "sourceUrl": "https://static.sw.cdn.siemens.com/siemens-disw-assets/public/7zFu8YrKuQQdux402fYJ7P/en-US/Siemens-SW-Siemens-Opcenter-Execution-Semiconductor-2310-FS-85615-D3.pdf"
+        }
+      },
+      {
+        "name": ".NET API（Execution Core）",
+        "category": "program",
+        "entry": "Execution Core 的 .NET 开发接口；安装/开发包获取和入口需客户文档。",
+        "role": "在 Core 框架中编写产品集成或定制逻辑。",
+        "direction": "定制代码 ⇄ Execution Core；精确对象范围未核实",
+        "operations": [
+          "按 NET API 开发资料编写集成",
+          "访问获授权的 Core 功能，具体方法待版本文档确认"
+        ],
+        "dataContract": "官方课程只确认 NET API Deep Dive 属于 Execution Core；程序集、命名空间、事务对象、返回类型均未公开核实。",
+        "workflow": [
+          "建议：先取得目标 Core 版本 API 手册",
+          "建议：明确需要的对象、权限和事务边界",
+          "建议：用官方样例验证装载、调用与失败处理"
+        ],
+        "execution": "运行在何种宿主/进程、初始化及释放方式未核实，不能仅凭 .NET 名称确定。",
+        "failure": "异常、业务错误、回滚和线程安全规则均需专属开发文档；建议完成失败样例后再接生产。",
+        "prerequisites": "Execution Core 与其开发资源、匹配 .NET 环境和产品授权；课程是支持证据而非 API 参考。",
+        "version": "官方课程对应 Semiconductor 8，并包含 Core；当前 Core API 兼容性需另核实。",
+        "implementation": "未核实",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=ILTLG080008___OES__8.0____B1017"
+          ],
+          "locator": "Onboarding Program：产品组合说明；Week4 / Opcenter Execution Core / NET API Deep Dive。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先取得目标 Core 版本 API 手册 → 明确需要的对象、权限和事务边界 → 用官方样例验证装载、调用与失败处理",
+          "sourceUrl": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=ILTLG080008___OES__8.0____B1017"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens 官方 Opcenter Execution Semiconductor 产品页",
+        "url": "https://www.siemens.com/en-gb/products/opcenter/execution/semiconductor/"
+      },
+      {
+        "title": "Siemens 官方 Semiconductor 2310 更新说明",
+        "url": "https://static.sw.cdn.siemens.com/siemens-disw-assets/public/7zFu8YrKuQQdux402fYJ7P/en-US/Siemens-SW-Siemens-Opcenter-Execution-Semiconductor-2310-FS-85615-D3.pdf"
+      },
+      {
+        "title": "Siemens 官方 Semiconductor 2404 发布说明",
+        "url": "https://blogs.sw.siemens.com/opcenter/whats-new-in-opcenter-execution-semiconductor-2404/"
+      },
+      {
+        "title": "Siemens 官方 Semiconductor Onboarding 课程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=ILTLG080008___OES__8.0____B1017"
+      }
+    ]
+  }
+]

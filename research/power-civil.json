@@ -1,0 +1,228 @@
+[
+  {
+    "name": "PowerFactory",
+    "vendor": "DIgSILENT",
+    "sector": "power",
+    "stage": "工艺仿真",
+    "purpose": "电网建模、潮流、稳定性与电磁暂态分析，支持新能源并网研究。",
+    "interfaces": [
+      {"name": "Python / DPL", "type": "脚本/CLI", "detail": "访问 PowerFactory 数据模型、对象参数及计算功能，自动构建与运行研究。"},
+      {"name": "C++ Application Interface", "type": "API/SDK", "detail": "外部程序自动化接口，属于 Scripting and Automation 模块。"},
+      {"name": "OPC UA", "type": "通信协议", "detail": "专用 OPC 接口用于 SCADA 互操作与模拟/数字信号交互。"},
+      {"name": "IEEE C37.118", "type": "通信协议", "detail": "专用仿真接口用于 PMU 协议交互。"},
+      {"name": "FMI 2.0", "type": "API/SDK", "detail": "第三方 EMT/RMS 联合仿真接口。"},
+      {"name": "CIM / CGMES", "type": "信息模型", "detail": "官方白皮书确认支持基于 CGMES 2.4.15 与 3.0.0 的 CIM 数据导入导出。"}
+    ],
+    "constraints": "商业软件，接口与分析模块按许可配置；OPC 与 C37.118 有专用许可，联合仿真依赖 RMS/EMT 能力。OPC DA 已弃用，官网称将于 2027 主版本移除。CIM/CGMES 转换许可另核。接口未安装实测。",
+    "sources": [
+      {"title": "DIgSILENT：Scripting and Automation", "url": "https://www.digsilent.de/index.php/en/scripting-and-automation.html"},
+      {"title": "DIgSILENT：Interfaces", "url": "https://www.digsilent.de/en/interfaces.html"},
+      {"title": "DIgSILENT：CIM and CGMES", "url": "https://faq.digsilent.de/de/fachbeitraege-reader-pf-de/cim-und-cgmes-funktionen-von-powerfactory-zur-unterstuetzung-des-cim-standards.html"}
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PSCAD / EMTDC",
+    "vendor": "Manitoba Hydro International",
+    "sector": "power",
+    "stage": "工艺仿真",
+    "purpose": "电力系统电磁暂态仿真，可图形化建立电路、运行时域仿真并分析结果。",
+    "interfaces": [
+      {"name": "Python Automation Library（mhi.pscad）", "type": "API/SDK", "detail": "脚本启动 PSCAD、载入工程、修改组件参数、批量运行仿真及整理输出；支持应用内与外部脚本。"}
+    ],
+    "constraints": "官网称自动化库向持有 PSCAD 许可的用户免费提供，适用于 4.6.1 及后续版本；V5 外部脚本环境可能需单独安装。Python、编译器及 PSCAD 的版本兼容性需按实际版本核对；未实测，不推定免费版具备该能力。",
+    "sources": [
+      {"title": "PSCAD：Automation Library", "url": "https://www.pscad.com/software/pscad/automation-library"},
+      {"title": "PSCAD：Introduction to EMTDC", "url": "https://www.pscad.com/webhelp/EMTDC/Introduction/introduction_to_emtdc.htm"}
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PSS E",
+    "vendor": "Siemens",
+    "sector": "power",
+    "stage": "研发设计",
+    "purpose": "输电网规划与分析，覆盖潮流、故障、动态稳定性、事故分析和新能源接入研究。",
+    "interfaces": [
+      {"name": "Python API", "type": "API/SDK", "detail": "官方 PSS E 36 说明列出完整 Python API，用于程序自动化与定制；基础包包含 Python 脚本功能。"}
+    ],
+    "constraints": "商业产品，基础包与扩展分析模块能力不同。所引明确接口依据为 PSS E 36 页面，其他版本及 Python 解释器兼容性需另核；未安装、未实测。",
+    "sources": [
+      {"title": "Siemens：PSS E Version 36", "url": "https://www.siemens.com/es-mx/products/pss-software/psse-version-36/"},
+      {"title": "Siemens：PSS power system simulation and modeling software", "url": "https://www.siemens.com/en-us/products/pss-software/"}
+    ],
+    "evidence": "官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ETAP",
+    "vendor": "ETAP",
+    "sector": "power",
+    "stage": "工艺仿真",
+    "purpose": "电力系统工程分析、运行场景与研究计算；可通过服务接口自动执行研究并读取工程数据。",
+    "interfaces": [
+      {"name": "etapAPI（REST / HTTPS）", "type": "API/SDK", "detail": "运行于 DataHub 的公共 REST 服务，提供 Application、Project Data、Studies、Scenario 等接口，并提供 Swagger 浏览与交互。"},
+      {"name": "etapPy", "type": "脚本/CLI", "detail": "官方 Python 客户端，用于调用 etapAPI、远程运行研究与自动化。"}
+    ],
+    "constraints": "需部署 ETAP / DataHub 并配置安全连接；端点随版本增加，研究功能取决于已购模块与实例配置。官网称旧 SOAP 服务正迁移至 REST，不据此建议新集成采用 SOAP。许可及端点未实测。",
+    "sources": [
+      {"title": "ETAP：etapAPI / DataHub / RESTful Service", "url": "https://etap.com/product/etap-rest-api"},
+      {"title": "ETAP：What’s New（REST 与 etapPy）", "url": "https://etap.com/fr/products/whats-new"}
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OpenDSS",
+    "vendor": "EPRI",
+    "sector": "power",
+    "stage": "研发设计",
+    "purpose": "开源配电系统模拟器，用于配电规划、分布式电源接入、年度负荷与发电时序、谐波等分析。",
+    "interfaces": [
+      {"name": "COM / DLL", "type": "API/SDK", "detail": "Windows 版本可作为进程内 COM 服务器，由支持 COM 的 Python、MATLAB、C# 等外部程序控制；官方说明另提供标准函数调用 DLL。"},
+      {"name": "DSS 命令脚本（.dss）", "type": "脚本/CLI", "detail": "通过文本命令处理器定义电网和运行求解；GUI 操作存在对应脚本命令，可记录为 .dss。"}
+    ],
+    "constraints": "开源实现；COM 受平台限制。官方 DLL 与社区包装器的能力、平台支持和版本不能混用，本条不把第三方 Python 包视为原生官方接口；未实测。",
+    "sources": [
+      {"title": "EPRI：Introduction to OpenDSS", "url": "https://opendss.epri.com/opendss_documentation.html"},
+      {"title": "EPRI：OpenDSS GUI", "url": "https://opendss.epri.com/OpenDSSGUI.html"}
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "System Advisor Model（SAM）",
+    "vendor": "National Laboratory of the Rockies（NLR，原 NREL）",
+    "sector": "power",
+    "stage": "研发设计",
+    "purpose": "可再生能源项目性能与经济分析，支持利用 SSC 仿真核心建立自定义能源系统计算工具。",
+    "interfaces": [
+      {"name": "SSC SDK / SSC API", "type": "API/SDK", "detail": "直接调用 SAM Simulation Core 中的能源仿真模块；官方代码生成器可从 SAM 案例生成可运行程序。"},
+      {"name": "PySAM", "type": "API/SDK", "detail": "SSC 官方 Python 包，供自定义应用调用可再生能源计算模块。"},
+      {"name": "LK / SDKtool", "type": "脚本/CLI", "detail": "SDKtool 提供模块浏览、输入输出数据容器与 LK 脚本编辑器，用于测试算法和单独运行 SSC 模块。"}
+    ],
+    "constraints": "SAM 桌面程序与 SSC/PySAM 的版本、模块输入输出必须匹配；非所有桌面界面逻辑都等同于单个 SSC 模块。源码与桌面发行版的使用遵循相应许可，桌面版首次启动需注册免费软件密钥；未实测。",
+    "sources": [
+      {"title": "SAM：Software Development Kit", "url": "https://sam.nlr.gov/software-development-kit-sdk.html"},
+      {"title": "SAM：About", "url": "https://sam.nlr.gov/about-sam/"},
+      {"title": "SAM：Downloads（免费密钥注册）", "url": "https://sam.nlr.gov/download.html"}
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Revit",
+    "vendor": "Autodesk",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "建筑信息模型（BIM）设计与工程文档制作，覆盖建筑、结构和机电模型协作。",
+    "interfaces": [
+      {"name": "Revit .NET API / SDK", "type": "API/SDK", "detail": "官方 SDK、参考文档与示例用于构建 Revit 定制应用和插件。"},
+      {"name": "IFC", "type": "信息模型", "detail": "支持 IFC 链接与导出；Autodesk 官方开源 IFC 扩展可覆盖随 Revit 发布的标准组件。"}
+    ],
+    "constraints": "需匹配 Revit 与插件年度版本及 .NET 环境；官方 IFC 仓库称仅维护当前年度和前两个年度版本。IFC 版本、属性集及几何转换存在设置边界，不保证无损往返；商业主程序及插件未实测。",
+    "sources": [
+      {"title": "Autodesk：Revit SDKs and Tools", "url": "https://forge.autodesk.com/developer/overview/revit-api"},
+      {"title": "Autodesk 官方仓库：revit-ifc", "url": "https://github.com/Autodesk/revit-ifc"},
+      {"title": "Autodesk：Revit 产品概览", "url": "https://www.autodesk.com/products/revit/overview"}
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Tekla Structures",
+    "vendor": "Trimble",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "结构 BIM 设计与详图制作，支持结构模型、钢筋及图纸自动化。",
+    "interfaces": [
+      {"name": "Tekla Open API（.NET）", "type": "API/SDK", "detail": "第三方应用与 Tekla 建模/出图环境交互，可选择、创建、修改和删除模型或图纸对象。"}
+    ],
+    "constraints": "应用须与 Tekla Structures 配合运行；官方入门文档要求 Tekla Structures 许可，第三方开发可使用 Partners Program Suite 许可。API 程序集与宿主版本需匹配；未实测。",
+    "sources": [
+      {"title": "Tekla：How Tekla Open API works", "url": "https://developer.tekla.com/documentation/how-tekla-open-api-works"},
+      {"title": "Tekla：Get started with Tekla Structures Open API", "url": "https://developer.tekla.com/documentation/get-started-tekla-structures-open-api"},
+      {"title": "Tekla APIs for developers", "url": "https://www.tekla.com/solutions/design-interoperability/open-api"}
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ETABS",
+    "vendor": "Computers and Structures, Inc.（CSI）",
+    "sector": "civil",
+    "stage": "工艺仿真",
+    "purpose": "多层建筑结构分析与设计，覆盖钢、混凝土构件与静动力分析。",
+    "interfaces": [
+      {"name": "CSI API", "type": "API/SDK", "detail": "支持通过 Python、C#、VBA、MATLAB 等创建修改模型、运行分析并提取结果，可开发内嵌插件和外部双向连接。"}
+    ],
+    "constraints": "商业软件，不同 ETABS 等级具备的分析与设计能力不同；API 函数的引入版本和行为应查随附帮助。跨产品 API 一致性不表示每项函数或分析能力相同；未实测。",
+    "sources": [
+      {"title": "CSI：Developer", "url": "https://www.csiamerica.com/developer"},
+      {"title": "CSI：ETABS Compare Levels", "url": "https://www.csiamerica.com/products/etabs/compare-levels"},
+      {"title": "CSI：About（ETABS 研究对象）", "url": "https://www.csiamerica.com/about"}
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Civil 3D",
+    "vendor": "Autodesk",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "基于三维工程模型的土木设计，处理地形、线路与基础设施设计对象。",
+    "interfaces": [
+      {"name": ".NET API / COM API", "type": "API/SDK", "detail": "自动执行任务、创建命令与工作流、操作设计对象和数据；COM 属于遗留接口，部分功能需按版本比较。"},
+      {"name": "Custom Draw API（C++）", "type": "API/SDK", "detail": "用于定制 Civil 3D 对象绘制，属于对 AutoCAD ObjectARX 的扩展。"},
+      {"name": "LandXML", "type": "文件格式", "detail": "LandXMLIn / LandXMLOut 命令导入导出土木工程数据，具体支持元素由 Civil 3D 文档规定。"}
+    ],
+    "constraints": "商业宿主与开发环境版本需匹配；Civil 3D 不提供完整 ObjectARX API，不能将 AutoCAD ObjectARX 能力直接视作 Civil 3D 专属对象接口。LandXML 不表示所有对象均可无损交换；未实测。",
+    "sources": [
+      {"title": "Autodesk：Civil 3D API", "url": "https://forge.autodesk.com/developer/overview/civil-3d"},
+      {"title": "Autodesk：LandXML Command Reference", "url": "https://help.autodesk.com/cloudhelp/2025/ENG/Civil3D-UserGuide/files/GUID-7C941F4D-0299-48E6-B818-26E54D29645B.htm"},
+      {"title": "Autodesk：Supported LandXML Data", "url": "https://help.autodesk.com/cloudhelp/2024/ENG/Civil3D-UserGuide/files/GUID-4D10ABA5-5EA0-41A8-BB61-C3F446CE7C6B.htm"}
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PLAXIS 2D / 3D",
+    "vendor": "Bentley Systems / Seequent",
+    "sector": "civil",
+    "stage": "工艺仿真",
+    "purpose": "岩土有限元分析，研究土岩应力应变、开挖施工阶段、稳定性及土与结构相互作用。",
+    "interfaces": [
+      {"name": "Remote Scripting REST HTTP API", "type": "API/SDK", "detail": "Input 与 Output 均提供远程脚本服务器；通过 HTTP 接口操作模型、网格、计算和结果。"},
+      {"name": "plxscripting Python wrapper", "type": "脚本/CLI", "detail": "官方 Python 封装连接指定端口和口令，将输入建模与输出提取分别连接到服务器。"}
+    ],
+    "constraints": "官方知识库以 CONNECT Edition V20 及以后为版本栏，正文还讨论较早版本；2022 年文章要求 GSE（原 VIP）权益并激活脚本服务器。现售许可名称和版本需另核，不能据旧条款断言当前全部套餐可用；未实测。",
+    "sources": [
+      {"title": "Bentley：Using PLAXIS Remote scripting with the Python wrapper", "url": "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0108870"},
+      {"title": "Bentley：PLAXIS 2D", "url": "https://www.bentley.com/products/plaxis-2d/"}
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "EnergyPlus",
+    "vendor": "EnergyPlus 官方开源项目（美国能源部支持）",
+    "sector": "civil",
+    "stage": "工艺仿真",
+    "purpose": "建筑能耗与暖通空调系统仿真，支持建筑能源模型及控制策略分析。",
+    "interfaces": [
+      {"name": "C API / Python API（pyenergyplus）", "type": "API/SDK", "detail": "提供物性函数、仿真运行回调和数据交换；可在仿真内读取传感值、设置执行器值。"},
+      {"name": "IDF / epJSON", "type": "文件格式", "detail": "EnergyPlus 输入模型格式；epJSON 由 JSON Schema 描述对象和字段，适合程序化生成输入。"}
+    ],
+    "constraints": "API 页面为 26.2 文档，输入格式依据另见官方 Essentials；模型、Schema、动态库与 Python 包需匹配安装版本。API 传感器/执行器用于仿真内部数据，不等同于现场 BACnet 或其他设备通信支持；未实测。",
+    "sources": [
+      {"title": "EnergyPlus：Python API 26.2", "url": "https://energyplus.readthedocs.io/en/v26.2.0/api.html"},
+      {"title": "EnergyPlus Essentials：IDF 与 epJSON", "url": "https://energyplus.readthedocs.io/en/stable/essentials/essentials.html"},
+      {"title": "EnergyPlus Essentials 24.2", "url": "https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v24.2.0/EnergyPlusEssentials.pdf"},
+      {"title": "美国能源部：EnergyPlus", "url": "https://www.energy.gov/cmei/buildings/articles/energyplus"}
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  }
+]

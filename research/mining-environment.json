@@ -1,0 +1,422 @@
+[
+  {
+    "name": "Petrel + Ocean",
+    "vendor": "SLB",
+    "sector": "mining",
+    "stage": "研发设计",
+    "purpose": "油气勘探开发中的地震解释、地质与储层建模，并联结储层工程工作流。",
+    "interfaces": [
+      {
+        "name": "Ocean for Petrel",
+        "type": "API/SDK",
+        "detail": "在 Petrel 内开发和部署插件，扩展领域对象与专业工作流；官方资料提供 API 帮助、示例代码和 Visual Studio 开发工具。"
+      }
+    ],
+    "constraints": "商业软件；需核对 Petrel 与 Ocean SDK 的版本及开发者授权。部分 API 文档和下载受账户权限限制；本次未安装或实测插件。",
+    "sources": [
+      {
+        "title": "SLB：Petrel subsurface software",
+        "url": "https://www.software.slb.com/products/petrel"
+      },
+      {
+        "title": "SLB：Ocean software development framework",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/ocean"
+      },
+      {
+        "title": "SLB：Ocean for Petrel reservoir and production engineering product sheet",
+        "url": "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/ps_ocean_for_petrel_res_production_engineering.ashx"
+      }
+    ],
+    "evidence": "官方产品说明与 SDK 产品资料；接口存在及用途已核实，未做互操作实测。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Techlog",
+    "vendor": "SLB",
+    "sector": "mining",
+    "stage": "研发设计",
+    "purpose": "井筒测井与岩石物理数据分析，处理井、数据集、曲线和属性，并编排计算与绘图工作流。",
+    "interfaces": [
+      {
+        "name": "Techlog Python",
+        "type": "脚本/CLI",
+        "detail": "内置 Python 编辑器及库访问井、数据集、曲线、属性和绘图对象，可执行岩石物理计算。"
+      },
+      {
+        "name": "Ocean for Techlog",
+        "type": "API/SDK",
+        "detail": "使用 Qt C++ 面向对象 API 开发 Techlog 插件。"
+      }
+    ],
+    "constraints": "商业软件；Python 环境及 Ocean 插件须匹配 Techlog 版本。官方记录指出 2020.1 编译器升级曾打破与 2019 插件的二进制兼容性，因此不能默认跨版本通用；本次未实测。",
+    "sources": [
+      {
+        "title": "SLB：Techlog Python",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/techlog-wellbore-software/techlog/techlog-core-systems/techlog-python"
+      },
+      {
+        "title": "SLB：Ocean for Techlog developer guide",
+        "url": "https://www.ocean.slb.com/developer/techlog/getting-started/ocean-developer"
+      },
+      {
+        "title": "SLB：Techlog 2020.1 release information",
+        "url": "https://www.software.slb.com/software-news/software-top-news/techlog/techlog-2020-1"
+      }
+    ],
+    "evidence": "官方产品说明及开发者文档。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OPM Flow",
+    "vendor": "Open Porous Media initiative",
+    "sector": "mining",
+    "stage": "工艺仿真",
+    "purpose": "采用全隐式方法计算三相黑油等储层流动问题，支持油气开发方案与井控策略仿真。",
+    "interfaces": [
+      {
+        "name": "ECLIPSE input deck / restart / summary",
+        "type": "文件格式",
+        "detail": "读取 ECLIPSE 风格输入 deck；参考手册说明可写兼容的二进制 restart 和 summary 结果。"
+      },
+      {
+        "name": "flow 命令行",
+        "type": "脚本/CLI",
+        "detail": "通过命令行指定输入 deck 及求解、输出选项，适合批量运行。"
+      },
+      {
+        "name": "opm.common / opm.simulators 与 PYACTION",
+        "type": "API/SDK",
+        "detail": "官方提供 Python 类文档，可从 Python 调用模拟器，并通过 PYACTION 在模拟中执行 Python 脚本。"
+      }
+    ],
+    "constraints": "开源软件；ECLIPSE 格式兼容不表示所有关键字及物理模型都被完整实现，须核对所用版本支持列表和运行警告；本次未运行仿真。",
+    "sources": [
+      {
+        "title": "OPM：Flow 与项目介绍",
+        "url": "https://opm-project.org/"
+      },
+      {
+        "title": "OPM：Flow manual 与 Python documentation 入口",
+        "url": "https://opm-project.org/?page_id=955"
+      },
+      {
+        "title": "OPM Flow Reference Manual 2022-10：命令行和 ECLIPSE 输出说明",
+        "url": "https://opm-project.org/wp-content/uploads/2022/12/OPM_Flow_Reference_Manual_2022-10.pdf"
+      }
+    ],
+    "evidence": "官方技术手册；文件接口由 2022-10 手册确认，Python 接口由当前官方文档入口确认。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Maptek Vulcan",
+    "vendor": "Maptek",
+    "sector": "mining",
+    "stage": "研发设计",
+    "purpose": "矿山三维建模、矿体与资源模型管理、露天及地下矿山设计和作业计划。",
+    "interfaces": [
+      {
+        "name": "Vulcan Python SDK",
+        "type": "API/SDK",
+        "detail": "maptek.vulcan 操作数据库、块体模型、三角网、网格和图形文件；maptek.vulcan_gui 提供对象选择、面板、宏和视图控制。"
+      },
+      {
+        "name": "Python 自动化脚本",
+        "type": "脚本/CLI",
+        "detail": "通过 Python 自动化重复任务并创建自定义操作面板。"
+      }
+    ],
+    "constraints": "商业软件；Vulcan Python SDK 属于 Maptek Extend，且与 Maptek Python SDK 为不同组件。GUI 接口要求 Vulcan 正在运行；依据 2024.1/2024.2 文档，未实测。",
+    "sources": [
+      {
+        "title": "Maptek：Vulcan 产品说明",
+        "url": "https://www.maptek.com/products/vulcan/"
+      },
+      {
+        "title": "Maptek：Vulcan Python SDK 2024.2",
+        "url": "https://help.maptek.com/vulcansdk/2024.2/Content/topics/vulcan-python-sdk/index.htm"
+      },
+      {
+        "title": "Maptek：Python API 2024.1 reference",
+        "url": "https://help.maptek.com/vulcansdk/2024.1/Content/api-reference/vulcan-python-sdk/index.html"
+      }
+    ],
+    "evidence": "官方产品说明与技术 API 文档。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Leapfrog Geo",
+    "vendor": "Seequent（Bentley Systems）",
+    "sector": "mining",
+    "stage": "研发设计",
+    "purpose": "基于钻孔、构造、点和曲面数据构建与动态更新三维隐式地质模型，支持矿产勘探和资源建模。",
+    "interfaces": [
+      {
+        "name": "CSV / DXF / DWG / GOCAD / OBJ",
+        "type": "文件格式",
+        "detail": "CSV 交换钻孔表和点数据；DXF、DWG、GOCAD 和 OBJ 等交换适用的网格、曲面或设计对象，具体导入导出方向按对象类型区分。"
+      },
+      {
+        "name": "ODBC",
+        "type": "API/SDK",
+        "detail": "官方支持列表列出通过 ODBC 接入 .mdb/.accdb 钻孔及点数据。"
+      },
+      {
+        "name": "MODFLOW / FEFLOW 文件",
+        "type": "文件格式",
+        "detail": "Hydrogeology Extension 可导入 MODFLOW 和 FEFLOW 流动模型，并导出相应模型数据。"
+      }
+    ],
+    "constraints": "商业软件；按官方 2026.1.3 支持列表核查。水文地质、地球物理和 Maptek Link 的部分交换能力需相应扩展；不可把 Geo 导出能力等同于免费 Viewer 的能力。本次未实测。",
+    "sources": [
+      {
+        "title": "Seequent：Leapfrog Geo 产品说明",
+        "url": "https://www.seequent.com/products-solutions/leapfrog-geo/"
+      },
+      {
+        "title": "Seequent：Leapfrog Geo supported data types and formats",
+        "url": "https://www.seequent.com/help-support/leapfrog-geo/"
+      }
+    ],
+    "evidence": "官方产品说明与版本化文件支持列表。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "GEOVIA Surpac",
+    "vendor": "Dassault Systèmes",
+    "sector": "mining",
+    "stage": "研发设计",
+    "purpose": "矿山地质建模、钻孔数据管理、资源估算，以及露天与地下矿山设计和计划。",
+    "interfaces": [
+      {
+        "name": "Tcl / SCL 宏",
+        "type": "脚本/CLI",
+        "detail": "录制、回放和编写 Tcl/SCL 脚本，访问图形、钻孔、数据库和块体模型操作，并创建自定义菜单与表单。"
+      },
+      {
+        "name": "tclodbc / ODBC",
+        "type": "API/SDK",
+        "detail": "官方高级宏课程列出 ODBC 数据源和 tclodbc 包，用于连接 SQL 数据库。"
+      }
+    ],
+    "constraints": "商业软件；脚本可用命令、角色许可与数据库驱动须按安装版本核对。接口依据官方 2024 年高级宏课程资料；未实测与特定数据库连接。",
+    "sources": [
+      {
+        "title": "Dassault Systèmes：GEOVIA Surpac",
+        "url": "https://www.3ds.com/products/geovia/surpac"
+      },
+      {
+        "title": "GEOVIA Surpac Advanced Macros Tcl/SCL course structure, July 2024",
+        "url": "https://www.3ds.com/assets/invest/2024-10/geovia-surpac-advanced-macros-tcl-scl-july2024.pdf"
+      }
+    ],
+    "evidence": "官方产品说明及官方技术培训资料。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "EPANET",
+    "vendor": "US EPA",
+    "sector": "environment",
+    "stage": "工艺仿真",
+    "purpose": "供水管网水力与水质模拟，用于管泵阀配置、供水运行策略及消毒剂等水质问题分析。",
+    "interfaces": [
+      {
+        "name": "EPANET Programmer’s Toolkit",
+        "type": "API/SDK",
+        "detail": "DLL 函数可打开网络描述、读写设计及运行参数、执行延时模拟并提取结果，可嵌入支持调用该 DLL 的程序。"
+      },
+      {
+        "name": "网络描述与结果文件",
+        "type": "文件格式",
+        "detail": "Toolkit 可读取网络描述文件，并按应用指定形式写出选定结果，支持优化和自动标定等批量分析。"
+      }
+    ],
+    "constraints": "官方提供开源 EPANET 2.2 和 Toolkit；DLL 的位数、调用约定及语言封装须按实际构建核对。这里的仿真 API 不等于直接控制现场 PLC；本次未实测。",
+    "sources": [
+      {
+        "title": "US EPA：EPANET，含 Programmer’s Toolkit 说明和下载",
+        "url": "https://www.epa.gov/water-research/epanet"
+      }
+    ],
+    "evidence": "官方产品及开发工具说明。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SWMM",
+    "vendor": "US EPA",
+    "sector": "environment",
+    "stage": "工艺仿真",
+    "purpose": "模拟城市雨洪、合流与污水排水系统的径流数量和水质，辅助排水系统及绿色基础设施设计。",
+    "interfaces": [
+      {
+        "name": "SWMM 5.2.4 computational engine API",
+        "type": "API/SDK",
+        "detail": "EPA 提供计算引擎源代码及配套 API Guide，供外部程序集成模型运行。"
+      },
+      {
+        "name": "SWMM INP",
+        "type": "文件格式",
+        "detail": "使用 SWMM 用户手册规定的文本输入文件描述排水网络、降雨和模拟选项。"
+      }
+    ],
+    "constraints": "开源且免费；接口版本以官方页面提供的 5.2.4 API Guide 为依据。须区分 EPA 原版与商业包装软件新增的 API；本次未编译或实测。",
+    "sources": [
+      {
+        "title": "US EPA：SWMM，含 5.2.4 API Guide、源代码与 5.2 用户手册",
+        "url": "https://www.epa.gov/water-research/storm-water-management-model-swmm"
+      },
+      {
+        "title": "US EPA：SWMM 5.2 User’s Manual，11.1 节与附录 D 输入文件格式",
+        "url": "https://www.epa.gov/system/files/documents/2022-04/swmm-users-manual-version-5.2.pdf"
+      }
+    ],
+    "evidence": "官方产品说明、API 文档入口与用户手册。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SUMO",
+    "vendor": "Dynamita",
+    "sector": "environment",
+    "stage": "工艺仿真",
+    "purpose": "污水处理与资源回收工艺模拟，建立处理流程模型并分析工艺运行表现。",
+    "interfaces": [
+      {
+        "name": "SUMO C API / Python API",
+        "type": "API/SDK",
+        "detail": "C API 连接 SUMO core；Python API 封装 C API，可用外部应用编排模拟。"
+      },
+      {
+        "name": "scli",
+        "type": "脚本/CLI",
+        "detail": "官方命令行接口通过操作系统标准输入输出与外部程序通信。"
+      },
+      {
+        "name": "Digital Twin Toolkit（DTT）",
+        "type": "API/SDK",
+        "detail": "官方手册说明 SUMO24 可通过 DTT 与 Excel、Python、Matlab 等程序交互。"
+      }
+    ],
+    "constraints": "商业软件；DTT、运行时部署和服务器或容器使用的许可须单独核对，不能由存在 Python API 推断免费部署权。此处为污水工艺 SUMO，与交通仿真同名软件不同；未实测。",
+    "sources": [
+      {
+        "title": "Dynamita：SUMO User Manual introduction",
+        "url": "https://wiki.dynamita.com/en/introduction"
+      },
+      {
+        "title": "Dynamita：SUMO C-API guide",
+        "url": "https://wiki.dynamita.com/en/c-api"
+      },
+      {
+        "title": "Dynamita：SUMO24.1 wastewater resource recovery capabilities",
+        "url": "https://www.dynamita.com/sumo24/why_choose_sumo24dot1.pdf"
+      }
+    ],
+    "evidence": "官方技术文档及产品资料。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "FEFLOW",
+    "vendor": "DHI",
+    "sector": "environment",
+    "stage": "工艺仿真",
+    "purpose": "地下水系统建模与模拟，支持地下水工程及相关环境问题分析。",
+    "interfaces": [
+      {
+        "name": "IFM Python API",
+        "type": "API/SDK",
+        "detail": "import ifm 加载模型、访问节点等模型对象，并执行前后处理；支持模型运行过程中的 Python callbacks。"
+      },
+      {
+        "name": "feflow -python",
+        "type": "脚本/CLI",
+        "detail": "通过命令行 -python 选项调用 Python 自动化。"
+      },
+      {
+        "name": "FEM",
+        "type": "文件格式",
+        "detail": "官方 API 示例以 ifm.loadDocument(\"myModel.fem\") 载入 FEFLOW 模型文件。"
+      }
+    ],
+    "constraints": "商业软件；当前所读 IFM 11 文档要求 FEFLOW 11.0 与 Python ≥ 3.11，并须在安装时选择 Python API 选项。旧版本环境要求可能不同；未实测。",
+    "sources": [
+      {
+        "title": "DHI：ifm Python API for FEFLOW Groundwater Modelling System",
+        "url": "https://dhi.github.io/ifm/"
+      }
+    ],
+    "evidence": "官方版本化技术 API 文档。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "MIKE 21/3",
+    "vendor": "DHI",
+    "sector": "environment",
+    "stage": "工艺仿真",
+    "purpose": "海岸及海洋水动力、波浪、泥沙与水质过程模拟，支持海岸工程和环境影响分析。",
+    "interfaces": [
+      {
+        "name": "DFS / DFSU / mesh",
+        "type": "文件格式",
+        "detail": "DFS 为时空数据文件族；MIKE 21/3 FM 引擎使用非结构网格 .dfsu 结果与 .mesh 几何文件。"
+      },
+      {
+        "name": "MIKE IO",
+        "type": "API/SDK",
+        "detail": "DHI 官方 Python 包读写和处理 dfs0–dfs3、dfsu 与 mesh；可连接 Python 科学计算工作流。"
+      },
+      {
+        "name": "DHI.DFS .NET API",
+        "type": "API/SDK",
+        "detail": "MIKE Core Libraries 提供创建、读取与编辑 DFS 数据的 .NET API。"
+      }
+    ],
+    "constraints": "MIKE 21/3 为商业仿真软件，物理模块须按许可核对；MIKE IO 是文件处理库，不能据此推断可免费调用全部求解器。文件类型与几何支持须按版本检查；本次未运行引擎。",
+    "sources": [
+      {
+        "title": "DHI：MIKE 21/3 Coast and Marine Water Modelling Software",
+        "url": "https://www.dhigroup.com/technologies/mikepoweredbydhi/mike-21-3"
+      },
+      {
+        "title": "DHI：MIKE IO Dfsu user guide",
+        "url": "https://dhi.github.io/mikeio/user-guide/dfsu.html"
+      },
+      {
+        "title": "DHI：MIKE Core Libraries",
+        "url": "https://docs.mikepoweredbydhi.com/core_libraries/core-libraries/"
+      }
+    ],
+    "evidence": "官方产品说明、文件格式及 API 文档。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "AERMOD",
+    "vendor": "US EPA / American Meteorological Society",
+    "sector": "environment",
+    "stage": "工艺仿真",
+    "purpose": "工业排放的大气扩散建模，考虑边界层湍流、地面与高架源以及简单和复杂地形。",
+    "interfaces": [
+      {
+        "name": "AERMOD.INP / AERMOD.OUT",
+        "type": "文件格式",
+        "detail": "文本 runstream 输入记录模型选项、排放源和受体，并引用气象文件；主输出包含输入回显、模型结果及诊断信息。"
+      },
+      {
+        "name": "批量可执行程序",
+        "type": "脚本/CLI",
+        "detail": "EPA 提供可执行程序、源代码与 sample run instructions，可通过准备输入文件并执行程序编排计算。"
+      }
+    ],
+    "constraints": "EPA 提供模型代码和可执行文件；所读当前下载页为 v26135，文件接口细节同时回溯官方用户手册。监管适用性取决于当地规则，不能将美国 EPA 推荐直接等同于其他地区适用性；未实测。",
+    "sources": [
+      {
+        "title": "US EPA：AERMOD Modeling System code and documentation",
+        "url": "https://www.epa.gov/scram/air-quality-dispersion-modeling-preferred-and-recommended-models"
+      },
+      {
+        "title": "US EPA：AERMOD User’s Guide，3.8 节输入输出文件说明",
+        "url": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P100QVCE.TXT"
+      }
+    ],
+    "evidence": "官方产品说明、模型发布页和用户技术手册。",
+    "sourceDate": "2026-10-19"
+  }
+]

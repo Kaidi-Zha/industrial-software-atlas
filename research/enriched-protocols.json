@@ -1,0 +1,1555 @@
+[
+  {
+    "id": "p01",
+    "formalName": "OPC Unified Architecture；IEC 62541 系列",
+    "status": "基金会规范 / IEC 标准系列",
+    "categories": [
+      "runtime",
+      "semantic"
+    ],
+    "defines": [
+      "服务与消息",
+      "信息模型",
+      "安全机制"
+    ],
+    "scope": "设备、控制系统与上层应用间的数据、事件和方法调用。",
+    "transport": "客户端/服务器与 PubSub 为不同交互模式；具体编码及传输映射取决于实现。",
+    "objects": "地址空间中的对象、变量、方法、事件；变量还涉及数据类型、时间戳与质量状态。",
+    "roles": "客户端/服务器，或发布者/订阅者。",
+    "version": "按 IEC 62541 分册、Profiles、Facets 与 Companion Specification 版本记录；本目录未锁定所有分册。",
+    "compatibility": "服务可用性受服务器实现与权限限制；UA 支持不能替代行业模型支持声明。",
+    "checklist": [
+      "确认端点、模式及支持 Profile",
+      "核对证书、用户身份、节点标识及读写权限",
+      "核对采样/发布周期、断线恢复与质量码"
+    ],
+    "validation": "建议先浏览节点，再读取一个变量并订阅变化；以值、状态、时间戳和断线行为共同验收。",
+    "access": "公开概览与在线规范；一致性测试及认证另有条件。",
+    "sourceLocator": "Architecture / Functional Equivalence / Information Modeling and Access",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p02",
+    "formalName": "MQTT Version 5.0",
+    "status": "OASIS Standard（2019-03-07）",
+    "categories": [
+      "runtime"
+    ],
+    "defines": [
+      "消息传输",
+      "会话与投递约定"
+    ],
+    "scope": "客户端通过服务器（常称 broker）发布与订阅消息。",
+    "transport": "TCP/IP 或其他有序、无损、双向连接；TLS 配置由部署确定。",
+    "objects": "主题名、主题过滤器和任意载荷；QoS、保留消息、遗嘱及会话参数需明确。",
+    "roles": "MQTT 客户端与服务器；客户端可同时发布和订阅。",
+    "version": "本条主依据为 MQTT 5.0；3.1.1 应单独记录。",
+    "compatibility": "MQTT 不规定工业点位、工程单位或业务命令语义；投递确认不等于生产操作完成。",
+    "checklist": [
+      "确认协议版本、broker 与身份配置",
+      "约定 topic、载荷 Schema、QoS 与会话参数",
+      "定义重复消息处理及应用业务确认"
+    ],
+    "validation": "建议验证连接、订阅、发布和重连，分别检查消息投递与业务处理结果。",
+    "access": "规范全文公开。",
+    "sourceLocator": "§1.1、§3 控制报文、§4 行为",
+    "sources": [
+      {
+        "title": "OASIS：MQTT 5.0 HTML 规范",
+        "url": "https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p03",
+    "formalName": "Eclipse Sparkplug Specification 3.0.0",
+    "status": "Eclipse 项目规范",
+    "categories": [
+      "semantic",
+      "runtime"
+    ],
+    "defines": [
+      "主题命名",
+      "载荷结构",
+      "会话状态"
+    ],
+    "scope": "为 MQTT 工业数据交换补充状态、设备和指标语义。",
+    "transport": "以 MQTT 为基础；Sparkplug 定义的载荷与主题约定需同时实施。",
+    "objects": "边缘节点、设备、指标及 birth/death 状态消息；指标别名和类型需要双方识别。",
+    "roles": "边缘节点、设备、主机应用，通过 MQTT 服务器互连。",
+    "version": "所读完整规范为 3.0.0；部署端应记录声明版本。",
+    "compatibility": "一般 MQTT 客户端不自动成为 Sparkplug 客户端；不能忽略在线状态与重生流程。",
+    "checklist": [
+      "统一 group、edge node、device 标识",
+      "核对 birth/death、指标类型及别名",
+      "检查主机重启与节点重连"
+    ],
+    "validation": "建议用 birth→data→death 的完整会话验证，而非只观察单条数值消息。",
+    "access": "规范公开；兼容性认证按项目条件办理。",
+    "sourceLocator": "Sparkplug 3.0.0：Topic Namespace / Payload / Operational Behavior",
+    "sources": [
+      {
+        "title": "Eclipse：Sparkplug 3.0.0 完整规范",
+        "url": "https://sparkplug.eclipse.org/specification/version/3.0/documents/sparkplug-specification-3.0.0.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p04",
+    "formalName": "MODBUS Application Protocol；TCP/IP 与 Serial Line 实施指南",
+    "status": "行业组织规范",
+    "categories": [
+      "field"
+    ],
+    "defines": [
+      "功能码",
+      "报文与链路映射"
+    ],
+    "scope": "控制器、仪表与采集端间的线圈和寄存器读写。",
+    "transport": "TCP 与串行 RTU 的封装、连接和帧校验不同。",
+    "objects": "线圈、离散输入、输入寄存器、保持寄存器；地址不直接等于工程含义。",
+    "roles": "客户端发请求、服务器应答；串行文档也使用主站/从站术语。",
+    "version": "应分别固定应用协议、TCP 指南、Serial Line 指南版本；本页不认定统一版本号。",
+    "compatibility": "32 位浮点组合、字序、倍率和单位常来自设备寄存器表，不能只靠协议名称确定。",
+    "checklist": [
+      "核对 TCP/RTU、站号与串口参数",
+      "明确功能码、地址基准、字序及倍率",
+      "定义超时、异常响应与重试"
+    ],
+    "validation": "建议先读已知寄存器，与设备本机值对照，再验证允许的写入和异常地址。",
+    "access": "组织公开提供协议及实施指南。",
+    "sourceLocator": "Specifications：Application Protocol / Serial Line / TCP/IP",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p05",
+    "formalName": "PROFINET",
+    "status": "PI 工业通信规范；纳入 IEC 工业以太网体系",
+    "categories": [
+      "field"
+    ],
+    "defines": [
+      "周期与非周期通信",
+      "设备工程与诊断"
+    ],
+    "scope": "自动化控制器、现场 I/O 与工程工具之间的数据交换。",
+    "transport": "工业以太网；RT、IRT、TSN 相关能力应按具体实现分别核实。",
+    "objects": "过程 I/O、模块/子模块、参数及诊断；设备工程信息由 GSD 描述。",
+    "roles": "IO Controller、IO Device、IO Supervisor。",
+    "version": "PI 当前技术页介绍 V2.5；设备实际版本、性能类及可选功能需查声明。",
+    "compatibility": "支持 PROFINET 不等于支持全部实时、安全或运动功能；GSD 与设备固件必须匹配。",
+    "checklist": [
+      "导入匹配的 GSD 并分配设备身份",
+      "核对 I/O 映射、周期与拓扑",
+      "检查诊断、掉站及恢复"
+    ],
+    "validation": "可查 PI 认证与测试工具；项目还需验证配置和实际 I/O 行为。",
+    "access": "技术概览公开；规范、工具及认证按 PI 条件取得。",
+    "sourceLocator": "Technology：V2.5 / Implementation / GSD / Diagnostics",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p06",
+    "formalName": "EtherNet/IP；Common Industrial Protocol（CIP）",
+    "status": "ODVA 规范体系",
+    "categories": [
+      "field"
+    ],
+    "defines": [
+      "对象与服务",
+      "工业以太网映射"
+    ],
+    "scope": "现场控制、配置、诊断和周期 I/O。",
+    "transport": "以太网上使用 TCP/IP 与 UDP；CIP 为其上层工业对象与服务。",
+    "objects": "CIP 对象、属性、服务及 I/O 数据；显式与隐式消息需区分。",
+    "roles": "连接发起端与目标端；I/O 连接的产生端/消费端。",
+    "version": "按 ODVA 规范卷、修订版、设备 Profile 与 EDS 记录；不以 CIP 总称代替版本。",
+    "compatibility": "CIP Safety、Motion、Sync、Security 是需分别核实的功能，不能从普通 EtherNet/IP 支持推断。",
+    "checklist": [
+      "核对设备 EDS、对象与 I/O assembly",
+      "配置连接、更新周期与超时",
+      "查扩展功能及一致性声明"
+    ],
+    "validation": "建议将显式属性访问与周期 I/O 分开验收；可查 ODVA 一致性测试资源。",
+    "access": "概览公开；规范、开发许可与测试另有条件。",
+    "sourceLocator": "EtherNet/IP：Industrial Ethernet Network / CIP Networks / Resources",
+    "sources": [
+      {
+        "title": "ODVA：EtherNet/IP 技术与资源",
+        "url": "https://www.odva.org/technology-standards/key-technologies/ethernet-ip/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p07",
+    "formalName": "EtherCAT（Ethernet for Control Automation Technology）",
+    "status": "ETG 技术规范；IEC 61158 相关协议",
+    "categories": [
+      "field"
+    ],
+    "defines": [
+      "实时过程数据",
+      "同步与状态机",
+      "设备描述"
+    ],
+    "scope": "运动控制、现场 I/O、测试与测量设备的实时交换。",
+    "transport": "MainDevice 发送 EtherCAT 帧，SubDevice 在帧经过时处理数据。",
+    "objects": "过程数据、设备状态与邮箱服务；工程配置使用 ESI，时间同步可使用 Distributed Clocks。",
+    "roles": "MainDevice 与 SubDevice（旧称主站、从站）。",
+    "version": "应记录设备 Profile、ESI、固件和所需 ETG 规范；Compendium 入口标注 2025-05-23 更新。",
+    "compatibility": "总线实时能力不等于应用控制效果；设备描述、数据映射、同步模式和周期需要匹配。",
+    "checklist": [
+      "核对 ESI、设备身份和过程数据映射",
+      "配置周期与需要的同步模式",
+      "验证状态转换、断线及诊断"
+    ],
+    "validation": "ETG 提供一致性测试体系；项目建议检查过程数据、设备状态与同步误差。",
+    "access": "技术介绍公开；部分详细规范及工具仅会员可得。",
+    "sourceLocator": "ETG：Features / ESI / Distributed Clocks / Conformance",
+    "sources": [
+      {
+        "title": "ETG：EtherCAT Compendium",
+        "url": "https://www.ethercat.org/en/compendium.htm"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p08",
+    "formalName": "IO-Link；IEC 61131-9（SDCI）",
+    "status": "IEC 标准 / IO-Link 规范体系",
+    "categories": [
+      "field"
+    ],
+    "defines": [
+      "点对点通信",
+      "设备参数描述"
+    ],
+    "scope": "传感器、执行器与 IO-Link 主站之间的数字通信。",
+    "transport": "主站端口到设备的点对点连接；向控制网络上送数据还依赖主站接口。",
+    "objects": "过程数据、参数和诊断事件；IODD 描述设备识别、数据与参数。",
+    "roles": "IO-Link Master、IO-Link Device。",
+    "version": "记录 IO-Link 规范、IODD 与设备修订版；此页不核定各设备版本。",
+    "compatibility": "IO-Link 设备兼容性与主站上行总线是两层问题；不同过程数据布局不可直接互换。",
+    "checklist": [
+      "匹配 IODD 与设备身份",
+      "设置主站端口、参数和数据布局",
+      "核对量程、单位、事件与更换恢复"
+    ],
+    "validation": "可查 IODD 工具；建议同时验证过程值、参数访问和设备异常事件。",
+    "access": "技术说明公开，规范与工具见组织下载条件。",
+    "sourceLocator": "Technology：Point-to-point / IODD / System integration",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p09",
+    "formalName": "MTConnect Standard",
+    "status": "MTConnect Institute 开放行业标准",
+    "categories": [
+      "semantic",
+      "runtime"
+    ],
+    "defines": [
+      "设备语义",
+      "数据组织与访问"
+    ],
+    "scope": "制造设备运行状态、观测及资产数据的标准化获取。",
+    "transport": "Agent 向应用提供标准化数据；设备适配层需把原始信号映射到模型。",
+    "objects": "设备、数据项、带时间的观测与资产；具体可用对象取决于设备适配。",
+    "roles": "设备/Adapter、Agent、消费数据的客户端。",
+    "version": "核查时标准下载站需 JavaScript，未固定可核实的具体发行版。",
+    "compatibility": "采集模型不保证具备设备控制接口；模型版本和设备映射仍需确认。",
+    "checklist": [
+      "确认 Agent 版本与设备模型",
+      "核对数据项标识、单位和可用性",
+      "检查观测时间、序列及数据缺口"
+    ],
+    "validation": "建议用设备模型与真实观测逐项对照；本目录未运行 Agent 或验证器。",
+    "access": "官网为公开入口，版本及工具需进入下载/文档页核查。",
+    "sourceLocator": "官网与 Standard Download 入口",
+    "sources": [
+      {
+        "title": "MTConnect：标准下载入口",
+        "url": "https://www.mtconnect.org/standard-download20181"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p10",
+    "formalName": "ANSI/ISA-95 / IEC 62264；Business To Manufacturing Markup Language",
+    "status": "正式模型标准 + MESA 开源 Schema 实现",
+    "categories": [
+      "semantic",
+      "file"
+    ],
+    "defines": [
+      "业务对象与关系",
+      "XML Schema"
+    ],
+    "scope": "企业系统与制造运营系统间的计划、资源及执行信息集成。",
+    "transport": "ISA-95 模型不指定唯一传输；B2MML 提供 XML/XSD，具体消息通道另定。",
+    "objects": "人员、设备、物料、生产定义及计划/绩效等对象；字段按选定 Schema。",
+    "roles": "企业侧与制造侧应用；发送、接收及业务责任需在项目中划分。",
+    "version": "应分别记录 ISA-95 分册、B2MML 发布版与选用 Schema；核查时未固定仓库提交。",
+    "compatibility": "同为 B2MML 仍可能选用不同子集与扩展；仓库声明其 JSON Schema 尚未检查和测试。",
+    "checklist": [
+      "统一标识、资源层级与业务事务",
+      "锁定 XSD、扩展字段和映射",
+      "约定重复单据、状态变更及确认机制"
+    ],
+    "validation": "先做 Schema 校验，再核对订单/资源/执行结果的业务一致性。",
+    "access": "MESA 仓库公开提供 Schema、Examples、Documentation；正式标准另查授权。",
+    "sourceLocator": "README：B2MML / BatchML / B2MML-JSON；Schema、Examples",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p11",
+    "formalName": "ANSI/ISA-88；IEC 61512 批控制系列",
+    "status": "正式模型与术语标准",
+    "categories": [
+      "semantic"
+    ],
+    "defines": [
+      "批控制模型",
+      "配方与记录组织"
+    ],
+    "scope": "批生产设备、过程、配方和生产记录的组织。",
+    "transport": "技术中立模型体系，不提供统一网络端点；实施可另选 BatchML 或产品 API。",
+    "objects": "设备能力、控制程序、配方以及批生产记录；实际交换结构需另定。",
+    "roles": "工艺、设备控制、配方管理与记录系统；不是网络客户端/服务器角色定义。",
+    "version": "官方目录列 Part 1:2010、Part 2:2001、Part 3:2003、Part 4:2006；按使用分册记录。",
+    "compatibility": "遵循 ISA-88 不能证明配方可跨产品直接导入，也不能证明实现了统一状态/API。",
+    "checklist": [
+      "明确采用的分册和模型层级",
+      "核对配方/设备映射及执行状态",
+      "单独定义文件或 API 交换契约"
+    ],
+    "validation": "建议用一条配方追踪设备分配、执行与批记录；模型符合性与接口连通性分开验收。",
+    "access": "本目录依据公开目录概述；全文及规范条款需通过授权渠道取得。",
+    "sourceLocator": "ISA-88 Series：各分册公开摘要",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p12",
+    "formalName": "CAPE-OPEN Interface Specifications",
+    "status": "CO-LaN 行业软件接口规范",
+    "categories": [
+      "model"
+    ],
+    "defines": [
+      "组件接口",
+      "对象生命周期",
+      "错误与持久化"
+    ],
+    "scope": "过程模拟环境与物性、单元操作等计算组件互操作。",
+    "transport": "规范定义软件接口；组件需要与模拟宿主的运行环境、接口绑定和架构相容。",
+    "objects": "Material Object、组分/相、热力学性质、单元操作端口与参数。",
+    "roles": "Process Modelling Environment 与 Process Modelling Component。",
+    "version": "规范入口区分 1.0/1.1，并分 Thermodynamics、Unit Operations、Common Interfaces 等。",
+    "compatibility": "同名 CAPE-OPEN 支持须落实组件类型与子规范版本；物性组件不等于单元操作组件。",
+    "checklist": [
+      "确认宿主与组件的角色及版本",
+      "映射组分、相、端口和单位",
+      "核对初始化、求解、错误和资源释放"
+    ],
+    "validation": "建议先用小型物性或单元操作案例，逐项对照接口值和宿主结果。",
+    "access": "规范说明、接口文档与类型库入口公开；组件产品许可另核。",
+    "sourceLocator": "Specifications：Thermodynamics / Unit Operations / Common Interfaces",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p13",
+    "formalName": "Functional Mock-up Interface；Functional Mock-up Unit",
+    "status": "Modelica Association 开放标准",
+    "categories": [
+      "model",
+      "file"
+    ],
+    "defines": [
+      "模型容器",
+      "调用接口",
+      "执行状态机"
+    ],
+    "scope": "不同仿真工具间交换动态模型和进行联合仿真。",
+    "transport": "FMU 是 ZIP 容器，组合 XML、平台二进制或 C 源码；不是普通网络报文。",
+    "objects": "模型变量、类型、因果性、单位与模型描述；模式决定求解和时间推进责任。",
+    "roles": "FMU 导出工具、导入/仿真工具；Model Exchange 与 Co-Simulation 角色不同。",
+    "version": "官网列 FMI 2.0.5、3.0.2 等发布包；Scheduled Execution 属于 3.x 范围，软件支持以条目为准。",
+    "compatibility": "必须匹配版本、模式、平台与所需功能；导出能力不能推定导入能力。",
+    "checklist": [
+      "检查 modelDescription 与目标平台",
+      "明确输入/输出、初始化及时间步",
+      "检查状态返回、事件和终止释放"
+    ],
+    "validation": "官网提供 Reference FMUs 与 fmusim，可用于建议的最小验证；本目录未运行。",
+    "access": "规范、参考 FMU 和工具入口公开。",
+    "sourceLocator": "首页：Complete Package / Getting started / Reference FMUs / fmusim",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p14",
+    "formalName": "Process Automation Device Information Model（PA-DIM）",
+    "status": "OPC UA Companion 信息模型",
+    "categories": [
+      "semantic"
+    ],
+    "defines": [
+      "设备对象模型",
+      "参数与诊断语义"
+    ],
+    "scope": "过程自动化仪表向上层应用暴露统一信息。",
+    "transport": "以 OPC UA 信息模型表达；现场仪表到网关的采集映射仍取决于实现。",
+    "objects": "过程信号、设备标识、参数和健康状态；具体节点按模型与设备实现。",
+    "roles": "实现 PA-DIM 的设备/网关服务器与使用该模型的客户端。",
+    "version": "应锁定 PA-DIM 发布版、命名空间和引用规范；核查时未锁定所有模型版本。",
+    "compatibility": "仅连接 OPC UA 服务器不能证明其节点符合 PA-DIM。",
+    "checklist": [
+      "核对模型声明与命名空间",
+      "确认仪表信号、单位和诊断映射",
+      "对照设备实例及可读写权限"
+    ],
+    "validation": "建议以实际节点类型和设备语义检查模型实现，而非只测试 UA 连接。",
+    "access": "公开介绍与在线规范入口；具体设备支持查厂商声明。",
+    "sourceLocator": "PA-DIM：模型目标与技术说明",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p15",
+    "formalName": "SiLA 2",
+    "status": "SiLA Consortium 行业通信标准",
+    "categories": [
+      "runtime",
+      "semantic"
+    ],
+    "defines": [
+      "服务接口",
+      "Feature 定义",
+      "数据序列化映射"
+    ],
+    "scope": "实验室设备与软件服务的自动化交互。",
+    "transport": "HTTP/2、gRPC 与 Protocol Buffers；Core 与 Mapping 分开定义。",
+    "objects": "Feature 定义描述设备行为、命令及属性；字段和功能随 Feature 确定。",
+    "roles": "SiLA Client 与 SiLA Server；v1.1 增加 Server-Initiated Connection Method。",
+    "version": "所读 SiLA 2 规范入口为 v1.1；SiLA 2 不能简写为与 SiLA 1.x 通用。",
+    "compatibility": "双方还须支持相同 Feature 及版本；传输一致不能代替功能契约一致。",
+    "checklist": [
+      "锁定 Part A/B 与 Feature 定义",
+      "确认连接方法、身份与证书",
+      "核对命令参数、结果和执行状态"
+    ],
+    "validation": "建议从读取一项属性和执行一个无危险命令开始，检查状态及错误。",
+    "access": "官网提供规范、GitLab 和文档入口。",
+    "sourceLocator": "Standards：Technical Concept / Specification / v1.1",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p16",
+    "formalName": "Analytical Information Markup Language（AnIML）",
+    "status": "分析数据交换规范；官网称 emerging ASTM XML standard",
+    "categories": [
+      "file",
+      "semantic"
+    ],
+    "defines": [
+      "分析数据结构",
+      "技术定义"
+    ],
+    "scope": "实验室分析结果及实验元数据的长期存储与交换。",
+    "transport": "XML 与 Schema；分析技术的 Technique Definition 补充具体结构。",
+    "objects": "样品、实验步骤、参数、结果及审计相关信息；具体范围取决于技术定义。",
+    "roles": "分析软件的数据导出端与解析/归档端。",
+    "version": "需同时记录 Core Schema 与 Technique Definition 版本；本目录未确认全部 ASTM 定稿状态。",
+    "compatibility": "通过 XML 语法检查不意味着分析技术、量纲和实验上下文均一致。",
+    "checklist": [
+      "选定分析技术及其定义",
+      "保留单位、样品与实验关联",
+      "验证数值数组、元数据和必填项"
+    ],
+    "validation": "建议同时检查 Schema 与技术定义，并用同一实验的原结果进行对照。",
+    "access": "官网提供介绍与开发资源入口；具体标准发布状态逐项核查。",
+    "sourceLocator": "AnIML 官网：标准概述与资源",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p17",
+    "formalName": "Laboratory and Analytical Device Standard（LADS）",
+    "status": "OPC UA Companion 规范",
+    "categories": [
+      "semantic",
+      "runtime"
+    ],
+    "defines": [
+      "实验室设备模型",
+      "工作流与状态"
+    ],
+    "scope": "实验室与分析设备连接到自动化或信息系统。",
+    "transport": "以 OPC UA 服务承载 LADS 定义的设备信息和交互模型。",
+    "objects": "设备结构、状态、功能和工作流相关对象；实际提供范围按设备声明。",
+    "roles": "LADS 设备服务器与实验室自动化客户端。",
+    "version": "所读 OPC 30500-1 Part 1 Basics 为 1.0.0，2023-11-30 发布；设备实现版本和功能仍需单独确认。",
+    "compatibility": "实验室设备支持 OPC UA 不自动代表支持 LADS；模型也不保证所有检测任务均可自动化。",
+    "checklist": [
+      "确认设备 LADS 声明及功能集",
+      "核对状态、任务和结果对象",
+      "检查权限、运行条件与异常行为"
+    ],
+    "validation": "建议以具体工作流完成一次从任务准备到结果读取的验证，并对照设备状态。",
+    "access": "OPC Foundation 公共概览与模型入口。",
+    "sourceLocator": "OPC 30500-1：Release Version / Namespaces；运行交互使用 OPC UA，不另定义独立传输。",
+    "sources": [
+      {
+        "title": "OPC Foundation：LADS Part 1 v1.0.0",
+        "url": "https://reference.opcfoundation.org/specs/OPC-30500-1/v1.0.0"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p18",
+    "formalName": "Digital Imaging and Communications in Medicine（DICOM）",
+    "status": "医学影像标准系列",
+    "categories": [
+      "file",
+      "runtime",
+      "semantic"
+    ],
+    "defines": [
+      "影像对象",
+      "网络服务",
+      "文件与媒体"
+    ],
+    "scope": "医疗影像设备、影像系统与影像处理应用交换数据。",
+    "transport": "包含网络服务与文件存储；具体 DIMSE 或 DICOMweb 支持须查产品一致性声明。",
+    "objects": "影像、患者/检查/序列标识、像素与空间元数据；对象类型通过 SOP Class 等区分。",
+    "roles": "网络服务角色需区分 SCU/SCP；文件交换另记录导入/导出方向。",
+    "version": "本目录基础依据为 2023e Part 1；应锁定实际 SOP Class、Transfer Syntax 和实现版本。",
+    "compatibility": "相同扩展名不保证像素编码、对象类别和空间信息可用；医疗影像能力不等于制药生产接口。",
+    "checklist": [
+      "取得双方 Conformance Statement",
+      "核对对象、编码、方向及服务",
+      "核对体素间距、方向和标识关联"
+    ],
+    "validation": "建议使用去标识的已知影像验证解析、空间方向和所需服务；本目录未实测。",
+    "access": "标准公开；设备一致性声明由厂商提供。",
+    "sourceLocator": "PS3.1：Scope；具体对象/服务以对应分册为准",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p19",
+    "formalName": "HL7 Fast Healthcare Interoperability Resources（FHIR）",
+    "status": "HL7 医疗信息标准",
+    "categories": [
+      "semantic",
+      "runtime"
+    ],
+    "defines": [
+      "资源模型",
+      "交换方式",
+      "实施指南约束"
+    ],
+    "scope": "临床、患者及医疗业务信息交换。",
+    "transport": "资源可通过 RESTful API 等方式交换；支持方式由具体服务器声明。",
+    "objects": "Resource、引用、标识与术语绑定；Profile / Implementation Guide 进一步约束。",
+    "roles": "提供资源的服务器、访问客户端和实施指南约定的业务角色。",
+    "version": "所读概览标注 FHIR v5.0.0（R5）；R4/R4B/R5 不能混写为统一实现。",
+    "compatibility": "HL7 v2 接口不能据名称映射为 FHIR；FHIR 版本与本地实施指南共同影响兼容。",
+    "checklist": [
+      "检查 CapabilityStatement、版本及 IG",
+      "核对资源/Profile、术语与必填字段",
+      "确认认证、分页和错误 OperationOutcome"
+    ],
+    "validation": "建议使用实施指南的样例和验证工具，同时核对临床语义与资源关联。",
+    "access": "HL7 公开规范；本地系统权限与医疗业务边界另核。",
+    "sourceLocator": "Overview：Resources / Interoperability / Versions",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p20",
+    "formalName": "PackML；OPC UA for PackML（OPC 30050）",
+    "status": "机器行为约定 + OPC UA Companion 规范",
+    "categories": [
+      "semantic",
+      "runtime"
+    ],
+    "defines": [
+      "状态机",
+      "机器标签",
+      "UA 对象映射"
+    ],
+    "scope": "包装机械状态、命令和生产数据的统一表达。",
+    "transport": "PackML 行为模型与 OPC UA 映射分开；其他承载方式需按设备说明确认。",
+    "objects": "机器状态、模式、状态转换和 PackTags 等对象；设备可实现不同功能范围。",
+    "roles": "机器控制器与生产线监控/协调客户端。",
+    "version": "所读 OPC 30050 v1.01 发布于 2020-11-11；§6 以 PackML 2015 状态模型为基础，并有扩展。",
+    "compatibility": "不能将本 UA 映射直接视为 ISA-TR88.00.02-2022 的完整实现；UA 端点可连通不证明具备 PackML。",
+    "checklist": [
+      "对照模式、状态与允许转换",
+      "确认命令/状态标签与 UA 模型",
+      "检查互锁、拒绝和恢复"
+    ],
+    "validation": "建议以允许/拒绝的状态转换验证行为，并单独检查 UA 节点映射。",
+    "access": "Companion Specification 在线可读；设备实施细节由厂商提供。",
+    "sourceLocator": "OPC 30050 §6 PackML Data Representation Model；运行交互通过 UA 实现。",
+    "sources": [
+      {
+        "title": "OPC Foundation：OPC 30050 v1.01 元信息",
+        "url": "https://reference.opcfoundation.org/specs/OPC-30050"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p21",
+    "formalName": "GS1 Electronic Product Code Information Services；Core Business Vocabulary",
+    "status": "GS1 标准",
+    "categories": [
+      "semantic",
+      "runtime",
+      "file"
+    ],
+    "defines": [
+      "追溯事件模型",
+      "业务词汇",
+      "捕获与查询接口"
+    ],
+    "scope": "组织内及供应链伙伴之间的产品、资产追溯。",
+    "transport": "EPCIS 2.x 提供 REST 与 JSON/JSON-LD；官方工件也保留 XML 数据及 SOAP/WSDL 查询接口。",
+    "objects": "事件时间、对象、位置、业务步骤及传感数据；CBV 统一业务词汇。",
+    "roles": "事件捕获方、EPCIS 服务和查询应用。",
+    "version": "官方工件入口列 EPCIS 2.0.1、CBV 2.0.0；与旧版及具体接口绑定分别记录。",
+    "compatibility": "同一事件模型仍须统一标识、业务步骤和事件粒度；传输成功不等于追溯链完整。",
+    "checklist": [
+      "固定事件类型、标识及业务词汇",
+      "匹配 OpenAPI、Schema 与载荷格式",
+      "约定时间、传感单位及事件更正"
+    ],
+    "validation": "官方提供 OpenAPI、JSON Schema 与 XSD；建议再检查事件间业务关联。",
+    "access": "规范及机器可读工件公开。",
+    "sourceLocator": "EPCIS / CBV：Normative Artefacts / Interface definitions / Validation files",
+    "sources": [
+      {
+        "title": "GS1：EPCIS / CBV 2.0.1 工件",
+        "url": "https://ref.gs1.org/standards/epcis/artefacts"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p22",
+    "formalName": "Job Definition Format / Exchange Job Definition Format；JMF / XJMF",
+    "status": "CIP4 行业标准",
+    "categories": [
+      "file",
+      "semantic",
+      "runtime"
+    ],
+    "defines": [
+      "作业与资源结构",
+      "生产消息",
+      "实施子集"
+    ],
+    "scope": "印刷与包装的管理系统、工作流系统和生产设备集成。",
+    "transport": "JDF 使用 XML；XJDF 2.2 增加 JSON 编码及 REST API。消息机制、编码与工件按版本实施。",
+    "objects": "作业、产品、工序、资源和设备反馈；XJDF 将完整作业管理保留在管理应用内。",
+    "roles": "MIS/工作流管理应用与执行工序的应用或设备。",
+    "version": "所读页面提供 JDF 1.8、XJDF 2.2；同时须确认采用的 ICS。",
+    "compatibility": "JDF 与 XJDF 结构有差异；可转换不代表任意双方都覆盖全部字段和工序。",
+    "checklist": [
+      "选定格式、版本及共同 ICS",
+      "映射作业/资源标识及工序参数",
+      "核对状态反馈与处理结果"
+    ],
+    "validation": "官网提供 Schema、ICS、Samples；建议用一项包装作业核对下发与状态回传。",
+    "access": "规范和 Schema 入口公开，部分资源位于 CIP4 Confluence。",
+    "sourceLocator": "What is (X)JDF：Schema / ICS / Samples；2024-05-24 正式发布说明",
+    "sources": [
+      {
+        "title": "CIP4：JDF 1.8、XJDF 2.2 正式发布说明",
+        "url": "https://www.cip4.org/news-detail/drupa-press-conference-may-29-14-00"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p23",
+    "formalName": "SEMI E5 — SECS-II Message Content",
+    "status": "SEMI 标准",
+    "categories": [
+      "semantic",
+      "runtime"
+    ],
+    "defines": [
+      "消息内容",
+      "数据类型与结构"
+    ],
+    "scope": "半导体设备与工厂主机之间的自动化消息。",
+    "transport": "内容定义与底层传输分开；HSMS 或 SECS-I 等承载须另行匹配。",
+    "objects": "按 Stream/Function 组织的消息及其数据项；设备事件、变量与命令实现由接口手册落实。",
+    "roles": "制造主机与设备；每类消息的发起/响应及使用场景需明确。",
+    "version": "核查时确认标准编号与用途；E5 具体修订版未固定，不能当作全文实现说明。",
+    "compatibility": "SECS-II 内容、GEM 行为、HSMS 传输应分别核查；设备可能只提供消息子集。",
+    "checklist": [
+      "取得设备消息与变量清单",
+      "匹配消息结构、标识和数据类型",
+      "核对响应、超时及错误消息"
+    ],
+    "validation": "建议对照设备接口手册验证一组请求/响应及事件上报；本目录未做设备联调。",
+    "access": "官方目录及摘要公开，完整标准通常需授权购买。",
+    "sourceLocator": "SEMI Information and Control：E5 标准定义；设备实施手册需另取",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p24",
+    "formalName": "SEMI E30 — Generic Model for Communications and Control of Manufacturing Equipment（GEM）",
+    "status": "SEMI 标准",
+    "categories": [
+      "semantic",
+      "runtime"
+    ],
+    "defines": [
+      "设备通信行为",
+      "状态与事件组织"
+    ],
+    "scope": "制造主机对半导体设备的监控与允许的远程控制。",
+    "transport": "在设备消息和传输基础上约束行为；常与 SECS-II、HSMS 组合。",
+    "objects": "通信/控制状态、事件、报告、变量、报警和远程命令等能力。",
+    "roles": "设备与制造主机；本地/远程控制状态影响命令是否可执行。",
+    "version": "所引为 SEMI 官方教程；核查时未固定 E30 修订版或审阅付费全文。",
+    "compatibility": "GEM 声明需要能力清单与设备手册佐证；不能推定所有命令、配方或载具管理功能都具备。",
+    "checklist": [
+      "确认 GEM 能力和状态模型",
+      "核对事件、报告、变量及命令映射",
+      "区分命令接受、执行完成及失败"
+    ],
+    "validation": "建议按设备能力声明测试连接、状态转换、报告及命令拒绝；无设备测试结果。",
+    "access": "公开教程可查用途；完整条款及设备配置另取。",
+    "sourceLocator": "SEMI：SECS/GEM 官方教程",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p25",
+    "formalName": "SEMI E37 — High-Speed SECS Message Services；E37.1 HSMS-SS",
+    "status": "SEMI 标准",
+    "categories": [
+      "runtime"
+    ],
+    "defines": [
+      "连接与会话",
+      "消息传输"
+    ],
+    "scope": "半导体工厂计算机及设备间的 SECS 消息传输。",
+    "transport": "TCP/IP；Generic Services 与 Single Selected-Session 子规范需分别明确。",
+    "objects": "传输消息及会话管理；消息的业务字段由 SECS-II 等规范定义。",
+    "roles": "主动/被动连接端及选定会话的双方；不等同于设备/主机业务角色。",
+    "version": "公开商店标 E37-0222 为 Current，并列 E37.1-0819；这是页面核查状态。",
+    "compatibility": "链路建立只证明传输可用，不能证明消息内容或 GEM 行为兼容。",
+    "checklist": [
+      "核对 E37/E37.1 版本与连接角色",
+      "配置设备标识、会话及超时",
+      "验证链路丢失、重连和消息关联"
+    ],
+    "validation": "建议将连接、会话选择与业务请求/响应分层验证。",
+    "access": "摘要与修订史公开，完整文本需购买。",
+    "sourceLocator": "Abstract / Subordinate Standards / Revision History",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p26",
+    "formalName": "SEMI Equipment Data Acquisition（EDA / Interface A）Standards Suite",
+    "status": "SEMI 标准族；并非单一协议",
+    "categories": [
+      "runtime",
+      "semantic"
+    ],
+    "defines": [
+      "设备自描述",
+      "数据采集管理",
+      "客户端交互"
+    ],
+    "scope": "半导体设备的细粒度数据采集与应用互操作；EDA 此处不指电子设计自动化。",
+    "transport": "技术绑定随 Freeze 变化；官方历史说明将 Freeze 2 对应 SOAP/XML，Freeze 3 面向 HTTP/2、gRPC 与 Protocol Buffers。",
+    "objects": "设备元数据、数据选择、采集计划及数据；具体结构由所选标准组合定义。",
+    "roles": "设备数据服务器与一个或多个采集客户端。",
+    "version": "须列出 Freeze 及其标准修订组合；历史新闻中的“待发布”不能当作当前发布证明，核查时未确认完整 Freeze 3 发布清单。",
+    "compatibility": "不能把所有 EDA 实现统一写成 SOAP 或 gRPC；各代绑定与功能需对应。",
+    "checklist": [
+      "取得设备支持的 Freeze 与标准清单",
+      "核对元数据、采集计划和权限",
+      "检查采样、事件、吞吐与连接恢复"
+    ],
+    "validation": "建议以设备自描述和一个小型采集计划验证；速率与可持续吞吐需另测。",
+    "access": "公开概述和更新说明；详细标准需按 SEMI 授权取得。",
+    "sourceLocator": "SEMI：EDA Standards Suite；2021 年更新说明中的 Freeze 技术区别",
+    "sources": [
+      {
+        "title": "SEMI：EDA 标准更新及 Freeze 技术区别（历史说明）",
+        "url": "https://www.semi.org/en/blogs/semi-news/semi-eda-standards-updates-for-semiconductor-manufacturing-software-near-publication"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p27",
+    "formalName": "GDSII Stream Format；SEMI P39 — Open Artwork System Interchange Standard（OASIS）",
+    "status": "历史版图格式 + SEMI 标准",
+    "categories": [
+      "file"
+    ],
+    "defines": [
+      "版图层次与几何",
+      "二进制文件结构"
+    ],
+    "scope": "集成电路掩模版图在设计、验证及制造工具之间交换。",
+    "transport": "二进制文件交换，不提供制造设备控制服务。",
+    "objects": "单元层次、几何、层/数据类型及坐标；工艺含义需要层映射和设计规则。",
+    "roles": "版图生成/导出端与读取/验证端。",
+    "version": "GDSII 与 OASIS 是不同格式；P39 对应 OASIS，官方商店将 P39-0416 标为 Current；工具实际采用版另查。",
+    "compatibility": "读入成功不保证几何与层语义完整；版图文件不能替代 PDK、工艺规则或制造签核。",
+    "checklist": [
+      "确认格式、单位和坐标精度",
+      "核对顶层单元、层映射及引用",
+      "检查几何差异与转换后的设计规则"
+    ],
+    "validation": "建议做读写往返和几何对比，记录单元、层与边界变化。",
+    "access": "P39 摘要公开，完整规范需授权；GDSII 版本按工具文件说明确认。",
+    "sourceLocator": "SEMI P39：Abstract；软件实际读写范围见软件条目",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p28",
+    "formalName": "IPC-2591 — Connected Factory Exchange（CFX）",
+    "status": "电子制造行业标准",
+    "categories": [
+      "runtime",
+      "semantic"
+    ],
+    "defines": [
+      "制造消息模型",
+      "消息交换"
+    ],
+    "scope": "电子装配设备之间及设备与业务系统之间的数据交换。",
+    "transport": "以 JSON 编码消息，通过 AMQP 支持发布/订阅和直接请求/响应。",
+    "objects": "设备、生产、质量与物料等消息；实际可用消息集须查设备实现。",
+    "roles": "CFX 端点与消息基础设施；端点可参与事件发布及请求/响应。",
+    "version": "核查时依据官方 FAQ 核实技术结构；未固定 IPC-2591 修订版或 SDK 版本。",
+    "compatibility": "AMQP 连通不能替代 CFX 消息支持；消息字段、能力和现场配置仍须匹配。",
+    "checklist": [
+      "锁定标准、SDK 与消息集",
+      "配置 AMQP 连接、路由和身份",
+      "核对字段、单位及请求响应结果"
+    ],
+    "validation": "官方 FAQ 提供 SDK 和测试入口；建议先选一种事件和一种请求做联调。",
+    "access": "概述公开；标准文本、SDK 与测试服务按各自入口条件取得。",
+    "sourceLocator": "CFX FAQ：Security / Communication / JSON / AMQP",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p29",
+    "formalName": "IPC-HERMES-9852 — The Hermes Standard",
+    "status": "电子装配设备间通信标准",
+    "categories": [
+      "runtime",
+      "semantic"
+    ],
+    "defines": [
+      "PCB 流转消息",
+      "设备间交接"
+    ],
+    "scope": "SMT 产线相邻机器间的 PCB 交接与板信息传递。",
+    "transport": "TCP/IP 与 XML；不同于 CFX 的 AMQP/JSON。",
+    "objects": "板标识、尺寸与传板状态；扩展能力按标准版本及设备实现。",
+    "roles": "上游与下游机器；各通道和交接责任需明确。",
+    "version": "官方下载页列 1.7（2026 年 6 月）；小功能集兼容版本及 Test Driver 有独立版本。",
+    "compatibility": "共享基础传板能力不代表支持所有扩展；测试驱动版本也不能当作全部规范覆盖。",
+    "checklist": [
+      "匹配双方版本、通道与功能",
+      "核对板标识、尺寸及传板状态",
+      "验证交接失败与恢复"
+    ],
+    "validation": "官网提供参考代码、Test Driver 和自动测试资源，并注明通过工具不保证完整兼容。",
+    "access": "规范可公开下载，实施免许可费；具体条款见官网。",
+    "sourceLocator": "官网：Protocol；Download：Specification / Test & verification",
+    "sources": [
+      {
+        "title": "Hermes：标准与实现说明",
+        "url": "https://www.the-hermes-standard.info/"
+      },
+      {
+        "title": "Hermes：规范、示例和测试工具",
+        "url": "https://www.the-hermes-standard.info/download/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p30",
+    "formalName": "ISO 10303-242 — STEP AP242（Managed model-based 3D engineering）",
+    "status": "ISO 国际标准",
+    "categories": [
+      "file",
+      "semantic"
+    ],
+    "defines": [
+      "产品模型",
+      "几何与 PMI",
+      "文件交换模型"
+    ],
+    "scope": "CAD/CAx 与产品生命周期系统之间的工程模型交换与归档。",
+    "transport": "AIM 模型用于 Part 21 文件；Domain Model 对应 XML，覆盖范围不同。",
+    "objects": "产品结构、几何、拓扑、PMI 和验证属性等；交换子集须明确。",
+    "roles": "CAD/PLM 导出端与工程模型导入端。",
+    "version": "ISO 官方列 ISO 10303-242:2025 / Edition 4（2025-08 发布）；行业 fact sheet 的主要元信息仍为 Edition 2。软件实际支持版另查。",
+    "compatibility": "“支持 STEP”不能直接写成“支持 AP242 的全部 PMI”；图形标注与可计算语义也需分别核对。",
+    "checklist": [
+      "固定 AP、Edition 与交换子集",
+      "核对几何、结构、单位和 PMI",
+      "设置几何精度及验证属性容差"
+    ],
+    "validation": "参考官方实施指南、测试文件与 Benchmark；建议比较导出前后的几何及语义。",
+    "access": "ISO 正文通常需授权；行业组织提供概述和测试资源入口。",
+    "sourceLocator": "ISO 官方目录：Edition / Publication date；Fact sheet：AIM vs Domain Model",
+    "sources": [
+      {
+        "title": "ISO：10303-242:2025（Edition 4）",
+        "url": "https://www.iso.org/standard/84300.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p31",
+    "formalName": "Quality Information Framework（QIF）；ISO 23952:2020 对应 QIF 3.0",
+    "status": "DMSC 标准 / ISO 标准（特定版本）",
+    "categories": [
+      "file",
+      "semantic"
+    ],
+    "defines": [
+      "质量与计量模型",
+      "XML 结构与关联"
+    ],
+    "scope": "设计、检测规划、计量执行与质量结果之间的信息交换。",
+    "transport": "XML 为基础；不是测量设备的通用实时运动控制总线。",
+    "objects": "零件几何、PMI、测量计划、资源、结果与统计分析的关联。",
+    "roles": "设计/检验规划系统、计量软件与质量数据消费端。",
+    "version": "官方说明 ANSI/QIF 3.0-2018 被采纳为 ISO 23952:2020；网站同时有 QIF 4.0 入口，二者不能混称同一 ISO 版。",
+    "compatibility": "必须核对 Schema 版本、选用模块和标识关联；测量数值相同不足以证明语义链完整。",
+    "checklist": [
+      "确定 QIF 版本与数据模块",
+      "保持特征、计划和结果标识",
+      "核对单位、公差与判定关联"
+    ],
+    "validation": "官网提供教程及下载；建议先做 Schema 校验，再追踪一个特征的计划至结果。",
+    "access": "概览、教程及下载入口公开；具体版本许可见下载说明。",
+    "sourceLocator": "Overview：Quality information / Reliable Standard；QIF 下载入口",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p32",
+    "formalName": "ARINC 429 — Digital Information Transfer System（DITS）",
+    "status": "航空电子行业规范",
+    "categories": [
+      "field"
+    ],
+    "defines": [
+      "电气接口",
+      "字与标签格式"
+    ],
+    "scope": "机载电子设备之间的数字信息传输及相关地面测试。",
+    "transport": "专用电气链路；不是普通以太网或通用软件 API。",
+    "objects": "标签及数据字格式；信号含义、比例和设备配置还需接口控制文件。",
+    "roles": "发送设备与接收设备；软件通常经专用总线板卡、驱动或网关访问。",
+    "version": "所引为 ARINC429P1-19 Part 1；各分册、修订及设备配置应分别记录。",
+    "compatibility": "分析软件属于航空领域不证明可直接读写 ARINC 429；必须有接口组件及实际能力依据。",
+    "checklist": [
+      "取得设备接口控制文件和板卡驱动",
+      "核对电气、速率、标签与编码",
+      "验证数据字、时序和故障标识"
+    ],
+    "validation": "建议用已知测试字和实际接收端核对；本目录不提供航空设备联调结果。",
+    "access": "SAE 摘要公开；规范全文和板卡 SDK 按授权取得。",
+    "sourceLocator": "SAE：Part 1 Functional Description, Electrical Interfaces, Label Assignments and Word Formats",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p33",
+    "formalName": "IEC 61375-3-1:2012 — Train communication network；Multifunction Vehicle Bus",
+    "status": "IEC 国际标准；TCN 体系中的 MVB 分册",
+    "categories": [
+      "field"
+    ],
+    "defines": [
+      "车辆总线通信",
+      "设备互连"
+    ],
+    "scope": "轨道车辆内部设备间通信；TCN 是更广的列车通信网络体系。",
+    "transport": "MVB 的物理与通信要求由该分册定义；不能与 TCN 的其他总线统一代称。",
+    "objects": "车辆设备间的过程/控制相关数据；具体应用信号由项目接口文件规定。",
+    "roles": "车载总线设备与相应控制/网络组件。",
+    "version": "本条锁定 IEC 61375-3-1:2012；其他 TCN 分册不在该编号覆盖内。",
+    "compatibility": "轨道仿真软件不自动支持 MVB；文件模型与现场通信需分开证明。",
+    "checklist": [
+      "明确 MVB 与其他 TCN 分册边界",
+      "取得车辆信号及设备接口定义",
+      "核对网络配置、周期和诊断"
+    ],
+    "validation": "建议依据车辆接口控制文件进行总线级及业务信号验证；核查时未读付费全文。",
+    "access": "IEC 元信息和摘要公开，标准全文需授权。",
+    "sourceLocator": "IEC 61375-3-1:2012 摘要与范围",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p34",
+    "formalName": "railML（Railway Markup Language）",
+    "status": "railML.org 行业 XML 交换规范",
+    "categories": [
+      "file",
+      "semantic"
+    ],
+    "defines": [
+      "铁路工程数据",
+      "XML Schema"
+    ],
+    "scope": "铁路规划、基础设施、时刻表和车辆等应用数据交换；不同版覆盖不同子域。",
+    "transport": "XML 文件与 Schema；不提供列车实时控制链路。",
+    "objects": "铁路对象、引用与业务数据；用例、子模式和单位需要匹配。",
+    "roles": "铁路专业软件的导出端与导入端。",
+    "version": "核查时参考 railML 2 用例页；不把 railML 2 与 railML 3 当作同一 Schema。",
+    "compatibility": "同为 railML 仍可能采用不同版本和用例子集；完整性需按业务用例确认。",
+    "checklist": [
+      "明确主版本、Schema 和用例",
+      "统一基础设施/时刻表对象标识",
+      "验证引用、单位及业务约束"
+    ],
+    "validation": "建议先做 XML/Schema 校验，再检查一个用例的对象关联和往返结果。",
+    "access": "官网 Wiki 提供用例；Schema、许可及认证条件另见对应版本入口。",
+    "sourceLocator": "railML 2 Wiki：Use cases",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p35",
+    "formalName": "IEC 61850 — Communication networks and systems for power utility automation",
+    "status": "IEC 国际标准系列",
+    "categories": [
+      "runtime",
+      "semantic",
+      "field"
+    ],
+    "defines": [
+      "电力对象模型",
+      "通信服务",
+      "协议映射与工程配置"
+    ],
+    "scope": "电力自动化系统与智能电子设备的信息建模、工程配置及通信。",
+    "transport": "分册定义不同映射；MMS、GOOSE 与采样值等不能混作一种连接方式。",
+    "objects": "逻辑设备/逻辑节点、数据对象和服务；SCL 用于工程描述。",
+    "roles": "角色随服务而异：客户端/服务器、发布者/订阅者等。",
+    "version": "IEC 系列入口为滚动汇编，当前页面标 2026 SER；项目必须固定实际分册与 Edition。",
+    "compatibility": "仅声明 IEC 61850 不说明全部服务均实现；SCL、模型、服务及性能约束需对应。",
+    "checklist": [
+      "取得产品符合性/实现声明与 SCL",
+      "核对逻辑节点、数据和服务映射",
+      "验证时间、质量、配置与网络行为"
+    ],
+    "validation": "建议按所需服务分别验收，区分模型、通信一致性与项目性能测试。",
+    "access": "IEC 摘要公开；分册正文与认证测试另有授权条件。",
+    "sourceLocator": "IEC 61850 系列目录；具体协议行为需对应分册",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p36",
+    "formalName": "IEC 60870-5-104:2006+AMD1:2016",
+    "status": "IEC 国际标准",
+    "categories": [
+      "runtime"
+    ],
+    "defines": [
+      "远动通信",
+      "IEC 60870-5-101 应用数据的网络访问"
+    ],
+    "scope": "监控中心与远方终端之间的电力远动信息交换。",
+    "transport": "使用标准网络传输访问 IEC 60870-5-101；具体部署采用 TCP/IP。",
+    "objects": "遥信、遥测、遥控等应用数据；地址、类型与传送原因等需按设备清单确定。",
+    "roles": "监控站与被监控站；连接发起及应用方向另行配置。",
+    "version": "本条采用 2006 版及 2016 修订的合并版本，不代表所有设备均采用该版。",
+    "compatibility": "端口连通不能证明点表一致；控制命令的选择/执行方式必须与终端实现对应。",
+    "checklist": [
+      "核对版本、设备点表和地址",
+      "确认时间标签及命令处理方式",
+      "验证连接、总召、事件与控制结果"
+    ],
+    "validation": "建议用已知点值和允许的测试命令检查内容与时序；完整条款按授权正文。",
+    "access": "IEC 摘要公开，完整合并标准需授权。",
+    "sourceLocator": "IEC 60870-5-104:2006+AMD1:2016 CSV 摘要",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p37",
+    "formalName": "Common Information Model；Common Grid Model Exchange Standard",
+    "status": "IEC 模型及交换标准系列",
+    "categories": [
+      "semantic",
+      "file"
+    ],
+    "defines": [
+      "电网对象模型",
+      "交换 Profile"
+    ],
+    "scope": "电网规划、运行研究及跨机构模型交换。",
+    "transport": "CIM 定义信息模型；CGMES 约束电网交换 Profile，不能等同于 SCADA 实时链路。",
+    "objects": "电网设备、拓扑及不同 Profile 的模型数据；对象标识、单位和边界需统一。",
+    "roles": "电网模型提供方、接收方及模型合并/校核应用。",
+    "version": "所引 IEC 61970-600-1:2021 为 CGMES 结构与规则；具体 CIM 版本和 2.4.15/3.0 等交换版由软件条目确认。",
+    "compatibility": "CIM 是 Common Information Model，此处不是计算机集成制造；Profile 相同仍需校核模型关系。",
+    "checklist": [
+      "固定模型版、Profile 与交换范围",
+      "对齐对象标识、边界和基准",
+      "检查拓扑及求解前模型完整性"
+    ],
+    "validation": "建议先做格式/Profile 验证，再比较拓扑、设备数与目标计算结果。",
+    "access": "IEC 摘要公开；模型工件和一致性工具按对应发布渠道取得。",
+    "sourceLocator": "IEC 61970-600-1:2021：CGMES structure and rules",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p38",
+    "formalName": "Open Charge Point Protocol（OCPP）",
+    "status": "OCA 开放规范；特定版本获采纳为 IEC 标准",
+    "categories": [
+      "runtime",
+      "semantic"
+    ],
+    "defines": [
+      "充电站业务消息",
+      "设备管理与交易"
+    ],
+    "scope": "充电站与充电站管理系统（CSMS）之间的交互。",
+    "transport": "承载与消息结构随版本而定；1.6 有 SOAP 与 JSON 版本，2.x 能力应按其规范。",
+    "objects": "站点、设备配置、授权、充电交易与计量等；智能充电等功能按支持项。",
+    "roles": "Charging Station 与 CSMS；不是车辆到充电桩的电气接口标准。",
+    "version": "OCA 下载列 OCPP 2.1 Edition 2、2.0.1 Edition 4 及 2026-09 勘误；IEC 63584-210:2026 对应 OCPP 2.1，IEC Edition 2.0，2026-09-22 发布。协议版本、OCA Edition 与 IEC Edition 分开记录。",
+    "compatibility": "OCA 明确 1.6 与 2.0.1 不兼容；2.1 对 2.0.1 的应用逻辑兼容不免除具体功能核查。",
+    "checklist": [
+      "匹配版本、承载及功能块",
+      "核对身份、交易与计量字段",
+      "测试离线、重连和交易恢复"
+    ],
+    "validation": "OCA 提供 Test Tool 与认证体系；需检查证书所覆盖版本与功能。",
+    "access": "下载、测试工具及认证有各自条件。",
+    "sourceLocator": "OCA 协议概览与下载页；IEC 63584-210:2026 摘要及版本元信息",
+    "sources": [
+      {
+        "title": "IEC：63584-210:2026",
+        "url": "https://webstore.iec.ch/en/publication/111422"
+      },
+      {
+        "title": "OCA：OCPP 下载与勘误",
+        "url": "https://openchargealliance.org/my-oca/ocpp/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p39",
+    "formalName": "Industry Foundation Classes（IFC）；ISO 16739 系列",
+    "status": "buildingSMART / ISO 开放 BIM 标准",
+    "categories": [
+      "file",
+      "semantic"
+    ],
+    "defines": [
+      "建筑对象模型",
+      "属性和数量集",
+      "序列化"
+    ],
+    "scope": "建筑、基础设施与资产生命周期的 BIM 模型共享。",
+    "transport": "常用 ISO 10303-21 STEP Physical File；IFC 也包括 Schema、属性集和其他序列化机制。",
+    "objects": "构件、关系、空间结构、几何、属性、数量及标识。",
+    "roles": "BIM 导出应用、导入应用及模型校核端。",
+    "version": "所读文档为 IFC 4.3.2.0（IFC4X3_ADD2）；软件实际支持版和 MVD 单列。",
+    "compatibility": "IFC2x3、IFC4 与 IFC4.3 不可混写；几何、属性和设计转移能力按 MVD 与实现确认。",
+    "checklist": [
+      "匹配 Schema、MVD 与交付要求",
+      "保留 GUID、单位、坐标和属性集",
+      "检查实体、关系与几何完整性"
+    ],
+    "validation": "建议采用格式/规则校验并在接收软件中核对坐标、构件和属性；读入成功不足以验收。",
+    "access": "规范、Schema 和示例公开。",
+    "sourceLocator": "IFC4.3.2.0 Introduction：MVD / Compatibility / Examples",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p40",
+    "formalName": "BIM Collaboration Format（BCF）",
+    "status": "buildingSMART 协同规范",
+    "categories": [
+      "file",
+      "runtime",
+      "semantic"
+    ],
+    "defines": [
+      "问题与视点",
+      "文件及 API 交换"
+    ],
+    "scope": "围绕 BIM 模型的问题、评论与视点协同。",
+    "transport": "BCF-XML 为文件实现；在线 API 由单独的 BCF-API 规范定义。",
+    "objects": "议题、评论、视点、快照及模型对象引用；通常不携带完整 BIM 几何。",
+    "roles": "问题创建/导出应用与问题接收应用，或协同服务器与客户端。",
+    "version": "所读 BCF-XML 仓库默认 release_3_0；BCF-API 版本需要独立记录。",
+    "compatibility": "BCF 文件支持不能推定 BCF 在线 API 支持；对象引用还依赖模型版本与标识一致。",
+    "checklist": [
+      "确定 XML 文件或 API 路径及版本",
+      "核对议题/视点与模型 GUID",
+      "检查评论、状态、附件及权限"
+    ],
+    "validation": "官方仓库含 Test Cases；建议验证一条问题及其视点能定位正确模型对象。",
+    "access": "BCF-XML 和 BCF-API 仓库公开。",
+    "sourceLocator": "BCF-XML README；Schemas / Test Cases",
+    "sources": [
+      {
+        "title": "buildingSMART：BCF-API",
+        "url": "https://github.com/buildingSMART/BCF-API"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p41",
+    "formalName": "Information Delivery Specification（IDS）",
+    "status": "buildingSMART 信息交付规范",
+    "categories": [
+      "file",
+      "semantic"
+    ],
+    "defines": [
+      "机器可读信息要求",
+      "模型检查条件"
+    ],
+    "scope": "定义 BIM 交付所需的字母数字信息，以便检查 IFC 模型是否满足要求；不涵盖几何检查。",
+    "transport": "XML 表达要求；不传输完整模型，也不作为设备通信协议。",
+    "objects": "适用对象、属性、分类、材料等要求及约束；实际可检查项由规范和工具支持决定。",
+    "roles": "需求编制方、BIM 模型提供方与检查工具。",
+    "version": "IDS 1.0 已正式批准；0.4.2、0.9.6 为 beta 版。验证工具支持的版本仍须锁定。",
+    "compatibility": "IDS 文件语法有效、模型满足要求和工程设计正确是不同层面的判断。",
+    "checklist": [
+      "锁定 IDS 与目标 IFC 版本",
+      "明确适用对象及必需/可选要求",
+      "检查空值、分类和属性映射"
+    ],
+    "validation": "建议先校验 IDS 文件，再用已知满足/不满足的模型验证检查器。",
+    "access": "官方说明和规范资源入口公开。",
+    "sourceLocator": "buildingSMART IDS：信息需求表达与检查用途",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p42",
+    "formalName": "Wellsite Information Transfer Standard Markup Language（WITSML）",
+    "status": "Energistics 上游油气数据标准",
+    "categories": [
+      "semantic",
+      "file",
+      "runtime"
+    ],
+    "defines": [
+      "井与井作业模型",
+      "交换接口绑定"
+    ],
+    "scope": "井、钻井、录井、测井等对象与作业数据交换。",
+    "transport": "所读 WITSML 2.0 明确使用 ETP 1.1 API；旧版接口不能直接沿用。",
+    "objects": "井与井相关对象、曲线和作业数据；单位和标识遵循共同技术架构。",
+    "roles": "数据生产端、服务端和井数据消费应用。",
+    "version": "本条基础文档为 WITSML 2.0，配 ETP 1.1 与 common 2.1；不把此组合泛化到所有版本。",
+    "compatibility": "WITSML 数据模型与 ETP 传输要分别匹配；旧版服务兼容性不能由名称推断。",
+    "checklist": [
+      "匹配 WITSML/ETP/common 版本",
+      "核对井标识、曲线单位和索引",
+      "检查订阅、数据范围与断线补取"
+    ],
+    "validation": "建议用一口井及少量曲线核对对象、深度/时间索引和数值；认证覆盖见官方说明。",
+    "access": "在线文档公开；具体服务访问与数据许可另核。",
+    "sourceLocator": "WITSML v2.0 标题页：ETP 绑定与共同架构",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p43",
+    "formalName": "Reservoir Characterization Markup Language（RESQML）",
+    "status": "Energistics 地下模型交换标准",
+    "categories": [
+      "semantic",
+      "file"
+    ],
+    "defines": [
+      "地下对象模型",
+      "对象关联与空间语义"
+    ],
+    "scope": "地质与储层解释、建模及相关应用之间的地下模型交换。",
+    "transport": "以 XML 和 HDF5 为基础；文件打包、数据承载与服务绑定仍须按版本确认。",
+    "objects": "地下项目对象及其关系、坐标参考系和单位；大型数组的承载须查所选版本。",
+    "roles": "地质/储层模型导出端与消费端。",
+    "version": "核查时据官方产品与标准概述核实范围，未锁定 RESQML 发行版与完整 Schema。",
+    "compatibility": "支持导出一种对象不等于完整地下项目可无损交换；对象种类、引用和坐标系需逐项确认。",
+    "checklist": [
+      "确定版本与对象覆盖清单",
+      "保留对象关系、坐标系和单位",
+      "核对网格、属性及数组承载"
+    ],
+    "validation": "建议用小型项目做往返与对象/几何对比；官网目录称当前无 RESQML 认证流程。",
+    "access": "官方概述与在线文档入口公开；应用数据权限另核。",
+    "sourceLocator": "Product Catalog：RESQML；RESQML Data Standards",
+    "sources": [
+      {
+        "title": "Energistics：RESQML 标准说明",
+        "url": "https://energistics.org/resqml-data-standards"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p44",
+    "formalName": "Production Markup Language（PRODML）",
+    "status": "Energistics 生产数据标准",
+    "categories": [
+      "semantic",
+      "file"
+    ],
+    "defines": [
+      "生产对象模型",
+      "生产数据与报告交换"
+    ],
+    "scope": "油气生产数据及相关基础设施、测试和流体信息交换。",
+    "transport": "具体序列化、接口和共同架构组件按选用版本记录；PRODML 名称本身不是单一网络端点。",
+    "objects": "产量、生产设施、时间索引数据、光纤监测及流体分析等；按实际对象子集实施。",
+    "roles": "生产数据提供方与管理/分析应用。",
+    "version": "核查时确认用途与对象范围，未固定 PRODML 版本、Schema 及绑定。",
+    "compatibility": "必须统一资产、计量周期、单位和对象子集；不能把所有生产系统都推定为 PRODML 原生实现。",
+    "checklist": [
+      "锁定版本与选用生产对象",
+      "统一资产标识、时间和单位",
+      "核对汇总、修订与来源追溯"
+    ],
+    "validation": "建议以一个资产在一个报告期的数据对照源系统及接收系统。",
+    "access": "公开标准概述与在线文档入口；实施版本需另取。",
+    "sourceLocator": "Product Catalog：PRODML；PRODML Data Standards",
+    "sources": [
+      {
+        "title": "Energistics：PRODML 标准说明",
+        "url": "https://energistics.org/prodml-data-standards"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p45",
+    "formalName": "Energistics Transfer Protocol（ETP）",
+    "status": "Energistics 传输标准",
+    "categories": [
+      "runtime"
+    ],
+    "defines": [
+      "双向查询与传输",
+      "发现与订阅"
+    ],
+    "scope": "上游油气实时数据与工程应用的互操作传输。",
+    "transport": "双向连接上的协议族；具体承载、编码和子协议以所选 ETP 版本为准。",
+    "objects": "发现、数据选择、传输、订阅和通知消息；业务对象由相应领域模型定义。",
+    "roles": "ETP 连接双方及其支持的协议角色；应按会话能力协商结果核对。",
+    "version": "WITSML 2.0 文档绑定 ETP 1.1；其他领域标准与 ETP 的组合版本需另核。",
+    "compatibility": "ETP 连接兼容不代表 WITSML/RESQML 等对象全部兼容；子协议与数据模型须同时一致。",
+    "checklist": [
+      "匹配 ETP 版本、角色和子协议",
+      "核对身份、数据选择及模型版",
+      "验证订阅、错误与连接恢复"
+    ],
+    "validation": "建议先做发现和小对象读写，再测试持续订阅；不以一次握手作为完整验收。",
+    "access": "官方概述与在线文档公开；目标服务身份与访问权限另核。",
+    "sourceLocator": "Product Catalog：ETP；Energistics Transfer Protocol",
+    "sources": [
+      {
+        "title": "Energistics：ETP 标准说明",
+        "url": "https://energistics.org/energistics-transfer-protocol"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p46",
+    "formalName": "SEG-Y Data Exchange Format",
+    "status": "SEG 地震数据格式标准",
+    "categories": [
+      "file"
+    ],
+    "defines": [
+      "地震记录文件",
+      "头信息与采样编码"
+    ],
+    "scope": "地震勘探数据在采集、处理与解释应用间交换。",
+    "transport": "二进制文件及文本/二进制头；不是实时设备控制协议。",
+    "objects": "地震道、采样及其头信息；坐标、单位、采样格式和文本说明共同决定解释。",
+    "roles": "地震数据导出/生成工具与处理/解释工具。",
+    "version": "官方列表有 rev 2.1（2023）、2025 头信息澄清与开放示例；软件实际读写版应单列。",
+    "compatibility": "只识别扩展名不足以确定头字段、数值编码和坐标含义；转换可能丢失扩展头。",
+    "checklist": [
+      "确认 revision、采样编码及字节序",
+      "核对道头映射、坐标倍率和单位",
+      "检查道数、采样间隔及扩展头"
+    ],
+    "validation": "官方提供 rev 2.1 开放示例；建议比较头信息、统计值及关键地震道。",
+    "access": "SEG 提供规范 PDF、澄清及示例入口。",
+    "sourceLocator": "SEG Technical Standards：SEG-Y rev 2.1 / 2025 Clarification / Open Example",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p47",
+    "formalName": "Log ASCII Standard（LAS）",
+    "status": "CWLS 测井 ASCII 文件规范",
+    "categories": [
+      "file"
+    ],
+    "defines": [
+      "测井曲线结构",
+      "文本数据与头信息"
+    ],
+    "scope": "井测曲线及其井、曲线和参数元数据交换。",
+    "transport": "ASCII 文本；此处 LAS 不指激光雷达点云 LAS。",
+    "objects": "井信息、曲线名称与单位、深度/时间索引、缺失值及数值数据。",
+    "roles": "测井文件写出端与曲线分析/建模导入端。",
+    "version": "基础参考为 LAS 2.0（2014 年 1 月更新文件）；其他版与工具扩展需另记。",
+    "compatibility": "曲线助记符、单位、索引及 NULL 值可能不同；必须核对头信息与数据排列。",
+    "checklist": [
+      "确认 LAS 版、换行/包裹及编码",
+      "核对曲线、单位、索引与 NULL",
+      "检查深度范围、步长和异常值"
+    ],
+    "validation": "建议抽样对比原始曲线与解析结果，并检查缺失值和曲线列顺序。",
+    "access": "CWLS 规范链接公开；核查时该 PDF 抓取失败，未补写具体条款。",
+    "sourceLocator": "CWLS LAS 2.0 参考文件；详细语法需原文件复核",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p48",
+    "formalName": "OGC WaterML 2.0 Part 1 — Timeseries（10-126r3）",
+    "status": "OGC Implementation Standard",
+    "categories": [
+      "file",
+      "semantic"
+    ],
+    "defines": [
+      "水文时序模型",
+      "XML 编码"
+    ],
+    "scope": "水文监测时序与其观测元数据交换。",
+    "transport": "本条为时序数据编码，不等于统一的 HTTP 服务或水务控制接口。",
+    "objects": "时间、观测值、单位、质量/限定信息及观测上下文。",
+    "roles": "水文数据提供端与分析/交换应用。",
+    "version": "基础依据为 WaterML 2.0 Part 1 / OGC 10-126r3；其他部分和服务绑定须另列。",
+    "compatibility": "WaterML、供水仿真模型文件与传感器接入协议作用不同；不能从水务软件用途推断支持。",
+    "checklist": [
+      "匹配 Part、Schema 与服务绑定",
+      "核对时区、单位、缺测和质量",
+      "保持站点及观测关联"
+    ],
+    "validation": "建议用含缺测与不规则时间点的时序检验解析和语义保留。",
+    "access": "OGC 公开规范入口；本文不声称任一收录软件已实现。",
+    "sourceLocator": "OGC 10-126r3：WaterML 2.0 Part 1 Timeseries",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p49",
+    "formalName": "OGC SensorThings API",
+    "status": "OGC Implementation Standard 系列",
+    "categories": [
+      "runtime",
+      "semantic"
+    ],
+    "defines": [
+      "观测与传感实体",
+      "REST 访问",
+      "任务能力（独立分册）"
+    ],
+    "scope": "通过 Web 统一连接传感设备、观测数据与地理空间应用。",
+    "transport": "Sensing 使用 Web API 管理观测；Tasking 由独立 Part 2 定义，扩展与异步机制另有规范。",
+    "objects": "设备、位置、传感器、数据流、观测与被观测属性等实体及其关系。",
+    "roles": "传感数据服务与消费应用；下发任务需确认 Part 2。",
+    "version": "官网列 Part 1 Sensing 1.1（18-088）、Part 2 Tasking Core 1.0（17-079r1）及扩展。",
+    "compatibility": "实现 Sensing 不代表实现 Tasking；查询参数、数据关系和扩展需按服务声明核查。",
+    "checklist": [
+      "核对分册、版本与符合性类",
+      "统一传感属性、单位、时间和位置",
+      "检查查询、分页、权限及扩展"
+    ],
+    "validation": "建议从一个数据流查询观测及关联元数据，再验证筛选和分页。",
+    "access": "OGC 文档与标准入口公开。",
+    "sourceLocator": "OGC SensorThings：Documents / Overview",
+    "sources": [],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "id": "p50",
+    "formalName": "HJ 212—2025《污染物自动监测监控系统数据传输技术要求》",
+    "status": "中国国家生态环境标准",
+    "categories": [
+      "runtime",
+      "semantic"
+    ],
+    "defines": [
+      "监测数据传输",
+      "通信与数据要求"
+    ],
+    "scope": "污染物自动监测监控系统的数据传输与系统间交互。",
+    "transport": "应用层通信建立在 TCP/IP 基础传输层上；报文包含长度、数据段和 CRC 等，数据段涉及 QN、ST、CN、MN 等字段。",
+    "objects": "监测数据、现场端标识、命令、状态及参数；污染物编码、单位与数据标记需对照正文。",
+    "roles": "现场机与上位机；可直接连接，也可通过独立数采仪。请求应答与执行结果是不同环节。",
+    "version": "2025-06-06 发布，2026-01-01 实施，替代 HJ 212—2017。",
+    "compatibility": "不能把 2017 版实现默认标成 2025 版；系统升级须核对改动和平台实施条件。",
+    "checklist": [
+      "确认目标平台采用版本与实施细则",
+      "核对监测标识、项目编码及单位",
+      "验证报文、响应、补传与数据留痕"
+    ],
+    "validation": "建议区分请求回应超时与执行超时，测试报文校验、分包、补传及数据标记；核查时未做平台联调。",
+    "access": "生态环境部公开标准说明与完整正文。",
+    "sourceLocator": "正文封面、前言、第1/4/5/6章；附录C含通信示例。",
+    "sources": [
+      {
+        "title": "生态环境部：HJ 212—2025 正文",
+        "url": "https://www.mee.gov.cn/ywgz/fgbz/bz/bzwb/jcffbz/202507/W020250711505311328432.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  }
+]

@@ -1,0 +1,9 @@
+.DS_Store
+__pycache__/
+*.pyc
+_site/
+industrial-software-atlas.html
+research/atlas-data.json
+research/build-summary.json
+research/page-runtime.js
+research/validation.json

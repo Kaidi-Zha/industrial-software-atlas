@@ -1,0 +1,2752 @@
+[
+  {
+    "name": "PowerFactory",
+    "profile": {
+      "versionBoundary": "按当前官方功能页核查；未取得客户安装版的完整函数参考。OPC DA 已弃用，官网称 2027 主版移除。",
+      "humanEntry": "工程师在 PowerFactory 工程、研究算例和计算工具中建模与分析。",
+      "coverage": "区分宿主脚本、外部 C++ 自动化、SCADA/PMU 信号、联合仿真及 CIM 模型交换。",
+      "unknowns": [
+        "Python/C++ 安装版、返回码及线程约束未核实",
+        "OPC 角色、端点、安全策略及点位读写逐项范围待查专用手册",
+        "联合仿真的主控角色、步长及 FMU 导入/导出模式未核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python / DPL",
+        "category": "program",
+        "entry": "宿主 Python 或 DPL 脚本；外部 Python 连接细节需安装版文档",
+        "role": "脚本访问宿主电网对象与计算功能",
+        "direction": "读取/修改模型参数并调用计算；具体属性权限依对象",
+        "operations": [
+          "访问对象参数",
+          "执行计算与脚本",
+          "扩展函数"
+        ],
+        "dataContract": "PowerFactory 对象、参数和结果属性；单位与对象标识按数据模型核对。",
+        "workflow": [
+          "建议：建立研究算例副本",
+          "建议：选对象及参数",
+          "建议：执行计算",
+          "建议：核对结果属性"
+        ],
+        "execution": "可编排预定义计算和脚本；任务自动化工具提供并行执行，不能推定任意 API 可并发。",
+        "failure": "公开概要未列完整错误契约；建议检查对象引用、计算收敛和输出窗口。",
+        "prerequisites": "有效宿主许可及所需计算模块；脚本环境须匹配安装版。",
+        "version": "当前功能页，无固定宿主版本",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.digsilent.de/index.php/en/scripting-and-automation.html"
+          ],
+          "locator": "Scripting and Automation / Python、DPL"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：建立研究算例副本 → 选对象及参数 → 执行计算 → 核对结果属性。本次未执行。",
+          "sourceUrl": "https://www.digsilent.de/index.php/en/scripting-and-automation.html"
+        }
+      },
+      {
+        "name": "C++ Application Interface",
+        "category": "program",
+        "entry": "Scripting and Automation 模块内的 C++ Application Interface",
+        "role": "外部 C++ 应用控制 PowerFactory",
+        "direction": "外部调用宿主；参数与结果的具体结构待查 API 手册",
+        "operations": [
+          "外部自动化",
+          "调用宿主功能"
+        ],
+        "dataContract": "官方概要确认 C++ 外部自动化；ABI、连接对象、函数签名未公开核实。",
+        "workflow": [
+          "建议：获取对应 SDK 和许可",
+          "建议：确认连接/释放方法",
+          "建议：运行最小算例",
+          "建议：核对结果"
+        ],
+        "execution": "连接与会话释放生命周期、线程模型未核实；不能当成无宿主通用计算库。",
+        "failure": "未核实异常/返回码；建议先核对 SDK 与宿主版本及许可。",
+        "prerequisites": "Scripting and Automation 模块；开发环境和库版本另核。",
+        "version": "当前功能页，C++ API 版本未核实",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.digsilent.de/index.php/en/scripting-and-automation.html"
+          ],
+          "locator": "API (Application Interface)"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：获取对应 SDK 和许可 → 确认连接/释放方法 → 运行最小算例 → 核对结果。本次未执行。",
+          "sourceUrl": "https://www.digsilent.de/index.php/en/scripting-and-automation.html"
+        }
+      },
+      {
+        "name": "OPC UA",
+        "category": "runtime",
+        "entry": "PowerFactory 专用 OPC Interface",
+        "role": "与外部 SCADA 数据源进行信号交互；具体客户端/服务器角色待查",
+        "direction": "模拟/数字信号交互，具体读写方向未核实",
+        "operations": [
+          "SCADA 信号接入",
+          "信号映射"
+        ],
+        "dataContract": "OPC UA 服务及点位模型、时间戳和质量码配置须查专用文档；非任意 SCADA 自动互通。",
+        "workflow": [
+          "建议：确认 OPC 许可与角色",
+          "建议：建立点表与单位映射",
+          "建议：检查连接和质量码",
+          "建议：对照仿真对象"
+        ],
+        "execution": "运行时信号接口；刷新周期、重连与缓存策略未核实。",
+        "failure": "未公开确认错误码；建议核对证书、端点、质量码和失联处理。",
+        "prerequisites": "Requires OPC Interface licence；需 OPC 对端。",
+        "version": "当前官网支持 UA；DA 弃用信息不可泛化到 UA",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.digsilent.de/en/interfaces.html"
+          ],
+          "locator": "Interfaces / OPC DA/UA + footnotes"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认 OPC 许可与角色 → 建立点表与单位映射 → 检查连接和质量码 → 对照仿真对象。本次未执行。",
+          "sourceUrl": "https://www.digsilent.de/en/interfaces.html"
+        }
+      },
+      {
+        "name": "IEEE C37.118",
+        "category": "field",
+        "entry": "专用 IEEE C37.118 simulation interface",
+        "role": "仿真与 PMU 协议信号交互；发送/接收角色未核实",
+        "direction": "公开页未说明单向还是双向",
+        "operations": [
+          "PMU 协议仿真交互"
+        ],
+        "dataContract": "需进一步确定 C37.118 子部分、数据帧、相量和时标映射；仅接口存在已核实。",
+        "workflow": [
+          "建议：确认 C37 许可",
+          "建议：确认收发角色与帧配置",
+          "建议：用测试相量核对",
+          "建议：记录丢帧与时标"
+        ],
+        "execution": "仿真接口；实时性、同步和重连约定未核实。",
+        "failure": "错误约定未公开核实；建议检查帧版本、时标、数据率与链路状态。",
+        "prerequisites": "Requires C37 Simulation Interface licence。",
+        "version": "当前官网；C37.118 具体版次未核实",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.digsilent.de/en/interfaces.html"
+          ],
+          "locator": "IEEE C37.118 simulation interface"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认 C37 许可 → 确认收发角色与帧配置 → 用测试相量核对 → 记录丢帧与时标。本次未执行。",
+          "sourceUrl": "https://www.digsilent.de/en/interfaces.html"
+        }
+      },
+      {
+        "name": "FMI 2.0",
+        "category": "model",
+        "entry": "Co-Simulation interface（FMI 2.0）",
+        "role": "与第三方 EMT/RMS 仿真器协作",
+        "direction": "联合仿真变量交换；主控/从属与导入导出角色待核",
+        "operations": [
+          "联合仿真",
+          "交换模型变量"
+        ],
+        "dataContract": "FMI 2.0 接口；不能由此推定同时支持 Model Exchange 或任意 FMU 平台。",
+        "workflow": [
+          "建议：核对双方模式和平台",
+          "建议：配置变量与单位",
+          "建议：协商步长",
+          "建议：比较独立与联合结果"
+        ],
+        "execution": "运行时联合仿真；初始化、步进、终止的具体函数未公开核实。",
+        "failure": "未核实求解失败返回约定；建议检查步长、代数环和变量单位。",
+        "prerequisites": "官网列 RMS 或 EMT 许可；具体安装包依实际合同。",
+        "version": "FMI 2.0；非对所有 FMI 版本的承诺",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p13"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.digsilent.de/en/interfaces.html"
+          ],
+          "locator": "Co-Simulation interface / footnote 4"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对双方模式和平台 → 配置变量与单位 → 协商步长 → 比较独立与联合结果。本次未执行。",
+          "sourceUrl": "https://www.digsilent.de/en/interfaces.html"
+        }
+      },
+      {
+        "name": "CIM / CGMES",
+        "category": "semantic",
+        "entry": "CIM Import/Export 附加转换器",
+        "role": "在 PowerFactory 模型和外部电网交换模型间转换",
+        "direction": "模型导入与导出",
+        "operations": [
+          "导入 CIM",
+          "导出 CIM",
+          "模型编辑与 SHACL 验证"
+        ],
+        "dataContract": "官方列 ENTSO-E 2009、CGMES 2.4.15、CGMES 3.0、LTDS、CSA；profile、边界与依赖关系须逐项检查。",
+        "workflow": [
+          "建议：确认转换器权益",
+          "建议：选 profile 与版本",
+          "建议：导入并检查校验",
+          "建议：导出比对对象关系"
+        ],
+        "execution": "离线模型转换；不承担站端实时通信。",
+        "failure": "建议检查验证报告、缺失依赖、对象标识与边界模型；完整错误码未核实。",
+        "prerequisites": "基础包之外的附加转换器；模型依赖文件齐全。",
+        "version": "当前转换器页列明的 profiles；具体补丁兼容性另核",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p37"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.digsilent.de/en/additional-data-converters.html"
+          ],
+          "locator": "Additional Data Converters / CIM Import/Export"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认转换器权益 → 选 profile 与版本 → 导入并检查校验 → 导出比对对象关系。本次未执行。",
+          "sourceUrl": "https://www.digsilent.de/en/additional-data-converters.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "DIgSILENT：Scripting and Automation",
+        "url": "https://www.digsilent.de/index.php/en/scripting-and-automation.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "DIgSILENT：Interfaces",
+        "url": "https://www.digsilent.de/en/interfaces.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "DIgSILENT：CIM and CGMES",
+        "url": "https://faq.digsilent.de/de/fachbeitraege-reader-pf-de/cim-und-cgmes-funktionen-von-powerfactory-zur-unterstuetzung-des-cim-standards.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PowerFactory：Additional Data Converters / CIM Import/Export",
+        "url": "https://www.digsilent.de/en/additional-data-converters.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PSCAD / EMTDC",
+    "profile": {
+      "versionBoundary": "示例来自 Automation Library 3.0.8（v502 文档）；不把该库版本误作 PSCAD 主版本。",
+      "humanEntry": "PSCAD 电路画布、工程/工作区和 Scripts 面板。",
+      "coverage": "Python 启动宿主、载入工作区、运行 simulation sets 和退出。",
+      "unknowns": [
+        "项目编译器依赖需按安装版检查",
+        "事件、取消与错误处理完整契约未逐项核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python Automation Library（mhi.pscad）",
+        "category": "program",
+        "entry": "Python 3 的 mhi.pscad；launch() 建立宿主实例",
+        "role": "Python 自动化客户端→PSCAD 工程",
+        "direction": "修改设置/参数，启动仿真并取回输出",
+        "operations": [
+          "启动应用",
+          "载入工作区",
+          "批量运行",
+          "退出"
+        ],
+        "dataContract": "工程、workspace、simulation sets 和参数对象；仿真输出整理能力由官方库说明确认。",
+        "workflow": [
+          "建议：匹配库与宿主",
+          "建议：启动并载入官方 Tutorial",
+          "建议：运行 simulation sets",
+          "建议：检查结果并退出"
+        ],
+        "execution": "官方顺序 launch → load → run_all_simulation_sets → quit；同步阻塞/超时细节未核实。",
+        "failure": "建议检查 build/run messages、工程和编译器；异常类型及取消语义待查库参考。",
+        "prerequisites": "PSCAD 许可，匹配 Python 3、自动化库与 Fortran 环境；外部库可选安装。",
+        "version": "AL 3.0.8 示例；产品页称支持 PSCAD 4.6.1+",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://www.pscad.com/webhelp-v502-al/quick_start.html"
+          ],
+          "locator": "Quick Start / Launch & Run PSCAD"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "import mhi.pscad\npscad = mhi.pscad.launch()\npscad.load(\"tutorial/Tutorial.pswx\", folder=pscad.examples_folder)\npscad.run_all_simulation_sets()\npscad.quit()",
+          "sourceUrl": "https://www.pscad.com/webhelp-v502-al/quick_start.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "PSCAD：Automation Library",
+        "url": "https://www.pscad.com/software/pscad/automation-library",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PSCAD：Introduction to EMTDC",
+        "url": "https://www.pscad.com/webhelp/EMTDC/Introduction/introduction_to_emtdc.htm",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PSCAD / EMTDC：Quick Start / Launch & Run PSCAD",
+        "url": "https://www.pscad.com/webhelp-v502-al/quick_start.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PSS E",
+    "profile": {
+      "versionBoundary": "明确依据为 PSS E 36 官方产品页。",
+      "humanEntry": "PSS E GUI 的电网算例与分析流程，或 Python 自动化。",
+      "coverage": "已确认 Python 自动化及按许可提供的分析模块；未取得安装版 API 函数表。",
+      "unknowns": [
+        "Python 解释器版本、模块导入路径及初始化/结束方法未核实",
+        "函数返回码与并发/无界面运行约束需客户手册"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python API",
+        "category": "program",
+        "entry": "PSS E 配套 Python API；导入模块与函数签名未在公开页核实",
+        "role": "Python 客户端编排电网研究",
+        "direction": "自动化调用已许可分析；逐对象读写范围未核实",
+        "operations": [
+          "自动化研究",
+          "定制分析流程"
+        ],
+        "dataContract": "公开页称完整 Python API；Base 含脚本，动态与短路位于 Standard，其他研究按包配置。",
+        "workflow": [
+          "建议：核对安装版 API 手册",
+          "建议：打开小型算例副本",
+          "建议：执行已许可研究",
+          "建议：核对报告"
+        ],
+        "execution": "宿主初始化、算例打开/关闭、资源释放方法未公开核实。",
+        "failure": "不得猜写错误码；建议查本机 API 文档、许可状态和求解报告。",
+        "prerequisites": "商业许可；Python 可用不表示全部分析模块已授权。",
+        "version": "PSS E 36；后续版本需重核",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.siemens.com/es-mx/products/pss-software/psse-version-36/"
+          ],
+          "locator": "Base / Standard / FAQ"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对安装版 API 手册 → 打开小型算例副本 → 执行已许可研究 → 核对报告。本次未执行。",
+          "sourceUrl": "https://www.siemens.com/es-mx/products/pss-software/psse-version-36/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens：PSS E Version 36",
+        "url": "https://www.siemens.com/es-mx/products/pss-software/psse-version-36/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Siemens：PSS power system simulation and modeling software",
+        "url": "https://www.siemens.com/en-us/products/pss-software/",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ETAP",
+    "profile": {
+      "versionBoundary": "当前公共产品说明；具体端点以部署实例的 Swagger 为准。",
+      "humanEntry": "ETAP 单线图、工程与 Scenario Wizard；DataHub 的 Swagger 页面。",
+      "coverage": "DataHub 内 REST 服务及官方 Python 客户端，支持工程数据和远程 studies/scenarios。",
+      "unknowns": [
+        "公网文档未给固定 base URL、鉴权与所有请求模式",
+        "端点错误码、作业查询/取消及并发隔离未核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "etapAPI（REST / HTTPS）",
+        "category": "program",
+        "entry": "DataHub 承载的 HTTPS etapAPI；Swagger 可浏览和试调用",
+        "role": "REST 客户端→指定 ETAP 实例",
+        "direction": "请求/响应；工程数据与研究操作权限依端点",
+        "operations": [
+          "访问工程数据",
+          "执行 studies",
+          "触发预配置 scenarios"
+        ],
+        "dataContract": "官方划分 Application、DNP3 Server、Project Data、Studies、Scenario；具体 URL 和 JSON Schema 由实例 Swagger 提供。",
+        "workflow": [
+          "建议：确认目标实例及 HTTPS",
+          "建议：在 Swagger 查端点和参数",
+          "建议：试用工程副本",
+          "建议：核对返回结果"
+        ],
+        "execution": "多个实例可接受远程请求；不能推断任意计算异步、可取消或无许可证并行。",
+        "failure": "建议核查 HTTP 状态、端点返回和 ETAP 研究日志；产品页未公开错误码契约。",
+        "prerequisites": "ETAP / DataHub 配置、网络与相应模块许可；鉴权方式需实例文档。",
+        "version": "端点随版本改变；不建议沿用旧 SOAP 集成",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://etap.com/product/etap-rest-api"
+          ],
+          "locator": "etapAPI / Networked Environment / Swagger"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认目标实例及 HTTPS → 在 Swagger 查端点和参数 → 试用工程副本 → 核对返回结果。本次未执行。",
+          "sourceUrl": "https://etap.com/product/etap-rest-api"
+        }
+      },
+      {
+        "name": "etapPy",
+        "category": "program",
+        "entry": "官方 etapPy Python REST 客户端",
+        "role": "Python 客户端→etapAPI→ETAP",
+        "direction": "随 REST 端点请求和结果返回",
+        "operations": [
+          "Python 调用 REST",
+          "远程及批量研究"
+        ],
+        "dataContract": "继承服务端端点契约，不新增独立电网语义；包入口/方法签名未公开核实。",
+        "workflow": [
+          "建议：确认客户端与服务兼容",
+          "建议：读取实例 Swagger",
+          "建议：调用一项现有 scenario",
+          "建议：比较 GUI 结果"
+        ],
+        "execution": "生命周期由目标 ETAP 实例与 DataHub 管理；客户端连接释放及重试未核实。",
+        "failure": "建议区分 Python 异常、HTTPS 失败和求解失败；具体异常类未公开确认。",
+        "prerequisites": "官方客户端可用环境、ETAP / DataHub 及模块许可。",
+        "version": "与部署端点配套；包版本未核实",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://etap.com/product/etap-rest-api"
+          ],
+          "locator": "How can Software Communicate with ETAP / etapPY"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认客户端与服务兼容 → 读取实例 Swagger → 调用一项现有 scenario → 比较 GUI 结果。本次未执行。",
+          "sourceUrl": "https://etap.com/product/etap-rest-api"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "ETAP：etapAPI / DataHub / RESTful Service",
+        "url": "https://etap.com/product/etap-rest-api",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "ETAP：What’s New（REST 与 etapPy）",
+        "url": "https://etap.com/fr/products/whats-new",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OpenDSS",
+    "profile": {
+      "versionBoundary": "EPRI 官方文档未固定本次安装版本；Windows COM 与标准函数 DLL 须分开核对。",
+      "humanEntry": "GUI 脚本编辑器、文本命令及外部 COM 客户端。",
+      "coverage": "电网对象定义、仿真执行和输出；只描述 EPRI 实现，不把社区包装器当原生。",
+      "unknowns": [
+        "二进制位数、DLL API 版本和平台支持需下载包核对",
+        "线程与实例隔离、错误对象逐字段未核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "COM / DLL",
+        "category": "program",
+        "entry": "Windows 进程内 COM 服务器；非 COM 标准调用 DLL 单独核对",
+        "role": "外部语言程序→OpenDSS 求解引擎",
+        "direction": "模型定义/参数写入、计算结果读取",
+        "operations": [
+          "定义模型数据",
+          "自定义求解流程",
+          "读取结果"
+        ],
+        "dataContract": "COM 的电路与元件对象；脚本命令也可传入命令处理器。",
+        "workflow": [
+          "建议：核对位数并启动引擎",
+          "建议：建立电路",
+          "建议：设置模式并求解",
+          "建议：核对收敛与输出"
+        ],
+        "execution": "外部程序持有引擎对象；生命周期/释放与线程规则须查相应接口。",
+        "failure": "建议先检查引擎启动、模型编译及求解状态；不猜错误码。",
+        "prerequisites": "支持 COM 的 Windows 程序，或匹配平台标准 DLL。",
+        "version": "EPRI 当前概述；不承诺第三方包接口一致",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://opendss.epri.com/opendss_documentation.html"
+          ],
+          "locator": "Introduction / COM interface"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对位数并启动引擎 → 建立电路 → 设置模式并求解 → 核对收敛与输出。本次未执行。",
+          "sourceUrl": "https://opendss.epri.com/opendss_documentation.html"
+        }
+      },
+      {
+        "name": "DSS 命令脚本（.dss）",
+        "category": "program",
+        "entry": "GUI 或引擎文本命令处理器执行 .dss",
+        "role": "文本脚本→模型与求解器",
+        "direction": "命令输入；结果可查看/导出",
+        "operations": [
+          "定义电路",
+          "执行求解",
+          "记录 GUI 命令"
+        ],
+        "dataContract": "DSS 命令、对象名与属性；包含文件和路径解析要按命令参考。",
+        "workflow": [
+          "建议：打开官方测试电路",
+          "建议：分段运行脚本",
+          "建议：检查对象定义",
+          "建议：核对结果导出"
+        ],
+        "execution": "GUI 每个执行命令均有脚本对应；脚本是应用命令而非通用 shell。",
+        "failure": "建议查看命令结果、引用文件和收敛信息；未核实统一退出码。",
+        "prerequisites": "OpenDSS 引擎；输入文件及其引用资料齐全。",
+        "version": "随引擎版本的命令参考",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://opendss.epri.com/OpenDSSGUI.html"
+          ],
+          "locator": "OpenDSS GUI / command processor"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：打开官方测试电路 → 分段运行脚本 → 检查对象定义 → 核对结果导出。本次未执行。",
+          "sourceUrl": "https://opendss.epri.com/OpenDSSGUI.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPRI：Introduction to OpenDSS",
+        "url": "https://opendss.epri.com/opendss_documentation.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "EPRI：OpenDSS GUI",
+        "url": "https://opendss.epri.com/OpenDSSGUI.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "System Advisor Model（SAM）",
+    "profile": {
+      "versionBoundary": "当前 SDK 页面示例路径为 SAM 2026.7.3；SSC/PySAM 需分别记录版本。",
+      "humanEntry": "SAM 案例界面、Generate code，以及独立 SDKtool。",
+      "coverage": "同一 SSC 核心可由 C 接口、PySAM 或 LK 脚本调用；桌面界面不等于单一模块。",
+      "unknowns": [
+        "模型输入依赖与默认值应以代码生成结果和模块元数据为准",
+        "各语言包装器内存释放、错误/警告处理完整约定未逐项核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "SSC SDK / SSC API",
+        "category": "program",
+        "entry": "sscapi.h 定义的 C API 与动态库 ssc.dll / dylib / so",
+        "role": "自定义应用→SSC 仿真模块",
+        "direction": "输入容器写入，模块运行与输出读取",
+        "operations": [
+          "调用模块",
+          "查询输入输出",
+          "从案例生成程序"
+        ],
+        "dataContract": "模块名、输入输出名称和类型由 SSC 定义；代码生成器为具体案例复制核心库与输入。",
+        "workflow": [
+          "建议：在 SAM 建好案例",
+          "建议：Generate code",
+          "建议：核对模块链及全部输入",
+          "建议：编译运行后对照桌面输出"
+        ],
+        "execution": "SSC 为动态库；创建/释放对象与执行错误约定需 SSC Guide，不在此补造签名。",
+        "failure": "建议读取模块日志和必需输入，核对核心库版本；具体失败函数未逐项核实。",
+        "prerequisites": "对应系统的 SSC 库与开发工具；遵守源码/发行许可。",
+        "version": "当前页面示例 SAM 2026.7.3，SSC 版本另核",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://sam.nlr.gov/software-development-kit-sdk.html"
+          ],
+          "locator": "The SSC API / SSC library / Code Generator"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在 SAM 建好案例 → Generate code → 核对模块链及全部输入 → 编译运行后对照桌面输出。本次未执行。",
+          "sourceUrl": "https://sam.nlr.gov/software-development-kit-sdk.html"
+        }
+      },
+      {
+        "name": "PySAM",
+        "category": "program",
+        "entry": "官方 PySAM Python 包",
+        "role": "Python 应用→SSC 模块",
+        "direction": "设置模型输入并取得计算输出",
+        "operations": [
+          "创建能源系统模型",
+          "执行 SSC 计算"
+        ],
+        "dataContract": "PySAM 对 SSC 提供包装；与桌面案例一致性需要模块链、输入和库版本一致。",
+        "workflow": [
+          "建议：确认 PySAM 版本",
+          "建议：使用对应案例导出的 PySAM JSON",
+          "建议：检查必填输入",
+          "建议：对照结果"
+        ],
+        "execution": "包的对象构造、执行及释放按对应版本文档；不把库当远端服务。",
+        "failure": "建议核对输入缺失、模块版本和日志；异常类未在当前 SDK 页确认。",
+        "prerequisites": "兼容 Python、PySAM 及依赖库；不需要假设桌面 GUI 同时运行。",
+        "version": "当前 SDK 介绍；PySAM 版本未固定",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://sam.nlr.gov/software-development-kit-sdk.html"
+          ],
+          "locator": "PySAM"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认 PySAM 版本 → 使用对应案例导出的 PySAM JSON → 检查必填输入 → 对照结果。本次未执行。",
+          "sourceUrl": "https://sam.nlr.gov/software-development-kit-sdk.html"
+        }
+      },
+      {
+        "name": "LK / SDKtool",
+        "category": "program",
+        "entry": "随 SAM 安装的独立 SDKtool 与 LK 脚本编辑器",
+        "role": "LK 脚本/用户→SSC 模块浏览和测试",
+        "direction": "编辑输入及运行模块、查看输出",
+        "operations": [
+          "浏览模块",
+          "编辑数据容器",
+          "测试 LK 算法"
+        ],
+        "dataContract": "SDKtool 的模块变量与 SSC 一致；LK 语法按 LK Guide。",
+        "workflow": [
+          "建议：从安装目录启动 SDKtool",
+          "建议：选择模块并查看输入",
+          "建议：导入案例生成的 LK",
+          "建议：运行并核对输出"
+        ],
+        "execution": "SDKtool 可独立于 SAM 窗口启动；本次未执行。",
+        "failure": "建议核对数据容器、变量类型与模块输出；错误码未在概要页确认。",
+        "prerequisites": "安装包中的 SDKtool、匹配的 SSC 库及 LK 文档。",
+        "version": "SDK 页面示例 2026.7.3",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://sam.nlr.gov/software-development-kit-sdk.html"
+          ],
+          "locator": "SDKtool / Documentation"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从安装目录启动 SDKtool → 选择模块并查看输入 → 导入案例生成的 LK → 运行并核对输出。本次未执行。",
+          "sourceUrl": "https://sam.nlr.gov/software-development-kit-sdk.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "SAM：Software Development Kit",
+        "url": "https://sam.nlr.gov/software-development-kit-sdk.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SAM：About",
+        "url": "https://sam.nlr.gov/about-sam/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SAM：Downloads（免费密钥注册）",
+        "url": "https://sam.nlr.gov/download.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Revit",
+    "profile": {
+      "versionBoundary": "外部命令机制依据 2024 开发指南；事务返回值依据 2026 API。两者不是已验证跨版二进制兼容性。",
+      "humanEntry": "模型编辑器；Add-ins → External Tools 启动外部命令；File → Export → IFC。",
+      "coverage": "外部命令在宿主内处理 Document/元素；IFC 用于模型交换。",
+      "unknowns": [
+        "准确的 .NET 运行时、插件清单位置及程序集需对应版本",
+        "IFC Schema/视图/对象映射和导入后的几何一致性未实测"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Revit .NET API / SDK",
+        "category": "program",
+        "entry": ".addin 清单注册 IExternalCommand，Revit 调用 Execute",
+        "role": "宿主加载的 .NET 插件",
+        "direction": "读取 Document/元素；修改需正确事务上下文",
+        "operations": [
+          "读取活动文档",
+          "按事务修改元素",
+          "返回命令结果"
+        ],
+        "dataContract": "ExternalCommandData 传递应用和活动视图；元素集合与 message 可用于失败反馈。",
+        "workflow": [
+          "建议：创建项目副本",
+          "建议：从 External Tools 调用命令",
+          "建议：修改时开始并提交事务",
+          "建议：检查提交状态"
+        ],
+        "execution": "命令对象在 Execute 返回后销毁，成员不跨次持久化；事务成功才接受更改。",
+        "failure": "官方命令区分成功、取消和失败；2026 Transaction.Commit 可返回 Committed/RolledBack/Pending，须检查。",
+        "prerequisites": "商业 Revit、对应 SDK、.addin 清单和有效 API 上下文。",
+        "version": "2024 外部命令 / 2026 事务，安装目标另核",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.autodesk.com/cloudhelp/2024/ENU/Revit-API/files/Revit_API_Developers_Guide/Introduction/Getting_Started/Using_the_Autodesk_Revit_API/Revit_API_Revit_API_Developers_Guide_Introduction_Getting_Started_Using_the_Autodesk_Revit_API_External_Commands_html.html",
+            "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-API-MainReference/files/html/32714010-7138-f64f-8fde-a310354448e3.htm"
+          ],
+          "locator": "External Commands / Object Lifetime"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在项目副本中通过 Add-ins → External Tools 进入已注册外部命令；修改采用对应版本事务，核对 Commit 返回状态。本次未加载插件。",
+          "sourceUrl": "https://help.autodesk.com/cloudhelp/2024/ENU/Revit-API/files/Revit_API_Developers_Guide/Introduction/Getting_Started/Using_the_Autodesk_Revit_API/Revit_API_Revit_API_Developers_Guide_Introduction_Getting_Started_Using_the_Autodesk_Revit_API_External_Commands_html.html"
+        }
+      },
+      {
+        "name": "IFC",
+        "category": "file",
+        "entry": "File → Export → IFC；IFC link 和官方 revit-ifc 扩展",
+        "role": "宿主模型与 IFC 交换文件",
+        "direction": "IFC 导出、链接；不是无损往返承诺",
+        "operations": [
+          "链接 IFC",
+          "导出 IFC",
+          "配置属性集"
+        ],
+        "dataContract": "IFC Schema、Model View、属性集和单位影响交付；官方仓库包含链接与导出代码。",
+        "workflow": [
+          "建议：核对年度插件",
+          "建议：选择 IFC 版本和导出设置",
+          "建议：导出模型副本",
+          "建议：用目标工具核对属性与几何"
+        ],
+        "execution": "文件交换可选官方开源扩展覆盖随产品发布版本；每次导出保留设置。",
+        "failure": "建议查导出提示、遗漏元素和属性映射；具体错误日志位置未核实。",
+        "prerequisites": "Revit 及兼容 IFC 组件；扩展支持当前与前两个年度版。",
+        "version": "插件须匹配年度；具体 IFC 子版本需安装界面核对",
+        "implementation": "文件交换",
+        "standardIds": [
+          "p39"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://github.com/Autodesk/revit-ifc"
+          ],
+          "locator": "README / Link IFC and IFC export"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对年度插件 → 选择 IFC 版本和导出设置 → 导出模型副本 → 用目标工具核对属性与几何。本次未执行。",
+          "sourceUrl": "https://github.com/Autodesk/revit-ifc"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Autodesk：Revit SDKs and Tools",
+        "url": "https://forge.autodesk.com/developer/overview/revit-api",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Autodesk 官方仓库：revit-ifc",
+        "url": "https://github.com/Autodesk/revit-ifc",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Autodesk：Revit 产品概览",
+        "url": "https://www.autodesk.com/products/revit/overview",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Revit：External Commands / Object Lifetime",
+        "url": "https://help.autodesk.com/cloudhelp/2024/ENU/Revit-API/files/Revit_API_Developers_Guide/Introduction/Getting_Started/Using_the_Autodesk_Revit_API/Revit_API_Revit_API_Developers_Guide_Introduction_Getting_Started_Using_the_Autodesk_Revit_API_External_Commands_html.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Revit 2026：Transaction.Commit",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/Revit-API-MainReference/files/html/32714010-7138-f64f-8fde-a310354448e3.htm",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Tekla Structures",
+    "profile": {
+      "versionBoundary": "基本对象操作依据 2024-02-07 开发说明；提交行为另查 2026 API。",
+      "humanEntry": "Tekla 模型与 Drawing 窗口，配合外部应用或宿主插件。",
+      "coverage": "模型/图纸对象的选择、插入、修改、删除；提交需要区分依赖插件。",
+      "unknowns": [
+        "宿主通信连接失败、逐方法返回值与线程约定尚未逐项核实",
+        "各许可包及年度程序集匹配需项目现场确认"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Tekla Open API（.NET）",
+        "category": "program",
+        "entry": "引用 Tekla .NET 程序集，与运行中的 Tekla Structures 配合",
+        "role": "外部应用或插件→模型/图纸数据库",
+        "direction": "对象查询与修改",
+        "operations": [
+          "Select 对象",
+          "Insert 对象",
+          "Modify 对象",
+          "Delete 对象"
+        ],
+        "dataContract": "面向对象类与界面术语对应；对象初始化接近 UI 建模操作。",
+        "workflow": [
+          "建议：核对宿主和程序集",
+          "建议：选择模型对象副本",
+          "建议：按对象方法修改",
+          "建议：按插件类型处理提交并核对撤销"
+        ],
+        "execution": "2026 文档说明 CommitChanges 建立撤销项并刷新视图；依赖插件不应自行 CommitChanges。",
+        "failure": "建议检查连接、对象有效性及提交结果；通用错误码表未公开逐项核实。",
+        "prerequisites": "Tekla Structures 许可；第三方开发权益按官方入门页和合同。",
+        "version": "基础说明 2024；CommitChanges 为 2026 参考",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://developer.tekla.com/documentation/how-tekla-open-api-works",
+            "https://developer.tekla.com/doc/tekla-structures/2026/commit-changes-method-71945"
+          ],
+          "locator": "Design principles / Common methods"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对宿主和程序集 → 选择模型对象副本 → 按对象方法修改 → 按插件类型处理提交并核对撤销。本次未执行。",
+          "sourceUrl": "https://developer.tekla.com/documentation/how-tekla-open-api-works"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Tekla：How Tekla Open API works",
+        "url": "https://developer.tekla.com/documentation/how-tekla-open-api-works",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Tekla：Get started with Tekla Structures Open API",
+        "url": "https://developer.tekla.com/documentation/get-started-tekla-structures-open-api",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Tekla APIs for developers",
+        "url": "https://www.tekla.com/solutions/design-interoperability/open-api",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Tekla 2026：Model.CommitChanges",
+        "url": "https://developer.tekla.com/doc/tekla-structures/2026/commit-changes-method-71945",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ETABS",
+    "profile": {
+      "versionBoundary": "开发入口列出 ETABS v18 起跨产品 API 机制；函数引入年份与变更查安装版帮助。",
+      "humanEntry": "ETABS 模型、分析和设计窗口，内嵌插件或外部 Excel/程序。",
+      "coverage": "创建/修改结构模型、运行及提取分析与设计结果；不枚举未取得签名的函数。",
+      "unknowns": [
+        "单方法参数单位、返回码和结果选择规则待查安装版帮助",
+        "无界面运行、多个实例与求解中访问的限制未核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "CSI API",
+        "category": "program",
+        "entry": "CSI API，可从外部程序或 ETABS 内嵌插件使用",
+        "role": "Python/C#/VBA/MATLAB 等客户端→ETABS",
+        "direction": "双向模型和分析/设计信息交换",
+        "operations": [
+          "创建修改模型",
+          "运行分析",
+          "提取结果",
+          "构建自定义插件"
+        ],
+        "dataContract": "模型、荷载、结果按 CSI API；官方称无需中间文件的双向传输，具体单位/枚举查帮助。",
+        "workflow": [
+          "建议：查询对应帮助中示例",
+          "建议：创建模型副本",
+          "建议：运行已许可分析",
+          "建议：提取结果并与 GUI 表格核对"
+        ],
+        "execution": "宿主启动/附加和关闭函数未在公开概述核实；不能推断 API 可替代许可。",
+        "failure": "建议检查方法返回值和分析报告，具体错误码以安装版帮助为准。",
+        "prerequisites": "ETABS 商业许可、对应 API 库及语言互操作环境。",
+        "version": "函数版本需安装帮助，跨产品一致性不表示全部能力相同",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.csiamerica.com/developer"
+          ],
+          "locator": "Smart Spreadsheets / Cross Product Development / Third-Party Applications"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：查询对应帮助中示例 → 创建模型副本 → 运行已许可分析 → 提取结果并与 GUI 表格核对。本次未执行。",
+          "sourceUrl": "https://www.csiamerica.com/developer"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "CSI：Developer",
+        "url": "https://www.csiamerica.com/developer",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "CSI：ETABS Compare Levels",
+        "url": "https://www.csiamerica.com/products/etabs/compare-levels",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "CSI：About（ETABS 研究对象）",
+        "url": "https://www.csiamerica.com/about",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Civil 3D",
+    "profile": {
+      "versionBoundary": "API 依据官方 APS 概述；LandXML 命令依据 2025 用户指南。",
+      "humanEntry": "Civil 3D 图形环境和命令行；LandXMLIn / LandXMLOut。",
+      "coverage": "定制对象工作流、绘制行为和文件交换是不同操作层。",
+      "unknowns": [
+        ".NET/COM 的对象覆盖差异和逐方法失败语义需对应版手册",
+        "LandXML 元素支持与目标版本往返损失未实测"
+      ]
+    },
+    "interactions": [
+      {
+        "name": ".NET API / COM API",
+        "category": "program",
+        "entry": ".NET 插件，或 legacy COM 客户端与可选 VBA IDE",
+        "role": "插件/外部客户端→Civil 3D 对象",
+        "direction": "读取/修改设计对象并创建自定义命令",
+        "operations": [
+          "自动化任务",
+          "访问图形元素",
+          "定制命令和工作流"
+        ],
+        "dataContract": "Civil 3D 核心对象；不是所有功能都在 .NET 与 COM 同时可用。",
+        "workflow": [
+          "建议：打开工程副本",
+          "建议：按开发指南加载插件",
+          "建议：读取目标对象",
+          "建议：单项修改并与界面核对"
+        ],
+        "execution": "插件在 Civil 3D 宿主运行；事务、锁与线程规则需对应版本开发指南。",
+        "failure": "建议核查程序集、对象类型、文档上下文；错误码与回滚契约未逐项核实。",
+        "prerequisites": "商业 Civil 3D、对应 SDK 与开发环境；VBA IDE 另下载。",
+        "version": "当前概要；具体年度版另核",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://forge.autodesk.com/developer/overview/civil-3d"
+          ],
+          "locator": "APIs / .NET API / COM API"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：打开工程副本 → 按开发指南加载插件 → 读取目标对象 → 单项修改并与界面核对。本次未执行。",
+          "sourceUrl": "https://forge.autodesk.com/developer/overview/civil-3d"
+        }
+      },
+      {
+        "name": "Custom Draw API（C++）",
+        "category": "program",
+        "entry": "C++ Custom Draw API / AutoCAD .NET Overrule",
+        "role": "宿主绘制定制扩展",
+        "direction": "影响对象显示；不能推定可修改全部工程语义",
+        "operations": [
+          "定制对象绘制"
+        ],
+        "dataContract": "对 AutoCAD ObjectARX 绘制机制的扩展；Civil 3D 未公开完整 ObjectARX 专用对象 API。",
+        "workflow": [
+          "建议：核对绘制 API 示例",
+          "建议：加载最小扩展",
+          "建议：在副本显示目标对象",
+          "建议：检查显示与实际数据差别"
+        ],
+        "execution": "生命周期随宿主显示调用；完整回调签名和重入约定未核实。",
+        "failure": "建议检查插件加载和绘制异常；不得据显示成功推定模型数据已改变。",
+        "prerequisites": "匹配 C++/ObjectARX 开发环境与 Civil 3D 宿主。",
+        "version": "当前概要，年度 SDK 匹配另核",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://forge.autodesk.com/developer/overview/civil-3d"
+          ],
+          "locator": "Custom Draw API / SDK and tools"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对绘制 API 示例 → 加载最小扩展 → 在副本显示目标对象 → 检查显示与实际数据差别。本次未执行。",
+          "sourceUrl": "https://forge.autodesk.com/developer/overview/civil-3d"
+        }
+      },
+      {
+        "name": "LandXML",
+        "category": "file",
+        "entry": "命令 LandXMLIn 与 LandXMLOut",
+        "role": "设计文件↔Civil 3D 图形",
+        "direction": "导入及导出已支持元素",
+        "operations": [
+          "导入 LandXML",
+          "导出 LandXML"
+        ],
+        "dataContract": "坐标、线路、地形等对象按支持列表；导入和导出支持子集不能混用。",
+        "workflow": [
+          "建议：选导出对象",
+          "建议：执行 LandXMLOut",
+          "建议：在目标副本执行 LandXMLIn",
+          "建议：比较坐标、对象数和属性"
+        ],
+        "execution": "离线 XML 文件交换，不提供网络会话。",
+        "failure": "建议核对冲突处理、站点归属和未支持元素；具体错误日志约定未核实。",
+        "prerequisites": "支持该元素的 Civil 3D 版本；统一坐标及单位设置。",
+        "version": "命令依据 2025 帮助；具体 XML 版次另核",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.autodesk.com/cloudhelp/2025/ENG/Civil3D-UserGuide/files/GUID-7C941F4D-0299-48E6-B818-26E54D29645B.htm"
+          ],
+          "locator": "LandXML Command Reference"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选导出对象 → 执行 LandXMLOut → 在目标副本执行 LandXMLIn → 比较坐标、对象数和属性。本次未执行。",
+          "sourceUrl": "https://help.autodesk.com/cloudhelp/2025/ENG/Civil3D-UserGuide/files/GUID-7C941F4D-0299-48E6-B818-26E54D29645B.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Autodesk：Civil 3D API",
+        "url": "https://forge.autodesk.com/developer/overview/civil-3d",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Autodesk：LandXML Command Reference",
+        "url": "https://help.autodesk.com/cloudhelp/2025/ENG/Civil3D-UserGuide/files/GUID-7C941F4D-0299-48E6-B818-26E54D29645B.htm",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Autodesk：Supported LandXML Data",
+        "url": "https://help.autodesk.com/cloudhelp/2024/ENG/Civil3D-UserGuide/files/GUID-4D10ABA5-5EA0-41A8-BB61-C3F446CE7C6B.htm",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PLAXIS 2D / 3D",
+    "profile": {
+      "versionBoundary": "2022-07-24 知识库，版本栏为 CONNECT V20+；不把历史 GSE 权益直接等同当前套餐。",
+      "humanEntry": "Input/Output；Expert → Configure remote scripting server，脚本编辑器。",
+      "coverage": "HTTP 远程脚本及 Python wrapper；Input 与 Output 分别连接。",
+      "unknowns": [
+        "现售套餐、离线许可与服务器部署权需合同核对",
+        "完整 REST 路径、异常类、并发与取消约定未公开核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Remote Scripting REST HTTP API",
+        "category": "program",
+        "entry": "Expert → Configure remote scripting server，配置端口/密码并激活",
+        "role": "外部程序→Input 或 Output 服务器",
+        "direction": "Input 改模型/运行；Output 读取结果和控制绘图",
+        "operations": [
+          "添加模型对象",
+          "生成网格和计算",
+          "获取 Output 结果"
+        ],
+        "dataContract": "服务器绑定当前 Input/Output 应用和全局模型对象；各自连接和端口分开。",
+        "workflow": [
+          "建议：核对许可并启动应用",
+          "建议：设密码与端口",
+          "建议：分别连 Input/Output",
+          "建议：操作副本并核对结果"
+        ],
+        "execution": "需应用正在运行和服务器激活；本页未确认作业轮询、并行或线程安全。",
+        "failure": "官方排查项包括宿主、端口、密码和防火墙；HTTP 状态及领域错误码未列。",
+        "prerequisites": "历史文档要求 GSE；本机端口可达并具当前相应权益。",
+        "version": "CONNECT V20+ 页面；实际支持以安装版本为准",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0108870"
+          ],
+          "locator": "Activate scripting server / Input and Output / Troubleshooting"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对许可并启动应用 → 设密码与端口 → 分别连 Input/Output → 操作副本并核对结果。本次未执行。",
+          "sourceUrl": "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0108870"
+        }
+      },
+      {
+        "name": "plxscripting Python wrapper",
+        "category": "program",
+        "entry": "plxscripting.easy 的 new_server 建立服务器与全局对象",
+        "role": "Python wrapper→HTTP 脚本服务器",
+        "direction": "Input 模型命令与 Output 查询分通道",
+        "operations": [
+          "连接 Input",
+          "连接 Output",
+          "访问模型和结果"
+        ],
+        "dataContract": "s_i/s_o 是服务器对象；g_i/g_o 分别是当前模型的全局对象，不能交叉当同一实例。",
+        "workflow": [
+          "建议：配置独立端口",
+          "建议：导入 wrapper 并连接",
+          "建议：先做小型查询",
+          "建议：核对模型后再更改"
+        ],
+        "execution": "Input 和 Output 需分别连接；结束/释放连接完整方式未在此页核实。",
+        "failure": "建议按官方 Troubleshooting 检查连接；模型运算错误另查命令参考。",
+        "prerequisites": "匹配 wrapper 与宿主，密码及端口一致；勿套用示例密码到正式环境。",
+        "version": "示例来自 2022 KB，不能推断全部新版本行为不变",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0108870"
+          ],
+          "locator": "Boilerplate code"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "from plxscripting.easy import *\ns_i, g_i = new_server('localhost', 10000, password='yourpassword')",
+          "sourceUrl": "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0108870"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Bentley：Using PLAXIS Remote scripting with the Python wrapper",
+        "url": "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0108870",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Bentley：PLAXIS 2D",
+        "url": "https://www.bentley.com/products/plaxis-2d/",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "EnergyPlus",
+    "profile": {
+      "versionBoundary": "API 为 26.2；输入说明 stable 指向 23.1，Schema 必须用实际引擎版本。",
+      "humanEntry": "模型输入文件及外部调用，或仿真内 Python Plugin。",
+      "coverage": "C 库/Python 绑定区分物性、运行回调和仿真数据交换。",
+      "unknowns": [
+        "完整错误回调和 State 生命周期方法需进一步核对",
+        "可用传感器与执行器依模型及调用时点，不代表现场设备端点"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "C API / Python API（pyenergyplus）",
+        "category": "program",
+        "entry": "pyenergyplus.api.EnergyPlusAPI，包装 EnergyPlus C 动态库",
+        "role": "外部程序/插件↔仿真引擎",
+        "direction": "物性查询，回调中读取传感值/设置执行器",
+        "operations": [
+          "物性计算",
+          "注册运行回调",
+          "仿真数据交换"
+        ],
+        "dataContract": "functional、runtime、exchange 三部分；交换只在适当运行回调时点操作模型可用数据。",
+        "workflow": [
+          "建议：匹配动态库和包",
+          "建议：确认模型可用数据",
+          "建议：选合适回调时点",
+          "建议：对照仿真输出"
+        ],
+        "execution": "runtime 在特定仿真点回调用户函数；Python Plugin 有额外全局数据访问，不能混用所有上下文。",
+        "failure": "API 版本会变化；建议检查版本匹配、数据句柄与仿真错误输出，完整错误契约未逐项核实。",
+        "prerequisites": "匹配 EnergyPlus 安装根目录、pyenergyplus 与动态库；正确调用上下文。",
+        "version": "26.2 API",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://energyplus.readthedocs.io/en/v26.2.0/api.html"
+          ],
+          "locator": "EnergyPlusAPI / functional / runtime / exchange"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：匹配动态库和包 → 确认模型可用数据 → 选合适回调时点 → 对照仿真输出。本次未执行。",
+          "sourceUrl": "https://energyplus.readthedocs.io/en/v26.2.0/api.html"
+        }
+      },
+      {
+        "name": "IDF / epJSON",
+        "category": "file",
+        "entry": "IDF 文本输入或 epJSON 模型文件",
+        "role": "外部编辑器/生成程序→EnergyPlus",
+        "direction": "输入为模型；结果通过运行和输出文件另取",
+        "operations": [
+          "编写模型输入",
+          "按 Schema 校验字段"
+        ],
+        "dataContract": "epJSON 字段按 Energy+.schema.epJSON；IDF 与 epJSON 都是模型输入，不是现场网络协议。",
+        "workflow": [
+          "建议：取安装版 Schema",
+          "建议：生成一个最小模型",
+          "建议：由对应版引擎读取",
+          "建议：检查错误和结果"
+        ],
+        "execution": "离线输入解析，升级引擎时需检查模型转换。",
+        "failure": "建议检查必填字段、引用对象、单位和版本；结果正确性不能只凭 JSON 语法成立。",
+        "prerequisites": "对应版本输入对象定义和引擎。",
+        "version": "来源 stable Essentials 为 23.1；实际文件用安装版 Schema",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://energyplus.readthedocs.io/en/stable/essentials/essentials.html"
+          ],
+          "locator": "Input file formats / IDF / epJSON"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取安装版 Schema → 生成一个最小模型 → 由对应版引擎读取 → 检查错误和结果。本次未执行。",
+          "sourceUrl": "https://energyplus.readthedocs.io/en/stable/essentials/essentials.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "EnergyPlus：Python API 26.2",
+        "url": "https://energyplus.readthedocs.io/en/v26.2.0/api.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "EnergyPlus Essentials：IDF 与 epJSON",
+        "url": "https://energyplus.readthedocs.io/en/stable/essentials/essentials.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "EnergyPlus Essentials 24.2",
+        "url": "https://energyplus.net/assets/nrel_custom/pdfs/pdfs_v24.2.0/EnergyPlusEssentials.pdf",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "美国能源部：EnergyPlus",
+        "url": "https://www.energy.gov/cmei/buildings/articles/energyplus",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Petrel + Ocean",
+    "profile": {
+      "versionBoundary": "当前官方 Ocean 产品页确认 Petrel 插件框架；未取得特定年度 SDK。",
+      "humanEntry": "Petrel 项目内安装的 Ocean 插件和专业工作流。",
+      "coverage": "宿主内插件扩展；未将油气行业的数据标准反推为 Petrel 接口支持。",
+      "unknowns": [
+        "新开发站文档链接本次抓取失败，完整 API 可能需开发者账户/授权",
+        "对象读写、事务、线程、插件加载卸载与异常类未核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Ocean for Petrel",
+        "category": "program",
+        "entry": "Ocean for Petrel SDK 开发、部署宿主插件",
+        "role": "插件→Petrel 领域对象与工作流；逐类权限待 SDK",
+        "direction": "公开页确认扩展宿主；不能逐对象保证双向读写",
+        "operations": [
+          "扩展专业工作流",
+          "集成自定义技术",
+          "部署插件"
+        ],
+        "dataContract": "对象模型和结果结构由相应 Petrel/Ocean SDK 规定；公开产品页不含函数签名。",
+        "workflow": [
+          "建议：取得授权 SDK 与匹配 Petrel",
+          "建议：阅读随附示例",
+          "建议：在项目副本装载插件",
+          "建议：核对对象和结果"
+        ],
+        "execution": "明确是运行在 SLB 软件平台内的插件；初始化、卸载和会话持久性未公开核实。",
+        "failure": "建议从匹配版开发文档核查加载失败、对象权限、日志及异常；不伪造错误码。",
+        "prerequisites": "商业 Petrel、匹配 Ocean SDK 及开发者/部署许可，插件可能另购。",
+        "version": "宿主与 Ocean 年度版本必须配套；未核实当前编译器",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/ocean"
+          ],
+          "locator": "Overview / Ocean framework documentation / plug-ins"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得授权 SDK 与匹配 Petrel → 阅读随附示例 → 在项目副本装载插件 → 核对对象和结果。本次未执行。",
+          "sourceUrl": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/ocean"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "SLB：Petrel subsurface software",
+        "url": "https://www.software.slb.com/products/petrel",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SLB：Ocean software development framework",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/ocean",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SLB：Ocean for Petrel reservoir and production engineering product sheet",
+        "url": "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/ps_ocean_for_petrel_res_production_engineering.ashx",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Techlog",
+    "profile": {
+      "versionBoundary": "Python 依据当前官方产品说明；Ocean 使用 Qt C++ 的依据为旧开发指南。原记录的 2020.1 编译器兼容边界仍有效但不能替代现版确认。",
+      "humanEntry": "Python Script Editor，Quanti workflows，以及 Ocean 插件。",
+      "coverage": "宿主内脚本可访问井、数据集、曲线、属性和绘图对象；Ocean 是另一路 C++ 扩展。",
+      "unknowns": [
+        "当前 Python/Qt/编译器版次未公开核实",
+        "Ocean 新站文档未成功抓取，插件 ABI、交易和返回码需授权 SDK"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Techlog Python",
+        "category": "program",
+        "entry": "内置 Python Script Editor，或 Quanti workflow 中调用脚本",
+        "role": "脚本→Techlog 数据与绘图对象",
+        "direction": "读取/处理数据与绘图；逐类写入能力需 API 参考",
+        "operations": [
+          "访问井/数据集/曲线",
+          "岩石物理计算",
+          "创建或访问绘图模板",
+          "编排多井工作流"
+        ],
+        "dataContract": "曲线名、深度区间、单位、空值及属性结构需项目映射；Python 语法兼容不等于第三方库全可用。",
+        "workflow": [
+          "建议：在 Script Editor 查交互帮助",
+          "建议：选一口井和数据区间",
+          "建议：运行已有脚本",
+          "建议：核对曲线与模板"
+        ],
+        "execution": "脚本可直接运行、调用子程序或放入 Quanti 多井工作流；非自动公开服务。",
+        "failure": "建议核对数据名、区间、单位、库导入及宿主输出；公开页未列异常类型。",
+        "prerequisites": "相应 Techlog 授权与兼容 Python/库环境。",
+        "version": "当前产品说明，Python 主/次版本未核实",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/techlog-wellbore-software/techlog/techlog-core-systems/techlog-python"
+          ],
+          "locator": "Applications / Using Python"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在 Script Editor 查交互帮助 → 选一口井和数据区间 → 运行已有脚本 → 核对曲线与模板。本次未执行。",
+          "sourceUrl": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/techlog-wellbore-software/techlog/techlog-core-systems/techlog-python"
+        }
+      },
+      {
+        "name": "Ocean for Techlog",
+        "category": "program",
+        "entry": "Ocean for Techlog Qt C++ SDK",
+        "role": "C++ 插件→Techlog 平台",
+        "direction": "插件扩展；具体对象查询/更新接口待授权文档",
+        "operations": [
+          "开发宿主插件",
+          "扩展工作流"
+        ],
+        "dataContract": "Qt C++ 面向对象框架；类名、数据所有权与二进制接口未在公开页核实。",
+        "workflow": [
+          "建议：取得对应开发指南",
+          "建议：核对宿主与编译器",
+          "建议：运行官方入门插件",
+          "建议：在副本核对结果"
+        ],
+        "execution": "需宿主插件生命周期；不得按 Python 脚本方式推定其加载和释放。",
+        "failure": "建议查加载诊断、编译器/Qt ABI 和插件许可；完整异常和返回码未核实。",
+        "prerequisites": "Ocean Developer 授权、匹配 Qt/C++ 开发环境、Techlog 许可。",
+        "version": "旧开发指南；2020.1 曾打破旧插件 ABI，现版另核",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.ocean.slb.com/developer/techlog/getting-started/ocean-developer"
+          ],
+          "locator": "Language of Ocean for Techlog API / Help and Support"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得对应开发指南 → 核对宿主与编译器 → 运行官方入门插件 → 在副本核对结果。本次未执行。",
+          "sourceUrl": "https://www.ocean.slb.com/developer/techlog/getting-started/ocean-developer"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "SLB：Techlog Python",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/techlog-wellbore-software/techlog/techlog-core-systems/techlog-python",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SLB：Ocean for Techlog developer guide",
+        "url": "https://www.ocean.slb.com/developer/techlog/getting-started/ocean-developer",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SLB：Techlog 2020.1 release information",
+        "url": "https://www.software.slb.com/software-news/software-top-news/techlog/techlog-2020-1",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OPM Flow",
+    "profile": {
+      "versionBoundary": "原文件兼容依据为 2022-10 手册；当前手册入口另指 2026-04。Python 详细行为以下以 2025.04 稳定文档为界。",
+      "humanEntry": "输入 deck、flow 可执行程序，或 Python 的 BlackOilSimulator。",
+      "coverage": "文件驱动、命令行和模拟中 Python 是不同交互；仅已实现关键字可用。",
+      "unknowns": [
+        "2026-04 对 2025.04 Python 的差异未逐方法核对",
+        "并行初始化在不同文档版本有命名差异，不能混用示例",
+        "输入 deck 兼容性与物理适用性须实际运行检验"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "ECLIPSE input deck / restart / summary",
+        "category": "file",
+        "entry": "ECLIPSE 风格 deck 及引用文件",
+        "role": "外部模型文件→Flow；restart/summary→后处理",
+        "direction": "输入读取；兼容的二进制结果输出",
+        "operations": [
+          "读取 deck",
+          "写 restart",
+          "写 summary"
+        ],
+        "dataContract": "关键字、网格、单位与 include 文件按 Flow 支持列表；不表示 ECLIPSE 全关键字兼容。",
+        "workflow": [
+          "建议：检查手册支持的关键字",
+          "建议：备齐引用文件",
+          "建议：运行小算例",
+          "建议：核对结果和警告"
+        ],
+        "execution": "文件驱动的储层模拟，重启文件需匹配网格与状态。",
+        "failure": "建议检查未知/未实现关键字、解析警告、收敛及结果单位；不假定静默忽略安全。",
+        "prerequisites": "匹配 Flow 版本和输入集；有读取结果的后处理工具。",
+        "version": "文件说明依据原 2022-10 手册；新功能查当前手册",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://opm-project.org/wp-content/uploads/2022/12/OPM_Flow_Reference_Manual_2022-10.pdf"
+          ],
+          "locator": "Reference Manual / input and output"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：检查手册支持的关键字 → 备齐引用文件 → 运行小算例 → 核对结果和警告。本次未执行。",
+          "sourceUrl": "https://opm-project.org/wp-content/uploads/2022/12/OPM_Flow_Reference_Manual_2022-10.pdf"
+        }
+      },
+      {
+        "name": "flow 命令行",
+        "category": "program",
+        "entry": "flow 命令行，指定 deck 与选项",
+        "role": "操作系统进程编排→Flow",
+        "direction": "输入 deck/选项；输出结果与日志",
+        "operations": [
+          "运行输入 deck",
+          "配置求解和输出",
+          "批量计算"
+        ],
+        "dataContract": "选项名称与默认值按版本帮助；不把 Python 模拟器方法视作 CLI 参数。",
+        "workflow": [
+          "建议：查询安装版帮助",
+          "建议：用官方小算例运行",
+          "建议：保留日志与输出",
+          "建议：比较求解完成状态"
+        ],
+        "execution": "作为计算进程运行；MPI、资源和退出行为需实际构建匹配。",
+        "failure": "建议核对命令参数、路径、终止状态和收敛日志；未逐项验证 CLI 错误码。",
+        "prerequisites": "可执行程序、完整 deck、按需配置计算资源。",
+        "version": "CLI 依据 2022-10 手册及当前手册入口",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://opm-project.org/?page_id=955"
+          ],
+          "locator": "Flow manual / manual download"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：查询安装版帮助 → 用官方小算例运行 → 保留日志与输出 → 比较求解完成状态。本次未执行。",
+          "sourceUrl": "https://opm-project.org/?page_id=955"
+        }
+      },
+      {
+        "name": "opm.common / opm.simulators 与 PYACTION",
+        "category": "program",
+        "entry": "opm.simulators.BlackOilSimulator；PYACTION 为模拟中 Python 入口",
+        "role": "Python→模拟器，或模拟器→PYACTION 脚本",
+        "direction": "按已公开方法读数组/设置参数并推进报告步",
+        "operations": [
+          "运行至结束",
+          "逐报告步执行",
+          "读流体状态和孔隙度",
+          "设置已支持变量"
+        ],
+        "dataContract": "2025.04 提供 Deck 或文件名构造；状态数组及变量名按方法约定，get_dt 单位为天。",
+        "workflow": [
+          "建议：选择同版 Python 文档",
+          "建议：构造模拟器",
+          "建议：初始化并逐步运行或 run",
+          "建议：核对返回和清理"
+        ],
+        "execution": "2025.04：step_init 在首次 step 前，结束后 step_cleanup；run 返回成功状态。PYACTION 的完整回调签名未核实。",
+        "failure": "2025.04 run/step_init/step_cleanup 描述 EXIT_SUCCESS；其他失败码与异常需对应文档，建议检查数组形状和变量名。",
+        "prerequisites": "匹配 opm.common/opm.simulators、Flow 与 Python；MPI 所有权必须按同版文档。",
+        "version": "明确为 release-2025.04；不与 master 示例混用",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://opm.github.io/opm-python-documentation/release-2025.04/simulators.html"
+          ],
+          "locator": "BlackOilSimulator / step_init / step / step_cleanup / run"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择同版 Python 文档 → 构造模拟器 → 初始化并逐步运行或 run → 核对返回和清理。本次未执行。",
+          "sourceUrl": "https://opm.github.io/opm-python-documentation/release-2025.04/simulators.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "OPM：Flow 与项目介绍",
+        "url": "https://opm-project.org/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "OPM：Flow manual 与 Python documentation 入口",
+        "url": "https://opm-project.org/?page_id=955",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "OPM Flow Reference Manual 2022-10：命令行和 ECLIPSE 输出说明",
+        "url": "https://opm-project.org/wp-content/uploads/2022/12/OPM_Flow_Reference_Manual_2022-10.pdf",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "OPM Flow：BlackOilSimulator / step_init / step / step_cleanup / run",
+        "url": "https://opm.github.io/opm-python-documentation/release-2025.04/simulators.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Maptek Vulcan",
+    "profile": {
+      "versionBoundary": "本次成功复查 2024.1 API；原 2024.2 入口抓取失败。",
+      "humanEntry": "Vulcan GUI、Workbench 脚本与自定义面板；不把 Maptek Python SDK 和 Vulcan Python SDK 混为一套。",
+      "coverage": "maptek.vulcan 处理数据类型，maptek.vulcan_gui 与运行中的 GUI 交互。",
+      "unknowns": [
+        "具体 Python、二进制和 Extend 权益需安装版核对",
+        "各数据对象锁、保存和异常行为未逐方法核查"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Vulcan Python SDK",
+        "category": "program",
+        "entry": "maptek.vulcan / maptek.vulcan_gui",
+        "role": "Python→Vulcan 数据/宿主 GUI",
+        "direction": "对象查询与修改；支持范围按具体类",
+        "operations": [
+          "操作数据库和块体模型",
+          "处理三角网/网格/图形",
+          "调用 GUI 选择与面板"
+        ],
+        "dataContract": "官方列 isisdb、block_model、triangulation、grid、dgd 等类；GUI 模块含选择、面板、宏和视图。",
+        "workflow": [
+          "建议：匹配 SDK 与 Python",
+          "建议：选择数据副本",
+          "建议：先查询对象",
+          "建议：保存后用 GUI 核对"
+        ],
+        "execution": "GUI 模块明确要求 Vulcan 正在运行；纯数据类不能据此推定全部无宿主可用。",
+        "failure": "建议检查许可、打开文件和保存失败；方法返回值/异常表待具体类参考。",
+        "prerequisites": "商业 Vulcan 与相应 Maptek Extend 权益；具体类依赖另核。",
+        "version": "2024.1 API，非当前版本承诺",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.maptek.com/vulcansdk/2024.1/Content/api-reference/vulcan-python-sdk/index.html"
+          ],
+          "locator": "maptek package / Vulcan / Vulcan Gui"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：匹配 SDK 与 Python → 选择数据副本 → 先查询对象 → 保存后用 GUI 核对。本次未执行。",
+          "sourceUrl": "https://help.maptek.com/vulcansdk/2024.1/Content/api-reference/vulcan-python-sdk/index.html"
+        }
+      },
+      {
+        "name": "Python 自动化脚本",
+        "category": "program",
+        "entry": "Python 脚本调用 Vulcan 数据模块或运行中的 vulcan_gui",
+        "role": "脚本→重复任务/面板/宏",
+        "direction": "读取选择并执行定制操作；结果进入文件或 GUI",
+        "operations": [
+          "自动化重复任务",
+          "运行宏和菜单",
+          "调整视图"
+        ],
+        "dataContract": "GUI 与数据模块用途分开；脚本入口不自动拥有所有模型数据写权。",
+        "workflow": [
+          "建议：选测试项目",
+          "建议：运行简单选择/视图脚本",
+          "建议：检查面板输入",
+          "建议：核对模型和文件变化"
+        ],
+        "execution": "GUI 操作要有运行中的 Vulcan；脚本生命周期与宿主运行环境绑定。",
+        "failure": "建议先核对运行窗口、选中对象、取消与保存提示；完整错误语义未核实。",
+        "prerequisites": "相应脚本/SDK 安装及许可；配置文件和工作目录匹配。",
+        "version": "2024.1 GUI 模块，后续版本另核",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.maptek.com/vulcansdk/2024.1/Content/api-reference/vulcan-python-sdk/index.html"
+          ],
+          "locator": "Vulcan Gui / run_menu / workbench_macro"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选测试项目 → 运行简单选择/视图脚本 → 检查面板输入 → 核对模型和文件变化。本次未执行。",
+          "sourceUrl": "https://help.maptek.com/vulcansdk/2024.1/Content/api-reference/vulcan-python-sdk/index.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Maptek：Vulcan 产品说明",
+        "url": "https://www.maptek.com/products/vulcan/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Maptek：Vulcan Python SDK 2024.2",
+        "url": "https://help.maptek.com/vulcansdk/2024.2/Content/topics/vulcan-python-sdk/index.htm",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Maptek：Python API 2024.1 reference",
+        "url": "https://help.maptek.com/vulcansdk/2024.1/Content/api-reference/vulcan-python-sdk/index.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Leapfrog Geo",
+    "profile": {
+      "versionBoundary": "当前支持列表明确为 2026.1.3；不是对历史版本或免费 Viewer 的承诺。",
+      "humanEntry": "项目树中按 Drillhole/Points/Mesh 等对象导入，模型对象相应导出。",
+      "coverage": "同一扩展名的方向与几何类型不同；ODBC 仅确认导入，水文模型需 Hydrogeology Extension。",
+      "unknowns": [
+        "每个格式的字段映射、空值、坐标与目标软件版本兼容性需案例验证",
+        "ODBC 数据源是否可增量刷新及写回未核实",
+        "未核实通用可编程 API，不从文件能力推导 SDK"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "CSV / DXF / DWG / GOCAD / OBJ",
+        "category": "file",
+        "entry": "针对钻孔表、点、网格、折线等对象的导入/导出功能",
+        "role": "外部文件↔地质模型对象",
+        "direction": "CSV 钻孔表导入导出；网格格式按对象双向列表",
+        "operations": [
+          "导入钻孔和点",
+          "导入网格/曲面",
+          "导出模型曲面与体积"
+        ],
+        "dataContract": "2026.1.3：钻孔表 CSV；Meshes 支持 OBJ、DWG 2013、DXF AC1009、GOCAD .ts，导出按官方对象列表。",
+        "workflow": [
+          "建议：选目标对象种类",
+          "建议：匹配格式版本与坐标",
+          "建议：导入测试子集",
+          "建议：导出后比较几何和属性"
+        ],
+        "execution": "离线对象文件交换；相同扩展名不代表带全量地质语义。",
+        "failure": "建议核对格式版次、坐标单位、拓扑和属性遗漏；统一错误码未公开核实。",
+        "prerequisites": "商业 Geo 及相应对象功能；勿套用 Viewer 能力。",
+        "version": "Leapfrog Geo 2026.1.3",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.seequent.com/products-solutions/leapfrog-geo/setup-and-support/"
+          ],
+          "locator": "Supported data types & formats / Imports / Exports"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选目标对象种类 → 匹配格式版本与坐标 → 导入测试子集 → 导出后比较几何和属性。本次未执行。",
+          "sourceUrl": "https://www.seequent.com/products-solutions/leapfrog-geo/setup-and-support/"
+        }
+      },
+      {
+        "name": "ODBC",
+        "category": "program",
+        "entry": "Drillhole 与 Points 的 ODBC 导入，列表列 .mdb/.accdb",
+        "role": "Leapfrog 从数据库数据源读取",
+        "direction": "导入读取已确认；写回未核实",
+        "operations": [
+          "导入钻孔数据",
+          "导入点数据"
+        ],
+        "dataContract": "依 ODBC 数据源、驱动、表和字段映射；不是任意数据库统一双向 API。",
+        "workflow": [
+          "建议：安装匹配驱动并配置数据源",
+          "建议：选择钻孔或点对象",
+          "建议：映射字段",
+          "建议：核对行数和坐标"
+        ],
+        "execution": "导入连接；常驻同步、事务、刷新及写回能力未在支持页确认。",
+        "failure": "建议核对驱动位数、连接权限、字段类型和主键；错误码依驱动/宿主文档。",
+        "prerequisites": "可访问 .mdb/.accdb 数据源及匹配 ODBC 驱动，Geo 许可。",
+        "version": "2026.1.3 列表；驱动细节未核实",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.seequent.com/products-solutions/leapfrog-geo/setup-and-support/"
+          ],
+          "locator": "Imports / Via ODBC"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：安装匹配驱动并配置数据源 → 选择钻孔或点对象 → 映射字段 → 核对行数和坐标。本次未执行。",
+          "sourceUrl": "https://www.seequent.com/products-solutions/leapfrog-geo/setup-and-support/"
+        }
+      },
+      {
+        "name": "MODFLOW / FEFLOW 文件",
+        "category": "file",
+        "entry": "Hydrogeology Extension 的 Flow models 导入导出",
+        "role": "外部流动模型↔Geo 水文模型",
+        "direction": "导入 MODFLOW .nam/.mf/.mfn、FEFLOW .fem/.dac；导出 .nam/.fem",
+        "operations": [
+          "导入流动模型",
+          "导出流动模型"
+        ],
+        "dataContract": "进口与出口后缀不完全相同；网格、地质属性、单位与边界条件的映射需具体文档。",
+        "workflow": [
+          "建议：确认扩展许可",
+          "建议：选择模型版本和网格",
+          "建议：导入并检查属性",
+          "建议：导出给目标求解器检查"
+        ],
+        "execution": "离线模型交换；不代表在 Geo 内运行全部 MODFLOW/FEFLOW 求解。",
+        "failure": "建议检查目标网格/坐标、材料属性和导出遗漏；错误约定未核实。",
+        "prerequisites": "Hydrogeology Extension；目标模型和所需引用文件。",
+        "version": "2026.1.3 支持列表；模型版本另核",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.seequent.com/products-solutions/leapfrog-geo/setup-and-support/"
+          ],
+          "locator": "Flow models / with Hydrogeology extension"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认扩展许可 → 选择模型版本和网格 → 导入并检查属性 → 导出给目标求解器检查。本次未执行。",
+          "sourceUrl": "https://www.seequent.com/products-solutions/leapfrog-geo/setup-and-support/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Seequent：Leapfrog Geo 产品说明",
+        "url": "https://www.seequent.com/products-solutions/leapfrog-geo/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Seequent：Leapfrog Geo supported data types and formats",
+        "url": "https://www.seequent.com/help-support/leapfrog-geo/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Leapfrog Geo：Supported data types & formats / Imports / Exports",
+        "url": "https://www.seequent.com/products-solutions/leapfrog-geo/setup-and-support/",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "GEOVIA Surpac",
+    "profile": {
+      "versionBoundary": "接口依据为 2024-07 官方高级宏课程；没有将课程覆盖范围当成每个安装包均具备。",
+      "humanEntry": "Surpac 宏录制/回放、自定义菜单及表单。",
+      "coverage": "Tcl/SCL 自动化及 tclodbc 数据库连接；不虚构远程 REST 服务。",
+      "unknowns": [
+        "当前 Tcl 解释器、SCL 命令版本及可用模块待安装帮助",
+        "宏保存/执行完整路径和命令返回码未核实",
+        "数据库写入能力与连接凭据管理按驱动和实际 SQL 权限确认"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Tcl / SCL 宏",
+        "category": "program",
+        "entry": "宏录制/回放与 Tcl/SCL 脚本",
+        "role": "宏脚本→Surpac 图形、模型和数据库操作",
+        "direction": "读写范围按可用 SCL 命令和许可",
+        "operations": [
+          "录制回放宏",
+          "访问图形和块体模型",
+          "创建菜单和表单"
+        ],
+        "dataContract": "命令参数、图形对象和模型字段依 Surpac/SCL 版本；录制步骤不等于稳定通用 API。",
+        "workflow": [
+          "建议：录制一个可逆操作",
+          "建议：检查生成脚本",
+          "建议：在项目副本回放",
+          "建议：比较对象和模型结果"
+        ],
+        "execution": "由 Surpac 宿主执行；脚本取消、事务与线程约定未在课程提纲说明。",
+        "failure": "建议检查命令可用性、面板输入与结果；错误返回形式需安装版 SCL 帮助。",
+        "prerequisites": "商业 Surpac、相应功能模块、匹配 Tcl/SCL 环境。",
+        "version": "2024-07 课程提纲",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.3ds.com/assets/invest/2024-10/geovia-surpac-advanced-macros-tcl-scl-july2024.pdf"
+          ],
+          "locator": "Advanced Macros Tcl/SCL / course structure"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：录制一个可逆操作 → 检查生成脚本 → 在项目副本回放 → 比较对象和模型结果。本次未执行。",
+          "sourceUrl": "https://www.3ds.com/assets/invest/2024-10/geovia-surpac-advanced-macros-tcl-scl-july2024.pdf"
+        }
+      },
+      {
+        "name": "tclodbc / ODBC",
+        "category": "program",
+        "entry": "Tcl 的 tclodbc 包和 ODBC 数据源",
+        "role": "Surpac Tcl 宏→SQL 数据库",
+        "direction": "查询/写入权限由连接和 SQL 决定，公开提纲未逐操作确认",
+        "operations": [
+          "配置 ODBC 数据源",
+          "连接 SQL 数据库"
+        ],
+        "dataContract": "表/字段、SQL 类型及编码由数据库映射；不把 ODBC 等同任意 Surpac 模型对象 API。",
+        "workflow": [
+          "建议：确认驱动与数据源",
+          "建议：用只读查询验证映射",
+          "建议：在测试库评估写操作",
+          "建议：核对行数及提交"
+        ],
+        "execution": "连接/事务关闭方法未在课程摘要公开；应先查包文档。",
+        "failure": "建议核对驱动、认证、SQL 权限与事务错误；不猜返回码。",
+        "prerequisites": "ODBC 驱动及 tclodbc 包；Surpac 相应授权和数据库权限。",
+        "version": "2024-07 课程，驱动兼容性未核实",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.3ds.com/assets/invest/2024-10/geovia-surpac-advanced-macros-tcl-scl-july2024.pdf"
+          ],
+          "locator": "ODBC data sources / tclodbc package"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认驱动与数据源 → 用只读查询验证映射 → 在测试库评估写操作 → 核对行数及提交。本次未执行。",
+          "sourceUrl": "https://www.3ds.com/assets/invest/2024-10/geovia-surpac-advanced-macros-tcl-scl-july2024.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Dassault Systèmes：GEOVIA Surpac",
+        "url": "https://www.3ds.com/products/geovia/surpac",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "GEOVIA Surpac Advanced Macros Tcl/SCL course structure, July 2024",
+        "url": "https://www.3ds.com/assets/invest/2024-10/geovia-surpac-advanced-macros-tcl-scl-july2024.pdf",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "EPANET",
+    "profile": {
+      "versionBoundary": "EPA 官方发行与 Toolkit 2.2；不要把 OWA 后续 2.3 文档逐函数套入 2.2。",
+      "humanEntry": "Windows 网络编辑器与报表/曲线，或外部程序调用 Toolkit。",
+      "coverage": "水力和水质模型参数、延时仿真及结果文件；不代表直接控制泵站 PLC。",
+      "unknowns": [
+        "本次未逐项读取 Toolkit 随附帮助中的句柄 API/传统 API 差异",
+        "位数、调用约定、线程、内存释放与错误表需对应下载包"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "EPANET Programmer’s Toolkit",
+        "category": "program",
+        "entry": "EPANET Programmer’s Toolkit DLL，提供头文件和链接库",
+        "role": "外部程序→EPANET 引擎",
+        "direction": "读取/修改网络设计与运行参数，读取仿真结果",
+        "operations": [
+          "打开网络",
+          "修改参数",
+          "执行延时仿真",
+          "提取或写出结果"
+        ],
+        "dataContract": "节点、管道、泵、阀、储罐等模型；单位与水质选项必须与模型一致。",
+        "workflow": [
+          "建议：下载匹配 Toolkit",
+          "建议：用随附例子打开小网络",
+          "建议：运行水力/水质",
+          "建议：对照 GUI 结果并释放资源"
+        ],
+        "execution": "官方确认可连续执行多次分析；打开/关闭和逐步求解的具体签名需 2.2 帮助。",
+        "failure": "建议检查函数返回、网络校验、求解警告及水质前置水力结果；未猜错误码。",
+        "prerequisites": "对应位数 DLL 和可调用语言；公开页面概述的 32 位说明不能代替实际包核对。",
+        "version": "EPA EPANET 2.2",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.epa.gov/water-research/epanet"
+          ],
+          "locator": "Programmer’s Toolkit / Toolkit and Extensions"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：下载匹配 Toolkit → 用随附例子打开小网络 → 运行水力/水质 → 对照 GUI 结果并释放资源。本次未执行。",
+          "sourceUrl": "https://www.epa.gov/water-research/epanet"
+        }
+      },
+      {
+        "name": "网络描述与结果文件",
+        "category": "file",
+        "entry": "网络描述输入文件、分析输出和用户指定结果文件",
+        "role": "模型文件→引擎；结果→外部处理",
+        "direction": "读取网络输入，写选定结果",
+        "operations": [
+          "导入网络描述",
+          "保存仿真结果",
+          "写出选择结果"
+        ],
+        "dataContract": "模型文本、二进制结果与自定义导出不是同一格式；需按手册区分。",
+        "workflow": [
+          "建议：检查输入与单位",
+          "建议：打开并校验网络",
+          "建议：运行并选结果",
+          "建议：对照报表和时序"
+        ],
+        "execution": "离线文件与结果；不提供设备会话或实时通信保证。",
+        "failure": "建议检查文件路径、网络引用、单位和仿真期间；文件结构详情按 2.2 手册。",
+        "prerequisites": "EPANET / Toolkit 2.2，完整网络及输入资料。",
+        "version": "EPA 2.2 产品/工具说明",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.epa.gov/water-research/epanet"
+          ],
+          "locator": "Programmer’s Toolkit / selected results"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：检查输入与单位 → 打开并校验网络 → 运行并选结果 → 对照报表和时序。本次未执行。",
+          "sourceUrl": "https://www.epa.gov/water-research/epanet"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "US EPA：EPANET，含 Programmer’s Toolkit 说明和下载",
+        "url": "https://www.epa.gov/water-research/epanet",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SWMM",
+    "profile": {
+      "versionBoundary": "以 EPA 5.2.4 计算引擎源代码与其官方 API Guide 为界，输入格式手册为 5.2。",
+      "humanEntry": "SWMM 输入编辑/地图、运行与结果报告；外部程序调用 C 引擎。",
+      "coverage": "完整运行或逐 routing step 的生命周期、错误/警告查询，与 INP 文件交换。",
+      "unknowns": [
+        "未承诺所有状态值可写，swmm_setValue 的参数范围需逐项查源码",
+        "库使用全局状态；本次未验证可重入或线程安全，不据此保证并发实例"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "SWMM 5.2.4 computational engine API",
+        "category": "program",
+        "entry": "swmm_run，或 swmm_open/start/step/end/report/close",
+        "role": "调用程序集成 C 计算引擎",
+        "direction": "输入模型/有限运行参数；读取状态、保存结果及诊断",
+        "operations": [
+          "整段运行",
+          "逐 routing step",
+          "查询错误和警告",
+          "读取结果"
+        ],
+        "dataContract": "swmm_run 接收输入、报告和二进制输出路径；step 以十进制天更新 elapsedTime。",
+        "workflow": [
+          "建议：核对库版本",
+          "建议：open/start",
+          "建议：step 至正常结束",
+          "建议：end/report/close 并检查诊断"
+        ],
+        "execution": "v5.2.4 源码：step 前需已 open/start；正常完成时 elapsedTime 置 0。",
+        "failure": "函数返回错误码；swmm_getError 返回中止原因代码/文本，getWarnings 给警告数；建议另查质量平衡。",
+        "prerequisites": "匹配平台/位数的引擎库；有效 INP 和输出路径。",
+        "version": "v5.2.4 固定 tag",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://raw.githubusercontent.com/USEPA/Stormwater-Management-Model/v5.2.4/src/solver/swmm5.c"
+          ],
+          "locator": "External API functions / swmm_run / swmm_step / swmm_getError"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对库版本 → open/start → step 至正常结束 → end/report/close 并检查诊断。本次未执行。",
+          "sourceUrl": "https://raw.githubusercontent.com/USEPA/Stormwater-Management-Model/v5.2.4/src/solver/swmm5.c"
+        }
+      },
+      {
+        "name": "SWMM INP",
+        "category": "file",
+        "entry": "SWMM 文本 .inp 输入",
+        "role": "文件/编辑器→SWMM 引擎",
+        "direction": "模型输入；结果另存报告及二进制文件",
+        "operations": [
+          "定义网络和降雨",
+          "设置模拟选项"
+        ],
+        "dataContract": "按手册章节/附录定义对象、引用与字段；时间序列和外部降雨文件须一起交付。",
+        "workflow": [
+          "建议：按手册检查段落与单位",
+          "建议：用项目副本打开",
+          "建议：执行校验及小仿真",
+          "建议：读取报告诊断"
+        ],
+        "execution": "解析输入后进入仿真；文本语法正确不代表水力模型可用。",
+        "failure": "建议查输入行号、缺失引用、连续性误差与求解警告；异常不只在文件解析阶段。",
+        "prerequisites": "SWMM 5.2，完整引用文件和坐标/单位约定。",
+        "version": "5.2 User’s Manual / 5.2.4 引擎",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.epa.gov/system/files/documents/2022-04/swmm-users-manual-version-5.2.pdf"
+          ],
+          "locator": "11.1 / Appendix D"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：按手册检查段落与单位 → 用项目副本打开 → 执行校验及小仿真 → 读取报告诊断。本次未执行。",
+          "sourceUrl": "https://www.epa.gov/system/files/documents/2022-04/swmm-users-manual-version-5.2.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "US EPA：SWMM，含 5.2.4 API Guide、源代码与 5.2 用户手册",
+        "url": "https://www.epa.gov/water-research/storm-water-management-model-swmm",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "US EPA：SWMM 5.2 User’s Manual，11.1 节与附录 D 输入文件格式",
+        "url": "https://www.epa.gov/system/files/documents/2022-04/swmm-users-manual-version-5.2.pdf",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SWMM：External API functions / swmm_run / swmm_step / swmm_getError",
+        "url": "https://raw.githubusercontent.com/USEPA/Stormwater-Management-Model/v5.2.4/src/solver/swmm5.c",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SUMO",
+    "profile": {
+      "versionBoundary": "本条是 Dynamita 污水工艺 SUMO；C-API 示例针对 SUMO24 / Ubuntu 24.04，不是交通 SUMO。",
+      "humanEntry": "SUMO 工艺流程界面，或外部客户端、scli 与 DTT。",
+      "coverage": "模型库载入、命令、数据和消息回调；DTT 是另需许可的集成工具。",
+      "unknowns": [
+        "官方 C 例文件需向 Dynamita 索取；不能把页面片段当完整可运行包",
+        "变量名、单位、命令字符串及运行时部署授权须按模型/合同核对"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "SUMO C API / Python API",
+        "category": "program",
+        "entry": "SUMO core 的 C API；Python 为 C API 包装",
+        "role": "外部应用↔SUMO core",
+        "direction": "命令输入；data comm 回调读写变量，message 回调反馈状态",
+        "operations": [
+          "注册回调",
+          "载入模型库",
+          "发送初始化命令",
+          "读取/写入模型变量",
+          "卸载与销毁核心"
+        ],
+        "dataContract": "模型库与脚本配套；datacomm 按 Sumo__DataComm 间隔，message 含代码；各变量类型由模型定义。",
+        "workflow": [
+          "建议：取得官方完整示例",
+          "建议：匹配模型库和初始脚本",
+          "建议：注册数据/消息回调后运行",
+          "建议：确认结束后卸载与销毁"
+        ],
+        "execution": "官方说明注册回调、load model、send command、等待完成、unload、destroy 的顺序；非任意回调都可调用全部函数。",
+        "failure": "官方例以消息 530004 表示仿真结束；其他消息/错误须 C API reference；建议保留 message 日志。",
+        "prerequisites": "相应运行时和 DTT/部署权益需合同确认；示例资源需向 Dynamita 索取。",
+        "version": "官方页面 SUMO24 / Ubuntu 24.04 示例",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://wiki.dynamita.com/en/c-api"
+          ],
+          "locator": "C-API example / Callback functions / Applications in other languages"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得官方完整示例 → 匹配模型库和初始脚本 → 注册数据/消息回调后运行 → 确认结束后卸载与销毁。本次未执行。",
+          "sourceUrl": "https://wiki.dynamita.com/en/c-api"
+        }
+      },
+      {
+        "name": "scli",
+        "category": "program",
+        "entry": "scli 通过操作系统标准 I/O 与外部程序通信",
+        "role": "外部进程↔SUMO 命令行解释器",
+        "direction": "标准输入命令和标准输出反馈；详细文本契约未公开核实",
+        "operations": [
+          "从外部程序编排仿真",
+          "交换命令/反馈"
+        ],
+        "dataContract": "具体命令语法、行界定、变量返回结构与退出码需 scli 参考，不从 C 函数签名推断。",
+        "workflow": [
+          "建议：取得 scli 使用文档",
+          "建议：准备测试模型",
+          "建议：先确认单命令反馈",
+          "建议：核查退出和结果"
+        ],
+        "execution": "官方称不能直接 C 调用的语言可用 scli；进程启动/终止和超时需实际环境核对。",
+        "failure": "建议区分进程退出、标准错误及模型消息；不猜 JSON 或固定码。",
+        "prerequisites": "scli 可执行程序、模型库及相应运行时授权。",
+        "version": "SUMO24 C-API guide 所述",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://wiki.dynamita.com/en/c-api"
+          ],
+          "locator": "Applications in other languages / scli"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得 scli 使用文档 → 准备测试模型 → 先确认单命令反馈 → 核查退出和结果。本次未执行。",
+          "sourceUrl": "https://wiki.dynamita.com/en/c-api"
+        }
+      },
+      {
+        "name": "Digital Twin Toolkit（DTT）",
+        "category": "program",
+        "entry": "Digital Twin Toolkit（DTT）附加组件",
+        "role": "Excel/Python/MATLAB 等↔SUMO",
+        "direction": "官方称程序交互；具体操作与字段需 DTT 文档",
+        "operations": [
+          "连接外部工具",
+          "构建数字孪生集成"
+        ],
+        "dataContract": "数据字典、变量映射和连接方法取决于 DTT 版本；不把存在组件推成支持任意现场协议。",
+        "workflow": [
+          "建议：确认单独 DTT 许可",
+          "建议：安装匹配附加组件",
+          "建议：按官方指南连接测试模型",
+          "建议：对照双侧变量和结果"
+        ],
+        "execution": "不是购买 SUMO 主程序即自动包含；运行时生命周期与重连未在入门页说明。",
+        "failure": "建议核对 DTT 激活、版本、变量映射及连接状态；错误表未公开核实。",
+        "prerequisites": "官方明确 DTT 许可单独提供，且需有效 DTT 许可。",
+        "version": "SUMO24 产品/用户说明",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://wiki.dynamita.com/en/introduction"
+          ],
+          "locator": "Introduction / Digital Twin Toolkit"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认单独 DTT 许可 → 安装匹配附加组件 → 按官方指南连接测试模型 → 对照双侧变量和结果。本次未执行。",
+          "sourceUrl": "https://wiki.dynamita.com/en/introduction"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Dynamita：SUMO User Manual introduction",
+        "url": "https://wiki.dynamita.com/en/introduction",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Dynamita：SUMO C-API guide",
+        "url": "https://wiki.dynamita.com/en/c-api",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Dynamita：SUMO24.1 wastewater resource recovery capabilities",
+        "url": "https://www.dynamita.com/sumo24/why_choose_sumo24dot1.pdf",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "FEFLOW",
+    "profile": {
+      "versionBoundary": "IFM 11.000 文档要求 FEFLOW 11.0 与 Python≥3.11；不适用于全部旧版。",
+      "humanEntry": "Tools → Global Settings → Enable Scripting；Scripting 菜单或外部 Python。",
+      "coverage": "ifm 模型文档访问、命令行 Python 与 FEM 文件；外部脚本和宿主脚本上下文不同。",
+      "unknowns": [
+        "运行控制、回调时点和异常处理需进一步逐方法核查",
+        "并发、多个内核和计算许可占用未实测"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "IFM Python API",
+        "category": "program",
+        "entry": "外部 import ifm；宿主 Scripting 菜单自动提供当前 doc",
+        "role": "Python→FEFLOW 模型对象；运行中也可回调",
+        "direction": "读/改支持的模型对象与执行仿真；具体方法权限以参考为准",
+        "operations": [
+          "载入模型",
+          "查询节点数",
+          "模型前后处理",
+          "注册运行回调"
+        ],
+        "dataContract": "FeflowDoc 代表文档；宿主自动 doc 可指 FEM 或 DAC。节点编号和单位仍需逐方法确认。",
+        "workflow": [
+          "建议：安装 Python API",
+          "建议：检查加载的内核版本",
+          "建议：载入模型并查询节点",
+          "建议：按 API 释放文档"
+        ],
+        "execution": "外部脚本需 import；内嵌脚本无需 import，doc 已初始化；模型运行可执行 callbacks。",
+        "failure": "官方提醒多版本安装调整 PYTHONPATH 并用 getKernelVersion 核对；其他错误码未逐项核实。",
+        "prerequisites": "安装时勾选 Python API，FEFLOW 11.0、Python≥3.11 及相应商业许可。",
+        "version": "IFM 11.000 / FEFLOW 11.0",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://dhi.github.io/ifm/"
+          ],
+          "locator": "Requirements / Getting started / Inline Python Scripts"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "import ifm\ndoc = ifm.loadDocument(\"myModel.fem\")\nprint(doc.getNumberOfNodes())",
+          "sourceUrl": "https://dhi.github.io/ifm/"
+        }
+      },
+      {
+        "name": "feflow -python",
+        "category": "program",
+        "entry": "调用 FEFLOW 时使用 -python 选项",
+        "role": "命令行进程→FEFLOW Python 自动化",
+        "direction": "脚本输入，输出/结果由脚本和模型定义",
+        "operations": [
+          "命令行调用 Python"
+        ],
+        "dataContract": "此页只确认 -python 入口，未给完整参数顺序和脚本参数转发契约。",
+        "workflow": [
+          "建议：核对安装版命令行帮助",
+          "建议：使用测试脚本",
+          "建议：检查内核和许可",
+          "建议：核对输出与退出"
+        ],
+        "execution": "进程生命周期；是否无界面、退出码与取消行为未在本页核实。",
+        "failure": "建议核查参数解析、PYTHONPATH 和进程日志；不声称与外部 import 行为完全一致。",
+        "prerequisites": "安装版 FEFLOW、Python API 选项及有效许可。",
+        "version": "FEFLOW 11.0 文档",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://dhi.github.io/ifm/"
+          ],
+          "locator": "Getting started / -python option"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对安装版命令行帮助 → 使用测试脚本 → 检查内核和许可 → 核对输出与退出。本次未执行。",
+          "sourceUrl": "https://dhi.github.io/ifm/"
+        }
+      },
+      {
+        "name": "FEM",
+        "category": "file",
+        "entry": "ifm.loadDocument 读取 .fem 模型；GUI 也可打开模型",
+        "role": "FEM 模型→FEFLOW 文档",
+        "direction": "本条直接证据为读取；写出具体函数另核",
+        "operations": [
+          "载入 FEM",
+          "查询网格信息"
+        ],
+        "dataContract": "FEM 为模型文档；DAC 为结果文档，二者不可仅按后缀互换。",
+        "workflow": [
+          "建议：保留模型副本",
+          "建议：载入 FEM",
+          "建议：查询节点数量",
+          "建议：在 GUI 核对模型"
+        ],
+        "execution": "加载产生 FeflowDoc；关闭与保存顺序需所用 API 参考。",
+        "failure": "建议核对路径、模型格式、内核版本及载入结果；异常类型未在示例列出。",
+        "prerequisites": "可读模型文件与匹配 FEFLOW 内核/许可。",
+        "version": "IFM 11.000 示例",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://dhi.github.io/ifm/"
+          ],
+          "locator": "Getting started / myModel.fem"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "doc = ifm.loadDocument(\"myModel.fem\")",
+          "sourceUrl": "https://dhi.github.io/ifm/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "DHI：ifm Python API for FEFLOW Groundwater Modelling System",
+        "url": "https://dhi.github.io/ifm/",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "MIKE 21/3",
+    "profile": {
+      "versionBoundary": "MIKE IO 与 MIKE Core 文档为当前在线文档，未锁定包版本；求解器版本和文件库版本须分别记录。",
+      "humanEntry": "MIKE 21/3 FM 模型与结果查看；外部 Python/.NET 处理文件。",
+      "coverage": "文件格式、Python 和 .NET 均是数据处理入口，不承诺可免费运行求解器。",
+      "unknowns": [
+        "具体 MIKE 模块许可与求解器执行 API 未核实",
+        "各 DFS 变体的编辑范围和文件兼容版本需对应库确认"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "DFS / DFSU / mesh",
+        "category": "file",
+        "entry": ".mesh ASCII 几何文件与 .dfsu 二进制数据文件",
+        "role": "网格/数据文件↔MIKE 21/3 FM 或后处理程序",
+        "direction": "几何/数据读入和结果输出，方向取决于模型及文件角色",
+        "operations": [
+          "读取网格",
+          "交换时空结果"
+        ],
+        "dataContract": "mesh 为节点/单元拓扑；dfsu 内几何为 static items，数据在相应几何上。",
+        "workflow": [
+          "建议：核对格式与投影",
+          "建议：检查节点单元表",
+          "建议：读取变量与时间轴",
+          "建议：对照模型结果"
+        ],
+        "execution": "离线文件；不是服务端会话。",
+        "failure": "建议核对投影、单位、缺失值、层次和索引；文件可读不等于物理含义正确。",
+        "prerequisites": "匹配的文件读取工具；运行 MIKE 求解器需另外许可。",
+        "version": "当前 Dfsu 文件文档，具体文件版本需样本核对",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://dhi.github.io/mikeio/user-guide/dfsu.html"
+          ],
+          "locator": "Dfsu / flexible mesh"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对格式与投影 → 检查节点单元表 → 读取变量与时间轴 → 对照模型结果。本次未执行。",
+          "sourceUrl": "https://dhi.github.io/mikeio/user-guide/dfsu.html"
+        }
+      },
+      {
+        "name": "MIKE IO",
+        "category": "program",
+        "entry": "mikeio.open / mikeio.read 与 Dataset/DataArray",
+        "role": "Python→DFS/mesh 文件",
+        "direction": "文件读取、子集选择及支持格式写出",
+        "operations": [
+          "读 Dataset",
+          "检查几何",
+          "按时间/单元筛选",
+          "写出 dfsu"
+        ],
+        "dataContract": "MIKE IO 使用 0 起始索引，MIKE Zero 为 1 起始；变量含时间、几何、单位元数据。",
+        "workflow": [
+          "建议：用样本读取文件",
+          "建议：检查 geometry/items/time",
+          "建议：提取子集",
+          "建议：写新文件并对照原图"
+        ],
+        "execution": "普通文件处理；分层 3D 的 .z 含节点动态高程，不能套用所有几何类型。",
+        "failure": "官方示例：非分层数据访问 .z.nodes 会抛 AttributeError；建议同时核对索引、几何类型与数组形状。",
+        "prerequisites": "兼容的 MIKE IO/Python 环境，合法数据文件；不推断求解器运行权。",
+        "version": "当前在线文档；包版本需锁定",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://dhi.github.io/mikeio/user-guide/dfsu.html"
+          ],
+          "locator": "Working with data / Non-layered DataArrays"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "import mikeio\nds = mikeio.read(\"../data/oresundHD_run1.dfsu\")\nds.geometry",
+          "sourceUrl": "https://dhi.github.io/mikeio/user-guide/dfsu.html"
+        }
+      },
+      {
+        "name": "DHI.DFS .NET API",
+        "category": "program",
+        "entry": "DHI.DFS NuGet / DHI.Generic.MikeZero.DFS 命名空间",
+        "role": "C#/.NET 程序↔DFS 文件",
+        "direction": "创建、读取与编辑支持的 DFS",
+        "operations": [
+          "创建 DFS",
+          "读取 DFS",
+          "编辑数据"
+        ],
+        "dataContract": "官方列 dfs0、dfs1、dfs2、dfs3、dfsu；投影/单位分别由相关库处理。",
+        "workflow": [
+          "建议：创建官方 C# 示例项目",
+          "建议：引用 DHI.DFS/DHI.EUM",
+          "建议：按文档设置 x64",
+          "建议：读取网格尺寸并核对"
+        ],
+        "execution": "作为文件库使用，非 MIKE 求解器；读写关闭/释放方法需 DFS API 细节。",
+        "failure": "建议核对 x64、依赖程序集、数据类型和文件句柄；完整异常表未公开逐项核查。",
+        "prerequisites": "Visual Studio、相应 NuGet 依赖和 x64 构建；商业求解器许可另论。",
+        "version": "当前 MIKE Core 文档，实际 NuGet 版本另核",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.mikepoweredbydhi.com/core_libraries/core-libraries/"
+          ],
+          "locator": "Content / DHI.DFS / Getting Started"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：创建官方 C# 示例项目 → 引用 DHI.DFS/DHI.EUM → 按文档设置 x64 → 读取网格尺寸并核对。本次未执行。",
+          "sourceUrl": "https://docs.mikepoweredbydhi.com/core_libraries/core-libraries/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "DHI：MIKE 21/3 Coast and Marine Water Modelling Software",
+        "url": "https://www.dhigroup.com/technologies/mikepoweredbydhi/mike-21-3",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "DHI：MIKE IO Dfsu user guide",
+        "url": "https://dhi.github.io/mikeio/user-guide/dfsu.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "DHI：MIKE Core Libraries",
+        "url": "https://docs.mikepoweredbydhi.com/core_libraries/core-libraries/",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "AERMOD",
+    "profile": {
+      "versionBoundary": "EPA 当前下载页明确 v26135，2026-07-09 发布，并列 2026-10-06 勘误；旧手册仅辅助解释文件接口。",
+      "humanEntry": "文本输入/批量可执行程序；常配 AERMET 气象和 AERMAP 地形预处理。",
+      "coverage": "模型输入、气象引用、批量运行和输出诊断；不把商业前端新增 API 当 EPA 原版。",
+      "unknowns": [
+        "旧用户手册与 v26135 新关键字差异未逐项比对",
+        "不同平台编译、退出码和可恢复错误契约未实测",
+        "监管可用性需当地规则，不从 EPA 下载页外推地区适用"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "AERMOD.INP / AERMOD.OUT",
+        "category": "file",
+        "entry": "AERMOD.INP runstream 与 AERMOD.OUT 主输出",
+        "role": "文本输入及气象文件→模型；主输出→用户/后处理",
+        "direction": "输入文件读取，主结果与诊断输出",
+        "operations": [
+          "定义模型选项",
+          "指定源和受体",
+          "引用气象数据",
+          "生成结果和诊断"
+        ],
+        "dataContract": "路径段、关键字和字段依用户指南；输入回显、结果、错误信息在主输出中检查。",
+        "workflow": [
+          "建议：核对发行版指南",
+          "建议：准备气象/源/受体",
+          "建议：在独立目录运行样本",
+          "建议：检查主输出与诊断"
+        ],
+        "execution": "文件驱动；输入文件名及外部引用要按发行版样例保留。",
+        "failure": "建议检查缺失文件、参数校验、气象覆盖和诊断；旧手册不能覆盖所有新错误。",
+        "prerequisites": "完整输入及预处理数据，匹配 AERMOD 版本。",
+        "version": "文件说明回溯旧手册；运行应采用 v26135 配套指南",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P100QVCE.TXT"
+          ],
+          "locator": "User’s Guide / 3.8 input and output files"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对发行版指南 → 准备气象/源/受体 → 在独立目录运行样本 → 检查主输出与诊断。本次未执行。",
+          "sourceUrl": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P100QVCE.TXT"
+        }
+      },
+      {
+        "name": "批量可执行程序",
+        "category": "program",
+        "entry": "EPA 提供的 v26135 64 位可执行文件或源代码构建",
+        "role": "操作系统进程→AERMOD",
+        "direction": "预备文件输入；结果及诊断文件输出",
+        "operations": [
+          "执行样本",
+          "批量编排案例",
+          "保留版本和运行记录"
+        ],
+        "dataContract": "程序与输入、气象和地形文件配套；不公开 REST 服务。",
+        "workflow": [
+          "建议：阅读 Sample Run Instructions",
+          "建议：建立独立样例目录",
+          "建议：运行匹配可执行文件",
+          "建议：核对日志/结果与勘误"
+        ],
+        "execution": "按样例编排计算进程；是否允许多个工作目录并行及资源边界需验证。",
+        "failure": "建议检查程序退出、主输出诊断和当前 Bugs/Errata；未声称某退出码即代表结果可靠。",
+        "prerequisites": "64 位系统与足够资源；源代码编译环境另核。",
+        "version": "v26135 / 2026-07-09；勘误页面另查",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.epa.gov/scram/air-quality-dispersion-modeling-preferred-and-recommended-models"
+          ],
+          "locator": "AERMOD Modeling System / Model Code / Installation Guide"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：阅读 Sample Run Instructions → 建立独立样例目录 → 运行匹配可执行文件 → 核对日志/结果与勘误。本次未执行。",
+          "sourceUrl": "https://www.epa.gov/scram/air-quality-dispersion-modeling-preferred-and-recommended-models"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "US EPA：AERMOD Modeling System code and documentation",
+        "url": "https://www.epa.gov/scram/air-quality-dispersion-modeling-preferred-and-recommended-models",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "US EPA：AERMOD User’s Guide，3.8 节输入输出文件说明",
+        "url": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P100QVCE.TXT",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  }
+]

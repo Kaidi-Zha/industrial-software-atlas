@@ -1,0 +1,508 @@
+[
+  {
+    "name": "EMTP",
+    "vendor": "PGSTech",
+    "sector": "power",
+    "stage": "工艺仿真",
+    "purpose": "电力系统电磁暂态、机电暂态及控制系统仿真，用于新能源并网、输配电和绝缘配合分析。",
+    "interfaces": [
+      {
+        "name": "EMTPWorks JavaScript",
+        "type": "脚本/CLI",
+        "detail": "JavaScript 扩展可访问电路、设备、信号与引脚对象；FAQ 给出脚本编辑器和 .dwj 文件的运行入口。"
+      }
+    ],
+    "constraints": "官方 EMTPWorks 概览与脚本 FAQ 未标统一适用主版本；不据网页更新时间推定接口版本。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "EMTP：EMTPWorks overview",
+        "url": "https://www.emtp.com/documentation/emtp-overview"
+      },
+      {
+        "title": "EMTP：Scripting FAQ",
+        "url": "https://emtp.com/support/faq/Scripting"
+      },
+      {
+        "title": "EMTP：PGSTech license-provider announcement",
+        "url": "https://emtp.com/about-us/news/pgstech-acquires-powersys-shares"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "RT-LAB",
+    "vendor": "OPAL-RT",
+    "sector": "power",
+    "stage": "质量检测",
+    "purpose": "将 MATLAB/Simulink 模型部署为实时仿真，用于电力系统、电力电子及控制器的 HIL、PHIL 和快速控制原型测试。",
+    "interfaces": [
+      {
+        "name": "RtlabApi Python API",
+        "type": "API/SDK",
+        "detail": "通过 OpenProject 连接项目，取得 Parameter Control 后以 SetParameters 写入参数 ID/值元组。"
+      }
+    ],
+    "constraints": "官网产品页与公开 RtlabApi 命令文档核查；API 页面未为全部命令标出同一主版本。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "OPAL-RT：RT-LAB",
+        "url": "https://www.opal-rt.com/software/software-platforms/rt-lab/"
+      },
+      {
+        "title": "RT-LAB API：OpenProject",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PRD/pages/143495767/OpenProject"
+      },
+      {
+        "title": "RT-LAB API：SetParameters",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PRD/pages/143431876/SetParameters"
+      },
+      {
+        "title": "RT-LAB：Preparing and Building the Model",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PRD/pages/144083675/Preparing%2Band%2BBuilding%2Bthe%2BModel"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "HYPERSIM",
+    "vendor": "OPAL-RT",
+    "sector": "power",
+    "stage": "质量检测",
+    "purpose": "大规模电网及电力电子电磁暂态实时仿真，用于保护、控制和新能源设备的闭环测试。",
+    "interfaces": [
+      {
+        "name": "HyWorksApiGRPC Python API",
+        "type": "API/SDK",
+        "detail": "官方例程从启动并连接宿主、打开 .ecf 设计到生成代码、运行和停止；可读写设备参数。"
+      }
+    ],
+    "constraints": "按公开 Python API Setup、Commands 和 Examples 核查；Python 小版本依 Software Compatibility 表，不把文档版本泛化到历史宿主。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "OPAL-RT：HYPERSIM",
+        "url": "https://www.opal-rt.com/software/software-platforms/hypersim/"
+      },
+      {
+        "title": "HYPERSIM：Python API Setup",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PDOCHS/pages/150144462"
+      },
+      {
+        "title": "HYPERSIM：Python API Commands",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PDOCHS/pages/149850182/Python%2BAPI%2BCommands"
+      },
+      {
+        "title": "HYPERSIM：Python API Examples",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PDOCHS/pages/150078785/Python%2BAPI%2BExamples"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PLECS",
+    "vendor": "Plexim",
+    "sector": "power",
+    "stage": "工艺仿真",
+    "purpose": "电力电子电路、控制器及相关热模型的系统级仿真和设计分析。",
+    "interfaces": [
+      {
+        "name": "Standalone XML-RPC / JSON-RPC",
+        "type": "API/SDK",
+        "detail": "Standalone 内置 HTTP RPC 服务可供同一台计算机上的客户端调用；JSON-RPC 自 4.6 加入。"
+      }
+    ],
+    "constraints": "本次公开页标题为 PLECS 5.0；RPC 属于 PLECS Standalone，不能泛化为 Blockset 原生接口。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "PLECS 5.0：Simulation Scripts",
+        "url": "https://docs.plexim.com/plecs/latest/scripting/"
+      },
+      {
+        "title": "Plexim：XML-RPC and Python tutorial",
+        "url": "https://www.plexim.com/content/plecs-xml-rpc-interface-and-controller-design-python"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PSIM",
+    "vendor": "Altair",
+    "sector": "power",
+    "stage": "工艺仿真",
+    "purpose": "电力电子变换器、电机驱动及控制系统的电路仿真和参数分析。",
+    "interfaces": [
+      {
+        "name": "PSIM Script Simulate",
+        "type": "脚本/CLI",
+        "detail": "Simulate(SchematicFilePath, SimviewFilePath, SimulationOptions, ReturnGraph) 打开原理图并阻塞执行仿真。"
+      }
+    ],
+    "constraints": "接口细节来自 Altair 2023 PSIM 官方脚本教程；不据此声称覆盖当前全部 Python API 或全部 PSIM 版本。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "Altair PSIM：How to Use Script Functions",
+        "url": "https://2023.help.altair.com/psim-tut/tutorials/Tutorial%20-%20How%20to%20Use%20Script%20Functions.pdf"
+      },
+      {
+        "title": "Altair Learn：PSIM power electronics course",
+        "url": "https://learn.altair.com/course/view.php?id=374&section=1"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PVsyst",
+    "vendor": "PVsyst SA",
+    "sector": "power",
+    "stage": "研发设计",
+    "purpose": "光伏电站发电量、损失及系统配置设计分析，并通过批处理开展参数研究。",
+    "interfaces": [
+      {
+        "name": "PVsystCLI",
+        "type": "脚本/CLI",
+        "detail": "PVsystCLI.exe run-simulation 通过 workspace、project 和 variant 指定已有设计变体并生成结果。"
+      },
+      {
+        "name": "CSV 批处理与结果",
+        "type": "文件格式",
+        "detail": "CLI 用 CSV 指定批次参数，并可按结果变量设置导出仿真 CSV；不能据此推定任意项目模型可由 CSV 完整重建。"
+      }
+    ],
+    "constraints": "公开 CLI 文档当前示例为 8 系列；具体可执行程序和许可须与所安装版本核对。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "PVsyst CLI：Reference",
+        "url": "https://www.pvsyst.com/help-cli/reference/index.html"
+      },
+      {
+        "title": "PVsyst CLI：Running simulations",
+        "url": "https://www.pvsyst.com/help-cli/use-cases/simulation.html"
+      },
+      {
+        "title": "PVsyst：CLI product",
+        "url": "https://secure.pvsyst.com/en/products/pvsyst-cli/"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "HOMER Pro",
+    "vendor": "UL Solutions / HOMER Energy",
+    "sector": "power",
+    "stage": "研发设计",
+    "purpose": "混合能源及微电网的技术经济仿真、容量优化与敏感性分析，比较可再生能源、储能及常规机组方案。",
+    "interfaces": [
+      {
+        "name": "时序 CSV 导出",
+        "type": "文件格式",
+        "detail": "所选仿真方案的 Time Series Outputs 可导出 CSV；官方知识库给出结果窗口 Export 操作。"
+      }
+    ],
+    "constraints": "公开 latest 帮助中的时序输出页标示 HOMER Pro 3.16；不推定全部历史/后续版本导出列完全一致。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "HOMER Energy：HOMER Pro",
+        "url": "https://homerenergy.com/homer-pro"
+      },
+      {
+        "title": "HOMER Pro：Time Series Outputs",
+        "url": "https://homerenergy.com/products/pro/docs/latest/time_series_outputs.html"
+      },
+      {
+        "title": "HOMER Knowledge Base：Export resource data",
+        "url": "https://homerenergy.com/docs/knowledgebase/article/export-homers-resource-data/"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "pandapower",
+    "vendor": "Universität Kassel / Fraunhofer IEE",
+    "sector": "power",
+    "stage": "工艺仿真",
+    "purpose": "通过 Python 数据结构开展电网建模、交流潮流及相关网络分析。",
+    "interfaces": [
+      {
+        "name": "Python runpp",
+        "type": "API/SDK",
+        "detail": "runpp(net, ...) 在 Python 中执行交流潮流，输入为网络对象，结果保存在对应结果表。"
+      },
+      {
+        "name": "JSON 网络文件",
+        "type": "文件格式",
+        "detail": "to_json/from_json 保存或恢复网络；官方明确部分内部对象不保存且恢复后的索引顺序可能变化。"
+      }
+    ],
+    "constraints": "本次固定核查官方 v3.1.0 文档；不混用 latest 参数签名。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "pandapower 3.1.0：AC power flow",
+        "url": "https://pandapower.readthedocs.io/en/v3.1.0/powerflow/ac.html"
+      },
+      {
+        "title": "pandapower 3.1.0：File I/O",
+        "url": "https://pandapower.readthedocs.io/en/v3.1.0/file_io.html"
+      },
+      {
+        "title": "pandapower：Contact",
+        "url": "https://www.pandapower.org/contact/"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ECLIPSE",
+    "vendor": "SLB",
+    "sector": "mining",
+    "stage": "工艺仿真",
+    "purpose": "油气藏黑油、组分、热采及流线数值模拟，用于历史拟合和开发生产方案比较。",
+    "interfaces": [
+      {
+        "name": "ECLRUN 命令行",
+        "type": "脚本/CLI",
+        "detail": "ECLRUN 可从命令行/批处理启动 ECLIPSE 或 E300 数据集，并可选择已安装发行版本。"
+      },
+      {
+        "name": "ECLIPSE 关键词数据集",
+        "type": "文件格式",
+        "detail": "官方安装指南以 ECLIPSE 示例数据集运行，亦明确称其为可迁移到 INTERSECT 的 keyword file；具体关键词依求解器版本。"
+      }
+    ],
+    "constraints": "产品用途按当前官网；具体 ECLRUN/输入数据操作固定依据 ECLIPSE 2021.4 安装指南，不将该版操作系统或调度器要求套用到现行版。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "SLB：ECLIPSE reservoir simulator",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/eclipse-industry-reference-reservoir-simulator"
+      },
+      {
+        "title": "SLB：ECLIPSE 2021.4 Installation Guide",
+        "url": "https://www.software.slb.com/-/media/software-media-items/support/product-documents/eclipse/2021/eclipse-2021-4-installation-guide.pdf?hash=8938EA515E118D83F09CE0D7C68F6904926772C6&la=en"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "INTERSECT",
+    "vendor": "SLB",
+    "sector": "mining",
+    "stage": "工艺仿真",
+    "purpose": "高分辨率油藏模拟，覆盖复杂地质、提高采收率、热采及二氧化碳封存方案。",
+    "interfaces": [
+      {
+        "name": "案例内 Python 脚本",
+        "type": "脚本/CLI",
+        "detail": "官网确认高级 Python 脚本例程可集成进仿真案例，在仿真运行期间执行复杂操作；未公开函数级契约。"
+      },
+      {
+        "name": "AFI / ECLIPSE Migrator",
+        "type": "文件格式",
+        "detail": "官方指南给出将 ECLIPSE 关键词数据集迁移为 AFI，迁移完成后再运行 INTERSECT 的独立步骤。"
+      }
+    ],
+    "constraints": "Python 能力按当前官方产品页；迁移/AFI 操作限定为 2021.4 安装指南中的 INTERSECT 配套流程。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "SLB：INTERSECT",
+        "url": "https://www.software.slb.com/products/intersect?entry=ad_google_sis_software_intersect"
+      },
+      {
+        "title": "SLB：2021.4 simulator installation / INTERSECT test",
+        "url": "https://www.software.slb.com/-/media/software-media-items/support/product-documents/eclipse/2021/eclipse-2021-4-installation-guide.pdf?hash=8938EA515E118D83F09CE0D7C68F6904926772C6&la=en"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CMG 油藏模拟套件（IMEX / GEM / STARS）",
+    "vendor": "Computer Modelling Group（CMG）",
+    "sector": "mining",
+    "stage": "工艺仿真",
+    "purpose": "IMEX 处理黑油，GEM 处理组分，STARS 处理热采及复杂采收过程；三者作为同厂油藏模拟套件合并列示。",
+    "interfaces": [
+      {
+        "name": "SR3 结果文件",
+        "type": "文件格式",
+        "detail": "官网明确 Results 支持 IMEX、GEM、STARS 的 SR3 压缩输出文件，用于仿真结果分析和比较。"
+      },
+      {
+        "name": "RESQML 导出（Results）",
+        "type": "信息模型",
+        "detail": "CMG Results 官网明确列出 RESQML 导出，并支持属性/时间步规格的改进；未公布所支持 RESQML 版次和完整对象覆盖。"
+      }
+    ],
+    "constraints": "当前官方软件与 Results 产品页未给 SR3 完整版本化规格；不将三个求解器拆成三个同源接口记录。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "CMG：Software portfolio",
+        "url": "https://www.cmgl.ca/solutions/software/"
+      },
+      {
+        "title": "CMG：Results / SR3 output",
+        "url": "https://www.cmgl.ca/solutions/software/results/"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "tNavigator",
+    "vendor": "Rock Flow Dynamics",
+    "sector": "mining",
+    "stage": "工艺仿真",
+    "purpose": "一体化地质建模、油藏动态模拟与开发方案分析，通过自动化联通模型、计算和结果处理。",
+    "interfaces": [
+      {
+        "name": "Python API",
+        "type": "API/SDK",
+        "detail": "官方技术概览确认以 Python API 自动化工作流、处理模型、运行仿真并抽取分析结果。"
+      }
+    ],
+    "constraints": "依据当前官方 AI and ML 页面及 Technology Overview 2025；确认 Python API 能力，但未核实具体补丁版函数参考。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "Rock Flow Dynamics：AI and ML / Python API",
+        "url": "https://www.rfdyn.com/industries/machine-learning-ai/"
+      },
+      {
+        "title": "Rock Flow Dynamics：Technology Overview 2025",
+        "url": "https://rfdyn.com/wp-content/uploads/2025/04/Technology-Overview-2025-Web.pdf"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "FLAC3D",
+    "vendor": "Itasca",
+    "sector": "mining",
+    "stage": "工艺仿真",
+    "purpose": "三维连续介质岩土力学分析，模拟矿山开挖、支护、岩体及土体力学响应。",
+    "interfaces": [
+      {
+        "name": "itasca Python API",
+        "type": "API/SDK",
+        "detail": "宿主 Python 通过 itasca 模块执行命令，访问 zone、gridpoint 等对象，读写属性并处理求解结果。"
+      }
+    ],
+    "constraints": "对象与生命周期依据官方 FLAC3D 7.0 Python 文档；产品用途按官网，不能推定当前 9 系列完全相同。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "Itasca：FLAC3D",
+        "url": "https://www.itascacg.com/software/flac3d?tab=1"
+      },
+      {
+        "title": "FLAC3D 7.0：Python scripting",
+        "url": "https://docs.itascasoftware.com/flac3d700/common/docproject/source/manual/scripting/python/doc/python_flac3d.py.html"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PFC Suite",
+    "vendor": "Itasca",
+    "sector": "mining",
+    "stage": "工艺仿真",
+    "purpose": "颗粒离散元模拟颗粒、块体及接触相互作用，用于矿山崩落、破碎、爆破及颗粒材料过程分析；二维与三维合并为一套产品。",
+    "interfaces": [
+      {
+        "name": "itasca PFC Python API",
+        "type": "API/SDK",
+        "detail": "官方例程导入 itasca，以 command 操作模型，并以 ball.count、ball.find 等方法访问颗粒对象及属性。"
+      }
+    ],
+    "constraints": "Python 对象细节固定依据 PFC 6.0 公开文档；当前产品页仅用于核对用途，不把 6.0 签名当作全版本承诺。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "Itasca：PFC Suite",
+        "url": "https://itascasoftware.com/products/pfc-suite/"
+      },
+      {
+        "title": "PFC 6.0：Python scripting",
+        "url": "https://docs.itascacg.com/pfc600/common/docproject/source/manual/scripting/python/doc/python_pfc.py.html"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Deswik.CAD",
+    "vendor": "Deswik",
+    "sector": "mining",
+    "stage": "研发设计",
+    "purpose": "矿山设计、实体建模、测量数据处理和生产规划中的几何准备。",
+    "interfaces": [
+      {
+        "name": "VB.NET / C# 插件与脚本",
+        "type": "API/SDK",
+        "detail": "官方资料确认内置 IDE、VB.NET/C# 插件和对象模型，可定制应用及处理数据；未披露程序集或方法签名。"
+      }
+    ],
+    "constraints": "接口依据官方公开 CAD module summary/brochure；文件路径含 2015/2017，但文件未给可据以确认的宿主主版本，当前兼容性未知。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "Deswik：CAD Module Summary",
+        "url": "https://deswik.com/wp-content/uploads/2017/06/Deswik.CAD-Module-Summary.pdf"
+      },
+      {
+        "title": "Deswik：CAD Brochure",
+        "url": "https://www.deswik.com/wp-content/uploads/2015/10/Deswik.CAD-Brochure.pdf"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Datamine Studio RM",
+    "vendor": "Datamine",
+    "sector": "mining",
+    "stage": "研发设计",
+    "purpose": "地质建模、钻孔数据处理、块体建模与资源量/品位估算，服务矿产资源评估及生产地质工作。",
+    "interfaces": [
+      {
+        "name": "Studio 脚本 / COM 对象模型",
+        "type": "API/SDK",
+        "detail": "官方帮助提供 Scripting COM Reference；3.1 引入受控 CreateObject 创建获准 ActiveX 对象，并提供脚本更新工具。"
+      },
+      {
+        "name": "Datamine 线串文件导出",
+        "type": "文件格式",
+        "detail": "write-selected-strings（wrs）命令将当前选定线串写到外部 Datamine 数据文件。"
+      }
+    ],
+    "constraints": "用途与命令按官方 Latest 帮助；COM 参考入口在 2.0 帮助中可见，3.1 发布记录明确更新脚本对象创建机制，跨版本语法须核对。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "Datamine：Studio RM help",
+        "url": "https://docs.dataminesoftware.com/StudioRM/Latest/STUDIO_RM/Index.htm?TocPath=_____1"
+      },
+      {
+        "title": "Studio RM 2.0：Help menu / scripting COM reference",
+        "url": "https://docs.dataminesoftware.com/StudioRM/2.0/COMMON/Ribbon_Help_Menu.htm"
+      },
+      {
+        "title": "Studio RM 3.1：Release Notes / safer scripting",
+        "url": "https://docs.dataminesoftware.com/StudioRM/Studio%20RM%203.1%20Release%20Notes.pdf"
+      },
+      {
+        "title": "Studio RM：write-selected-strings",
+        "url": "https://docs.dataminesoftware.com/StudioRM/Latest/command_help/write-selected-strings.htm"
+      },
+      {
+        "title": "Datamine：Studio RM 3.1 release",
+        "url": "https://dataminesoftware.com/studio-rm-3-1-public-release/"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  }
+]

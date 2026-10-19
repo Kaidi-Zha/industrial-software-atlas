@@ -1,0 +1,1488 @@
+[
+  {
+    "name": "Cadence Allegro X PCB Editor",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "Allegro PCB Editor 官方示例；未核实 Allegro X 各版本函数差异。",
+      "humanEntry": "PCB Editor 界面、SKILL 定制程序。",
+      "coverage": "板级设计数据库自动化及交互扩展。",
+      "unknowns": [
+        "完整 API 参考的版本、对象生存期及修改事务要求未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Allegro SKILL API",
+        "category": "program",
+        "entry": "PCB Editor 会话中的 SKILL 程序；具体加载菜单按安装版帮助。",
+        "role": "扩展规则检查结果与交互操作。",
+        "direction": "SKILL 程序 ⇄ PCB 数据库／用户表单",
+        "operations": [
+          "添加外部 DRC 标记",
+          "创建交互表单"
+        ],
+        "dataContract": "公开示例确认 axlDBCreateExternalDRC() 和 axlForm()；参数结构、返回句柄及可编辑对象全集未核实。",
+        "workflow": [
+          "建议：打开测试板文件",
+          "建议：核对安装版 SKILL 参考及示例参数",
+          "建议：添加一个标记并检查位置与属性"
+        ],
+        "execution": "在 PCB Editor 会话中执行；批处理入口和并发约定未核实。",
+        "failure": "具体状态码和异常约定未核实；建议检查 SKILL 输出、对象位置和 DRC 列表。",
+        "prerequisites": "可用的 PCB Editor 许可、测试板和与安装版对应的 SKILL 文档。",
+        "version": "官方公开示例未标明软件构建号。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://resources.pcb.cadence.com/allegro-pcb-editor-videos-page/col/allegro-pcb-editor-videos/creating-drc-markers-in-the-pcb-editor-with-skill",
+            "https://video.pcb.cadence.com/watch/7xy6W3L3X1qGWSgRef2bNB?chapter=1"
+          ],
+          "locator": "官方视频说明：Creating DRC Markers；Form Interface 的 axlForm()。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：打开测试板文件 → 建议：核对安装版 SKILL 参考及示例参数 → 建议：添加一个标记并检查位置与属性",
+          "sourceUrl": "https://resources.pcb.cadence.com/allegro-pcb-editor-videos-page/col/allegro-pcb-editor-videos/creating-drc-markers-in-the-pcb-editor-with-skill"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Cadence：用 SKILL 创建 PCB DRC 标记",
+        "url": "https://resources.pcb.cadence.com/allegro-pcb-editor-videos-page/col/allegro-pcb-editor-videos/creating-drc-markers-in-the-pcb-editor-with-skill"
+      },
+      {
+        "title": "Cadence：Allegro PCB Editor SKILL Form Interface",
+        "url": "https://video.pcb.cadence.com/watch/7xy6W3L3X1qGWSgRef2bNB?chapter=1"
+      }
+    ]
+  },
+  {
+    "name": "Cadence Innovus",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "Tcl 数据库教程为2019年资料；当前产品页为 Innovus+，需按安装版核对命令。",
+      "humanEntry": "Innovus 图形界面和 Tcl 命令环境。",
+      "coverage": "芯片物理设计对象的查询和属性操作。",
+      "unknowns": [
+        "get_db／set_db 的完整属性清单、可写范围与返回类型未在公开摘要逐项核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Stylus Common UI Tcl",
+        "category": "program",
+        "entry": "Innovus Stylus Common UI 的 Tcl 环境。",
+        "role": "在物理实现流程中查询对象和设置受支持属性。",
+        "direction": "Tcl 命令 ⇄ 实现数据库",
+        "operations": [
+          "查询数据库对象与属性",
+          "设置允许修改的属性"
+        ],
+        "dataContract": "已核实命令名称 get_db、set_db；对象路径、属性类型及可写标志需查安装版命令参考。",
+        "workflow": [
+          "建议：确认会话采用 Stylus Common UI",
+          "建议：查询测试设计对象和属性",
+          "建议：只修改文档标明可写的属性并复查"
+        ],
+        "execution": "依赖已加载设计和当前会话；脚本退出码、保存事务和线程约定未核实。",
+        "failure": "建议核对 Tcl 输出、属性有效性与设计检查；未确认统一异常或回滚接口。",
+        "prerequisites": "Innovus 许可、已加载设计及对应版本的 Common UI 帮助；部分支持资料需账户。",
+        "version": "教程最后修改2019-05-08；当前版本兼容性未核实。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://support1.cadence.com/public/docs/content/20482737.html"
+          ],
+          "locator": "Introduction to Database Access Commands Using Stylus Common UI：get_db、set_db。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认会话采用 Stylus Common UI → 建议：查询测试设计对象和属性 → 建议：只修改文档标明可写的属性并复查",
+          "sourceUrl": "https://support1.cadence.com/public/docs/content/20482737.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Cadence：Stylus Common UI 数据库访问",
+        "url": "https://support1.cadence.com/public/docs/content/20482737.html"
+      },
+      {
+        "title": "Cadence：Innovus+ 产品说明",
+        "url": "https://www.cadence.com/en_US/home/tools/digital-design-and-signoff/soc-implementation-and-floorplanning/innovus-plus-synthesis-implementation-system.html"
+      }
+    ]
+  },
+  {
+    "name": "Synopsys Fusion Compiler",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "采用官方公开产品数据表，未固定安装版。",
+      "humanEntry": "芯片实现环境及项目流程配置。",
+      "coverage": "逻辑设计进入物理实现，并形成版图交付数据。",
+      "unknowns": [
+        "未核实本体 Tcl 命令参考；具体 RTL 方言、GDSII 导出选项和保留属性未公开于所读数据表。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "RTL / GDSII 流程数据",
+        "category": "file",
+        "entry": "实现项目的 RTL 输入与 GDSII 版图交付步骤；具体命令查安装版帮助。",
+        "role": "连接逻辑设计与版图交付。",
+        "direction": "RTL → Fusion Compiler → GDSII",
+        "operations": [
+          "接收 RTL 设计开展实现",
+          "形成 GDSII 版图交付数据"
+        ],
+        "dataContract": "数据表明确 RTL-to-GDSII；模块、层映射、单位、工艺库及输出选项未在数据表展开。",
+        "workflow": [
+          "建议：准备测试 RTL 与获授权的工艺资料",
+          "建议：核对安装版导入和导出配置",
+          "建议：完成最小实现流程并独立检查版图"
+        ],
+        "execution": "文件跨越综合及物理实现阶段；完成条件应结合流程日志与签核检查。",
+        "failure": "建议检查缺失库、实现失败和导出日志；具体错误码未核实。",
+        "prerequisites": "Fusion Compiler 许可、匹配工艺与标准单元库，以及项目交付规则。",
+        "version": "公开数据表未给出具体软件版本。",
+        "implementation": "文件交换",
+        "standardIds": [
+          "p27"
+        ],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.synopsys.com/content/dam/synopsys/implementation%26signoff/datasheets/fusion-compiler-ds.pdf"
+          ],
+          "locator": "数据表：RTL-to-GDSII、Unified Data Model、Implementation Flow。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：准备测试 RTL 与获授权的工艺资料 → 建议：核对安装版导入和导出配置 → 建议：完成最小实现流程并独立检查版图",
+          "sourceUrl": "https://www.synopsys.com/content/dam/synopsys/implementation%26signoff/datasheets/fusion-compiler-ds.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Synopsys：Fusion Compiler 数据表",
+        "url": "https://www.synopsys.com/content/dam/synopsys/implementation%26signoff/datasheets/fusion-compiler-ds.pdf"
+      }
+    ]
+  },
+  {
+    "name": "Synopsys VCS",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "官方产品页未给出接口版本或 ABI 兼容表。",
+      "humanEntry": "仿真工程、验证环境及模型构建流程。",
+      "coverage": "功能仿真与高层模型之间的调用连接。",
+      "unknowns": [
+        "DPI 签名、类型映射、内存归属、回调和线程要求未从公开产品页核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "DPI / 高层模型接口",
+        "category": "program",
+        "entry": "VCS 验证环境的 DPI 及相关模型集成配置。",
+        "role": "把高层算法或验证模型接入芯片仿真。",
+        "direction": "仿真环境 ⇄ 集成模型；具体调用方向由绑定定义",
+        "operations": [
+          "集成高层模型参与验证",
+          "在仿真流程中交换模型数据"
+        ],
+        "dataContract": "产品页确认 DPI、SystemC 及 MATLAB 等高层建模集成；具体数据类型与调用签名未公开。",
+        "workflow": [
+          "建议：从安装版手册选择已支持的模型绑定",
+          "建议：编译最小模型和验证工程",
+          "建议：比较模型输入输出及仿真日志"
+        ],
+        "execution": "属于仿真构建与运行链路；调度、并发及回调生命周期未核实。",
+        "failure": "建议先检查编译、链接与运行日志；未核实统一错误或状态码约定。",
+        "prerequisites": "VCS 许可、兼容编译器及所选模型工具；不同集成项的模块要求需核对。",
+        "version": "公开产品说明；具体版本兼容表未核实。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.synopsys.com/verification/simulation/vcs.html"
+          ],
+          "locator": "产品页：直接接口 DKI、DPI 及高层模型集成。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从安装版手册选择已支持的模型绑定 → 建议：编译最小模型和验证工程 → 建议：比较模型输入输出及仿真日志",
+          "sourceUrl": "https://www.synopsys.com/verification/simulation/vcs.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Synopsys：VCS 功能与高层模型接口",
+        "url": "https://www.synopsys.com/verification/simulation/vcs.html"
+      }
+    ]
+  },
+  {
+    "name": "Siemens Calibre",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "官方课程 Software 字段为 Calibre 2023.2；不依据 URL 中旧版本字符串判断软件版本。",
+      "humanEntry": "Calibre 规则集编辑与 nmDRC／nmLVS 检查配置。",
+      "coverage": "将工艺检查逻辑写为 SVRF 规则文件。",
+      "unknowns": [
+        "当前 SVRF 语法版本、专用扩展和退出状态约定未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "SVRF 规则文件",
+        "category": "program",
+        "entry": "nmDRC／nmLVS 作业的 SVRF 规则输入；启动方式需查安装版文档。",
+        "role": "配置物理设计检查逻辑。",
+        "direction": "规则文件 → Calibre 检查作业 → 检查结果",
+        "operations": [
+          "定义派生层和几何检查",
+          "建立连接及器件识别规则",
+          "配置 LVS 比较逻辑"
+        ],
+        "dataContract": "SVRF 规则描述层、几何、连接及器件属性；语法、单位、工艺宏和结果格式按规则集确定。",
+        "workflow": [
+          "建议：取得获授权的测试规则和版图",
+          "建议：在对应模块中检查规则语法",
+          "建议：运行最小案例并核对错误位置或比较结果"
+        ],
+        "execution": "规则随验证作业执行；具体命令、增量行为与并行许可未核实。",
+        "failure": "建议区分规则解析错误、缺失输入和实际设计违规；统一错误码未核实。",
+        "prerequisites": "Calibre 相应模块许可、获授权的规则集及测试设计。",
+        "version": "课程标注2023.2；较新版本兼容性需重新确认。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=239707-US_____EDA__2021.2_1199"
+          ],
+          "locator": "课程 Software 与 Primary Course Topics：SVRF、DRC、LVS。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得获授权的测试规则和版图 → 建议：在对应模块中检查规则语法 → 建议：运行最小案例并核对错误位置或比较结果",
+          "sourceUrl": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=239707-US_____EDA__2021.2_1199"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens：Writing DRC/LVS Rules 官方课程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=239707-US_____EDA__2021.2_1199"
+      }
+    ]
+  },
+  {
+    "name": "Siemens Xpedition",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "接口证据为2024年官方案例，未列 SDK 版本。",
+      "humanEntry": "Xpedition PCB 设计环境及客户定制工具。",
+      "coverage": "围绕 PCB 设计的自动化与流程扩展。",
+      "unknowns": [
+        "具体语言绑定、对象可写范围、事务和生命周期未从公开案例核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Xpedition Automation API",
+        "category": "program",
+        "entry": "Xpedition 设计环境的 automation API；开发包和加载方式需查安装版文档。",
+        "role": "扩展 PCB 设计操作和客户工程流程。",
+        "direction": "定制工具 ⇄ PCB 设计环境；逐对象读写范围未核实",
+        "operations": [
+          "连接定制工具与设计流程",
+          "执行 API 支持的设计自动化操作"
+        ],
+        "dataContract": "案例未公开完整对象结构、签名或序列化格式；EDM Library API 和 ADX API 是案例中的其他接口，应分别确认产品归属。",
+        "workflow": [
+          "建议：取得对应版 automation 文档和许可说明",
+          "建议：选择可复现的单项设计操作",
+          "建议：比较手动与自动化结果"
+        ],
+        "execution": "运行位置、会话附着和批处理生命周期未公开于案例。",
+        "failure": "建议记录 API 调用结果与设计检查；具体异常、状态码和回滚机制未核实。",
+        "prerequisites": "Xpedition 及适用的自动化开发组件；语言与授权要求待供应商确认。",
+        "version": "2024-10-15 官方案例；未给出软件构建号。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://blogs.sw.siemens.com/semiconductor-packaging/2024/10/15/user2user-2024-customer-specific-solutions-with-siemens-eda-tools-sysberry-gmbh/"
+          ],
+          "locator": "User2User 2024：Xpedition automation API 与其他产品接口的区分。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得对应版 automation 文档和许可说明 → 建议：选择可复现的单项设计操作 → 建议：比较手动与自动化结果",
+          "sourceUrl": "https://blogs.sw.siemens.com/semiconductor-packaging/2024/10/15/user2user-2024-customer-specific-solutions-with-siemens-eda-tools-sysberry-gmbh/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens：Xpedition 客户自动化案例",
+        "url": "https://blogs.sw.siemens.com/semiconductor-packaging/2024/10/15/user2user-2024-customer-specific-solutions-with-siemens-eda-tools-sysberry-gmbh/"
+      },
+      {
+        "title": "Siemens：Xpedition Enterprise 产品",
+        "url": "https://www.siemens.com/en-us/products/pcb/xpedition/enterprise/"
+      }
+    ]
+  },
+  {
+    "name": "Keysight PathWave ADS",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "接口边界采用 ADS 2025 发布说明；当前安装版和 Python 兼容性需核对。",
+      "humanEntry": "ADS 的 Python Console、独立自动化模式与 Python API 帮助。",
+      "coverage": "工作区、设计与单元对象及设计捕获流程自动化。",
+      "unknowns": [
+        "逐方法返回类型、批处理完成判据与异常全集未核实；发布说明 PDF 本次未完整加载，接口功能依据官方索引内容与 API 概览交叉确认。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Design Environment Python API",
+        "category": "program",
+        "entry": "原理图／布局窗口 Tools > Python Console；Help 中 Python API 文档；独立自动化模式。",
+        "role": "以 Python 操作 ADS 设计环境。",
+        "direction": "Python ⇄ 工作区、设计与单元对象",
+        "operations": [
+          "访问工作区",
+          "操作设计和单元对象",
+          "连接设计捕获与仿真流程"
+        ],
+        "dataContract": "发布说明确认 Design Environment 模块覆盖；具体类签名、设计保存及结果对象需查安装版 API。",
+        "workflow": [
+          "建议：确认许可含 schematic 和 layout 功能",
+          "建议：从 Python Console 打开版本匹配的 API 帮助",
+          "建议：在测试工作区操作单个对象并核对保存结果"
+        ],
+        "execution": "可在 ADS 内部或独立自动化模式执行；进程退出和会话回收约定未核实。",
+        "failure": "建议检查 Python 控制台、环境依赖及设计结果；未核实统一异常层次。",
+        "prerequisites": "ADS、相应设计许可及匹配 Python 环境；升级后应按发布说明重建环境。",
+        "version": "ADS 2025 Design Environment 生产接口；不能据此推定 Data Display Python 的状态。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.keysight.com/download/attachments/507834267/KeysighEDA%20ADS_SQ_Build_Release%20Notes.pdf?api=v2",
+            "https://www.keysight.com/us/content/lib/resources/miscellaneous/eda-software/python-eda.html",
+            "https://www.keysight.com/content/dam/keysight/en/doc/ungate/configuration-guides/PathWave-Advanced-Design-System-ADS-Configuration.pdf"
+          ],
+          "locator": "ADS 2025 Release Notes：Python Module for Design Environment；Python API 概览。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认许可含 schematic 和 layout 功能 → 建议：从 Python Console 打开版本匹配的 API 帮助 → 建议：在测试工作区操作单个对象并核对保存结果",
+          "sourceUrl": "https://docs.keysight.com/download/attachments/507834267/KeysighEDA%20ADS_SQ_Build_Release%20Notes.pdf?api=v2"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Keysight：ADS 2025 发布说明",
+        "url": "https://docs.keysight.com/download/attachments/507834267/KeysighEDA%20ADS_SQ_Build_Release%20Notes.pdf?api=v2"
+      },
+      {
+        "title": "Keysight：Python APIs for EDA",
+        "url": "https://www.keysight.com/us/content/lib/resources/miscellaneous/eda-software/python-eda.html"
+      },
+      {
+        "title": "Keysight：ADS 配置指南",
+        "url": "https://www.keysight.com/content/dam/keysight/en/doc/ungate/configuration-guides/PathWave-Advanced-Design-System-ADS-Configuration.pdf"
+      }
+    ]
+  },
+  {
+    "name": "AMD Vivado",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "已核实2023.1 Tcl 批处理文档，未测试当前发行版。",
+      "humanEntry": "Vivado GUI、Tcl 环境与 shell 批处理入口。",
+      "coverage": "将工程构建步骤串为可重复的脚本。",
+      "unknowns": [
+        "各设计命令的返回对象、错误退出规则和运行许可差异未逐项核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Tcl / 批处理 CLI",
+        "category": "program",
+        "entry": "shell 中 vivado 的 batch 模式及 -source 参数。",
+        "role": "自动运行设计构建步骤。",
+        "direction": "Tcl 脚本与工程输入 → Vivado → 构建输出／日志",
+        "operations": [
+          "加载 Tcl 脚本",
+          "组织综合、仿真或实现步骤",
+          "向脚本传递参数"
+        ],
+        "dataContract": "输入为 Tcl 文件及 -tclargs 参数；设计产物由脚本具体命令决定。",
+        "workflow": [
+          "建议：按器件和发行版准备测试工程",
+          "建议：以 batch 和 -source 调用脚本",
+          "建议：检查日志及脚本预期产物"
+        ],
+        "execution": "官方说明批处理脚本结束后 Vivado 退出；并发和统一退出码未在本节定义。",
+        "failure": "建议检查 Tcl 错误、日志和任务完成状态；不能只以输出文件存在判断实现成功。",
+        "prerequisites": "Vivado 安装、器件支持及所调用 IP／功能许可。",
+        "version": "UG835 2023.1。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.amd.com/r/2023.1-English/ug835-vivado-tcl-commands/Tcl-Batch-Mode"
+          ],
+          "locator": "Tcl Batch Mode：batch、-source、-tclargs。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：按器件和发行版准备测试工程 → 建议：以 batch 和 -source 调用脚本 → 建议：检查日志及脚本预期产物",
+          "sourceUrl": "https://docs.amd.com/r/2023.1-English/ug835-vivado-tcl-commands/Tcl-Batch-Mode"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "AMD：Vivado Tcl Batch Mode，UG835 2023.1",
+        "url": "https://docs.amd.com/r/2023.1-English/ug835-vivado-tcl-commands/Tcl-Batch-Mode"
+      }
+    ]
+  },
+  {
+    "name": "Siemens Teamcenter",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "公开白皮书确认 SOA 架构和客户端库；未作为当前版本服务清单。",
+      "humanEntry": "Teamcenter 客户端、集成应用和服务器服务层。",
+      "coverage": "以业务服务处理产品生命周期数据。",
+      "unknowns": [
+        "当前认证流程、服务版本、授权范围和每种部署的调用入口未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Teamcenter Services / SOA",
+        "category": "program",
+        "entry": "Teamcenter 服务层及匹配版本客户端库；具体服务端地址由部署确定。",
+        "role": "将外部专业应用连接到受管理的产品数据。",
+        "direction": "集成应用 ⇄ Teamcenter 业务服务",
+        "operations": [
+          "通过服务处理产品业务对象",
+          "在客户端数据模型中接收服务数据"
+        ],
+        "dataContract": "服务承载业务对象和客户端数据模型；具体对象属性、请求响应及部分失败结构需查版本匹配的服务参考。",
+        "workflow": [
+          "建议：核实部署和客户端库版本",
+          "建议：选择只读测试服务并确认对象权限",
+          "建议：比对客户端返回内容与 Teamcenter 界面"
+        ],
+        "execution": "客户端经服务层访问业务逻辑；会话关闭、缓存更新和事务边界依具体服务。",
+        "failure": "白皮书未提供统一异常表；建议检查服务级错误、对象权限及客户端日志。",
+        "prerequisites": "Teamcenter 账户权限、服务器服务配置和版本匹配客户端组件。",
+        "version": "较早公开 SOA 白皮书；当前签名和认证未核实。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.plm.automation.siemens.com/en_us/Images/Siemens-PLM-Teamcenter-Service-Oriented-Architecture-wp_tcm1023-24383.pdf"
+          ],
+          "locator": "白皮书：Service-Oriented Architecture、Client Libraries、Client Data Model。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核实部署和客户端库版本 → 建议：选择只读测试服务并确认对象权限 → 建议：比对客户端返回内容与 Teamcenter 界面",
+          "sourceUrl": "https://www.plm.automation.siemens.com/en_us/Images/Siemens-PLM-Teamcenter-Service-Oriented-Architecture-wp_tcm1023-24383.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens：Teamcenter SOA 架构白皮书",
+        "url": "https://www.plm.automation.siemens.com/en_us/Images/Siemens-PLM-Teamcenter-Service-Oriented-Architecture-wp_tcm1023-24383.pdf"
+      }
+    ]
+  },
+  {
+    "name": "PTC Creo Parametric",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "文档位于 r11.0；版本导航另有其他发行版，不能混用 API。",
+      "humanEntry": "Creo Parametric 建模界面、TOOLKIT 扩展程序。",
+      "coverage": "对 Creo 内部模型和用户界面的受控访问。",
+      "unknowns": [
+        "具体对象修改的事务、返回码和二进制兼容规则未在概览逐项核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Creo TOOLKIT（C）",
+        "category": "program",
+        "entry": "安装版 Creo TOOLKIT 开发环境及扩展程序装载机制。",
+        "role": "将企业建模操作实现为机械 CAD 扩展。",
+        "direction": "C 程序 ⇄ Creo 模型／界面",
+        "operations": [
+          "调用模型数据库功能",
+          "扩展用户界面",
+          "开发定制建模流程"
+        ],
+        "dataContract": "函数、数据类型和模型对象由相应版本 C 参考定义；不假定所有对象均可修改。",
+        "workflow": [
+          "建议：核对 TOOLKIT 版本及授权",
+          "建议：编译官方最小示例并在测试会话装载",
+          "建议：执行一个模型操作并核对保存结果"
+        ],
+        "execution": "装载和运行模式依 TOOLKIT 配置；本次未核实线程模型与会话外运行条件。",
+        "failure": "建议逐函数检查文档返回码并保留 Creo 消息；具体错误列表未逐项核实。",
+        "prerequisites": "Creo Parametric、对应 TOOLKIT、兼容开发工具及适用许可。",
+        "version": "Creo Parametric TOOLKIT 11.0 文档。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://support.ptc.com/help/creo_toolkit/protoolkit_pma/r11.0/usascii/creo_toolkit/About_Protoolkit.html"
+          ],
+          "locator": "About Creo TOOLKIT：C language、database、user interface。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对 TOOLKIT 版本及授权 → 建议：编译官方最小示例并在测试会话装载 → 建议：执行一个模型操作并核对保存结果",
+          "sourceUrl": "https://support.ptc.com/help/creo_toolkit/protoolkit_pma/r11.0/usascii/creo_toolkit/About_Protoolkit.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "PTC：About Creo TOOLKIT，11.0",
+        "url": "https://support.ptc.com/help/creo_toolkit/protoolkit_pma/r11.0/usascii/creo_toolkit/About_Protoolkit.html"
+      },
+      {
+        "title": "PTC：Creo Toolkit 帮助版本入口",
+        "url": "https://www.ptc.com/en/support/help/Creo_Toolkit"
+      }
+    ]
+  },
+  {
+    "name": "PTC Windchill",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "主帮助入口为 Windchill+ 13.1.2.0；具体服务使用的 WRS 版本需另核实。",
+      "humanEntry": "Windchill 界面、WRS 领域服务与 API 目录。",
+      "coverage": "以 OData 领域对象组织业务数据接口。",
+      "unknowns": [
+        "部署域名、认证方式、可用领域和写操作权限未核实；需查当前元数据。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Windchill REST Services / OData",
+        "category": "program",
+        "entry": "部署启用的 WRS 领域与 API 目录；实际服务根地址由管理员提供。",
+        "role": "让应用访问 Windchill 的领域业务对象。",
+        "direction": "应用 ⇄ WRS 领域对象",
+        "operations": [
+          "查询领域实体及元数据",
+          "按已启用领域调用受支持操作",
+          "使用文档定义的查询选项"
+        ],
+        "dataContract": "实体、属性和操作依领域版本及 OData 元数据；旧版参考列出 $filter、$orderby 等选项，不代表所有领域均支持同一集合。",
+        "workflow": [
+          "建议：确认 Windchill 和 WRS 版本组合",
+          "建议：查看目标领域元数据并执行只读查询",
+          "建议：核对权限、返回实体和分页行为"
+        ],
+        "execution": "请求生命周期及写操作事务依目标领域；异步操作与并发约定未逐项核实。",
+        "failure": "建议检查 HTTP 响应、服务错误信息和领域版本差异；具体状态码映射未核实。",
+        "prerequisites": "启用 WRS 的部署、账户及领域对象权限；写操作需对应业务授权。",
+        "version": "帮助入口13.1.2.0与WRS 1.7参考分开记录；当前部署版本未知。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://support.ptc.com/help/windchill/plus/r13.1.2.0/en/Windchill_Help_Center/sublandingpages/WCRESTServices_LP.html",
+            "https://support.ptc.com/help/windchill_rest_services/r1.7/en/windchill_rest_services.html"
+          ],
+          "locator": "WRS 帮助目录：Installation、Domains、OData、API Changes。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认 Windchill 和 WRS 版本组合 → 建议：查看目标领域元数据并执行只读查询 → 建议：核对权限、返回实体和分页行为",
+          "sourceUrl": "https://support.ptc.com/help/windchill/plus/r13.1.2.0/en/Windchill_Help_Center/sublandingpages/WCRESTServices_LP.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "PTC：Windchill REST Services 帮助入口",
+        "url": "https://support.ptc.com/help/windchill/plus/r13.1.2.0/en/Windchill_Help_Center/sublandingpages/WCRESTServices_LP.html"
+      },
+      {
+        "title": "PTC：WRS 1.7 参考",
+        "url": "https://support.ptc.com/help/windchill_rest_services/r1.7/en/windchill_rest_services.html"
+      }
+    ]
+  },
+  {
+    "name": "Autodesk Inventor",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "使用2026 API 帮助；SDK 安装说明另为2024资料；2025起.NET 8的变化影响构建配置。",
+      "humanEntry": "Inventor 界面、COM Add-In 与 SDK 示例。",
+      "coverage": "在 CAD 进程内操作对象、响应事件并扩展界面。",
+      "unknowns": [
+        "逐对象可写属性、事务及线程要求未在本次概览中逐项核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Inventor COM API / Add-In SDK",
+        "category": "program",
+        "entry": "Inventor Add-In 装载机制及安装 SDK 的开发示例。",
+        "role": "把机械设计操作封装为应用内扩展。",
+        "direction": "插件 ⇄ Inventor 对象／事件",
+        "operations": [
+          "开发进程内插件",
+          "响应应用活动事件",
+          "调用 Inventor API 对象"
+        ],
+        "dataContract": "COM 对象、属性、方法和事件由版本化 API 定义；插件 DLL 与注册／清单配置需匹配安装版。",
+        "workflow": [
+          "建议：核对 Inventor 与 .NET 开发版本",
+          "建议：从匹配 SDK 示例建立插件",
+          "建议：装载到测试会话并检查单项对象操作"
+        ],
+        "execution": "官方定义为进程内 COM DLL；插件生命周期依装载和卸载机制，事件订阅需按示例管理。",
+        "failure": "建议检查插件加载信息、构建依赖及对象调用结果；完整异常和错误码未核实。",
+        "prerequisites": "Inventor、对应 SDK；2025及后续.NET插件需按.NET 8要求配置开发环境。",
+        "version": "2026 Add-In 帮助；2025起.NET 8，Visual Studio 2022 17.8或更高的要求见概览。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.autodesk.com/cloudhelp/2026/ENU/Inventor-API/files/CreatingAnAddIn_Overview.htm",
+            "https://help.autodesk.com/cloudhelp/2024/ENU/Inventor-API/files/UsingSDK.htm"
+          ],
+          "locator": "Creating an Add-In Overview：COM DLL、in-process、.NET migration。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对 Inventor 与 .NET 开发版本 → 建议：从匹配 SDK 示例建立插件 → 建议：装载到测试会话并检查单项对象操作",
+          "sourceUrl": "https://help.autodesk.com/cloudhelp/2026/ENU/Inventor-API/files/CreatingAnAddIn_Overview.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Autodesk：Inventor 2026 Add-In 开发概览",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/Inventor-API/files/CreatingAnAddIn_Overview.htm"
+      },
+      {
+        "title": "Autodesk：Inventor SDK 使用说明",
+        "url": "https://help.autodesk.com/cloudhelp/2024/ENU/Inventor-API/files/UsingSDK.htm"
+      }
+    ]
+  },
+  {
+    "name": "Autodesk Fusion",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "连续更新的在线 API 帮助；未固定 Fusion 构建号。",
+      "humanEntry": "UTILITIES > Scripts and Add-Ins；Python／C++ 开发环境。",
+      "coverage": "会话脚本和可随应用启动的插件。",
+      "unknowns": [
+        "具体 CAD／CAM 对象覆盖与订阅许可的关系、线程规则未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python / C++ Scripts and Add-Ins",
+        "category": "program",
+        "entry": "UTILITIES > Scripts and Add-Ins；Preferences 的 API 路径配置。",
+        "role": "扩展应用内操作和用户命令。",
+        "direction": "脚本／插件 ⇄ Fusion 对象与界面",
+        "operations": [
+          "创建和运行脚本",
+          "创建插件并配置启动行为",
+          "用 manifest 声明元数据和平台"
+        ],
+        "dataContract": "程序目录含 .py 或 C++ 文件及 JSON .manifest；脚本入口 run(context)，清单包含 type、runOnStartup、supportedOS 等。",
+        "workflow": [
+          "建议：在 Scripts and Add-Ins 创建测试 Python 脚本",
+          "建议：编辑后从对话框运行",
+          "建议：检查界面结果，再按需改为插件"
+        ],
+        "execution": "脚本 run 完成后卸载；插件可设随启动加载。C++ 程序需按平台编译。",
+        "failure": "官方模板包含异常处理；建议用语言对应调试工具检查加载、清单和运行错误。",
+        "prerequisites": "Fusion、相应 API 开发环境；Python 编辑调试使用 VS Code，C++ 要求平台工具链。",
+        "version": "在线帮助含新旧对话框；未核实当前构建号。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.autodesk.com/view/fusion360/ENU/?guid=GUID-9701BBA7-EC0E-4016-A9C8-964AA4838954"
+          ],
+          "locator": "Creating a Script or Add-In：入口、Manifest、Script Code。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在 Scripts and Add-Ins 创建测试 Python 脚本 → 建议：编辑后从对话框运行 → 建议：检查界面结果，再按需改为插件",
+          "sourceUrl": "https://help.autodesk.com/view/fusion360/ENU/?guid=GUID-9701BBA7-EC0E-4016-A9C8-964AA4838954"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Autodesk：Fusion 创建脚本或插件",
+        "url": "https://help.autodesk.com/view/fusion360/ENU/?guid=GUID-9701BBA7-EC0E-4016-A9C8-964AA4838954"
+      }
+    ]
+  },
+  {
+    "name": "CODESYS Development System",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "采用在线 Scripting 文档；部分属性有独立引入版本，不推定所有发行版可用。",
+      "humanEntry": "Tools > Scripting 的脚本菜单；命令行运行脚本。",
+      "coverage": "控制工程及开发环境对象的脚本自动化。",
+      "unknowns": [
+        "当前 Scripting 插件版本、设备供应商扩展及在线操作可用范围未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "CODESYS Scripting / Python",
+        "category": "program",
+        "entry": "Tools > Scripting；配置脚本目录中的 .py 文件；命令行 --runscript。",
+        "role": "自动执行工程创建、编辑和开发环境流程。",
+        "direction": "Python ⇄ 工程与开发环境对象",
+        "operations": [
+          "访问和编辑工程对象",
+          "从菜单执行脚本",
+          "以命令行运行自动化任务"
+        ],
+        "dataContract": "Scripting API 提供工程、系统及其他对象；在线功能依独立对象与设备配置，不由脚本入口自动保证。",
+        "workflow": [
+          "建议：确认 Scripting 组件和项目版本",
+          "建议：对工程副本执行只读对象访问",
+          "建议：检查输出后再验证单项编辑及保存"
+        ],
+        "execution": "--noUI 配合脚本可在结束后退出；ScriptSystem 文档描述自动中断检查及 KeyboardInterruptException。",
+        "failure": "建议区分 Python 错误、工程操作失败和用户中断；记录日志并核对保存后的工程。",
+        "prerequisites": "CODESYS Development System、匹配 Scripting 组件及适用的工程／设备权限。",
+        "version": "在线文档；abort_autocheck 标注自3.5.5.0加入，其他功能需逐项查版本。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://content.helpme-codesys.com/en/CODESYS%20Scripting/_cds_access_cds_func_in_python_scripts.html",
+            "https://content.helpme-codesys.com/en/CODESYS%20Scripting/_cds_cmd_scripts.html",
+            "https://content.helpme-codesys.com/en/ScriptingEngine/ScriptSystem.html"
+          ],
+          "locator": "Accessing CODESYS Functions；Scripts；ScriptSystem 的 runscript/noUI 与中断说明。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认 Scripting 组件和项目版本 → 建议：对工程副本执行只读对象访问 → 建议：检查输出后再验证单项编辑及保存",
+          "sourceUrl": "https://content.helpme-codesys.com/en/CODESYS%20Scripting/_cds_access_cds_func_in_python_scripts.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "CODESYS：从 Python 访问工程功能",
+        "url": "https://content.helpme-codesys.com/en/CODESYS%20Scripting/_cds_access_cds_func_in_python_scripts.html"
+      },
+      {
+        "title": "CODESYS：Scripts 菜单入口",
+        "url": "https://content.helpme-codesys.com/en/CODESYS%20Scripting/_cds_cmd_scripts.html"
+      },
+      {
+        "title": "CODESYS：ScriptSystem 参考",
+        "url": "https://content.helpme-codesys.com/en/ScriptingEngine/ScriptSystem.html"
+      }
+    ]
+  },
+  {
+    "name": "Studio 5000 Logix Designer",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "手册 LDSDK-GR001D-EN-P，2026-03；SDK 与 Logix Designer 主版本分别核对。",
+      "humanEntry": "Logix Designer 工程界面；Python／C# SDK 客户端。",
+      "coverage": "控制工程文件自动化及文档允许的在线控制器操作。",
+      "unknowns": [
+        "每项操作的控制器型号限制、授权组合和完整错误类型需查安装版 SDK Reference。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Logix Designer SDK（Python / C#）",
+        "category": "program",
+        "entry": "安装 SDK 后的 Python 或 C# 客户端；LogixProject／ILogixProject 对象。",
+        "role": "把控制工程维护步骤接入自动化工具。",
+        "direction": "SDK 客户端 ⇄ 工程文件／受支持控制器",
+        "operations": [
+          "打开和保存工程",
+          "导入导出工程组件",
+          "转换工程版本",
+          "执行文档允许的控制器交互"
+        ],
+        "dataContract": "客户端操作 Logix 工程及导出内容；通信经 FactoryTalk Linx，具体操作输入与返回类型查 SDK Reference。",
+        "workflow": [
+          "建议：核对 SDK、Logix Designer 和工程版本",
+          "建议：先在工程副本验证打开与导出",
+          "建议：检查 SDK 结果和文件，再单独评估需连接设备的操作"
+        ],
+        "execution": "SDK 调用服务进程；Python 文档涉及 asyncio。下载及控制器状态变更属于独立在线步骤，应明确目标和前置状态。",
+        "failure": "建议检查 SDK 错误、工程兼容性、Linx 路径及控制器模式；未核实所有调用的异常和取消约定。",
+        "prerequisites": "64位环境、SDK 与匹配 Logix Designer；在线操作需 FactoryTalk Linx、正确通信路径和设备权限。",
+        "version": "2026-03手册；SDK≥2.02为Python/C#，工程v31及后续，旧版仅转换。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://literature.rockwellautomation.com/idc/groups/literature/documents/gr/ldsdk-gr001_-en-p.pdf"
+          ],
+          "locator": "Getting Results：SDK versions、requirements、supported operations、Python/C#。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对 SDK、Logix Designer 和工程版本 → 建议：先在工程副本验证打开与导出 → 建议：检查 SDK 结果和文件，再单独评估需连接设备的操作",
+          "sourceUrl": "https://literature.rockwellautomation.com/idc/groups/literature/documents/gr/ldsdk-gr001_-en-p.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Rockwell：Logix Designer SDK Getting Results，2026-03",
+        "url": "https://literature.rockwellautomation.com/idc/groups/literature/documents/gr/ldsdk-gr001_-en-p.pdf"
+      },
+      {
+        "title": "Rockwell：Logix Designer 产品",
+        "url": "https://www.rockwellautomation.com/en-us/products/software/factorytalk/designsuite/studio-5000/studio-5000-logix-designer.html"
+      }
+    ]
+  },
+  {
+    "name": "中望3D（ZW3D）",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "仅确认官方 C/C++ 开发能力及版本化文档入口；未取得2025/2026包内参考。",
+      "humanEntry": "中望3D设计界面及 C/C++ 二次开发环境。",
+      "coverage": "为机械 CAD 增加专业定制程序。",
+      "unknowns": [
+        "函数签名、对象读写范围、许可要求、编译器、装载与卸载流程均待可访问开发包确认。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "ZW3D C/C++ API",
+        "category": "program",
+        "entry": "官方 ZW3D Developer Documentation 的版本化 Development Guide／Reference Manual。",
+        "role": "开发机械 CAD 定制应用。",
+        "direction": "C/C++ 应用 ⇄ ZW3D；具体对象及读写方向待开发包核实",
+        "operations": [
+          "获取对应版本开发资料",
+          "开发官方支持范围内的 C/C++ 应用"
+        ],
+        "dataContract": "公开入口未展示函数或对象结构；本次未取得有效下载包，具体合同字段未知。",
+        "workflow": [
+          "建议：核对实际 ZW3D 版本",
+          "建议：向官方取得可用开发指南和参考包",
+          "建议：用包内最小示例核查构建及装载"
+        ],
+        "execution": "进程内外运行、初始化、对象生存期及退出机制未核实。",
+        "failure": "下载链接本次未能打开；运行时错误、返回码及恢复机制无足够公开信息。",
+        "prerequisites": "ZW3D、匹配开发包及工具链；开发与分发许可需官方确认。",
+        "version": "官方页面列2023—2027版本；本次2025/2026链接访问失败。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.zwsoft.com/support/zw3d-devdoc"
+          ],
+          "locator": "ZW3D Developer Documentation：C/C++、分版本 Development Guide 与 Reference Manual。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对实际 ZW3D 版本 → 建议：向官方取得可用开发指南和参考包 → 建议：用包内最小示例核查构建及装载",
+          "sourceUrl": "https://www.zwsoft.com/support/zw3d-devdoc"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "ZWSOFT：ZW3D 开发者文档",
+        "url": "https://www.zwsoft.com/support/zw3d-devdoc"
+      }
+    ]
+  },
+  {
+    "name": "MATLAB / Simulink",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "当前在线帮助显示R2026b；模型、Engine包及Python兼容性需匹配具体发行版。",
+      "humanEntry": "MATLAB 命令环境、Simulink 模型界面、外部 Python 客户端。",
+      "coverage": "算法函数调用和以模型输入对象驱动的批量仿真。",
+      "unknowns": [
+        "模型附加工具箱许可、生成代码接口及实时目标不在这两项接口的已核实范围内。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "MATLAB Engine API for Python",
+        "category": "program",
+        "entry": "Python 安装匹配 matlab.engine 包；start_matlab 或连接已共享会话。",
+        "role": "让 Python 工作流调用 MATLAB 计算。",
+        "direction": "Python ⇄ MATLAB 函数与值",
+        "operations": [
+          "启动 MATLAB 引擎",
+          "连接共享会话",
+          "调用函数并取得结果"
+        ],
+        "dataContract": "官方文档列出 Python/MATLAB 类型转换及函数调用；数组和不支持类型需按转换表处理。",
+        "workflow": [
+          "建议：核对 MATLAB 与 Python 版本",
+          "建议：安装匹配引擎包并启动测试会话",
+          "建议：调用已知函数，核对值和类型后结束会话"
+        ],
+        "execution": "支持 FutureResult 异步调用；启动与连接共享会话有不同生命周期，应按 Engine 文档关闭。",
+        "failure": "MATLAB 运行错误可传为 Python 异常；建议同时检查类型转换、参数个数和 MATLAB 错误信息。",
+        "prerequisites": "完整 MATLAB 安装和适用许可、受支持 CPython及匹配 Engine 包；MATLAB Runtime 不支持。",
+        "version": "当前在线R2026b文档；Python支持范围随发行版变化。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.mathworks.com/help/matlab/matlab-engine-for-python.html"
+          ],
+          "locator": "Engine API：启动、连接、调用、数据类型、异步与异常。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对 MATLAB 与 Python 版本 → 建议：安装匹配引擎包并启动测试会话 → 建议：调用已知函数，核对值和类型后结束会话",
+          "sourceUrl": "https://www.mathworks.com/help/matlab/matlab-engine-for-python.html"
+        }
+      },
+      {
+        "name": "Simulink sim / SimulationInput",
+        "category": "program",
+        "entry": "MATLAB 中 Simulink.SimulationInput 与 sim 函数。",
+        "role": "用程序组织模型实验与仿真结果收集。",
+        "direction": "SimulationInput → Simulink → SimulationOutput",
+        "operations": [
+          "配置模型参数和变量",
+          "设置外部输入或初始状态",
+          "运行仿真并读取输出"
+        ],
+        "dataContract": "采用 SimulationInput 调用时返回 SimulationOutput，输入数组对应同维度输出；旧式模型名调用的返回形式另受配置影响。",
+        "workflow": [
+          "建议：为测试模型建立 SimulationInput",
+          "建议：设置单项参数并调用 sim",
+          "建议：核对 SimulationOutput 和模型的记录配置"
+        ],
+        "execution": "模型未加载时可自动加载；SimulationInput 的临时设置在仿真后恢复；错误捕获取决于调用和 CaptureErrors 配置。",
+        "failure": "建议检查仿真诊断、捕获的错误和已记录信号；不要将不同 sim 调用形式的返回合同混用。",
+        "prerequisites": "MATLAB、Simulink及模型所需工具箱；模型输入、求解器与日志配置必须有效。",
+        "version": "当前在线R2026b sim/SimulationInput 文档。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.mathworks.com/help/simulink/slref/sim.html",
+            "https://www.mathworks.com/help/simulink/slref/simulink.simulationinput.html"
+          ],
+          "locator": "sim：SimulationInput syntax、Output；SimulationInput 配置。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：为测试模型建立 SimulationInput → 建议：设置单项参数并调用 sim → 建议：核对 SimulationOutput 和模型的记录配置",
+          "sourceUrl": "https://www.mathworks.com/help/simulink/slref/sim.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "MathWorks：MATLAB Engine API for Python",
+        "url": "https://www.mathworks.com/help/matlab/matlab-engine-for-python.html"
+      },
+      {
+        "title": "MathWorks：sim 函数",
+        "url": "https://www.mathworks.com/help/simulink/slref/sim.html"
+      },
+      {
+        "title": "MathWorks：SimulationInput",
+        "url": "https://www.mathworks.com/help/simulink/slref/simulink.simulationinput.html"
+      },
+      {
+        "title": "MathWorks：航空航天与国防用途",
+        "url": "https://www.mathworks.com/solutions/aerospace-defense.html"
+      }
+    ]
+  },
+  {
+    "name": "Ansys Mechanical",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "stable文档示例采用261；不据示例推定所有 Mechanical 版本均支持相同运行方式。",
+      "humanEntry": "Mechanical 工程界面、PyMechanical 远程或嵌入式 Python。",
+      "coverage": "用 Python 控制 Mechanical 分析应用。",
+      "unknowns": [
+        "逐对象的 ACT／Mechanical 脚本覆盖、完整错误和许可组合未在运行概览核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "PyMechanical",
+        "category": "program",
+        "entry": "launch_mechanical／connect_to_mechanical；嵌入模式 App()。",
+        "role": "将结构仿真应用接入 Python 流程。",
+        "direction": "Python ⇄ Mechanical 应用／脚本环境",
+        "operations": [
+          "启动或连接远程会话",
+          "运行 Mechanical 脚本",
+          "建立嵌入式应用"
+        ],
+        "dataContract": "远程会话和嵌入对象的返回合同不同；业务模型和结果字段由 Mechanical 脚本对象定义。",
+        "workflow": [
+          "建议：选择远程或嵌入方式并核对支持平台",
+          "建议：打开最小工程执行只读查询",
+          "建议：检查返回信息和应用状态，再按模式关闭"
+        ],
+        "execution": "远程为独立应用进程，嵌入方式在同一 Python 进程；Linux 嵌入需要相应启动环境。",
+        "failure": "建议分别检查应用启动、RPC连接、脚本执行及许可错误；未核实统一异常和自动重连约定。",
+        "prerequisites": "Mechanical 安装和许可、兼容 PyMechanical；嵌入方式需 Python.NET及对应平台环境。",
+        "version": "stable文档示例261；具体兼容范围查安装版本对应文档。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://mechanical.docs.pyansys.com/version/stable/getting_started/running_mechanical.html"
+          ],
+          "locator": "Running Mechanical：Remote、Embedded、launch/connect。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择远程或嵌入方式并核对支持平台 → 建议：打开最小工程执行只读查询 → 建议：检查返回信息和应用状态，再按模式关闭",
+          "sourceUrl": "https://mechanical.docs.pyansys.com/version/stable/getting_started/running_mechanical.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Ansys：PyMechanical 运行方式",
+        "url": "https://mechanical.docs.pyansys.com/version/stable/getting_started/running_mechanical.html"
+      },
+      {
+        "title": "Ansys：Mechanical 数据表",
+        "url": "https://www.ansys.com/content/dam/product/structures/mechanical-datasheet.pdf"
+      }
+    ]
+  },
+  {
+    "name": "Ansys Fluent",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "当前仓库兼容要求为2024 R2及后续；旧版支持需固定旧客户端，不能只升级包。",
+      "humanEntry": "Fluent 求解器界面、Python 客户端和 settings 对象树。",
+      "coverage": "通过 Python 组织求解设置和结果访问。",
+      "unknowns": [
+        "具体求解器功能、模型许可、取消和恢复行为未逐项核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "PyFluent",
+        "category": "program",
+        "entry": "Python 的 ansys.fluent.core 客户端与求解器 settings 对象。",
+        "role": "自动配置和操作 Fluent 求解会话。",
+        "direction": "Python ⇄ Fluent 设置／求解／结果对象",
+        "operations": [
+          "访问并设置求解参数",
+          "调用对象树中的求解操作",
+          "读取对象状态"
+        ],
+        "dataContract": "Group、NamedObject、ListObject 等构成对象树；状态返回字典或列表等 Python 值；可见功能受稳定性暴露级别影响。",
+        "workflow": [
+          "建议：核对 Fluent 与 PyFluent 兼容表",
+          "建议：建立测试会话并查询 settings 状态",
+          "建议：修改单项参数并检查求解和结果"
+        ],
+        "execution": "会话对象承载求解器设置；隐藏或未暴露 API 的访问可产生 AttributeError。退出及并发要求需按会话文档。",
+        "failure": "建议区分连接错误、属性不存在、求解失败和收敛问题；记录 Fluent 日志与客户端异常。",
+        "prerequisites": "受支持 Fluent、有效许可及匹配 PyFluent 客户端；远程连接还需部署配置。",
+        "version": "官方仓库当前要求 Fluent≥2024 R2；旧版可用客户端以仓库说明为准。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://fluent.docs.pyansys.com/version/stable/user_guide/solver_settings/solver_settings_contents.html",
+            "https://github.com/ansys/pyfluent"
+          ],
+          "locator": "Solver settings object hierarchy、API exposure levels。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对 Fluent 与 PyFluent 兼容表 → 建议：建立测试会话并查询 settings 状态 → 建议：修改单项参数并检查求解和结果",
+          "sourceUrl": "https://fluent.docs.pyansys.com/version/stable/user_guide/solver_settings/solver_settings_contents.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Ansys：PyFluent Solver Settings",
+        "url": "https://fluent.docs.pyansys.com/version/stable/user_guide/solver_settings/solver_settings_contents.html"
+      },
+      {
+        "title": "Ansys：PyFluent 官方仓库与版本要求",
+        "url": "https://github.com/ansys/pyfluent"
+      },
+      {
+        "title": "Ansys：Fluent Workspaces Tutorials，2025 R2",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/pdf/Fluent_Workspaces_Tutorials.pdf"
+      }
+    ]
+  },
+  {
+    "name": "Simcenter STAR-CCM+",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "旧课程为13.02；新案例仅作接口能力佐证，不构成逐版本兼容表。",
+      "humanEntry": "仿真工程、Java 宏录制／编辑及 Simulation Operations 流程。",
+      "coverage": "以 Java 自动执行网格、仿真与后处理操作。",
+      "unknowns": [
+        "当前宏 API 签名、对象生命周期和并行环境约定未从公开资料核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Java Macro API",
+        "category": "program",
+        "entry": "STAR-CCM+ 宏录制及运行环境；官方案例将 Java 宏加入 Simulation Operations。",
+        "role": "重复执行仿真工程操作。",
+        "direction": "Java 宏 ⇄ 仿真对象",
+        "operations": [
+          "录制和编辑宏",
+          "自动执行网格流程",
+          "执行后处理或控制仿真步骤"
+        ],
+        "dataContract": "宏调用 STAR-CCM+ 的 Java 对象；具体对象、方法及输入输出随软件版次，公开课程未提供完整签名。",
+        "workflow": [
+          "建议：在匹配版本录制单项测试操作",
+          "建议：检查宏对象引用和版本差异",
+          "建议：运行并比对网格、报告或后处理结果"
+        ],
+        "execution": "宏可进入仿真操作流水线；执行结束、取消与线程规则需查当前参考。",
+        "failure": "课程涉及 Java 异常，但未公开具体异常集合；建议检查宏输出、对象失效和仿真状态。",
+        "prerequisites": "STAR-CCM+ 及匹配宏 API 文档；集成开发可使用相应 Java 工具环境。",
+        "version": "课程13.02；当前 Simulation Operations 案例未在所读摘要给出构建号。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=TR09306_______STAR_13.02__6500",
+            "https://community.sw.siemens.com/s/article/How-can-I-add-a-Java-macro-to-my-Simulation-Operation-pipeline"
+          ],
+          "locator": "课程 Primary Topics：Java macros、API、meshing、post processing；官方操作流水线案例。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在匹配版本录制单项测试操作 → 建议：检查宏对象引用和版本差异 → 建议：运行并比对网格、报告或后处理结果",
+          "sourceUrl": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=TR09306_______STAR_13.02__6500"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens：STAR-CCM+ Java Process Automation 课程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=TR09306_______STAR_13.02__6500"
+      },
+      {
+        "title": "Siemens：Simulation Operations 调用 Java 宏",
+        "url": "https://community.sw.siemens.com/s/article/How-can-I-add-a-Java-macro-to-my-Simulation-Operation-pipeline"
+      },
+      {
+        "title": "Siemens：航空气动 CFD",
+        "url": "https://blogs.sw.siemens.com/simcenter/aerospace-aerodynamics-cfd-simulation/"
+      }
+    ]
+  },
+  {
+    "name": "MSC Nastran",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "输入文件入门为2021.1，卡片参考为2024.2；本次未取得统一当前版卡片兼容矩阵。",
+      "humanEntry": "求解输入文件、有限元前处理器和 Nastran 求解流程。",
+      "coverage": "以文件定义结构有限元模型及求解配置。",
+      "unknowns": [
+        "具体卡片方言、导出前处理器兼容性和结果文件字段未逐项核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "BDF / DAT 输入文件",
+        "category": "file",
+        "entry": "求解任务的输入文件；通过前处理器导出或按版本参考编写。",
+        "role": "将有限元模型和分析定义送入求解器。",
+        "direction": "BDF／DAT → MSC Nastran 求解任务",
+        "operations": [
+          "描述有限元模型实体",
+          "提供分析和求解输入"
+        ],
+        "dataContract": "输入由对应版本的控制段和 Bulk Data 条目定义；节点、单元、材料和约束字段须按卡片参考与单位体系核对。",
+        "workflow": [
+          "建议：导出最小模型并确认求解器方言",
+          "建议：按卡片参考核对节点、单元、材料和约束",
+          "建议：提交测试求解并检查诊断及结果"
+        ],
+        "execution": "文件由求解作业读取；本次未核实所有解算序列及输出合同。",
+        "failure": "建议检查输入解析、缺失引用、单位和数值求解诊断；具体消息编号按版本手册。",
+        "prerequisites": "MSC Nastran 许可、版本匹配输入资料及有效模型；附加分析能力依模块。",
+        "version": "2021.1输入文件说明、2024.2 Bulk Data参考；不推定跨版完全兼容。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://nexus.hexagon.com/documentationcenter/en-US/bundle/MSC_Nastran_2021.1/page/Nastran_Combined_Book/getstart/GS-Files/TOC.MSC.Nastran.Input.Files.xhtml",
+            "https://nexus.hexagon.com/documentationcenter/en-US/bundle/MSC_Nastran_2024.2/page/Nastran_Combined_Book/qrg/bulk_data/bulk.data.xhtml"
+          ],
+          "locator": "MSC Nastran Input Files；Bulk Data Entries。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：导出最小模型并确认求解器方言 → 建议：按卡片参考核对节点、单元、材料和约束 → 建议：提交测试求解并检查诊断及结果",
+          "sourceUrl": "https://nexus.hexagon.com/documentationcenter/en-US/bundle/MSC_Nastran_2021.1/page/Nastran_Combined_Book/getstart/GS-Files/TOC.MSC.Nastran.Input.Files.xhtml"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Hexagon：MSC Nastran Input Files，2021.1",
+        "url": "https://nexus.hexagon.com/documentationcenter/en-US/bundle/MSC_Nastran_2021.1/page/Nastran_Combined_Book/getstart/GS-Files/TOC.MSC.Nastran.Input.Files.xhtml"
+      },
+      {
+        "title": "Hexagon：MSC Nastran Bulk Data，2024.2",
+        "url": "https://nexus.hexagon.com/documentationcenter/en-US/bundle/MSC_Nastran_2024.2/page/Nastran_Combined_Book/qrg/bulk_data/bulk.data.xhtml"
+      },
+      {
+        "title": "Hexagon：MSC Nastran Getting Started，2022.1",
+        "url": "https://documentation-be.hexagon.com/bundle/MSC_Nastran_2022.1_Getting_Started_Guide/raw/resource/enus/MSC_Nastran_2022.1_Getting_Started_Guide.pdf"
+      }
+    ]
+  },
+  {
+    "name": "Adams",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "Adams 2022.3 Python 接口手册；当前 Python 和 API 兼容性未核实。",
+      "humanEntry": "Adams View 界面、File Import、命令窗口与批处理启动。",
+      "coverage": "以 Python 对象创建和修改多体模型实体。",
+      "unknowns": [
+        "异常类型、求解运行接口及跨版本对象兼容性未在本次手册片段逐项核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Adams Python Interface",
+        "category": "program",
+        "entry": "Adams View File Import；命令窗口 py 选项；版本化启动器运行 .py。",
+        "role": "以程序建立或修改多体动力学模型。",
+        "direction": "Python ⇄ Adams 模型实体",
+        "operations": [
+          "创建模型及实体对象",
+          "设置对象属性",
+          "执行导入或批处理脚本"
+        ],
+        "dataContract": "实体映射为类及属性／方法；管理器的创建操作返回对象句柄；手册要求注意名称和 UTF-8 编码。",
+        "workflow": [
+          "建议：从安装目录 adamspy/examples 选择匹配示例",
+          "建议：在测试会话导入并检查新建实体",
+          "建议：核对属性后按需验证版本化批处理入口"
+        ],
+        "execution": "手册给出 Windows/Linux 批处理入口及启动脚本；对象句柄生存期、并发和退出码未核实。",
+        "failure": "建议检查 Python 错误、对象命名与脚本加载信息；未核实统一异常层次。",
+        "prerequisites": "Adams View、匹配 Python 接口和有效许可；可从安装目录取得官方示例。",
+        "version": "Adams 2022.3 Python Interface User Guide。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://documentation-be.hexagon.com/bundle/Adams_2022.3_Python_Interface_User_Guide/raw/resource/enus/Adams_2022.3_Python_Interface_User_Guide.pdf?save_local=true"
+          ],
+          "locator": "印刷页1：Introduction；页7：Running Python Scripts；对象与Manager说明。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从安装目录 adamspy/examples 选择匹配示例 → 建议：在测试会话导入并检查新建实体 → 建议：核对属性后按需验证版本化批处理入口",
+          "sourceUrl": "https://documentation-be.hexagon.com/bundle/Adams_2022.3_Python_Interface_User_Guide/raw/resource/enus/Adams_2022.3_Python_Interface_User_Guide.pdf?save_local=true"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Hexagon：Adams 2022.3 Python Interface User Guide",
+        "url": "https://documentation-be.hexagon.com/bundle/Adams_2022.3_Python_Interface_User_Guide/raw/resource/enus/Adams_2022.3_Python_Interface_User_Guide.pdf?save_local=true"
+      },
+      {
+        "title": "Hexagon：航空发动机多体动力学仿真",
+        "url": "https://hexagon.com/resources/resource-library/aero-engine-multibody-dynamics-simulation"
+      }
+    ]
+  },
+  {
+    "name": "Altair HyperMesh",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "对象细节依据2025帮助；当前入口显示2026.0，不能直接推定完全兼容。",
+      "humanEntry": "HyperMesh 建模界面及 Python API 环境。",
+      "coverage": "会话、模型和模型实体的编程式前处理。",
+      "unknowns": [
+        "具体求解器接口、模型修改的事务与错误合同未逐项核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "HyperMesh Python API",
+        "category": "program",
+        "entry": "HyperMesh Python 环境的 hm.Session、hm.Model。",
+        "role": "自动执行有限元模型准备操作。",
+        "direction": "Python ⇄ HyperMesh 会话／模型实体",
+        "operations": [
+          "查询当前会话模型",
+          "获取指定或活动模型",
+          "调用模型操作及实体查询"
+        ],
+        "dataContract": "Session 与 Model 分工不同；Model 可按名称指定目标，省略名称则使用活动模型。实体集合及具体方法需查对应参考。",
+        "workflow": [
+          "建议：列出当前会话模型并明确目标",
+          "建议：对指定模型做只读查询",
+          "建议：在副本验证单项修改并检查实体集合"
+        ],
+        "execution": "对象依当前 HyperMesh 会话和模型；本次未核实模型关闭后的句柄行为和线程限制。",
+        "failure": "建议检查模型是否存在、活动模型是否改变及 API 调用信息；具体异常类型未核实。",
+        "prerequisites": "HyperMesh、匹配 Python API 和模型读写权限；求解器相关功能需匹配配置。",
+        "version": "Session/Model说明2025；当前总入口2026.0。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://2025.help.altair.com/2025/hwdesktop/pythonapi/hypermesh/hm_user_guide/session_model_class.html"
+          ],
+          "locator": "Session and Model Class：hm.Session、hm.Model、active model。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：列出当前会话模型并明确目标 → 建议：对指定模型做只读查询 → 建议：在副本验证单项修改并检查实体集合",
+          "sourceUrl": "https://2025.help.altair.com/2025/hwdesktop/pythonapi/hypermesh/hm_user_guide/session_model_class.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Altair：HyperMesh Python Session 与 Model，2025",
+        "url": "https://2025.help.altair.com/2025/hwdesktop/pythonapi/hypermesh/hm_user_guide/session_model_class.html"
+      },
+      {
+        "title": "Altair：HyperWorks Python API 当前入口",
+        "url": "https://help.altair.com/hwdesktop/pythonapi/index.html"
+      },
+      {
+        "title": "Altair：航空航天建模专题，2025",
+        "url": "https://web.altair.com/aerospace-coffee-break-2025"
+      }
+    ]
+  },
+  {
+    "name": "NI LabVIEW",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "官方说明更新2026-04-27，未标明特定 LabVIEW 主版本。",
+      "humanEntry": "LabVIEW 程序框图、Application Control 函数选板。",
+      "coverage": "按引用动态加载并调用兼容连接器类型的 VI。",
+      "unknowns": [
+        "远程 VI Server 的访问控制、部署和并发约定未在此来源核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "VI Server",
+        "category": "program",
+        "entry": "Application Control 选板中的 Open VI Reference 和 Call By Reference Node。",
+        "role": "让测试主程序动态选择和执行子VI。",
+        "direction": "调用VI ⇄ 被引用子VI的连接器端子",
+        "operations": [
+          "按路径或名称打开VI引用",
+          "按连接器类型传递数据调用",
+          "调用完成后关闭引用"
+        ],
+        "dataContract": "vi path 可为VI名称或路径；类型说明引用携带连接器信息，待调用VI必须具有兼容连接器。",
+        "workflow": [
+          "建议：准备连接器相同的测试子VI",
+          "建议：打开引用并按端子接线调用",
+          "建议：检查输出后关闭VI引用"
+        ],
+        "execution": "动态调用按需加载；引用关闭后释放关联使用。具体重入、远程和线程规则未在该说明展开。",
+        "failure": "建议检查VI路径、内存名称和连接器类型；错误簇的详细编号与恢复规则未逐项核实。",
+        "prerequisites": "LabVIEW、可访问的VI文件及匹配连接器；部署到运行环境的条件需另查。",
+        "version": "官方说明2026-04-27；未指定主版本。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.ni.com/en/support/documentation/supplemental/06/calling-a-labview-vi-by-reference.html"
+          ],
+          "locator": "Calling a LabVIEW VI by Reference：Open VI Reference、type specifier、Call By Reference、close。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：准备连接器相同的测试子VI → 建议：打开引用并按端子接线调用 → 建议：检查输出后关闭VI引用",
+          "sourceUrl": "https://www.ni.com/en/support/documentation/supplemental/06/calling-a-labview-vi-by-reference.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "NI：通过引用调用 LabVIEW VI，2026-04-27",
+        "url": "https://www.ni.com/en/support/documentation/supplemental/06/calling-a-labview-vi-by-reference.html"
+      },
+      {
+        "title": "NI：航空航天与国防案例",
+        "url": "https://www.ni.com/en/solutions/aerospace-defense/case-studies.html"
+      }
+    ]
+  }
+]

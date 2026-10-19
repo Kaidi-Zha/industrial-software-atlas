@@ -1,0 +1,659 @@
+[
+  {
+    "name": "Cadence Allegro X PCB Editor",
+    "vendor": "Cadence",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "面向复杂 PCB 的布局布线、约束管理和设计规则检查。",
+    "interfaces": [
+      {
+        "name": "Allegro SKILL API",
+        "type": "脚本/CLI",
+        "detail": "官方示例用 axlDBCreateExternalDRC() 添加 DRC 标记；axlForm() 函数族创建交互表单。"
+      }
+    ],
+    "constraints": "SKILL 对象与函数需匹配安装版；本次公开示例覆盖 DRC 标记与表单，不代表全部数据库操作权限。",
+    "sources": [
+      {
+        "title": "Cadence：用 SKILL 创建 PCB DRC 标记",
+        "url": "https://resources.pcb.cadence.com/allegro-pcb-editor-videos-page/col/allegro-pcb-editor-videos/creating-drc-markers-in-the-pcb-editor-with-skill"
+      },
+      {
+        "title": "Cadence：Allegro PCB Editor SKILL Form Interface",
+        "url": "https://video.pcb.cadence.com/watch/7xy6W3L3X1qGWSgRef2bNB?chapter=1"
+      }
+    ],
+    "evidence": "官方视频说明：Creating DRC Markers；Form Interface 的 axlForm()。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Cadence Innovus",
+    "vendor": "Cadence",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "完成数字芯片布局、时钟树、布线等物理实现；当前 Innovus+ 产品页另覆盖统一综合与实现流程。",
+    "interfaces": [
+      {
+        "name": "Stylus Common UI Tcl",
+        "type": "脚本/CLI",
+        "detail": "官方教程介绍 get_db、set_db 数据库访问命令。"
+      }
+    ],
+    "constraints": "公开数据库教程发布于2019年，当前 Innovus+ 产品能力不能直接作为旧版命令兼容性依据。",
+    "sources": [
+      {
+        "title": "Cadence：Stylus Common UI 数据库访问",
+        "url": "https://support1.cadence.com/public/docs/content/20482737.html"
+      },
+      {
+        "title": "Cadence：Innovus+ 产品说明",
+        "url": "https://www.cadence.com/en_US/home/tools/digital-design-and-signoff/soc-implementation-and-floorplanning/innovus-plus-synthesis-implementation-system.html"
+      }
+    ],
+    "evidence": "Introduction to Database Access Commands Using Stylus Common UI：get_db、set_db。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Synopsys Fusion Compiler",
+    "vendor": "Synopsys",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "在统一数据模型下完成数字芯片 RTL 到 GDSII 的综合与物理实现。",
+    "interfaces": [
+      {
+        "name": "RTL / GDSII 流程数据",
+        "type": "文件格式",
+        "detail": "官方将产品定义为 RTL-to-GDSII 实现系统，覆盖综合、布局布线和芯片收尾。"
+      }
+    ],
+    "constraints": "公开数据表确认流程输入输出；导入方言、交付命令及工艺数据许可需查客户文档。",
+    "sources": [
+      {
+        "title": "Synopsys：Fusion Compiler 数据表",
+        "url": "https://www.synopsys.com/content/dam/synopsys/implementation%26signoff/datasheets/fusion-compiler-ds.pdf"
+      }
+    ],
+    "evidence": "数据表：RTL-to-GDSII、Unified Data Model、Implementation Flow。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Synopsys VCS",
+    "vendor": "Synopsys",
+    "sector": "electronics",
+    "stage": "质量检测",
+    "purpose": "为数字芯片开展仿真、功能验证和覆盖率分析，连接高层验证模型。",
+    "interfaces": [
+      {
+        "name": "DPI / 高层模型接口",
+        "type": "API/SDK",
+        "detail": "官方列出 DPI 等直接接口，用于连接高层模型与仿真环境。"
+      }
+    ],
+    "constraints": "公开产品页确认 DPI 等直接接口；具体语言绑定、编译链接和许可组合需查客户参考。",
+    "sources": [
+      {
+        "title": "Synopsys：VCS 功能与高层模型接口",
+        "url": "https://www.synopsys.com/verification/simulation/vcs.html"
+      }
+    ],
+    "evidence": "产品页：直接接口 DKI、DPI 及高层模型集成。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Siemens Calibre",
+    "vendor": "Siemens EDA",
+    "sector": "electronics",
+    "stage": "质量检测",
+    "purpose": "开展芯片物理验证；nmDRC、nmLVS 使用规则集检查几何、连接关系及版图与原理图的一致性。",
+    "interfaces": [
+      {
+        "name": "SVRF 规则文件",
+        "type": "脚本/CLI",
+        "detail": "官方课程教授 SVRF DRC/LVS 规则，包括层操作、尺寸检查、连接与器件识别。"
+      }
+    ],
+    "constraints": "课程页标注 Calibre 2023.2；规则语言覆盖和检查行为依具体模块与工艺规则集。该课程已停止开课。",
+    "sources": [
+      {
+        "title": "Siemens：Writing DRC/LVS Rules 官方课程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=239707-US_____EDA__2021.2_1199"
+      }
+    ],
+    "evidence": "课程 Software 与 Primary Course Topics：SVRF、DRC、LVS。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Siemens Xpedition",
+    "vendor": "Siemens EDA",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "支持复杂 PCB 系统设计、布局与团队协作；自动化接口用于扩展板级工程流程。",
+    "interfaces": [
+      {
+        "name": "Xpedition Automation API",
+        "type": "API/SDK",
+        "detail": "官方技术案例明确使用 Xpedition automation API 开发客户定制流程。"
+      }
+    ],
+    "constraints": "官方案例确认 Xpedition automation API；对象模型和部署细节需查许可对应的开发文档。",
+    "sources": [
+      {
+        "title": "Siemens：Xpedition 客户自动化案例",
+        "url": "https://blogs.sw.siemens.com/semiconductor-packaging/2024/10/15/user2user-2024-customer-specific-solutions-with-siemens-eda-tools-sysberry-gmbh/"
+      },
+      {
+        "title": "Siemens：Xpedition Enterprise 产品",
+        "url": "https://www.siemens.com/en-us/products/pcb/xpedition/enterprise/"
+      }
+    ],
+    "evidence": "User2User 2024：Xpedition automation API 与其他产品接口的区分。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Keysight PathWave ADS",
+    "vendor": "Keysight",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "面向射频、微波和高速电子电路开展设计与仿真，提供设计环境自动化。",
+    "interfaces": [
+      {
+        "name": "Design Environment Python API",
+        "type": "API/SDK",
+        "detail": "访问工作区与 design/cell 对象，定制界面并自动化设计捕获与仿真工作流。"
+      }
+    ],
+    "constraints": "ADS 2025 发布说明将 Design Environment Python 模块列为生产功能；需含 schematic 和 layout 功能的许可组合。Data Display Python 的成熟度与许可另行区分。",
+    "sources": [
+      {
+        "title": "Keysight：ADS 2025 发布说明",
+        "url": "https://docs.keysight.com/download/attachments/507834267/KeysighEDA%20ADS_SQ_Build_Release%20Notes.pdf?api=v2"
+      },
+      {
+        "title": "Keysight：Python APIs for EDA",
+        "url": "https://www.keysight.com/us/content/lib/resources/miscellaneous/eda-software/python-eda.html"
+      },
+      {
+        "title": "Keysight：ADS 配置指南",
+        "url": "https://www.keysight.com/content/dam/keysight/en/doc/ungate/configuration-guides/PathWave-Advanced-Design-System-ADS-Configuration.pdf"
+      }
+    ],
+    "evidence": "ADS 2025 Release Notes：Python Module for Design Environment；Python API 概览。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "AMD Vivado",
+    "vendor": "AMD",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "用于 FPGA 与自适应 SoC 设计，通过 Tcl 批处理组织综合、仿真和实现流程。",
+    "interfaces": [
+      {
+        "name": "Tcl / 批处理 CLI",
+        "type": "脚本/CLI",
+        "detail": "vivado -mode batch -source <your_Tcl_script> 执行 Tcl 文件并在完成后退出。"
+      }
+    ],
+    "constraints": "本次命令依据 UG835 2023.1；目标器件、IP 和新版本选项需查对应发行版。",
+    "sources": [
+      {
+        "title": "AMD：Vivado Tcl Batch Mode，UG835 2023.1",
+        "url": "https://docs.amd.com/r/2023.1-English/ug835-vivado-tcl-commands/Tcl-Batch-Mode"
+      }
+    ],
+    "evidence": "Tcl Batch Mode：batch、-source、-tclargs。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Siemens Teamcenter",
+    "vendor": "Siemens Digital Industries Software",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "管理产品结构、工程数据和设计协作，借助服务接口把专业应用连接到产品生命周期流程。",
+    "interfaces": [
+      {
+        "name": "Teamcenter Services / SOA",
+        "type": "API/SDK",
+        "detail": "官方白皮书描述粗粒度业务服务，以及 Java、C++、C# 客户端库和 Web Services。"
+      }
+    ],
+    "constraints": "所读 SOA 白皮书为较早架构资料；当前服务集合、认证与客户端兼容性需查对应安装版文档。",
+    "sources": [
+      {
+        "title": "Siemens：Teamcenter SOA 架构白皮书",
+        "url": "https://www.plm.automation.siemens.com/en_us/Images/Siemens-PLM-Teamcenter-Service-Oriented-Architecture-wp_tcm1023-24383.pdf"
+      }
+    ],
+    "evidence": "白皮书：Service-Oriented Architecture、Client Libraries、Client Data Model。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PTC Creo Parametric",
+    "vendor": "PTC",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "进行参数化机械产品建模，并通过 C 语言工具包扩展模型与界面操作。",
+    "interfaces": [
+      {
+        "name": "Creo TOOLKIT（C）",
+        "type": "API/SDK",
+        "detail": "官方定义为基于 C 的定制工具包，以函数库访问 Creo 数据库和用户界面。"
+      }
+    ],
+    "constraints": "本次 C 接口依据 Creo Parametric 11.0 TOOLKIT 文档；开发与运行授权、编译器及装载模式需按安装版确认。",
+    "sources": [
+      {
+        "title": "PTC：About Creo TOOLKIT，11.0",
+        "url": "https://support.ptc.com/help/creo_toolkit/protoolkit_pma/r11.0/usascii/creo_toolkit/About_Protoolkit.html"
+      },
+      {
+        "title": "PTC：Creo Toolkit 帮助版本入口",
+        "url": "https://www.ptc.com/en/support/help/Creo_Toolkit"
+      }
+    ],
+    "evidence": "About Creo TOOLKIT：C language、database、user interface。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PTC Windchill",
+    "vendor": "PTC",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "管理产品工程数据与生命周期流程，通过领域化 REST 服务连接外部业务应用。",
+    "interfaces": [
+      {
+        "name": "Windchill REST Services / OData",
+        "type": "API/SDK",
+        "detail": "WRS 文档包含领域模型、OData 操作、服务定制与 API 变更报告。"
+      }
+    ],
+    "constraints": "Windchill REST Services（WRS）有独立版本及 API 变更记录；不能用 Windchill 主版本替代 WRS 兼容性判断。",
+    "sources": [
+      {
+        "title": "PTC：Windchill REST Services 帮助入口",
+        "url": "https://support.ptc.com/help/windchill/plus/r13.1.2.0/en/Windchill_Help_Center/sublandingpages/WCRESTServices_LP.html"
+      },
+      {
+        "title": "PTC：WRS 1.7 参考",
+        "url": "https://support.ptc.com/help/windchill_rest_services/r1.7/en/windchill_rest_services.html"
+      }
+    ],
+    "evidence": "WRS 帮助目录：Installation、Domains、OData、API Changes。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Autodesk Inventor",
+    "vendor": "Autodesk",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "开展机械零件、装配及工程设计，通过插件扩展产品设计操作。",
+    "interfaces": [
+      {
+        "name": "Inventor COM API / Add-In SDK",
+        "type": "API/SDK",
+        "detail": "COM 插件在 Inventor 进程内运行；SDK 提供 C#、VB 和 C++ 等示例。"
+      }
+    ],
+    "constraints": "API 文档说明插件为进程内 COM DLL；Inventor 2025 起迁移到 .NET 8，旧 .NET 插件需检查迁移要求。",
+    "sources": [
+      {
+        "title": "Autodesk：Inventor 2026 Add-In 开发概览",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/Inventor-API/files/CreatingAnAddIn_Overview.htm"
+      },
+      {
+        "title": "Autodesk：Inventor SDK 使用说明",
+        "url": "https://help.autodesk.com/cloudhelp/2024/ENU/Inventor-API/files/UsingSDK.htm"
+      }
+    ],
+    "evidence": "Creating an Add-In Overview：COM DLL、in-process、.NET migration。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Autodesk Fusion",
+    "vendor": "Autodesk",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "进行产品设计，以 Python 或 C++ 脚本和插件扩展 Fusion 的设计操作及交互命令。",
+    "interfaces": [
+      {
+        "name": "Python / C++ Scripts and Add-Ins",
+        "type": "API/SDK",
+        "detail": "Scripts and Add-Ins 创建、编辑和运行 Python／C++ 程序；插件可设置启动时运行。"
+      }
+    ],
+    "constraints": "在线帮助同时展示新旧对话框；C++ 插件需按 Windows、Mac 分别构建，清单控制适用操作系统。",
+    "sources": [
+      {
+        "title": "Autodesk：Fusion 创建脚本或插件",
+        "url": "https://help.autodesk.com/view/fusion360/ENU/?guid=GUID-9701BBA7-EC0E-4016-A9C8-964AA4838954"
+      }
+    ],
+    "evidence": "Creating a Script or Add-In：入口、Manifest、Script Code。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CODESYS Development System",
+    "vendor": "CODESYS Group",
+    "sector": "equipment",
+    "stage": "设备控制",
+    "purpose": "为工业控制器开发 IEC 61131-3 工程，通过 Python 自动化工程编辑与开发环境操作。",
+    "interfaces": [
+      {
+        "name": "CODESYS Scripting / Python",
+        "type": "脚本/CLI",
+        "detail": "以 Python 调用工程对象；可从脚本菜单或 --runscript 命令行运行。"
+      }
+    ],
+    "constraints": "脚本覆盖取决于安装的 Scripting 组件和对象 API；在线控制、设备访问和项目编辑权限需分别确认。",
+    "sources": [
+      {
+        "title": "CODESYS：从 Python 访问工程功能",
+        "url": "https://content.helpme-codesys.com/en/CODESYS%20Scripting/_cds_access_cds_func_in_python_scripts.html"
+      },
+      {
+        "title": "CODESYS：Scripts 菜单入口",
+        "url": "https://content.helpme-codesys.com/en/CODESYS%20Scripting/_cds_cmd_scripts.html"
+      },
+      {
+        "title": "CODESYS：ScriptSystem 参考",
+        "url": "https://content.helpme-codesys.com/en/ScriptingEngine/ScriptSystem.html"
+      }
+    ],
+    "evidence": "Accessing CODESYS Functions；Scripts；ScriptSystem 的 runscript/noUI 与中断说明。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Studio 5000 Logix Designer",
+    "vendor": "Rockwell Automation",
+    "sector": "equipment",
+    "stage": "设备控制",
+    "purpose": "开发和维护 Logix 控制器工程；SDK 自动化工程处理及受支持的控制器交互。",
+    "interfaces": [
+      {
+        "name": "Logix Designer SDK（Python / C#）",
+        "type": "API/SDK",
+        "detail": "提供工程打开、保存、导入导出和版本转换等操作，并支持受条件限制的控制器操作。"
+      }
+    ],
+    "constraints": "SDK 2.02及后续提供 Python/C#，不再提供 C++；支持 Logix Designer v31及后续工程，v30及更早仅支持向上转换；通信使用 FactoryTalk Linx。",
+    "sources": [
+      {
+        "title": "Rockwell：Logix Designer SDK Getting Results，2026-03",
+        "url": "https://literature.rockwellautomation.com/idc/groups/literature/documents/gr/ldsdk-gr001_-en-p.pdf"
+      },
+      {
+        "title": "Rockwell：Logix Designer 产品",
+        "url": "https://www.rockwellautomation.com/en-us/products/software/factorytalk/designsuite/studio-5000/studio-5000-logix-designer.html"
+      }
+    ],
+    "evidence": "Getting Results：SDK versions、requirements、supported operations、Python/C#。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "中望3D（ZW3D）",
+    "vendor": "中望软件（ZWSOFT）",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "面向机械产品开展三维 CAD 设计，提供 C/C++ 二次开发资料。",
+    "interfaces": [
+      {
+        "name": "ZW3D C/C++ API",
+        "type": "API/SDK",
+        "detail": "官方开发者页面确认 C/C++ 应用开发，并提供分版本开发指南与 API 参考入口。"
+      }
+    ],
+    "constraints": "官方页面列出2023至2027各版开发指南和参考；本次2025/2026下载链接未能打开，函数、构建与授权条件尚未核实。",
+    "sources": [
+      {
+        "title": "ZWSOFT：ZW3D 开发者文档",
+        "url": "https://www.zwsoft.com/support/zw3d-devdoc"
+      }
+    ],
+    "evidence": "ZW3D Developer Documentation：C/C++、分版本 Development Guide 与 Reference Manual。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "MATLAB / Simulink",
+    "vendor": "MathWorks",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "用于航空航天系统的算法、模型和仿真验证；亦为跨行业建模工具，分别提供 Python 引擎调用和 Simulink 编程式仿真。",
+    "interfaces": [
+      {
+        "name": "MATLAB Engine API for Python",
+        "type": "API/SDK",
+        "detail": "在 Python 中启动或连接 MATLAB，会调用 MATLAB 函数并转换数据。"
+      },
+      {
+        "name": "Simulink sim / SimulationInput",
+        "type": "脚本/CLI",
+        "detail": "构造 SimulationInput 配置参数、变量及输入，通过 sim 执行并接收 SimulationOutput。"
+      }
+    ],
+    "constraints": "MATLAB Engine 需要已安装 MATLAB，不能由 MATLAB Runtime 替代；Python 兼容性按发行版确认。Simulink 仿真还需模型依赖及相应模块。",
+    "sources": [
+      {
+        "title": "MathWorks：MATLAB Engine API for Python",
+        "url": "https://www.mathworks.com/help/matlab/matlab-engine-for-python.html"
+      },
+      {
+        "title": "MathWorks：sim 函数",
+        "url": "https://www.mathworks.com/help/simulink/slref/sim.html"
+      },
+      {
+        "title": "MathWorks：SimulationInput",
+        "url": "https://www.mathworks.com/help/simulink/slref/simulink.simulationinput.html"
+      },
+      {
+        "title": "MathWorks：航空航天与国防用途",
+        "url": "https://www.mathworks.com/solutions/aerospace-defense.html"
+      }
+    ],
+    "evidence": "Engine API：启动、连接、调用、数据类型、异步与异常。；sim：SimulationInput syntax、Output；SimulationInput 配置。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Ansys Mechanical",
+    "vendor": "Ansys",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "进行结构、热和相关有限元分析，用于装备与航空航天部件的工程仿真。",
+    "interfaces": [
+      {
+        "name": "PyMechanical",
+        "type": "API/SDK",
+        "detail": "远程模式经 gRPC 启动或连接 Mechanical；嵌入模式以 Python.NET 在 Python 进程中访问应用。"
+      }
+    ],
+    "constraints": "PyMechanical 的远程 gRPC 会话与嵌入式 Python.NET 是两种运行方式；API 和安装版 Mechanical 需兼容。",
+    "sources": [
+      {
+        "title": "Ansys：PyMechanical 运行方式",
+        "url": "https://mechanical.docs.pyansys.com/version/stable/getting_started/running_mechanical.html"
+      },
+      {
+        "title": "Ansys：Mechanical 数据表",
+        "url": "https://www.ansys.com/content/dam/product/structures/mechanical-datasheet.pdf"
+      }
+    ],
+    "evidence": "Running Mechanical：Remote、Embedded、launch/connect。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Ansys Fluent",
+    "vendor": "Ansys",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "开展流动、传热和空气动力学计算；官方 Fluent Aero 教程覆盖机翼等航空案例。",
+    "interfaces": [
+      {
+        "name": "PyFluent",
+        "type": "API/SDK",
+        "detail": "launch_fluent 建立会话；settings 对象组织 file、setup、solution、results。"
+      }
+    ],
+    "constraints": "当前 PyFluent 仓库说明要求 Fluent 2024 R2或更新；早期 Fluent 需匹配较旧 PyFluent。API 对象的稳定性级别与会话配置有关。",
+    "sources": [
+      {
+        "title": "Ansys：PyFluent Solver Settings",
+        "url": "https://fluent.docs.pyansys.com/version/stable/user_guide/solver_settings/solver_settings_contents.html"
+      },
+      {
+        "title": "Ansys：PyFluent 官方仓库与版本要求",
+        "url": "https://github.com/ansys/pyfluent"
+      },
+      {
+        "title": "Ansys：Fluent Workspaces Tutorials，2025 R2",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/pdf/Fluent_Workspaces_Tutorials.pdf"
+      }
+    ],
+    "evidence": "Solver settings object hierarchy、API exposure levels。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Simcenter STAR-CCM+",
+    "vendor": "Siemens Digital Industries Software",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "开展流体及多物理场仿真，支持航空气动分析和仿真流程自动化。",
+    "interfaces": [
+      {
+        "name": "Java Macro API",
+        "type": "脚本/CLI",
+        "detail": "官方课程包括录制、编辑 Java 宏，以及网格和后处理流程自动化。"
+      }
+    ],
+    "constraints": "所读 Java 课程标注13.02且已停止开课；另有官方 Simulation Operations 集成案例，当前 API 签名应查安装版。",
+    "sources": [
+      {
+        "title": "Siemens：STAR-CCM+ Java Process Automation 课程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=TR09306_______STAR_13.02__6500"
+      },
+      {
+        "title": "Siemens：Simulation Operations 调用 Java 宏",
+        "url": "https://community.sw.siemens.com/s/article/How-can-I-add-a-Java-macro-to-my-Simulation-Operation-pipeline"
+      },
+      {
+        "title": "Siemens：航空气动 CFD",
+        "url": "https://blogs.sw.siemens.com/simcenter/aerospace-aerodynamics-cfd-simulation/"
+      }
+    ],
+    "evidence": "课程 Primary Topics：Java macros、API、meshing、post processing；官方操作流水线案例。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "MSC Nastran",
+    "vendor": "Hexagon",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "进行有限元结构、动力学和气动弹性分析；以文本求解输入描述结构模型与分析任务。",
+    "interfaces": [
+      {
+        "name": "BDF / DAT 输入文件",
+        "type": "文件格式",
+        "detail": "官方入门文档列出 .bdf／.dat 输入；Bulk Data 参考定义有限元实体等卡片。"
+      }
+    ],
+    "constraints": "BDF/DAT 是求解输入文件路径；具体卡片、解算序列和方言需匹配 MSC Nastran 版本。",
+    "sources": [
+      {
+        "title": "Hexagon：MSC Nastran Input Files，2021.1",
+        "url": "https://nexus.hexagon.com/documentationcenter/en-US/bundle/MSC_Nastran_2021.1/page/Nastran_Combined_Book/getstart/GS-Files/TOC.MSC.Nastran.Input.Files.xhtml"
+      },
+      {
+        "title": "Hexagon：MSC Nastran Bulk Data，2024.2",
+        "url": "https://nexus.hexagon.com/documentationcenter/en-US/bundle/MSC_Nastran_2024.2/page/Nastran_Combined_Book/qrg/bulk_data/bulk.data.xhtml"
+      },
+      {
+        "title": "Hexagon：MSC Nastran Getting Started，2022.1",
+        "url": "https://documentation-be.hexagon.com/bundle/MSC_Nastran_2022.1_Getting_Started_Guide/raw/resource/enus/MSC_Nastran_2022.1_Getting_Started_Guide.pdf"
+      }
+    ],
+    "evidence": "MSC Nastran Input Files；Bulk Data Entries。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Adams",
+    "vendor": "Hexagon",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "开展多体动力学仿真；官方航空发动机资料涉及机构动力学应用。",
+    "interfaces": [
+      {
+        "name": "Adams Python Interface",
+        "type": "脚本/CLI",
+        "detail": "Python 面向对象接口创建、修改实体；支持导入脚本、命令窗口和批处理。"
+      }
+    ],
+    "constraints": "本次 Python 接口依据 Adams 2022.3；脚本启动命令带版本号，当前环境应核对对应版启动器。",
+    "sources": [
+      {
+        "title": "Hexagon：Adams 2022.3 Python Interface User Guide",
+        "url": "https://documentation-be.hexagon.com/bundle/Adams_2022.3_Python_Interface_User_Guide/raw/resource/enus/Adams_2022.3_Python_Interface_User_Guide.pdf?save_local=true"
+      },
+      {
+        "title": "Hexagon：航空发动机多体动力学仿真",
+        "url": "https://hexagon.com/resources/resource-library/aero-engine-multibody-dynamics-simulation"
+      }
+    ],
+    "evidence": "印刷页1：Introduction；页7：Running Python Scripts；对象与Manager说明。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Altair HyperMesh",
+    "vendor": "Altair",
+    "sector": "aerospace",
+    "stage": "研发设计",
+    "purpose": "进行有限元前处理、网格和结构模型准备；官方航空专题涵盖航空结构建模。",
+    "interfaces": [
+      {
+        "name": "HyperMesh Python API",
+        "type": "API/SDK",
+        "detail": "hm.Session 管理当前会话模型信息；hm.Model 用于访问模型和前处理功能。"
+      }
+    ],
+    "constraints": "HyperMesh 的 hm.Session 与 HyperWorks 的 hw.Session 是不同对象；hm.Model 未指定名称时连接活动模型，需检查操作目标。",
+    "sources": [
+      {
+        "title": "Altair：HyperMesh Python Session 与 Model，2025",
+        "url": "https://2025.help.altair.com/2025/hwdesktop/pythonapi/hypermesh/hm_user_guide/session_model_class.html"
+      },
+      {
+        "title": "Altair：HyperWorks Python API 当前入口",
+        "url": "https://help.altair.com/hwdesktop/pythonapi/index.html"
+      },
+      {
+        "title": "Altair：航空航天建模专题，2025",
+        "url": "https://web.altair.com/aerospace-coffee-break-2025"
+      }
+    ],
+    "evidence": "Session and Model Class：hm.Session、hm.Model、active model。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "NI LabVIEW",
+    "vendor": "NI（Emerson）",
+    "sector": "aerospace",
+    "stage": "质量检测",
+    "purpose": "构建测量与自动化测试程序；官方航空航天案例包含发动机试验和电子测试。",
+    "interfaces": [
+      {
+        "name": "VI Server",
+        "type": "API/SDK",
+        "detail": "Open VI Reference 打开引用；Call By Reference Node 按连接器类型调用 VI，完成后关闭引用。"
+      }
+    ],
+    "constraints": "此记录覆盖 VI Server 的动态 VI 调用；仪器驱动、实时目标和远程服务配置属于另行核查范围。",
+    "sources": [
+      {
+        "title": "NI：通过引用调用 LabVIEW VI，2026-04-27",
+        "url": "https://www.ni.com/en/support/documentation/supplemental/06/calling-a-labview-vi-by-reference.html"
+      },
+      {
+        "title": "NI：航空航天与国防案例",
+        "url": "https://www.ni.com/en/solutions/aerospace-defense/case-studies.html"
+      }
+    ],
+    "evidence": "Calling a LabVIEW VI by Reference：Open VI Reference、type specifier、Call By Reference、close。",
+    "sourceDate": "2026-10-19"
+  }
+]

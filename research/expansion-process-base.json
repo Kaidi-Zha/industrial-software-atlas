@@ -1,0 +1,627 @@
+[
+  {
+    "name": "Aspen HYSYS",
+    "vendor": "AspenTech",
+    "sector": "materials",
+    "stage": "工艺仿真",
+    "purpose": "化工与油气工艺流程建模；本条确认通过自动化访问物流数据的接口。",
+    "interfaces": [
+      {
+        "name": "HYSYS Automation / VBA",
+        "type": "API/SDK",
+        "detail": "官方 HYSYS Stream Reporter 以 Excel VBA 编程读取并更新物流表。"
+      }
+    ],
+    "constraints": "需 HYSYS、Excel 和匹配示例；示例为学术演示，不受正式产品质量/支持流程覆盖。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "AspenTech：HYSYS Stream Reporter 自动化示例",
+        "url": "https://esupport.aspentech.com/S_Article?key=110050"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "UniSim Design",
+    "vendor": "Honeywell",
+    "sector": "materials",
+    "stage": "工艺仿真",
+    "purpose": "稳态与动态过程建模，用于化工流程设计、优化与操作分析。",
+    "interfaces": [
+      {
+        "name": "ActiveX / OLE Automation",
+        "type": "API/SDK",
+        "detail": "官方产品册和培训说明支持 Excel VBA 控制模型及创建用户变量。"
+      },
+      {
+        "name": "CAPE-OPEN 组件接口",
+        "type": "API/SDK",
+        "detail": "接入受支持的 CAPE-OPEN 组件；具体组件类别和子规范待核实，其他开放架构扩展另行确认。"
+      }
+    ],
+    "constraints": "需商业 UniSim 与对应自动化注册；模型组件授权独立核对。；需 UniSim 和相容的第三方组件及授权。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Honeywell：UniSim Design R460 产品说明",
+        "url": "https://process.honeywell.com/content/dam/process/en/documents/document-lists/hon-ia-hps-bro-unisim-design-r460-vcma.pdf"
+      },
+      {
+        "title": "Honeywell Academy：UniSim Advanced 建模课程",
+        "url": "https://process.honeywell.com/content/dam/process/en/documents/training-docs/honeywell-connected-industrial/usd/USD-0002-Honeywell-UniSim-Design-Advanced-Process-Modelling-Using-UniSim-Design.pdf"
+      }
+    ],
+    "evidence": "官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CHEMCAD",
+    "vendor": "Datacor / Chemstations",
+    "sector": "materials",
+    "stage": "工艺仿真",
+    "purpose": "化工流程模拟及物料、能量衡算；外部程序可控制模拟案例。",
+    "interfaces": [
+      {
+        "name": "CHEMCAD COM Server",
+        "type": "API/SDK",
+        "detail": "用户指南示范 Excel 载入案例、读取/修改值、重算并关闭模拟。"
+      }
+    ],
+    "constraints": "需 CHEMCAD 安装及 COM 客户端环境；商业模块与位数匹配需确认。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Chemstations：CHEMCAD User Guide，Data Interfaces",
+        "url": "https://chemstations.com/hubfs/Datacor-Chemstations/PDF/CHEMCAD_User_Guide.pdf?hsLang=en"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "gPROMS",
+    "vendor": "Siemens",
+    "sector": "materials",
+    "stage": "工艺仿真",
+    "purpose": "基于机理的过程建模；可与 SIMIT 联结进行过程模型仿真和操作分析。",
+    "interfaces": [
+      {
+        "name": "SIMIT–gPROMS 专用耦合",
+        "type": "API/SDK",
+        "detail": "SIMIT 专用耦合通过 OPC UA 信号与 Windows 服务启动、控制 gPROMS 模型及管理快照。"
+      }
+    ],
+    "constraints": "需相容 SIMIT、gPROMS 模型与耦合服务及相关许可证。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Siemens：SIMIT Operating Manual，gPROMS coupling",
+        "url": "https://cache.industry.siemens.com/dl/files/469/109988469/att_1328161/v1/SIMIT_enUS_en-US.pdf"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "VASP",
+    "vendor": "VASP Software GmbH",
+    "sector": "materials",
+    "stage": "研发设计",
+    "purpose": "材料第一性原理计算，用于结构、电子性质与相关机理研究。",
+    "interfaces": [
+      {
+        "name": "INCAR / POSCAR / POTCAR / KPOINTS",
+        "type": "文件格式",
+        "detail": "输入文件定义计算控制、原子结构、赝势与采样，KPOINTS 按所用设置可选。"
+      }
+    ],
+    "constraints": "需合法 VASP 与赝势授权、可用计算构建及资源；不是产线控制程序。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "VASP：Input files",
+        "url": "https://vasp.at/wiki/Category%3AInput_files"
+      },
+      {
+        "title": "VASP：Minimal reproducible example",
+        "url": "https://vasp.at/wiki/Minimal_reproducible_example"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Quantum ESPRESSO / PWscf",
+    "vendor": "Quantum ESPRESSO Foundation / 开发社区",
+    "sector": "materials",
+    "stage": "研发设计",
+    "purpose": "平面波与赝势电子结构计算，用于材料结构与电子性质研发。",
+    "interfaces": [
+      {
+        "name": "pw.x 输入与命令行",
+        "type": "脚本/CLI",
+        "detail": "pw.x 读取按 namelist/cards 组织的输入，计算并输出结果。"
+      }
+    ],
+    "constraints": "需可用 QE 构建、赝势和任务资源；软件与相关数据许可证分别核对。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Quantum ESPRESSO：pw.x input description 7.5",
+        "url": "https://www.quantum-espresso.org/Doc/INPUT_PW.html"
+      },
+      {
+        "title": "Quantum ESPRESSO：PWscf user guide",
+        "url": "https://www.quantum-espresso.org/Doc/user_guide_PDF/pw_user_guide.pdf"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "BIOVIA Pipeline Pilot",
+    "vendor": "Dassault Systèmes",
+    "sector": "materials",
+    "stage": "研发设计",
+    "purpose": "科学数据处理和分析工作流平台，支持研发数据整合、建模与报告。",
+    "interfaces": [
+      {
+        "name": "自定义组件：REST / Python / Perl / Java",
+        "type": "API/SDK",
+        "detail": "官方确认可用 REST Web Services、Python、Perl 和 Java 构建自定义处理组件。"
+      }
+    ],
+    "constraints": "需 Pipeline Pilot 与相应组件集合/服务器授权；语言运行时需匹配版本。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "BIOVIA：Pipeline Pilot Overview",
+        "url": "https://www.3ds.com/assets/invest/2023-10/biovia-pipeline-pilot-pipeline-pilot-overview.pdf"
+      }
+    ],
+    "evidence": "官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SIMATIC PCS 7 / OpenPCS 7",
+    "vendor": "Siemens",
+    "sector": "materials",
+    "stage": "设备控制",
+    "purpose": "过程工业集散控制系统；OpenPCS 7 向上层系统提供过程、归档与消息数据。",
+    "interfaces": [
+      {
+        "name": "OpenPCS 7 OPC UA Server",
+        "type": "通信协议",
+        "detail": "按权限读写过程变量、只读访问测量归档，并访问和确认受支持的 OS 消息。"
+      }
+    ],
+    "constraints": "需 PCS 7/OpenPCS 7 站点及相关授权；部署与客户端权限需配置。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Siemens：OpenPCS 7 V10.0 Function Manual",
+        "url": "https://cache.industry.siemens.com/dl/files/501/109973501/att_1293993/v1/ps7opc_b_en-US.pdf"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "DeltaV DCS",
+    "vendor": "Emerson",
+    "sector": "biopharma",
+    "stage": "设备控制",
+    "purpose": "制药和生物过程等行业的集散控制与批过程自动化；接口用于运行数据集成。",
+    "interfaces": [
+      {
+        "name": "DeltaV OPC UA Servers / Clients",
+        "type": "通信协议",
+        "detail": "工作站 UA 服务提供实时、报警事件和历史访问；PK Controller 内嵌服务器仅提供其本机实时数据。"
+      }
+    ],
+    "constraints": "工作站需 UA Activation；普通 PK Controller 无需该激活且不消耗 DST，PK Flex 需专门接口许可；实际点数、权限及组件配置另核。",
+    "sources": [
+      {
+        "title": "Emerson：DeltaV OPC UA Servers and Clients，2025-12",
+        "url": "https://www.emerson.com/is/content/emerson/zh/systems-and-software/deltav-distributed-control-system-dcs/product-data-sheets/documents/deltav-opc-ua-servers-and-clients.pdf"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Schrödinger Suite / Maestro",
+    "vendor": "Schrödinger",
+    "sector": "biopharma",
+    "stage": "研发设计",
+    "purpose": "药物发现研发中的分子建模、结构处理及相关计算工作流。",
+    "interfaces": [
+      {
+        "name": "Schrödinger Python API",
+        "type": "API/SDK",
+        "detail": "提供分子结构类、Maestro 工作区/项目表交互及计算模块调用，Jobcontrol 可异步运行任务。"
+      }
+    ],
+    "constraints": "需匹配的商业套件安装与所调用模块许可；使用该版提供的 Python 环境。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Schrödinger：Python API 概览",
+        "url": "https://www.schrodinger.com/python-api/"
+      },
+      {
+        "title": "Schrödinger：Python API 2026-3 package reference",
+        "url": "https://learn.schrodinger.com/public/python_api/current/api/schrodinger.html"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "BIOVIA Discovery Studio",
+    "vendor": "Dassault Systèmes",
+    "sector": "biopharma",
+    "stage": "研发设计",
+    "purpose": "药物发现中的分子模型、结构分析和计算流程研究。",
+    "interfaces": [
+      {
+        "name": "Discovery Script / Perl",
+        "type": "脚本/CLI",
+        "detail": "Perl 脚本可操作应用对象、自动化任务并串联计算；帮助页提供逐 API 示例。"
+      }
+    ],
+    "constraints": "需 Discovery Studio Client、脚本能力及相关计算模块授权。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "BIOVIA：Discovery Studio course catalog，Scripting",
+        "url": "https://www.3ds.com/assets/invest/2023-10/discovery_studio_course_catalog-biovia.pdf"
+      },
+      {
+        "title": "BIOVIA：Discovery Studio 脚本帮助示例操作",
+        "url": "https://3dswym.3dexperience.3ds.com/post/biovia-drug-discovery-development/tip-discovery-studio-help-pages-for-scripting-include-examples_K-FHJjU4Tu-O8pp2dxm-mA"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Waters Empower CDS",
+    "vendor": "Waters",
+    "sector": "biopharma",
+    "stage": "质量检测",
+    "purpose": "色谱数据管理与分析，服务于制药质控等实验室；可通过厂商 Toolkit 扩展集成。",
+    "interfaces": [
+      {
+        "name": "Empower Toolkit",
+        "type": "API/SDK",
+        "detail": "官方支持条目确认可申请 Toolkit，且有其导出 Empower 项目备份的实际接口行为记录。"
+      }
+    ],
+    "constraints": "需 Empower 与厂商提供的 Toolkit/开发支持；具体授权和运行环境未公开列全。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Waters：API 支持与 Empower Toolkit 获取",
+        "url": "https://support.waters.com/KB_Inf/Other/WKB206371_Where_to_find_support_for_Waters_Application_Programming_Interfaces_APIS"
+      },
+      {
+        "title": "Waters：Toolkit 项目备份导出与 INF 故障说明",
+        "url": "https://support.waters.com/KB_Inf/NuGenesis/WKB16620_Unable_to_restore_an_Empower_project_backup_from_NuGenesis_SDMS_back_to_Empower"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Chromeleon CDS",
+    "vendor": "Thermo Fisher Scientific",
+    "sector": "biopharma",
+    "stage": "质量检测",
+    "purpose": "色谱仪器、序列和数据分析管理，可与 LIMS、ELN 等集成。",
+    "interfaces": [
+      {
+        "name": "Chromeleon Client SDK",
+        "type": "API/SDK",
+        "detail": "SDK 可编辑进样序列、启动分析、访问数据结果，区分进程外 .exe 与进程内 .dll。"
+      }
+    ],
+    "constraints": "需要同机 Client 许可；开发/测试未认证进程内扩展需 Development License，部署进程内扩展需 Runtime License/认证。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Thermo Fisher：Chromeleon SDK specifications PS74111",
+        "url": "https://documents.thermofisher.com/TFS-Assets/CMD/Specification-Sheets/ps-74111-chromeleon-sdk-specifications-ps74111-en.pdf"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "LabVantage LIMS",
+    "vendor": "LabVantage Solutions",
+    "sector": "biopharma",
+    "stage": "质量检测",
+    "purpose": "样品、批次及检验结果管理，与实验室仪器和企业生产系统集成。",
+    "interfaces": [
+      {
+        "name": "RESTful Web Services",
+        "type": "API/SDK",
+        "detail": "官方说明外部系统可查询、插入数据及配置系统，并可创建批次/样品与返回结果。"
+      }
+    ],
+    "constraints": "需 LabVantage 实例、Web Services 配置及授权账户；连接器和部署版许可需确认。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "LabVantage：LIMS 产品集成范围",
+        "url": "https://www.labvantage.com/informatics/lims/"
+      },
+      {
+        "title": "LabVantage：A Quick Guide to LIMS Web Services",
+        "url": "https://www.labvantage.com/blog/a-quick-guide-to-lims-web-services/"
+      }
+    ],
+    "evidence": "官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "LabSolutions IR",
+    "vendor": "Shimadzu",
+    "sector": "biopharma",
+    "stage": "质量检测",
+    "purpose": "FTIR 光谱采集、处理与谱库检索，用于药品原辅料等分析工作。",
+    "interfaces": [
+      {
+        "name": "JCAMP-DX / ASCII / CSV",
+        "type": "文件格式",
+        "detail": "官方规格列明这些光谱文件格式可读取和保存。"
+      }
+    ],
+    "constraints": "需获授权的 LabSolutions IR 和兼容仪器/操作环境；本册标注 Research Use Only。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Shimadzu：LabSolutions IR C103-E088A",
+        "url": "https://www.shimadzu.com/an/sites/shimadzu.com.an/files/pim/pim_document_file/brochures/10375/291_C103E088A.pdf"
+      }
+    ],
+    "evidence": "官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Benchling",
+    "vendor": "Benchling",
+    "sector": "biopharma",
+    "stage": "研发设计",
+    "purpose": "生物研发的序列、注册实体与实验信息平台；本条定位研发数据集成。",
+    "interfaces": [
+      {
+        "name": "Benchling REST API / Python SDK",
+        "type": "API/SDK",
+        "detail": "REST 以 JSON 访问研发数据；文档提供项目、序列、注册 Schema 的查询与 CRUD，并提供 Python SDK。"
+      }
+    ],
+    "constraints": "需租户 Developer Platform 访问和获授权用户/应用；OAuth/密钥配置按官方认证指南。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Benchling：Getting Started with the API",
+        "url": "https://docs.benchling.com/docs/getting-started-1"
+      },
+      {
+        "title": "Benchling：Authentication",
+        "url": "https://docs.benchling.com/docs/authentication"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SAP Digital Manufacturing",
+    "vendor": "SAP",
+    "sector": "food",
+    "stage": "生产执行",
+    "purpose": "跨行业的制造执行与制造数据分析平台，可服务食品等工厂；本条接口仅覆盖制造数据分析读取。",
+    "interfaces": [
+      {
+        "name": "MDO OData read APIs",
+        "type": "API/SDK",
+        "detail": "Manufacturing Data Objects 的 OData 服务为只读接口，不提供 Create、Update、Delete。"
+      }
+    ],
+    "constraints": "需 SAP Digital Manufacturing 租户、服务实例、service key 和相应访问权限；套餐范围未在本次核实。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "SAP：MDO OData APIs",
+        "url": "https://help.sap.com/docs/sap-digital-manufacturing/insights/apis?locale=en-US"
+      },
+      {
+        "title": "SAP：Prepare for API Integration",
+        "url": "https://help.sap.com/docs/sap-digital-manufacturing/operations-guide/prepare-for-api-integration"
+      },
+      {
+        "title": "SAP：Rate Limits on API Calls",
+        "url": "https://help.sap.com/docs/sap-digital-manufacturing/operations-guide/rate-limits-on-api-calls?locale=en-US"
+      },
+      {
+        "title": "SAP Learning：MDO OData service 数据导出及只读边界",
+        "url": "https://learning.sap.com/courses/enabling-data-integrations-within-sap-digital-manufacturing-for-insights/leveraging-sap-dm-odata-service-to-export-manufacturing-data"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "AVEVA System Platform",
+    "vendor": "AVEVA",
+    "sector": "food",
+    "stage": "运行运维",
+    "purpose": "跨行业的过程监控与工业应用平台，可用于食品轻工过程的数据采集、可视化和运行监视。",
+    "interfaces": [
+      {
+        "name": "OPC UA 数据源 / Communication Drivers",
+        "type": "通信协议",
+        "detail": "官方设备集成说明列出 OPC UA Server 数据源，由通信驱动与 I/O 映射集成。"
+      }
+    ],
+    "constraints": "需 System Platform 和适配的官方 Communication Driver；组件授权与兼容版本按项目核对。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "AVEVA：System Platform Device integration tools",
+        "url": "https://docs.aveva.com/bundle/system-platform/page/663644.html"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "FactoryTalk View SE",
+    "vendor": "Rockwell Automation",
+    "sector": "food",
+    "stage": "运行运维",
+    "purpose": "面向工厂监控的人机界面软件，可用于食品及轻工产线；显示脚本扩展运行界面行为。",
+    "interfaces": [
+      {
+        "name": "SE Client VBA / DisplayClient",
+        "type": "脚本/CLI",
+        "detail": "在显示对象中保存事件驱动 VBA，访问客户端对象模型、图形对象及标签属性。"
+      }
+    ],
+    "constraints": "需 FactoryTalk View SE 工程及 Client 环境、相关运行许可；不从此推定 ME 兼容。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Rockwell：FactoryTalk View SE 16 Use VBA display code",
+        "url": "https://www.rockwellautomation.com/en-us/docs/factorytalk-view/16-00-00/se-help-ditamap/pag-1/ftvse-client-object-model/use-vba-display-code.html"
+      },
+      {
+        "title": "Rockwell：Microsoft VBA IDE",
+        "url": "https://www.rockwellautomation.com/en-us/docs/factorytalk-view/16-00-00/se-help-ditamap/pag-1/ftvse-client-object-model/use-vba-display-code/microsoft-vba-ide.html"
+      },
+      {
+        "title": "Rockwell：VBA display code execution",
+        "url": "https://www.rockwellautomation.com/en-us/docs/factorytalk-view/16-00-00/se-help-ditamap/ftvse-client-object-model/use-vba-display-code/vba-display-code.html"
+      },
+      {
+        "title": "Rockwell：Error handling in VBA code",
+        "url": "https://www.rockwellautomation.com/en-nl/docs/factorytalk-view/16-00-00/se-help-ditamap/pag-1/ftvse-client-object-model/use-vba-display-code/error-handling-in-vba-code.html"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SIMATIC WinCC（经典平台）",
+    "vendor": "Siemens",
+    "sector": "food",
+    "stage": "运行运维",
+    "purpose": "经典 WinCC 的过程可视化和监控平台；ODK 用于扩展组态、运行对象和数据集成。",
+    "interfaces": [
+      {
+        "name": "WinCC ODK / C API",
+        "type": "API/SDK",
+        "detail": "ODK 提供组态和 Runtime 的 C API，涵盖标签、归档和图形对象等扩展。"
+      }
+    ],
+    "constraints": "需经典 WinCC、可选 ODK 与适配开发工具；IndustrialX 的组态许可按历史手册另计。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Siemens：WinCC V7.2 System description",
+        "url": "https://cache.industry.siemens.com/dl/files/295/99730295/att_80758/v1/WinCCSystemDescription_en-US.pdf"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Optitex PDS / Marker",
+    "vendor": "Optitex",
+    "sector": "food",
+    "stage": "研发设计",
+    "purpose": "服装等轻工制造的纸样设计、虚拟样衣及排料；脚本减少重复纸样和排料操作。",
+    "interfaces": [
+      {
+        "name": "Script Builder 批命令脚本",
+        "type": "脚本/CLI",
+        "detail": "O/25 提供图形化批命令脚本创建及模板保存，可在 PDS、Marker 或两者执行。"
+      }
+    ],
+    "constraints": "需包含相应功能的 Optitex O/25 PDS/Marker；具体模块授权须厂商确认。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Optitex：O/25 产品更新，Script Builder",
+        "url": "https://optitex.com/optitex-o-25-advancing-smarter-faster-and-more-sustainable-digital-product-development-and-production-optimization/"
+      }
+    ],
+    "evidence": "官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Lectra Modaris",
+    "vendor": "Lectra",
+    "sector": "food",
+    "stage": "研发设计",
+    "purpose": "服装工业纸样创建、放码与生产准备；Pattern Converter 用于跨 CAD 纸样转换。",
+    "interfaces": [
+      {
+        "name": "Pattern Converter：DXF / AccuMark → MDL V8",
+        "type": "文件格式",
+        "detail": "Web 附加应用把 Gerber AccuMark（至 V16）及 DXF AAMA/ASTM 纸样转换成 MDL V8。"
+      }
+    ],
+    "constraints": "需 Modaris 使用环境及单独 Pattern Converter Web 附加应用访问；商业授权范围需询价。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Lectra：Modaris / Pattern Converter",
+        "url": "https://www.lectra.com/en/fashion/products/modaris"
+      }
+    ],
+    "evidence": "官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Gerber AccuMark",
+    "vendor": "Lectra / Gerber Technology",
+    "sector": "food",
+    "stage": "研发设计",
+    "purpose": "服装与柔性材料制造的工业纸样、放码及排料准备；文件接口支持跨 CAD 纸样交换。",
+    "interfaces": [
+      {
+        "name": "ASTM / AAMA DXF",
+        "type": "文件格式",
+        "detail": "PDS 可导入 ASTM/AAMA DXF，并将模型输出为 ASTM/AAMA DXF；单片另支持标准 DXF/IGS。"
+      }
+    ],
+    "constraints": "需 AccuMark PDS 及目标格式文件；具体模块许可和第三方兼容性按部署确认。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Gerber：AccuMark PDS Export File",
+        "url": "https://help.gerbertechnology.com/AccuMark/PDS/File_Export_Tab_File.htm"
+      },
+      {
+        "title": "Gerber：AccuMark PDS Open File",
+        "url": "https://help.gerbertechnology.com/AccuMark/PDS/File_Open_Tab_File.htm"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Esko ArtiosCAD",
+    "vendor": "Esko",
+    "sector": "food",
+    "stage": "研发设计",
+    "purpose": "折叠纸盒、瓦楞包装等轻工产品的结构设计、虚拟样机和制造准备。",
+    "interfaces": [
+      {
+        "name": "DXF 设计文件交换",
+        "type": "文件格式",
+        "detail": "官方手册说明 DXF 导入对话框及 DXF 导出选项；所述导入路径忽略所有 3D 数据。"
+      }
+    ],
+    "constraints": "需 ArtiosCAD 与对应导入/导出能力；Enterprise 版和普通版功能、授权应分别确认。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Esko：ArtiosCAD structural packaging design",
+        "url": "https://www.esko.com/en/products/artioscad"
+      },
+      {
+        "title": "Esko：ArtiosCAD 23.11 importing DXF",
+        "url": "https://docs.esko.com/docs/en-us/artioscad/23.11/userguide/en-us/common/ac/topic/UG1_Introduction_id306943UON27.html"
+      },
+      {
+        "title": "Esko：ArtiosCAD Enterprise 18 exporting formats",
+        "url": "https://docs.esko.com/docs/en-us/artioscadenterprise/18/userguide/en-us/common/ac/topic/UG1_Introduction_id307063UON27.html"
+      }
+    ],
+    "evidence": "官方技术文档",
+    "sourceDate": "2026-10-19"
+  }
+]

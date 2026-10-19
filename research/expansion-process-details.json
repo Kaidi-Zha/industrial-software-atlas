@@ -1,0 +1,1506 @@
+[
+  {
+    "name": "Aspen HYSYS",
+    "profile": {
+      "versionBoundary": "历史 HSR 1.6 含 HYSYS 3.2–V7.3 适配，附件另列 V8.8 示例。",
+      "humanEntry": "桌面流程模拟与 Excel VBA 示例。",
+      "coverage": "官方 HYSYS Stream Reporter 以 Excel VBA 编程读取并更新物流表。",
+      "unknowns": [
+        "当前版本对象方法、COM 位数兼容和求解控制契约未从此历史示例核实。",
+        "HSR 示例不属于正式受支持产品，批量取数结果仍需独立核对。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "HYSYS Automation / VBA",
+        "category": "program",
+        "entry": "官方 HSR Excel 工作簿中的 VBA 与 HYSYS 对象架构。",
+        "role": "Excel 为自动化客户端，HYSYS 提供模拟对象。",
+        "direction": "HYSYS 物流数据→Excel；表格可更新。",
+        "operations": [
+          "读取模拟物流数据",
+          "生成或更新物流报表"
+        ],
+        "dataContract": "输入为模拟案例及所选物流；输出为 Excel 物流表。具体属性名与单位以附件 User Guide 和安装版类型库为准。",
+        "execution": "报表在已连接案例上下文中更新；本次未核实异步求解或关闭接口。",
+        "failure": "官方提示校核示例性能和结果；错误码、超时及空值处理未在页面给出。",
+        "prerequisites": "需 HYSYS、Excel 和匹配示例；示例为学术演示，不受正式产品质量/支持流程覆盖。",
+        "version": "历史 HSR 1.6 含 HYSYS 3.2–V7.3 适配，附件另列 V8.8 示例。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://esupport.aspentech.com/S_Article?key=110050"
+          ],
+          "locator": "HSR 说明、版本映射与 Note"
+        },
+        "workflow": [
+          "建议：在案例副本打开适配版本的 HSR",
+          "建议：核对物流标识和单位后更新表格",
+          "建议：对照 HYSYS GUI 结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在案例副本打开适配版本的 HSR → 核对物流标识和单位后更新表格 → 对照 HYSYS GUI 结果",
+          "sourceUrl": "https://esupport.aspentech.com/S_Article?key=110050"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "AspenTech：HYSYS Stream Reporter 自动化示例",
+        "url": "https://esupport.aspentech.com/S_Article?key=110050"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "UniSim Design",
+    "profile": {
+      "versionBoundary": "R460 产品册；课程未固定发行号。；R460 产品册；CAPE-OPEN 子规范版本未注明。",
+      "humanEntry": "UniSim 流程界面；Excel VBA 控制模型或配置扩展组件。",
+      "coverage": "官方确认可通过 Excel VBA 控制模型和创建用户变量，并声明 CAPE-OPEN 兼容；开放架构的其他扩展不据此全部归为 CAPE-OPEN。",
+      "unknowns": [
+        "公开材料未列 OLE 方法签名、同步性与异常表。",
+        "CAPE-OPEN 子规范、组件架构及具体物性/单元互操作版本未在产品册明确。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "ActiveX / OLE Automation",
+        "category": "program",
+        "entry": "Excel VBA 通过 UniSim 的 OLE Automation 接口。",
+        "role": "外部程序控制 UniSim 模型。",
+        "direction": "模型配置/控制→UniSim；具体结果读取字段未公开列全。",
+        "operations": [
+          "从 Excel VBA 控制模型",
+          "创建用户变量"
+        ],
+        "dataContract": "模型对象与参数的名称、单位和可写范围需安装版自动化手册。",
+        "execution": "需要选定并连接模型；会话释放及求解完成标志未核实。",
+        "failure": "建议分别检查 COM 注册、对象引用和求解诊断；文档未给统一错误码。",
+        "prerequisites": "需商业 UniSim 与对应自动化注册；模型组件授权独立核对。",
+        "version": "R460 产品册；课程未固定发行号。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://process.honeywell.com/content/dam/process/en/documents/document-lists/hon-ia-hps-bro-unisim-design-r460-vcma.pdf",
+            "https://process.honeywell.com/content/dam/process/en/documents/training-docs/honeywell-connected-industrial/usd/USD-0002-Honeywell-UniSim-Design-Advanced-Process-Modelling-Using-UniSim-Design.pdf"
+          ],
+          "locator": "Adapted to Your Needs；Automation Introduction"
+        },
+        "workflow": [
+          "建议：先在 GUI 验证案例",
+          "建议：依安装版文档绑定 OLE 对象",
+          "建议：修改一个变量并对照计算结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先在 GUI 验证案例 → 依安装版文档绑定 OLE 对象 → 修改一个变量并对照计算结果",
+          "sourceUrl": "https://process.honeywell.com/content/dam/process/en/documents/document-lists/hon-ia-hps-bro-unisim-design-r460-vcma.pdf"
+        }
+      },
+      {
+        "name": "CAPE-OPEN 组件接口",
+        "category": "model",
+        "entry": "UniSim 开放架构中的 CAPE-OPEN 兼容组件。",
+        "role": "UniSim 为组件宿主；第三方模型提供扩展。",
+        "direction": "受支持组件 ⇄ UniSim 宿主；对象与调用方向按实际组件核对。",
+        "operations": [
+          "接入受支持的 CAPE-OPEN 组件，具体组件类别和子规范待核实"
+        ],
+        "dataContract": "组分、相、端口与子规范版本需逐组件核对；产品册未指定完整接口集合。",
+        "execution": "组件参与宿主求解；初始化、终止及并发规则未在产品册给出。",
+        "failure": "建议在最小流程中核对组件加载、物性映射和求解；不能以“兼容”声明代替结果验证。",
+        "prerequisites": "需 UniSim 和相容的第三方组件及授权。",
+        "version": "R460 产品册；CAPE-OPEN 子规范版本未注明。",
+        "implementation": "内置接口",
+        "standardIds": [
+          "p12"
+        ],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://process.honeywell.com/content/dam/process/en/documents/document-lists/hon-ia-hps-bro-unisim-design-r460-vcma.pdf"
+          ],
+          "locator": "Adapted to Your Needs"
+        },
+        "workflow": [
+          "建议：确认宿主与组件角色",
+          "建议：核对组分/相/端口映射",
+          "建议：最小流程比较结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认宿主与组件角色 → 核对组分/相/端口映射 → 最小流程比较结果",
+          "sourceUrl": "https://process.honeywell.com/content/dam/process/en/documents/document-lists/hon-ia-hps-bro-unisim-design-r460-vcma.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Honeywell：UniSim Design R460 产品说明",
+        "url": "https://process.honeywell.com/content/dam/process/en/documents/document-lists/hon-ia-hps-bro-unisim-design-r460-vcma.pdf"
+      },
+      {
+        "title": "Honeywell Academy：UniSim Advanced 建模课程",
+        "url": "https://process.honeywell.com/content/dam/process/en/documents/training-docs/honeywell-connected-industrial/usd/USD-0002-Honeywell-UniSim-Design-Advanced-Process-Modelling-Using-UniSim-Design.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CHEMCAD",
+    "profile": {
+      "versionBoundary": "所读 User Guide 版权 2021，未核定当前发行号。",
+      "humanEntry": "CHEMCAD 桌面流程图；Excel COM 客户端。",
+      "coverage": "用户指南示范 Excel 载入案例、读取/修改值、重算并关闭模拟。",
+      "unknowns": [
+        "本次未读取当前发行版完整类型库与方法返回定义。",
+        "并发模拟、取消与无人值守授权未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "CHEMCAD COM Server",
+        "category": "program",
+        "entry": "COM 客户端连接 CHEMCAD COM Server。",
+        "role": "CHEMCAD 是 COM 服务端，Excel 等是客户端。",
+        "direction": "客户端输入/运行请求→模拟；模拟值→客户端。",
+        "operations": [
+          "载入案例",
+          "读取与修改模拟值",
+          "重新运行并再次读值",
+          "关闭案例"
+        ],
+        "dataContract": "模型中物流和 UnitOp 用标识区分；具体方法和参数以安装版 COM 文档为准。",
+        "execution": "示例按载入→修改→计算→读取→关闭执行，异步/轮询约定未核实。",
+        "failure": "建议记录 COM 异常及模拟收敛信息；本次未确认统一错误对象。",
+        "prerequisites": "需 CHEMCAD 安装及 COM 客户端环境；商业模块与位数匹配需确认。",
+        "version": "所读 User Guide 版权 2021，未核定当前发行号。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://chemstations.com/hubfs/Datacor-Chemstations/PDF/CHEMCAD_User_Guide.pdf?hsLang=en"
+          ],
+          "locator": "Data Interfaces：COM Interfaces；Connecting Excel and CHEMCAD"
+        },
+        "workflow": [
+          "建议：复制官方示例案例",
+          "建议：先读取已知值再修改并计算",
+          "建议：对照 GUI 并关闭案例"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：复制官方示例案例 → 先读取已知值再修改并计算 → 对照 GUI 并关闭案例",
+          "sourceUrl": "https://chemstations.com/hubfs/Datacor-Chemstations/PDF/CHEMCAD_User_Guide.pdf?hsLang=en"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Chemstations：CHEMCAD User Guide，Data Interfaces",
+        "url": "https://chemstations.com/hubfs/Datacor-Chemstations/PDF/CHEMCAD_User_Guide.pdf?hsLang=en"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "gPROMS",
+    "profile": {
+      "versionBoundary": "SIMIT 手册 2025-05，§2.9 gPROMS coupling；gPROMS 产品版未固定。",
+      "humanEntry": "gPROMS Process Builder 建模；SIMIT 中配置专用 gPROMS coupling。",
+      "coverage": "SIMIT 专用耦合通过 OPC UA 信号与 Windows 服务启动、控制 gPROMS 模型及管理快照。",
+      "unknowns": [
+        "没有从此耦合文档取得完整 gPROMS 编程 API。",
+        "模型导出格式、授权组合与具体 OPC UA 节点由工程配置决定，未实测。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "SIMIT–gPROMS 专用耦合",
+        "category": "model",
+        "entry": "SIMIT 的 gPROMS coupling，与关联 Windows service / RCI。",
+        "role": "SIMIT 耦合服务连接并协调 gPROMS 过程模型。",
+        "direction": "控制信号→模型；执行确认/过程信号→SIMIT。",
+        "operations": [
+          "手动启动的 Engineering mode 信号联结",
+          "gO:Run mode 自动启动和结束模型实例",
+          "通过握手信号控制模拟",
+          "管理快照文件/文件夹"
+        ],
+        "dataContract": "模型需事先以正确格式导出；控制命令与确认使用指定 OPC UA 信号。此证据不证明 gPROMS 支持 FMI。",
+        "execution": "在线模式开始模拟时启动配置的模型实例，结束时关闭；快照操作独立于仿真状态。",
+        "failure": "文档明确不检查模型配置完整性及快照数据一致性，文件冲突/节点执行失败后给出通知；建议验证模型和快照可恢复性。",
+        "prerequisites": "需相容 SIMIT、gPROMS 模型与耦合服务及相关许可证。",
+        "version": "SIMIT 手册 2025-05，§2.9 gPROMS coupling；gPROMS 产品版未固定。",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://cache.industry.siemens.com/dl/files/469/109988469/att_1328161/v1/SIMIT_enUS_en-US.pdf"
+          ],
+          "locator": "§2.9：gPROMS coupling / Start and control process models"
+        },
+        "workflow": [
+          "建议：确认导出模型格式与许可",
+          "建议：配置专用信号并选择运行模式",
+          "建议：核对启动/确认/停止及快照恢复"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认导出模型格式与许可 → 配置专用信号并选择运行模式 → 核对启动/确认/停止及快照恢复",
+          "sourceUrl": "https://cache.industry.siemens.com/dl/files/469/109988469/att_1328161/v1/SIMIT_enUS_en-US.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens：SIMIT Operating Manual，gPROMS coupling",
+        "url": "https://cache.industry.siemens.com/dl/files/469/109988469/att_1328161/v1/SIMIT_enUS_en-US.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "VASP",
+    "profile": {
+      "versionBoundary": "查询时官方 Wiki；具体标签按实际 VASP 版本。",
+      "humanEntry": "编辑输入文件并通过计算环境启动 VASP；属于材料研发计算。",
+      "coverage": "输入文件定义计算控制、原子结构、赝势与采样，KPOINTS 按所用设置可选。",
+      "unknowns": [
+        "实际构建、赝势许可和所用泛函未指定。",
+        "不同发行版对标签及 HDF5 支持不同，未核实本机可用版本。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "INCAR / POSCAR / POTCAR / KPOINTS",
+        "category": "file",
+        "entry": "计算工作目录中的标准输入文件。",
+        "role": "文件生成端准备模型，VASP 读取并计算。",
+        "direction": "输入文件→VASP；stdout/OUTCAR 等结果→后处理。",
+        "operations": [
+          "设置计算标签与原子结构",
+          "提供顺序一致的赝势",
+          "配置可选采样文件",
+          "保留输出及复现信息"
+        ],
+        "dataContract": "最小输入为 INCAR、POSCAR、POTCAR；其他文件按任务。输出可作为后续输入，不能混用不一致的结构与赝势。",
+        "execution": "独立作业在其工作目录读写；续算需保留正确输出；STOPCAR 可请求软停止。",
+        "failure": "建议检查输入解析、结构/赝势一致性及收敛输出；退出或产生 OUTCAR 不等于达到科学精度要求。",
+        "prerequisites": "需合法 VASP 与赝势授权、可用计算构建及资源；不是产线控制程序。",
+        "version": "查询时官方 Wiki；具体标签按实际 VASP 版本。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://vasp.at/wiki/Category%3AInput_files",
+            "https://vasp.at/wiki/Minimal_reproducible_example"
+          ],
+          "locator": "Category:Input files；Minimal reproducible example"
+        },
+        "workflow": [
+          "建议：建立独立工作目录并记录版本",
+          "建议：核对输入和赝势顺序后计算",
+          "建议：检查收敛并保存输入/日志/结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：建立独立工作目录并记录版本 → 核对输入和赝势顺序后计算 → 检查收敛并保存输入/日志/结果",
+          "sourceUrl": "https://vasp.at/wiki/Category%3AInput_files"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "VASP：Input files",
+        "url": "https://vasp.at/wiki/Category%3AInput_files"
+      },
+      {
+        "title": "VASP：Minimal reproducible example",
+        "url": "https://vasp.at/wiki/Minimal_reproducible_example"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Quantum ESPRESSO / PWscf",
+    "profile": {
+      "versionBoundary": "输入说明为 Quantum ESPRESSO 7.5；用户指南用于运行入口。",
+      "humanEntry": "文本输入或 PWgui 建模，终端/调度作业运行 pw.x。",
+      "coverage": "pw.x 读取按 namelist/cards 组织的输入，计算并输出结果。",
+      "unknowns": [
+        "赝势、数值参数、并行编译和资源配置未选定。",
+        "当前部署可执行文件与文档 7.5 的差异未验证。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "pw.x 输入与命令行",
+        "category": "program",
+        "entry": "PWscf 的 pw.x 可执行程序和输入文件。",
+        "role": "外部脚本/作业系统启动计算进程。",
+        "direction": "结构、赝势引用和控制参数→pw.x；文本结果及工作数据→文件。",
+        "operations": [
+          "指定 SCF/结构优化等计算设置",
+          "配置元素、原子位置与采样",
+          "批量运行并保存输出"
+        ],
+        "dataContract": "输入 namelist 有规定次序；卡片与单位需按文档。未明确量纲的量采用 Rydberg 原子单位，不能默认全部为 eV/Å。",
+        "execution": "独立计算作业；计算类型、临时目录和续算内容取决于输入。",
+        "failure": "官方提醒输入字符/格式可能导致问题。建议检查解析消息、电子/离子收敛和资源错误。",
+        "prerequisites": "需可用 QE 构建、赝势和任务资源；软件与相关数据许可证分别核对。",
+        "version": "输入说明为 Quantum ESPRESSO 7.5；用户指南用于运行入口。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.quantum-espresso.org/Doc/INPUT_PW.html",
+            "https://www.quantum-espresso.org/Doc/user_guide_PDF/pw_user_guide.pdf"
+          ],
+          "locator": "INPUT_PW：Introduction；PWscf user guide：Using PWscf"
+        },
+        "workflow": [
+          "建议：按同版示例准备纯文本输入",
+          "建议：在独立目录启动 pw.x",
+          "建议：检查单位、收敛及输出数据"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：按同版示例准备纯文本输入 → 在独立目录启动 pw.x → 检查单位、收敛及输出数据",
+          "sourceUrl": "https://www.quantum-espresso.org/Doc/INPUT_PW.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Quantum ESPRESSO：pw.x input description 7.5",
+        "url": "https://www.quantum-espresso.org/Doc/INPUT_PW.html"
+      },
+      {
+        "title": "Quantum ESPRESSO：PWscf user guide",
+        "url": "https://www.quantum-espresso.org/Doc/user_guide_PDF/pw_user_guide.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "BIOVIA Pipeline Pilot",
+    "profile": {
+      "versionBoundary": "官方产品概览未固定发行号。",
+      "humanEntry": "可视化协议/组件编辑器；开发人员扩展自定义处理组件。",
+      "coverage": "官方确认可用 REST Web Services、Python、Perl 和 Java 构建自定义处理组件。",
+      "unknowns": [
+        "概览未给完整服务端点、组件 API 签名或认证协议。",
+        "可用组件集合、脚本运行时及部署许可因产品版本和套件而异。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "自定义组件：REST / Python / Perl / Java",
+        "category": "program",
+        "entry": "Pipeline Pilot 的 build-your-own component 扩展能力。",
+        "role": "组件在科学工作流中连接数据和处理逻辑。",
+        "direction": "数据记录→组件处理→下游记录/结果。",
+        "operations": [
+          "扩展自定义组件",
+          "联结科学数据处理步骤",
+          "连接 REST 服务或脚本逻辑"
+        ],
+        "dataContract": "数据记录、属性和组件参数由协议及组件定义；REST 支持不等于任意协议自动暴露为公开 API。",
+        "execution": "组件在工作流执行上下文运行；并行、作业终止和脚本资源释放未在概览定义。",
+        "failure": "建议对照组件执行日志、记录数量和参数，逐项检查外部服务失败；统一异常契约未取得。",
+        "prerequisites": "需 Pipeline Pilot 与相应组件集合/服务器授权；语言运行时需匹配版本。",
+        "version": "官方产品概览未固定发行号。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.3ds.com/assets/invest/2023-10/biovia-pipeline-pilot-pipeline-pilot-overview.pdf"
+          ],
+          "locator": "Pipeline Pilot delivers：Build-your-own component capability"
+        },
+        "workflow": [
+          "建议：复制一个已验证协议",
+          "建议：接入最小自定义组件并核对参数",
+          "建议：对照输入/输出记录及执行日志"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：复制一个已验证协议 → 接入最小自定义组件并核对参数 → 对照输入/输出记录及执行日志",
+          "sourceUrl": "https://www.3ds.com/assets/invest/2023-10/biovia-pipeline-pilot-pipeline-pilot-overview.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "BIOVIA：Pipeline Pilot Overview",
+        "url": "https://www.3ds.com/assets/invest/2023-10/biovia-pipeline-pilot-pipeline-pilot-overview.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SIMATIC PCS 7 / OpenPCS 7",
+    "profile": {
+      "versionBoundary": "OpenPCS 7 V10.0，2024-07，§8.3。",
+      "humanEntry": "PCS 7 工程站与操作员站；OpenPCS 7 站点配置及外部 UA 客户端。",
+      "coverage": "Windows 服务提供过程值、测量归档值和 OS 消息，使用 UA binary 通信。",
+      "unknowns": [
+        "具体可写节点、用户权限及异常码需按项目服务/Profiles 核对。",
+        "此处只证实 OpenPCS 7 数据集成，不推定所有控制器直接具有同一接口。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "OpenPCS 7 OPC UA Server",
+        "category": "runtime",
+        "entry": "已配置并下载的 OpenPCS 7 station 中 OPC UA Windows 服务。",
+        "role": "OpenPCS 7 为服务器，外部应用为 UA 客户端。",
+        "direction": "客户端可读写获准的过程变量；测量归档只读；指定消息支持确认。",
+        "operations": [
+          "读写按权限开放的过程值",
+          "只读访问测量值归档",
+          "访问并确认受支持的 OS 消息",
+          "通过配置端口和 Discovery Server 发现服务"
+        ],
+        "dataContract": "V10.0 手册注明 OPC UA 1.03，仅使用 UA-TCP UA-SC UA binary；具体支持服务见同版 Profiles 列表。",
+        "execution": "服务随系统启动，但站点必须先配置和加载才能使用；可周期向 Discovery Server 注册。",
+        "failure": "建议分别检查站点加载、端点/证书、节点质量和归档范围；错误码以同版服务定义为准。",
+        "prerequisites": "需 PCS 7/OpenPCS 7 站点及相关授权；部署与客户端权限需配置。",
+        "version": "OpenPCS 7 V10.0，2024-07，§8.3。",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://cache.industry.siemens.com/dl/files/501/109973501/att_1293993/v1/ps7opc_b_en-US.pdf"
+          ],
+          "locator": "§8.3.1–8.3.8：服务、配置、过程值、归档与消息确认"
+        },
+        "workflow": [
+          "建议：配置并加载 OpenPCS 7 站点",
+          "建议：发现服务器并浏览只读数据",
+          "建议：核对过程值、归档和 OS 消息"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：配置并加载 OpenPCS 7 站点 → 发现服务器并浏览只读数据 → 核对过程值、归档和 OS 消息",
+          "sourceUrl": "https://cache.industry.siemens.com/dl/files/501/109973501/att_1293993/v1/ps7opc_b_en-US.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens：OpenPCS 7 V10.0 Function Manual",
+        "url": "https://cache.industry.siemens.com/dl/files/501/109973501/att_1293993/v1/ps7opc_b_en-US.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "DeltaV DCS",
+    "profile": {
+      "versionBoundary": "官方数据表 2025-12；实际 DeltaV 发行版与组件需匹配。",
+      "humanEntry": "DeltaV 工程/操作工作站；Application Station/ProfessionalPLUS 和外部 UA 客户端。",
+      "coverage": "工作站 UA 服务提供实时、报警事件和历史访问；PK Controller 内嵌服务器仅提供其本机实时数据。",
+      "unknowns": [
+        "实际节点、证书、读写权限与点数授权未在部署中核验。",
+        "PK Controller 的数据范围与工作站不同，不可据同名 UA 推定报警和历史均可用。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "DeltaV OPC UA Servers / Clients",
+        "category": "runtime",
+        "entry": "ProfessionalPLUS/Application Station UA 服务、PK Controller 内嵌服务或 EIOC UA 客户端。",
+        "role": "DeltaV 可为服务端或客户端，角色取决于组件。",
+        "direction": "工作站服务器与外部客户端可交换实时值；工作站/EIOC 客户端可读写第三方服务；历史、报警和 PK 能力分别核对。",
+        "operations": [
+          "读取或按配置写入实时值",
+          "访问工作站历史/报警数据",
+          "访问 PK 本机实时数据",
+          "以 EIOC/工作站客户端读写第三方服务"
+        ],
+        "dataContract": "工作站与控制器地址空间/能力不同；PK 不支持 A&E/HDA。点数、状态和可写属性需按组件配置。",
+        "execution": "PK 主备切换会断开客户端连接，客户端负责重连；历史补数和订阅恢复保证仍需具体部署核查。",
+        "failure": "建议分组件检查 UA StatusCode、证书、点位质量及数据缺口；不能把服务连接成功视为批过程执行成功。",
+        "prerequisites": "工作站需 UA Activation；普通 PK Controller 无需该激活且不消耗 DST，PK Flex 需专门接口许可；实际点数、权限及组件配置另核。",
+        "version": "官方数据表 2025-12；实际 DeltaV 发行版与组件需匹配。",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.emerson.com/is/content/emerson/zh/systems-and-software/deltav-distributed-control-system-dcs/product-data-sheets/documents/deltav-opc-ua-servers-and-clients.pdf"
+          ],
+          "locator": "2025-12 数据表第 2–5 页：Servers / Clients、UA Activation 与 PK 切换注释"
+        },
+        "workflow": [
+          "建议：选定工作站或控制器角色",
+          "建议：浏览测试节点并核对实时值",
+          "建议：分别验证历史/报警与重连范围"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选定工作站或控制器角色 → 浏览测试节点并核对实时值 → 分别验证历史/报警与重连范围",
+          "sourceUrl": "https://www.emerson.com/is/content/emerson/zh/systems-and-software/deltav-distributed-control-system-dcs/product-data-sheets/documents/deltav-opc-ua-servers-and-clients.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Emerson：DeltaV OPC UA Servers and Clients，2025-12",
+        "url": "https://www.emerson.com/is/content/emerson/zh/systems-and-software/deltav-distributed-control-system-dcs/product-data-sheets/documents/deltav-opc-ua-servers-and-clients.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Schrödinger Suite / Maestro",
+    "profile": {
+      "versionBoundary": "当前 package reference 显示 2026-3；实际模块按安装版。",
+      "humanEntry": "Maestro 工作区和项目表；Python 脚本或安装包附带示例。",
+      "coverage": "提供分子结构类、Maestro 工作区/项目表交互及计算模块调用，Jobcontrol 可异步运行任务。",
+      "unknowns": [
+        "Glide、Desmond、Jaguar 等模块能力和许可分别确定，本条不把套件当成单一免费引擎。",
+        "具体科学任务的参数、作业取消及线程约束未逐模块核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Schrödinger Python API",
+        "category": "program",
+        "entry": "schrodinger.structure、structutils 等安装版 Python 包和 Maestro 脚本入口。",
+        "role": "Python 调用方访问结构、GUI 或获授权计算产品。",
+        "direction": "结构/计算设置→API；结构、轨迹和计算结果→脚本。",
+        "operations": [
+          "读写、查询和修改分子结构",
+          "操作 Maestro 工作区和项目表",
+          "调用对应产品计算模块",
+          "使用 Jobcontrol 管理异步任务"
+        ],
+        "dataContract": "结构对象和产品模块各有方法定义；依赖 Maestro 的 API 不保证在独立进程可用。",
+        "execution": "Jobcontrol 支持异步及其他机器运行；普通结构处理与 GUI/远端作业生命周期分别处理。",
+        "failure": "官方定义 ProductNotAvailableError、MaestroNotAvailableError；建议区分产品缺失、GUI 不可用与计算失败。",
+        "prerequisites": "需匹配的商业套件安装与所调用模块许可；使用该版提供的 Python 环境。",
+        "version": "当前 package reference 显示 2026-3；实际模块按安装版。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.schrodinger.com/python-api/",
+            "https://learn.schrodinger.com/public/python_api/current/api/schrodinger.html"
+          ],
+          "locator": "API Overview：Core Concepts / Interacting with Maestro / Jobcontrol；package exceptions"
+        },
+        "workflow": [
+          "建议：从安装版示例读取小分子",
+          "建议：核对结构与所需模块许可",
+          "建议：运行最小计算并对照作业结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从安装版示例读取小分子 → 核对结构与所需模块许可 → 运行最小计算并对照作业结果",
+          "sourceUrl": "https://www.schrodinger.com/python-api/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Schrödinger：Python API 概览",
+        "url": "https://www.schrodinger.com/python-api/"
+      },
+      {
+        "title": "Schrödinger：Python API 2026-3 package reference",
+        "url": "https://learn.schrodinger.com/public/python_api/current/api/schrodinger.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "BIOVIA Discovery Studio",
+    "profile": {
+      "versionBoundary": "2023 课程目录与 2022 官方技巧；当前安装版需单独匹配。",
+      "humanEntry": "Discovery Studio Client；File > New > Script Window 与安装版脚本帮助。",
+      "coverage": "Perl 脚本可操作应用对象、自动化任务并串联计算；帮助页提供逐 API 示例。",
+      "unknowns": [
+        "公开课程未列完整 Perl API 对象与函数签名。",
+        "客户端计算模块、服务器连接和各版本脚本覆盖未核验。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Discovery Script / Perl",
+        "category": "program",
+        "entry": "Client 的 Script Window 或所读课程所述命令行脚本环境。",
+        "role": "脚本操作 Discovery Studio 应用对象。",
+        "direction": "模型/参数→脚本；修改后的对象与计算结果→客户端。",
+        "operations": [
+          "自动化重复任务",
+          "串联计算步骤",
+          "操作应用环境中的对象",
+          "从帮助示例开始扩展流程"
+        ],
+        "dataContract": "模型对象、选择和函数按安装版 Discovery Script 文档；不能用其他 BIOVIA 产品 API 替代。",
+        "execution": "交互脚本可在 Script Window 右键 Run；独立命令行的初始化和关闭细节未从课程取得。",
+        "failure": "建议先检查对象选择、函数参数及运行日志；统一异常和计算完成回调未核实。",
+        "prerequisites": "需 Discovery Studio Client、脚本能力及相关计算模块授权。",
+        "version": "2023 课程目录与 2022 官方技巧；当前安装版需单独匹配。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.3ds.com/assets/invest/2023-10/discovery_studio_course_catalog-biovia.pdf",
+            "https://3dswym.3dexperience.3ds.com/post/biovia-drug-discovery-development/tip-discovery-studio-help-pages-for-scripting-include-examples_K-FHJjU4Tu-O8pp2dxm-mA"
+          ],
+          "locator": "Advanced Courses：Scripting；官方技巧的 Script Window 操作"
+        },
+        "workflow": [
+          "建议：复制同版帮助中的 API 示例",
+          "建议：在模型副本的 Script Window 执行",
+          "建议：对照对象变化与计算日志"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：复制同版帮助中的 API 示例 → 在模型副本的 Script Window 执行 → 对照对象变化与计算日志",
+          "sourceUrl": "https://www.3ds.com/assets/invest/2023-10/discovery_studio_course_catalog-biovia.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "BIOVIA：Discovery Studio course catalog，Scripting",
+        "url": "https://www.3ds.com/assets/invest/2023-10/discovery_studio_course_catalog-biovia.pdf"
+      },
+      {
+        "title": "BIOVIA：Discovery Studio 脚本帮助示例操作",
+        "url": "https://3dswym.3dexperience.3ds.com/post/biovia-drug-discovery-development/tip-discovery-studio-help-pages-for-scripting-include-examples_K-FHJjU4Tu-O8pp2dxm-mA"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Waters Empower CDS",
+    "profile": {
+      "versionBoundary": "故障条目覆盖 Empower2/Empower3；当前 Toolkit 获取页面另有更新。",
+      "humanEntry": "Empower 客户端；经 Waters 获取 Toolkit 与配套开发文档。",
+      "coverage": "官方支持条目确认可申请 Toolkit，且有其导出 Empower 项目备份的实际接口行为记录。",
+      "unknowns": [
+        "Toolkit 详细方法、注册方式、认证及许可条款需厂商提供，本次未取得。",
+        "不能由项目备份导出证据推断全部仪器控制或 Web API 能力。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Empower Toolkit",
+        "category": "program",
+        "entry": "由 Empower 团队提供的 Toolkit 与安装版开发资料。",
+        "role": "集成程序通过 Toolkit 访问 Empower 项目。",
+        "direction": "已确认项目备份从 Empower→外部归档；其他方向未在该案例核实。",
+        "operations": [
+          "导出 Empower 项目备份",
+          "与 NuGenesis 归档/恢复流程配合"
+        ],
+        "dataContract": "备份需要完整文件集合；官方故障案例指出缺少 .INF 会导致后续数据库恢复失败。",
+        "execution": "导出、外部归档与恢复是不同阶段；不能以归档完成判断项目可恢复。",
+        "failure": "已知案例为 ReadInfFile 错误 -2147220858；建议核对备份完整性并在测试环境验证恢复，不直接修改生产库。",
+        "prerequisites": "需 Empower 与厂商提供的 Toolkit/开发支持；具体授权和运行环境未公开列全。",
+        "version": "故障条目覆盖 Empower2/Empower3；当前 Toolkit 获取页面另有更新。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://support.waters.com/KB_Inf/Other/WKB206371_Where_to_find_support_for_Waters_Application_Programming_Interfaces_APIS",
+            "https://support.waters.com/KB_Inf/NuGenesis/WKB16620_Unable_to_restore_an_Empower_project_backup_from_NuGenesis_SDMS_back_to_Empower"
+          ],
+          "locator": "WKB206371：Empower；WKB16620：Cause / Environment"
+        },
+        "workflow": [
+          "建议：申请匹配版 Toolkit 文档",
+          "建议：在测试项目验证备份导出",
+          "建议：核对完整文件集并做恢复验证"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：申请匹配版 Toolkit 文档 → 在测试项目验证备份导出 → 核对完整文件集并做恢复验证",
+          "sourceUrl": "https://support.waters.com/KB_Inf/Other/WKB206371_Where_to_find_support_for_Waters_Application_Programming_Interfaces_APIS"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Waters：API 支持与 Empower Toolkit 获取",
+        "url": "https://support.waters.com/KB_Inf/Other/WKB206371_Where_to_find_support_for_Waters_Application_Programming_Interfaces_APIS"
+      },
+      {
+        "title": "Waters：Toolkit 项目备份导出与 INF 故障说明",
+        "url": "https://support.waters.com/KB_Inf/NuGenesis/WKB16620_Unable_to_restore_an_Empower_project_backup_from_NuGenesis_SDMS_back_to_Empower"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Chromeleon CDS",
+    "profile": {
+      "versionBoundary": "PS74111 0923（2023）；实际 CDS/SDK 兼容性按安装版。",
+      "humanEntry": "Chromeleon Client；外部 .exe 或客户端内部 .dll 扩展。",
+      "coverage": "SDK 可编辑进样序列、启动分析、访问数据结果，区分进程外 .exe 与进程内 .dll。",
+      "unknowns": [
+        "API 详细对象和错误表需匹配版 SDK 帮助。",
+        "SDK 不涵盖驱动开发、服务器功能、Administration Console 或多用户 Web 服务，不能推断这些能力。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Chromeleon Client SDK",
+        "category": "program",
+        "entry": "客户端 .NET SDK，官方规格要求同机可运行的 Chromeleon Client。",
+        "role": "扩展程序控制或扩展客户端功能。",
+        "direction": "序列设置/分析请求→Client；数据和结果→扩展程序。",
+        "operations": [
+          "创建/修改序列",
+          "启动分析",
+          "访问数据及结果",
+          "增加客户端菜单或后处理"
+        ],
+        "dataContract": "SDK 为客户端对象接口；本规格明确不支持编辑处理方法、报告模板、仪器配置等若干任务。",
+        "execution": "进程外应用与进程内扩展部署不同；前者不需 SDK runtime license，后者需 runtime license 和 SDK 团队认证。",
+        "failure": "建议核对序列和进样状态、登录及扩展日志；SDK 方法错误契约未在规格书给出。",
+        "prerequisites": "需要同机 Client 许可；开发/测试未认证进程内扩展需 Development License，部署进程内扩展需 Runtime License/认证。",
+        "version": "PS74111 0923（2023）；实际 CDS/SDK 兼容性按安装版。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://documents.thermofisher.com/TFS-Assets/CMD/Specification-Sheets/ps-74111-chromeleon-sdk-specifications-ps74111-en.pdf"
+          ],
+          "locator": "Tables 1–6：application types / intended use / licenses / functionality"
+        },
+        "workflow": [
+          "建议：先确认所需功能处于 Client SDK 范围",
+          "建议：选择 exe 或 dll 部署并核对授权",
+          "建议：测试序列编辑和分析结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先确认所需功能处于 Client SDK 范围 → 选择 exe 或 dll 部署并核对授权 → 测试序列编辑和分析结果",
+          "sourceUrl": "https://documents.thermofisher.com/TFS-Assets/CMD/Specification-Sheets/ps-74111-chromeleon-sdk-specifications-ps74111-en.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Thermo Fisher：Chromeleon SDK specifications PS74111",
+        "url": "https://documents.thermofisher.com/TFS-Assets/CMD/Specification-Sheets/ps-74111-chromeleon-sdk-specifications-ps74111-en.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "LabVantage LIMS",
+    "profile": {
+      "versionBoundary": "当前产品说明及历史服务概述，未固定发行号。",
+      "humanEntry": "浏览器 LIMS 操作界面；部署的 Web Services 集成框架。",
+      "coverage": "官方说明外部系统可查询、插入数据及配置系统，并可创建批次/样品与返回结果。",
+      "unknowns": [
+        "公开介绍没有具体 REST 路径、Schema、错误码和鉴权流程。",
+        "样品/批次与结果审核、去重和事务规则由项目配置，未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "RESTful Web Services",
+        "category": "program",
+        "entry": "LabVantage 部署的 Web Services / Integration framework。",
+        "role": "外部仪器、ERP 等调用 LIMS 服务。",
+        "direction": "批次/样品及输入→LIMS；检验结果/查询数据→外部系统。",
+        "operations": [
+          "查询和插入数据",
+          "创建批次与样品",
+          "返回结果",
+          "受权限约束的系统配置"
+        ],
+        "dataContract": "对象标识、字段与允许操作须来自部署版服务文档；不能由营销示例生成虚构端点。",
+        "execution": "公开页未定义异步任务、提交时机、会话或重试；须区分 API 返回与实验室审核完成。",
+        "failure": "建议检查鉴权、字段映射及 LIMS 业务状态；具体 HTTP/业务错误表未取得。",
+        "prerequisites": "需 LabVantage 实例、Web Services 配置及授权账户；连接器和部署版许可需确认。",
+        "version": "当前产品说明及历史服务概述，未固定发行号。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.labvantage.com/informatics/lims/",
+            "https://www.labvantage.com/blog/a-quick-guide-to-lims-web-services/"
+          ],
+          "locator": "Product interfacing；Web Services：return/insert data and batches/samples example"
+        },
+        "workflow": [
+          "建议：取得部署版接口说明",
+          "建议：用测试批次/样品验证读写",
+          "建议：核对结果与审核状态"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得部署版接口说明 → 用测试批次/样品验证读写 → 核对结果与审核状态",
+          "sourceUrl": "https://www.labvantage.com/informatics/lims/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "LabVantage：LIMS 产品集成范围",
+        "url": "https://www.labvantage.com/informatics/lims/"
+      },
+      {
+        "title": "LabVantage：A Quick Guide to LIMS Web Services",
+        "url": "https://www.labvantage.com/blog/a-quick-guide-to-lims-web-services/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "LabSolutions IR",
+    "profile": {
+      "versionBoundary": "所读 C103-E088A 历史规格；具体软件发行版未固定。",
+      "humanEntry": "LabSolutions IR 桌面光谱与文件功能。",
+      "coverage": "官方规格列明这些光谱文件格式可读取和保存。",
+      "unknowns": [
+        "接口证据仅覆盖 IR 模块，不能外推到全部 LabSolutions CDS 产品。",
+        "旧版手册的系统环境与当前发行版兼容性、格式字段保留未实测。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "JCAMP-DX / ASCII / CSV",
+        "category": "file",
+        "entry": "LabSolutions IR 文件读取与保存功能。",
+        "role": "光谱软件为文件导入/导出端。",
+        "direction": "文件↔LabSolutions IR 光谱数据。",
+        "operations": [
+          "读取 JCAMP-DX、ASCII、CSV",
+          "以对应格式保存光谱"
+        ],
+        "dataContract": "完整光谱与元数据保留取决于具体格式；本册未列 CSV 列定义或单位编码。",
+        "execution": "桌面文件交换；不据格式支持推断批量命令行或仪器远控 API。",
+        "failure": "建议核对波数轴、强度、单位和谱图差异；解析错误码和自动转换规则未在规格表给出。",
+        "prerequisites": "需获授权的 LabSolutions IR 和兼容仪器/操作环境；本册标注 Research Use Only。",
+        "version": "所读 C103-E088A 历史规格；具体软件发行版未固定。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.shimadzu.com/an/sites/shimadzu.com.an/files/pim/pim_document_file/brochures/10375/291_C103E088A.pdf"
+          ],
+          "locator": "Specifications：File Formats；Research Use Only 标注"
+        },
+        "workflow": [
+          "建议：选择已知标准谱图",
+          "建议：保存并在目标软件回读",
+          "建议：逐轴/单位/强度核对"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择已知标准谱图 → 保存并在目标软件回读 → 逐轴/单位/强度核对",
+          "sourceUrl": "https://www.shimadzu.com/an/sites/shimadzu.com.an/files/pim/pim_document_file/brochures/10375/291_C103E088A.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Shimadzu：LabSolutions IR C103-E088A",
+        "url": "https://www.shimadzu.com/an/sites/shimadzu.com.an/files/pim/pim_document_file/brochures/10375/291_C103E088A.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Benchling",
+    "profile": {
+      "versionBoundary": "查询时指南推荐 API V3；V2 对未迁移资源仍受支持，需逐端点区分。",
+      "humanEntry": "Web 研发工作区、Developer Console 与租户 API reference。",
+      "coverage": "REST 以 JSON 访问研发数据；文档提供项目、序列、注册 Schema 的查询与 CRUD，并提供 Python SDK。",
+      "unknowns": [
+        "本次未在租户验证资源权限、Schema 和套餐授权。",
+        "研发数据 CRUD 不能作为制药生产批放行或 MES 执行能力证据。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Benchling REST API / Python SDK",
+        "category": "program",
+        "entry": "租户 API，官方当前指南推荐 V3 新开发；可通过租户 reference 试读。",
+        "role": "外部应用/用户凭证调用 Benchling 服务。",
+        "direction": "研发记录和查询→服务；JSON 资源/分页→调用方。",
+        "operations": [
+          "查询项目与 DNA 序列",
+          "按注册库及 Schema 过滤",
+          "按资源允许权限进行 CRUD",
+          "通过 Python SDK 调用"
+        ],
+        "dataContract": "V3 列表使用 items 与 nextToken，V2 使用资源名字段；过滤与字段选择语法有差异。用户 API key 仅对其租户有效。",
+        "execution": "长期集成建议使用 Benchling Apps；OAuth token、租户与权限决定会话有效范围。",
+        "failure": "建议区分认证、权限、Schema 和分页错误；本次未读取完整 HTTP 错误表。",
+        "prerequisites": "需租户 Developer Platform 访问和获授权用户/应用；OAuth/密钥配置按官方认证指南。",
+        "version": "查询时指南推荐 API V3；V2 对未迁移资源仍受支持，需逐端点区分。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.benchling.com/docs/getting-started-1",
+            "https://docs.benchling.com/docs/authentication"
+          ],
+          "locator": "Use V3 / Tutorial / IDs / Returning；Authentication methods"
+        },
+        "workflow": [
+          "建议：在测试租户确认开发权限",
+          "建议：只读列出项目与序列并处理分页",
+          "建议：核对 Schema 后再验证写入"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在测试租户确认开发权限 → 只读列出项目与序列并处理分页 → 核对 Schema 后再验证写入",
+          "sourceUrl": "https://docs.benchling.com/docs/getting-started-1"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Benchling：Getting Started with the API",
+        "url": "https://docs.benchling.com/docs/getting-started-1"
+      },
+      {
+        "title": "Benchling：Authentication",
+        "url": "https://docs.benchling.com/docs/authentication"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SAP Digital Manufacturing",
+    "profile": {
+      "versionBoundary": "查询时在线帮助；OData V2/V4 接口的可用性按租户服务。",
+      "humanEntry": "SAP Digital Manufacturing Web 界面与分析应用；服务实例和 service key。",
+      "coverage": "Manufacturing Data Objects 的 OData 服务为只读接口，不提供 Create、Update、Delete。",
+      "unknowns": [
+        "具体 MDO 实体、字段、分析数据延迟与租户套餐未在实例核验。",
+        "MDO 读取接口不能作为提交生产报工、创建工单或改变设备状态的证据。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "MDO OData read APIs",
+        "category": "program",
+        "entry": "service key 中 public-api-endpoint 对应的租户公共 API；MDO 的 OData V2/V4 服务。",
+        "role": "SAP 为数据服务端，外部报表或分析程序为调用方。",
+        "direction": "制造数据→外部查询/分析；不通过该接口修改制造记录。",
+        "operations": [
+          "读取 MDO 数据",
+          "获取服务元数据",
+          "使用支持的筛选与分页"
+        ],
+        "dataContract": "按服务元数据确定实体和属性；V2/V4 的请求及分页形式有差异，需使用实际服务文档。",
+        "execution": "请求用于分析数据读取；SAP 官方课程明确这些 API 只适用于只读场景，不应用于过程互锁。须处理分页，不能将首页作为完整数据集。",
+        "failure": "官方速率限制页说明超限返回 HTTP 429 并建议退避；建议同时检查租户端点、授权和分页。",
+        "prerequisites": "需 SAP Digital Manufacturing 租户、服务实例、service key 和相应访问权限；套餐范围未在本次核实。",
+        "version": "查询时在线帮助；OData V2/V4 接口的可用性按租户服务。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.sap.com/docs/sap-digital-manufacturing/insights/apis?locale=en-US",
+            "https://help.sap.com/docs/sap-digital-manufacturing/operations-guide/prepare-for-api-integration",
+            "https://help.sap.com/docs/sap-digital-manufacturing/operations-guide/rate-limits-on-api-calls?locale=en-US",
+            "https://learning.sap.com/courses/enabling-data-integrations-within-sap-digital-manufacturing-for-insights/leveraging-sap-dm-odata-service-to-export-manufacturing-data"
+          ],
+          "locator": "MDO APIs：read-only / metadata / pagination；Prepare for API Integration"
+        },
+        "workflow": [
+          "建议：取得测试租户 service key 并确认公共端点",
+          "建议：读取服务元数据后执行受限查询",
+          "建议：处理分页并核对制造数据时间范围"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得测试租户 service key 并确认公共端点 → 读取服务元数据后执行受限查询 → 处理分页并核对制造数据时间范围",
+          "sourceUrl": "https://help.sap.com/docs/sap-digital-manufacturing/insights/apis?locale=en-US"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "SAP：MDO OData APIs",
+        "url": "https://help.sap.com/docs/sap-digital-manufacturing/insights/apis?locale=en-US"
+      },
+      {
+        "title": "SAP：Prepare for API Integration",
+        "url": "https://help.sap.com/docs/sap-digital-manufacturing/operations-guide/prepare-for-api-integration"
+      },
+      {
+        "title": "SAP：Rate Limits on API Calls",
+        "url": "https://help.sap.com/docs/sap-digital-manufacturing/operations-guide/rate-limits-on-api-calls?locale=en-US"
+      },
+      {
+        "title": "SAP Learning：MDO OData service 数据导出及只读边界",
+        "url": "https://learning.sap.com/courses/enabling-data-integrations-within-sap-digital-manufacturing-for-insights/leveraging-sap-dm-odata-service-to-export-manufacturing-data"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "AVEVA System Platform",
+    "profile": {
+      "versionBoundary": "文档所属 System Platform 2023 R2 SP1 P04；本页更新时间 2023-11-02。",
+      "humanEntry": "System Platform IDE 的 I/O 配置与运行监控界面。",
+      "coverage": "官方设备集成说明列出 OPC UA Server 数据源，由通信驱动与 I/O 映射集成。",
+      "unknowns": [
+        "本页未列具体 Communication Driver 的 UA 版本、SecurityPolicy、订阅上限及可写节点。",
+        "不能据平台列出 OPC UA 数据源推定每个控制设备都已集成或全部字段可写。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "OPC UA 数据源 / Communication Drivers",
+        "category": "runtime",
+        "entry": "IDE 的 I/O auto-assignment、I/O mapping 与所选 Communication Driver。",
+        "role": "本条覆盖 System Platform 接入外部 UA Server 的角色。",
+        "direction": "外部过程数据→平台应用；写回操作及范围未在本页确认。",
+        "operations": [
+          "连接所选 OPC UA 数据源",
+          "配置 I/O 数据映射",
+          "向应用提供设备数据"
+        ],
+        "dataContract": "地址空间、数据类型、质量和时间戳按所选驱动及源服务器定义；页面未给完整映射表。",
+        "execution": "通信驱动承担 I/O 服务器功能；具体连接、重连和订阅行为取决于驱动。",
+        "failure": "建议从驱动诊断、证书、节点质量和映射逐项检查；本页未提供统一错误表。",
+        "prerequisites": "需 System Platform 和适配的官方 Communication Driver；组件授权与兼容版本按项目核对。",
+        "version": "文档所属 System Platform 2023 R2 SP1 P04；本页更新时间 2023-11-02。",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.aveva.com/bundle/system-platform/page/663644.html"
+          ],
+          "locator": "Device integration tools：OPC UA Servers / I/O mapping / Communication Drivers"
+        },
+        "workflow": [
+          "建议：选定与源服务器兼容的驱动",
+          "建议：映射少量测试节点并核对类型",
+          "建议：比较源值、质量与平台显示"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选定与源服务器兼容的驱动 → 映射少量测试节点并核对类型 → 比较源值、质量与平台显示",
+          "sourceUrl": "https://docs.aveva.com/bundle/system-platform/page/663644.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "AVEVA：System Platform Device integration tools",
+        "url": "https://docs.aveva.com/bundle/system-platform/page/663644.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "FactoryTalk View SE",
+    "profile": {
+      "versionBoundary": "官方在线帮助版本 16.00.00。",
+      "humanEntry": "Graphics editor 的 Edit > VBA Code 或 View > Visual Basic Editor；SE Client 运行显示。",
+      "coverage": "在显示对象中保存事件驱动 VBA，访问客户端对象模型、图形对象及标签属性。",
+      "unknowns": [
+        "本次未取得完整 DisplayClient 对象的属性和事件列表。",
+        "此处不是 FactoryTalk View ME，也不把内嵌 VBA 当作外部通用远控接口。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "SE Client VBA / DisplayClient",
+        "category": "program",
+        "entry": "Graphics editor 的 VBA 编辑器与显示对象事件处理程序。",
+        "role": "SE Client 内的 VBA 操作当前显示和所需对象。",
+        "direction": "显示事件/标签→脚本；脚本→图形对象及允许修改的属性。",
+        "operations": [
+          "编写显示对象事件处理",
+          "操作运行时图形对象",
+          "以对象模型访问标签属性"
+        ],
+        "dataContract": "代码绑定具体显示和对象；完整对象模型、属性可写性与事件参数以 V16 帮助为准。",
+        "execution": "显示代码仅在编辑器测试显示或 SE Client 运行显示时执行；打开编辑器不代表触发事件。",
+        "failure": "官方说明未自行处理的运行错误会弹出错误对话框；建议为事件代码增加适当错误处理并记录上下文。",
+        "prerequisites": "需 FactoryTalk View SE 工程及 Client 环境、相关运行许可；不从此推定 ME 兼容。",
+        "version": "官方在线帮助版本 16.00.00。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.rockwellautomation.com/en-us/docs/factorytalk-view/16-00-00/se-help-ditamap/pag-1/ftvse-client-object-model/use-vba-display-code.html",
+            "https://www.rockwellautomation.com/en-us/docs/factorytalk-view/16-00-00/se-help-ditamap/pag-1/ftvse-client-object-model/use-vba-display-code/microsoft-vba-ide.html",
+            "https://www.rockwellautomation.com/en-us/docs/factorytalk-view/16-00-00/se-help-ditamap/ftvse-client-object-model/use-vba-display-code/vba-display-code.html",
+            "https://www.rockwellautomation.com/en-nl/docs/factorytalk-view/16-00-00/se-help-ditamap/pag-1/ftvse-client-object-model/use-vba-display-code/error-handling-in-vba-code.html"
+          ],
+          "locator": "Use VBA display code；Microsoft VBA IDE；VBA display code；Error handling"
+        },
+        "workflow": [
+          "建议：在工程副本打开显示的 VBA 编辑器",
+          "建议：为单一事件增加最小对象操作",
+          "建议：在测试显示与 SE Client 分别核对结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在工程副本打开显示的 VBA 编辑器 → 为单一事件增加最小对象操作 → 在测试显示与 SE Client 分别核对结果",
+          "sourceUrl": "https://www.rockwellautomation.com/en-us/docs/factorytalk-view/16-00-00/se-help-ditamap/pag-1/ftvse-client-object-model/use-vba-display-code.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Rockwell：FactoryTalk View SE 16 Use VBA display code",
+        "url": "https://www.rockwellautomation.com/en-us/docs/factorytalk-view/16-00-00/se-help-ditamap/pag-1/ftvse-client-object-model/use-vba-display-code.html"
+      },
+      {
+        "title": "Rockwell：Microsoft VBA IDE",
+        "url": "https://www.rockwellautomation.com/en-us/docs/factorytalk-view/16-00-00/se-help-ditamap/pag-1/ftvse-client-object-model/use-vba-display-code/microsoft-vba-ide.html"
+      },
+      {
+        "title": "Rockwell：VBA display code execution",
+        "url": "https://www.rockwellautomation.com/en-us/docs/factorytalk-view/16-00-00/se-help-ditamap/ftvse-client-object-model/use-vba-display-code/vba-display-code.html"
+      },
+      {
+        "title": "Rockwell：Error handling in VBA code",
+        "url": "https://www.rockwellautomation.com/en-nl/docs/factorytalk-view/16-00-00/se-help-ditamap/pag-1/ftvse-client-object-model/use-vba-display-code/error-handling-in-vba-code.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SIMATIC WinCC（经典平台）",
+    "profile": {
+      "versionBoundary": "WinCC V7.2 System description，02/2013，§3.7.1；未将其外推为当前版兼容声明。",
+      "humanEntry": "WinCC Explorer/图形组态；使用 ODK 的开发环境和应用。",
+      "coverage": "ODK 提供组态和 Runtime 的 C API，涵盖标签、归档和图形对象等扩展。",
+      "unknowns": [
+        "公开证据是 V7.2 历史手册，未核实当前 V8 系列方法、编译器和位数兼容性。",
+        "经典 WinCC ODK 与 WinCC Unified 的接口体系不同；本条不代表 Unified 支持这些 C API。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "WinCC ODK / C API",
+        "category": "program",
+        "entry": "可选 WinCC ODK 与其开发资料、C API 和扩展组件。",
+        "role": "开发者应用或扩展访问获支持的 WinCC 功能。",
+        "direction": "组态/操作请求→WinCC；标签、归档或对象数据→扩展。",
+        "operations": [
+          "访问标签和归档管理",
+          "导出 WinCC 数据库表",
+          "控制测量值归档",
+          "访问运行时图形对象"
+        ],
+        "dataContract": "不同模块的 C API 各有对象和参数；所读手册举出 DMGetValue、PDLRTSetProp 等，不能据此补造完整签名。",
+        "execution": "组态 API 与 Runtime API 应在对应环境调用；初始化、终止和并发约定需同版 ODK 文档。",
+        "failure": "建议核对函数返回及 WinCC 诊断；手册此节未列完整错误码或线程约定。",
+        "prerequisites": "需经典 WinCC、可选 ODK 与适配开发工具；IndustrialX 的组态许可按历史手册另计。",
+        "version": "WinCC V7.2 System description，02/2013，§3.7.1；未将其外推为当前版兼容声明。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://cache.industry.siemens.com/dl/files/295/99730295/att_80758/v1/WinCCSystemDescription_en-US.pdf"
+          ],
+          "locator": "§3.7.1 WinCC/ODK：C APIs / Requirements"
+        },
+        "workflow": [
+          "建议：先确认目标为经典 WinCC 与实际版本",
+          "建议：取得匹配的 ODK 开发文档和许可",
+          "建议：在测试工程验证单个读取操作"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先确认目标为经典 WinCC 与实际版本 → 取得匹配的 ODK 开发文档和许可 → 在测试工程验证单个读取操作",
+          "sourceUrl": "https://cache.industry.siemens.com/dl/files/295/99730295/att_80758/v1/WinCCSystemDescription_en-US.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens：WinCC V7.2 System description",
+        "url": "https://cache.industry.siemens.com/dl/files/295/99730295/att_80758/v1/WinCCSystemDescription_en-US.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Optitex PDS / Marker",
+    "profile": {
+      "versionBoundary": "O/25 官方发布说明；旧版是否支持未确认。",
+      "humanEntry": "PDS / Marker 图形界面中的 Script Builder。",
+      "coverage": "O/25 提供图形化批命令脚本创建及模板保存，可在 PDS、Marker 或两者执行。",
+      "unknowns": [
+        "公开说明未给脚本文本语法、外部启动入口或命令返回值。",
+        "O/25 的 Script Builder 是否需特定版本/模块许可，未取得授权表。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Script Builder 批命令脚本",
+        "category": "program",
+        "entry": "PDS / Marker 的 Script Builder 图形入口；具体菜单位置未在公告给出。",
+        "role": "用户定义本地命令序列，由 PDS/Marker 执行。",
+        "direction": "选定纸样/排料与命令→应用；处理后的设计→应用项目。",
+        "operations": [
+          "以界面建立批命令",
+          "保存可复用模板",
+          "在 PDS、Marker 或两者运行"
+        ],
+        "dataContract": "公告确认命令模板与执行目标；脚本语法、参数序列化和支持命令清单未公开。",
+        "execution": "属于应用内重复任务自动化；不据此推定可从外部无界面运行。",
+        "failure": "建议在项目副本逐条验证命令和输出；中断、回滚和错误状态接口未公开。",
+        "prerequisites": "需包含相应功能的 Optitex O/25 PDS/Marker；具体模块授权须厂商确认。",
+        "version": "O/25 官方发布说明；旧版是否支持未确认。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://optitex.com/optitex-o-25-advancing-smarter-faster-and-more-sustainable-digital-product-development-and-production-optimization/"
+          ],
+          "locator": "Script Builder：batch command scripts / templates / PDS and Marker"
+        },
+        "workflow": [
+          "建议：在项目副本通过 Script Builder 建立短命令序列",
+          "建议：保存模板并选择 PDS 或 Marker",
+          "建议：逐步对照纸样/排料结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在项目副本通过 Script Builder 建立短命令序列 → 保存模板并选择 PDS 或 Marker → 逐步对照纸样/排料结果",
+          "sourceUrl": "https://optitex.com/optitex-o-25-advancing-smarter-faster-and-more-sustainable-digital-product-development-and-production-optimization/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Optitex：O/25 产品更新，Script Builder",
+        "url": "https://optitex.com/optitex-o-25-advancing-smarter-faster-and-more-sustainable-digital-product-development-and-production-optimization/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Lectra Modaris",
+    "profile": {
+      "versionBoundary": "查询时产品页标示 Modaris 2026.1；Pattern Converter 输入至 AccuMark V16、输出 MDL V8，两者版本含义不同。",
+      "humanEntry": "Modaris 纸样界面；Pattern Converter Web 附加应用。",
+      "coverage": "Web 附加应用把 Gerber AccuMark（至 V16）及 DXF AAMA/ASTM 纸样转换成 MDL V8。",
+      "unknowns": [
+        "产品页没有转换后的字段映射、误差界限及失败报告格式。",
+        "不能从导入转换说明推断 Modaris 可向同一外部格式导出。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Pattern Converter：DXF / AccuMark → MDL V8",
+        "category": "file",
+        "entry": "Pattern Converter Web 应用的输入文件与转换流程。",
+        "role": "转换应用读取外部纸样，生成 Modaris 使用的 MDL。",
+        "direction": "AccuMark / DXF AAMA、DXF ASTM→MDL V8；单向转换证据。",
+        "operations": [
+          "转换 AccuMark 纸样",
+          "转换 DXF AAMA/ASTM 纸样",
+          "生成 MDL V8 文件"
+        ],
+        "dataContract": "AccuMark 输入上限 V16、输出 MDL V8 为文件兼容边界；MDL V8 不代表当前 Modaris 软件版本。",
+        "execution": "上传/转换/下载的具体任务接口和超时未公开；本条记录文件转换能力。",
+        "failure": "建议逐件核对尺寸、放码、刀口和片数；官方本页未给错误码和所有对象保留保证。",
+        "prerequisites": "需 Modaris 使用环境及单独 Pattern Converter Web 附加应用访问；商业授权范围需询价。",
+        "version": "查询时产品页标示 Modaris 2026.1；Pattern Converter 输入至 AccuMark V16、输出 MDL V8，两者版本含义不同。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.lectra.com/en/fashion/products/modaris"
+          ],
+          "locator": "Pattern Converter：supported inputs / MDL V8 output"
+        },
+        "workflow": [
+          "建议：选用已知尺寸的测试纸样",
+          "建议：在 Pattern Converter 转换为 MDL",
+          "建议：在 Modaris 核对尺寸、片数与放码"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选用已知尺寸的测试纸样 → 在 Pattern Converter 转换为 MDL → 在 Modaris 核对尺寸、片数与放码",
+          "sourceUrl": "https://www.lectra.com/en/fashion/products/modaris"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Lectra：Modaris / Pattern Converter",
+        "url": "https://www.lectra.com/en/fashion/products/modaris"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Gerber AccuMark",
+    "profile": {
+      "versionBoundary": "查询时官方 PDS 在线帮助，页面未固定发行号。",
+      "humanEntry": "PDS 的 File > Open 与 File > Export。",
+      "coverage": "PDS 可导入 ASTM/AAMA DXF，并将模型输出为 ASTM/AAMA DXF；单片另支持标准 DXF/IGS。",
+      "unknowns": [
+        "在线帮助没有在页面上标明固定软件发行号。",
+        "不同 CAD 的放码、标记和单位映射不保证无损，需测试目标系统。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "ASTM / AAMA DXF",
+        "category": "file",
+        "entry": "PDS File > Open 的 Files of Type 与 File > Export 的文件类型选择。",
+        "role": "AccuMark 为纸样文件导入/导出端。",
+        "direction": "ASTM/AAMA DXF↔AccuMark；对象范围按导入/导出选项。",
+        "operations": [
+          "导入 ASTM/AAMA DXF",
+          "导出模型为 ASTM/AAMA DXF",
+          "按选项配置转换"
+        ],
+        "dataContract": "模型和单片的可用导出格式不同；不能把标准 DXF 的单片支持等同完整模型交换。",
+        "execution": "用户选择文件、存储区和格式后交换；自动批处理入口未在所读页确认。",
+        "failure": "建议检查单位、片数、轮廓、放码和转换选项；本页未定义解析错误码。",
+        "prerequisites": "需 AccuMark PDS 及目标格式文件；具体模块许可和第三方兼容性按部署确认。",
+        "version": "查询时官方 PDS 在线帮助，页面未固定发行号。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.gerbertechnology.com/AccuMark/PDS/File_Export_Tab_File.htm",
+            "https://help.gerbertechnology.com/AccuMark/PDS/File_Open_Tab_File.htm"
+          ],
+          "locator": "File Open：supported formats；Export File：models versus pieces"
+        },
+        "workflow": [
+          "建议：以 File > Open 选取测试 DXF 和存储区",
+          "建议：检查纸样后用 Export 输出模型",
+          "建议：在目标 CAD 回读并比较"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：以 File > Open 选取测试 DXF 和存储区 → 检查纸样后用 Export 输出模型 → 在目标 CAD 回读并比较",
+          "sourceUrl": "https://help.gerbertechnology.com/AccuMark/PDS/File_Export_Tab_File.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Gerber：AccuMark PDS Export File",
+        "url": "https://help.gerbertechnology.com/AccuMark/PDS/File_Export_Tab_File.htm"
+      },
+      {
+        "title": "Gerber：AccuMark PDS Open File",
+        "url": "https://help.gerbertechnology.com/AccuMark/PDS/File_Open_Tab_File.htm"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Esko ArtiosCAD",
+    "profile": {
+      "versionBoundary": "导入：ArtiosCAD 23.11；导出：ArtiosCAD Enterprise 18 的官方帮助。",
+      "humanEntry": "ArtiosCAD 的文件打开、导入与导出界面。",
+      "coverage": "官方手册说明 DXF 导入对话框及 DXF 导出选项；所述导入路径忽略所有 3D 数据。",
+      "unknowns": [
+        "导入依据 23.11、导出依据 Enterprise 18，两份版本证据不能代替当前部署的完整兼容清单。",
+        "DXF 支持不保证全部三维、字体、填充和高阶曲线无损。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "DXF 设计文件交换",
+        "category": "file",
+        "entry": "打开 DXF 的 Importing DWG/DXF 对话框；导出的 DXF 文件类型。",
+        "role": "ArtiosCAD 为二维结构图交换端。",
+        "direction": "DXF↔ArtiosCAD 二维设计；导入会忽略 3D 数据。",
+        "operations": [
+          "通过对话框导入 DXF",
+          "选择相关 DXF 导出形式",
+          "调整导入库和转换选项"
+        ],
+        "dataContract": "曲线会转换或近似；所读导入文档明确高阶曲线有限制。DXF 不等于无损原生包装项目。",
+        "execution": "桌面文件转换；内置与第三方库路径的选项有差异，需记录所用配置。",
+        "failure": "官方建议问题出现时可取消第三方库导入选项；建议核对曲线、单位、图层和被忽略对象。",
+        "prerequisites": "需 ArtiosCAD 与对应导入/导出能力；Enterprise 版和普通版功能、授权应分别确认。",
+        "version": "导入：ArtiosCAD 23.11；导出：ArtiosCAD Enterprise 18 的官方帮助。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.esko.com/en/products/artioscad",
+            "https://docs.esko.com/docs/en-us/artioscad/23.11/userguide/en-us/common/ac/topic/UG1_Introduction_id306943UON27.html",
+            "https://docs.esko.com/docs/en-us/artioscadenterprise/18/userguide/en-us/common/ac/topic/UG1_Introduction_id307063UON27.html"
+          ],
+          "locator": "Importing DXF：3D ignored / curves / third-party libraries；Export formats"
+        },
+        "workflow": [
+          "建议：选择已知尺寸的二维 DXF",
+          "建议：记录导入库与转换选项后打开",
+          "建议：核对曲线、图层和尺寸，再导出回读"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择已知尺寸的二维 DXF → 记录导入库与转换选项后打开 → 核对曲线、图层和尺寸，再导出回读",
+          "sourceUrl": "https://docs.esko.com/docs/en-us/artioscad/23.11/userguide/en-us/common/ac/topic/UG1_Introduction_id306943UON27.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Esko：ArtiosCAD structural packaging design",
+        "url": "https://www.esko.com/en/products/artioscad"
+      },
+      {
+        "title": "Esko：ArtiosCAD 23.11 importing DXF",
+        "url": "https://docs.esko.com/docs/en-us/artioscad/23.11/userguide/en-us/common/ac/topic/UG1_Introduction_id306943UON27.html"
+      },
+      {
+        "title": "Esko：ArtiosCAD Enterprise 18 exporting formats",
+        "url": "https://docs.esko.com/docs/en-us/artioscadenterprise/18/userguide/en-us/common/ac/topic/UG1_Introduction_id307063UON27.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  }
+]

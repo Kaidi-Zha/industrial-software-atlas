@@ -1,0 +1,1548 @@
+[
+  {
+    "name": "Aspen Plus",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "依据官方历史 VBA 示例：适用说明为 10.2 及以上，示例本身按 10.2 类型库编写，文章更新于 2020-11-03；未验证当前安装版。",
+      "humanEntry": "桌面 Aspen Plus 用于创建和检查流程；官方示例从 Excel 的 VBA 编辑器加载已安装 Aspen Plus GUI 类型库。",
+      "coverage": "已确认外部程序控制仿真打开、运行、重初始化与释放；结果读取只确认可作为扩展用途，未取得具体结果节点路径。",
+      "unknowns": [
+        "当前版本的结果对象树及物性变量路径未公开在本次所读示例中。",
+        "示例未给出求解收敛状态的统一返回字段、异常码、取消和超时约定。",
+        "当前部署的自动化授权与无人值守运行条件未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "ActiveX / COM Automation",
+        "category": "program",
+        "entry": "Excel VBA 引用 Aspen Plus GUI Type Library；历史安装目录中的 happ.tlb。",
+        "role": "VBA 为 COM 客户端，HappLS 对象代表已打开的仿真，Engine 管理计算。",
+        "direction": "客户端发出运行和初始化命令；仿真对象返回可访问状态。",
+        "operations": [
+          "通过 GetObject 打开已有仿真。",
+          "设置 Visible 控制 GUI 显示。",
+          "调用 Engine.Run2 执行计算。",
+          "调用 Engine.Reinit，区分整流程、单元、收敛块和物流。",
+          "隐藏 GUI 后将对象引用设为 Nothing。"
+        ],
+        "dataContract": "输入是仿真文件完整路径、HappLS 对象和 Reinit 枚举；原文有 lbFileName/lvFileName 拼写不一致，示例应结合附件核对。结果变量的路径未在此页定义。",
+        "workflow": [
+          "建议：复制已知可收敛案例，在 VBA References 选择安装版本对应类型库。",
+          "建议：打开副本并显示 GUI，运行一次后对照人工结果。",
+          "建议：分别测试初始化范围，最后释放引用并确认进程状态。"
+        ],
+        "execution": "Run2 带可选布尔参数控制同步或异步；本页未解释布尔值与模式的对应关系。不能用方法返回这一事实判断已收敛。",
+        "failure": "本次未核实错误契约。建议分别记录 COM 调用异常、求解日志和收敛结果；异步模式须先确认运行结束再读取结果。",
+        "prerequisites": "需本机 Aspen Plus、适配类型库与 VBA 客户端；当前版本许可和位数搭配需依据安装文档确认。",
+        "version": "历史示例为 Aspen Plus 10.2，文章说明 10.2 及以上。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://esupport.aspentech.com/apex/S_Article?id=000083571"
+          ],
+          "locator": "Solution；Code Description 1–4；Run2 optional argument"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "官方片段（已绑定 HappLS 对象）：go_Simulation.Engine.Run2；该行不包含文件打开或运行结束检查。",
+          "sourceUrl": "https://esupport.aspentech.com/apex/S_Article?id=000083571"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "AspenTech：Aspen Plus ActiveX 自动化示例",
+        "url": "https://esupport.aspentech.com/apex/S_Article?id=000083571"
+      }
+    ]
+  },
+  {
+    "name": "DWSIM",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "Automation 文档注明 COM/.NET 自 4.2 起；示例仍包含 DWSIM6 路径。CAPE-OPEN 以当前官方子系统文档的具体接口角色为依据。",
+      "humanEntry": "桌面流程图可供人工检查；程序入口为 DWSIM.Automation 程序集；CAPE-OPEN 组件在流程图中配置。",
+      "coverage": "覆盖创建/载入、对象和连接配置、求解及保存；CAPE-OPEN 涵盖外部组件接入及物性包对外提供。",
+      "unknowns": [
+        "示例路径和 DLL 清单不能视为所有发行版的固定安装布局。",
+        "Automation 页未定义并发对象共享、超时取消和长期进程释放的完整契约。",
+        "第三方 CAPE-OPEN 组件许可及其自定义异常未在 DWSIM 文档中统一规定。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "COM / .NET Automation",
+        "category": "program",
+        "entry": "Windows COM 注册或直接引用 DWSIM.Automation.dll、DWSIM.Interfaces.dll 等 .NET 程序集；示例使用 Automation/Automation2。",
+        "role": "外部程序持有自动化管理对象，返回的 IFlowsheet 指向流程及配置。",
+        "direction": "客户端配置流程并发起求解，读取求解结果和状态。",
+        "operations": [
+          "CreateFlowsheet / LoadFlowsheet 创建或载入。",
+          "按对象类型添加物流和单元，连接流程并设置物性与条件。",
+          "CalculateFlowsheet / CalculateFlowsheet2 发起求解。",
+          "检查 Solved、ErrorMessage 或示例中的错误集合。",
+          "SaveFlowsheet 保存案例。"
+        ],
+        "dataContract": "领域对象包括 IFlowsheet、IFlowsheetOptions、物流、单元与物性包；官方示例明确区分质量流量及温度的数值与单位。保存格式示例含 .dwxml 与 .dwxmz。",
+        "workflow": [
+          "建议：先复现官方 Cavett 或加热器示例，保留原文件。",
+          "建议：只修改一个已知输入，求解后检查状态与物料衡算。",
+          "建议：保存到新路径并重新载入，复核修改是否保留。"
+        ],
+        "execution": "官方示例按创建/载入→配置→求解→检查→保存顺序执行；没有据此推定后台作业、事务回滚或线程安全。",
+        "failure": "官方示例检查 sim.Solved 和 sim.ErrorMessage；另一示例接收 CalculateFlowsheet2 返回的 errors。异常对象结构随版本的完整定义本次未逐项读取。",
+        "prerequisites": "Windows COM 需安装并注册组件；直接 .NET 引用需运行时、程序集及物性依赖匹配。",
+        "version": "COM/.NET 自动化注明自 4.2 起；代码样例引用 DWSIM6。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://dwsim.org/help/main/57-automation.html"
+          ],
+          "locator": "Automation support；Flowsheet Class Structure；Excel VBA / Python samples"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "官方片段（已有自动化管理对象 interf）：sim = interf.CreateFlowsheet()。",
+          "sourceUrl": "https://dwsim.org/help/main/57-automation.html"
+        }
+      },
+      {
+        "name": "CAPE-OPEN",
+        "category": "model",
+        "entry": "流程中添加 CAPE-OPEN 类型物性包或单元；安装注册 DWSIM 类型后可对外提供 Thermo 1.1 物性包。",
+        "role": "DWSIM 可作为外部组件的过程模拟环境；也可作为其他模拟器的物性包提供者。",
+        "direction": "外部物性包/单元→DWSIM 流程；DWSIM 物性包→其他兼容模拟器。",
+        "operations": [
+          "接入 Thermo 1.0/1.1 外部物性包。",
+          "接入单元操作、反应接口及 Flowsheet Monitoring Objects。",
+          "映射外部物性包的组分与相。",
+          "通过 Thermo 1.1 暴露 DWSIM 物性包。"
+        ],
+        "dataContract": "组分、相及物流连接属于必须核对的契约；官方要求组分数一致，并正确映射或禁用不适用的相。对外物性服务为 Thermo 1.1，不能据此认定向仅支持 1.0 的模拟器可用。",
+        "workflow": [
+          "建议：选择已安装的外部物性包，先完成组分及相映射。",
+          "建议：以一个小流程验证物性与单元能正常计算。",
+          "建议：反向集成时在另一兼容模拟器中选择 DWSIM Property Package Manager 并复核结果。"
+        ],
+        "execution": "组件参与流程求解生命周期；本次没有验证跨进程布置、并发调用或组件资源释放方法。",
+        "failure": "官方强调未正确映射的相和组分会使配置不一致。建议保存组件及规范版本，并分别核对加载、映射和计算阶段的诊断。",
+        "prerequisites": "需对应 CAPE-OPEN 组件、注册信息和第三方组件授权；组分与相映射不能省略。",
+        "version": "外部物性包支持 Thermo 1.0/1.1；对外物性包使用 Thermo 1.1。",
+        "implementation": "内置接口",
+        "standardIds": [
+          "p12"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://dwsim.org/help/main/60-cape-open-subsystem.html"
+          ],
+          "locator": "Introduction；Using external components；Using DWSIM as a CAPE-OPEN Property Package Manager"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：添加 CAPE-OPEN Property Package → Configure → 选择 Thermo Server/Property Package Manager → Compound/Component Mapping 与 Phase Mapping。",
+          "sourceUrl": "https://dwsim.org/help/main/60-cape-open-subsystem.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "DWSIM：Automation 用户指南",
+        "url": "https://dwsim.org/help/main/57-automation.html"
+      },
+      {
+        "title": "DWSIM：CAPE-OPEN 组件支持说明",
+        "url": "https://dwsim.org/wiki/index.php?title=CAPE-OPEN"
+      },
+      {
+        "title": "DWSIM：CAPE-OPEN Subsystem",
+        "url": "https://dwsim.org/help/main/60-cape-open-subsystem.html"
+      }
+    ]
+  },
+  {
+    "name": "BIOVIA Materials Studio",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "2026 发布说明 MS-63801 明确新增直接通过 MaterialsScript 使用 Python；Perl 与 Python 的函数说明需对应安装版 MaterialsScript 文档。",
+      "humanEntry": "桌面建模与计算对话框；2026 可创建 Python 脚本文档并从对话框复制脚本片段。",
+      "coverage": "确认脚本入口与两种语言支持；公开发布说明未列完整对象 API 和每个计算模块的脚本覆盖。",
+      "unknowns": [
+        "公开发布说明未给出各模块 Python/Perl 方法对照、对象引用寿命或异常类型。",
+        "具体求解器是否支持所需脚本操作，须查安装版 MaterialsScript 文档。",
+        "远程计算服务器与模块授权、任务轮询/取消约定未从所读页面核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "MaterialsScript Python / Perl",
+        "category": "program",
+        "entry": "Materials Studio 中的脚本文档；2026 支持从计算对话框复制 Python 片段，安装版 MaterialsScript 帮助含示例。",
+        "role": "脚本驱动受支持的建模和计算功能；计算模块各自定义对象与任务。",
+        "direction": "脚本设置模型和任务，计算与分析结果进入项目；逐对象读写范围未在发布说明中列出。",
+        "operations": [
+          "创建 Python 脚本文档。",
+          "从 Materials Studio 对话框复制对应 Python 代码片段。",
+          "使用安装版 MaterialsScript 中的 Python 或 Perl 示例。"
+        ],
+        "dataContract": "本次公开证据只确认语言和脚本文档入口，未取得可引用的原子集合、轨迹与任务对象方法签名；不填写推测的 Python 导入模块。",
+        "workflow": [
+          "建议：用项目副本打开目标模块的一个已知可运行计算对话框。",
+          "建议：复制该版生成的片段，与同版 MaterialsScript 文档逐方法核对。",
+          "建议：执行后同时检查项目结果和计算日志，并保存输入与脚本。"
+        ],
+        "execution": "发布说明确认 Python/Perl 工具及示例存在；任务同步/异步、远端会话生命周期和并发限制未核实。",
+        "failure": "未取得统一异常与退出状态定义。建议把脚本解析、授权、作业提交和数值收敛分别检查，不能仅凭生成结果文件判断成功。",
+        "prerequisites": "需 Materials Studio 2026 才能套用所读 Python 新功能；计算模块与服务器许可按实际模块确定。",
+        "version": "Materials Studio 2026，MS-63801。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.3ds.com/support/documentation/resource-library/t61-2025-materials-studio-2026"
+          ],
+          "locator": "Enhancements，MS-63801；Perl 更新 MS-63624"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：计算对话框复制 Python script snippet → Python scripting document → 同版 MaterialsScript 帮助核对 → 在项目副本执行。",
+          "sourceUrl": "https://www.3ds.com/support/documentation/resource-library/t61-2025-materials-studio-2026"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "BIOVIA：Materials Studio 产品介绍",
+        "url": "https://www.3ds.com/products/biovia/materials-studio"
+      },
+      {
+        "title": "BIOVIA：Materials Studio 2026 发布说明",
+        "url": "https://www.3ds.com/support/documentation/resource-library/t61-2025-materials-studio-2026"
+      }
+    ]
+  },
+  {
+    "name": "Thermo-Calc",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "本次在线 API 文档显示 2026b；安装版文档可从 Help > Manuals Folder 的 TC-Python/SDK 目录打开。",
+      "humanEntry": "桌面 Thermo-Calc 可用于人工检查相同体系；Python IDE 或终端是 TC-Python 程序入口。",
+      "coverage": "覆盖会话启动、数据库/元素选择、计算设置与结果对象；区分临时平衡结果和持久结果。",
+      "unknowns": [
+        "当前项目的数据库名称、相名和浓度单位必须由所用数据库与计算类型确定，本次未选定实际材料体系。",
+        "并行工作进程的部署参数、超时恢复细节及结果对象线程共享本次未完整核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "TC-Python",
+        "category": "program",
+        "entry": "Python 中导入 tc_python，通过 TCPython 上下文启动计算服务。",
+        "role": "Python 客户端经 SDK 驱动独立计算服务器；SystemBuilder、System、Calculation 和 Result 分层。",
+        "direction": "条件和数据库选择→计算服务器；结果对象→Python。",
+        "operations": [
+          "选择数据库、元素和相并 get_system。",
+          "创建单平衡、相图或其他获授权计算。",
+          "set_condition 后 calculate 并读取指定结果量。",
+          "按文档缓存或显式保存、重新加载结果。"
+        ],
+        "dataContract": "单平衡 calculate 返回临时结果，后续计算可能使其不再代表旧状态；calculate_with_state 返回可保留的结果。System 固定，修改体系要重新由 builder 创建。",
+        "workflow": [
+          "建议：在同一 Python 环境运行官方示例与诊断脚本。",
+          "建议：先从演示数据库建立小体系，核对温度、组分和自由度。",
+          "建议：在退出 TCPython 块前提取或保存需要保留的结果。"
+        ],
+        "execution": "进入 TCPython 的 with 块启动计算服务器，退出时自动关闭并清理临时文件；缓存复用要求体系与计算设置完全一致。",
+        "failure": "官方 API 列出 LicenseException、DegreesOfFreedomNotZeroException、CalculationException 等。建议按异常区分授权、条件设置与计算失败；本次未验证错误恢复策略。",
+        "prerequisites": "需 TC-Python、相关数据库及模块有效许可；Python 环境须使用匹配发行版。",
+        "version": "在线文档为 TC-Python 2026b。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://download.thermocalc.com/docs/tc-python/latest-version/html/architecture.html",
+            "https://thermocalc.com/support/documentation/tc-python-help/",
+            "https://download.thermocalc.com/docs/tc-python/latest-version/html/"
+          ],
+          "locator": "Architecture overview：TCPython / SystemBuilder and System / Single equilibrium；Help：Current Examples"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "官方示例的会话入口：with TCPython() as start:。该片段只展示生命周期入口，不含完整计算条件。",
+          "sourceUrl": "https://download.thermocalc.com/docs/tc-python/latest-version/html/architecture.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Thermo-Calc：TC-Python 帮助与许可条件",
+        "url": "https://thermocalc.com/support/documentation/tc-python-help/"
+      },
+      {
+        "title": "TC-Python 2026b：Architecture overview",
+        "url": "https://download.thermocalc.com/docs/tc-python/latest-version/html/architecture.html"
+      },
+      {
+        "title": "TC-Python 2026b：API reference",
+        "url": "https://download.thermocalc.com/docs/tc-python/latest-version/html/"
+      }
+    ]
+  },
+  {
+    "name": "COMSOL Multiphysics",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "依据当前官方 API 概述；该文章未将全部功能绑定到一个明确发行号。Application Builder 的所述直接入口要求 Windows 安装。",
+      "humanEntry": "Model Builder 用于人工建模；Application Builder 的 Methods > New Method 为 Java 方法入口，另可使用 Java IDE；MATLAB 是 LiveLink 客户端入口。",
+      "coverage": "覆盖模型树的几何、网格、物理设置、求解与结果处理；Java API 和 MATLAB 访问同一底层模型对象。",
+      "unknowns": [
+        "当前项目的几何/物理特征 tag 与结果表达式属于模型定义，本次未取得具体模型。",
+        "求解异常类、并发模型访问、服务器取消及会话保活规则未在概述中逐项定义。",
+        "无界面运行所需的部署与许可组合未在本次任务中验证。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "COMSOL Java API",
+        "category": "program",
+        "entry": "Application Builder 的 Method Editor；可在 Java IDE 编译 class 后调用 API。",
+        "role": "Java 方法或程序驱动 COMSOL 模型树。",
+        "direction": "程序创建或修改模型，求解结果回到模型与结果评估对象。",
+        "operations": [
+          "创建几何及网格。",
+          "设置物理与求解。",
+          "评估和可视化结果。",
+          "通过 Java class 文件集成现有程序。"
+        ],
+        "dataContract": "API 与 GUI 使用同一类和树状数据结构；实际 tag、选择集和表达式必须来自具体模型。本文提供圆柱钢棒传热的 MPH 示例。",
+        "workflow": [
+          "建议：打开官方 heat_transfer_in_cylindrical_rod.mph 副本。",
+          "建议：在 Application Builder 检查示例方法，先保持原参数运行。",
+          "建议：仅修改一个参数，比较模型树与结果，再考虑批处理。"
+        ],
+        "execution": "Method Editor 可自动编译；独立 class 及无界面执行为官方支持用途，但具体命令与调度参数未在本次引用页中确认。",
+        "failure": "本页未给统一错误码。建议分别检查方法编译诊断、模型配置和求解收敛日志。",
+        "prerequisites": "标准 Windows COMSOL 安装可进入所述 Application Builder 方法入口；具体物理模块与批处理授权依据实际安装。",
+        "version": "当前官方概述，未限定单一发行号。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.comsol.com/support/learning-center/article/overview-of-the-comsol-api-107912"
+          ],
+          "locator": "Using the COMSOL API through the Application Builder；Java class files；Summary of API Use Cases"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "官方入口：Application Builder → 右击 Methods → New Method；建议使用同页提供的传热 MPH 示例核查。",
+          "sourceUrl": "https://www.comsol.com/support/learning-center/article/overview-of-the-comsol-api-107912"
+        }
+      },
+      {
+        "name": "LiveLink for MATLAB",
+        "category": "program",
+        "entry": "MATLAB 脚本调用 COMSOL API；COMSOL 模型可导出为 .m 代码。",
+        "role": "MATLAB 为程序控制与数据分析端，COMSOL 处理模型和求解。",
+        "direction": "MATLAB→模型设置和求解；模型结果→MATLAB；COMSOL 还可调用所定义的 MATLAB 函数。",
+        "operations": [
+          "更新参数并运行 study。",
+          "控制几何、网格、物理与结果。",
+          "保存或编辑模型的 MATLAB 代码。",
+          "在 Global Definitions > Functions > MATLAB 使用 MATLAB 函数。"
+        ],
+        "dataContract": "沿用 COMSOL Java API 的函数及模型树语法；.m 模型代码表达模型设置，不能把它当成通用物理求解结果格式。",
+        "workflow": [
+          "建议：先在 COMSOL 检查模型，然后从 MATLAB 加载或使用导出的 .m 代码。",
+          "建议：改一个参数并求解，提取同一结果量与 GUI 对照。",
+          "建议：保存模型、脚本和结果表达式以便复核。"
+        ],
+        "execution": "该接口是 MATLAB 环境中的模型控制；连接会话、运行同步性和释放函数须查所用版 LiveLink 手册，本次未核实。",
+        "failure": "未核实 MATLAB 包装异常及服务断开恢复。建议区分客户端异常和 COMSOL 求解日志，不把脚本执行结束视为模型正确。",
+        "prerequisites": "需 MATLAB、LiveLink for MATLAB、COMSOL 及所需模块许可；版本兼容矩阵本次未逐项核查。",
+        "version": "依据当前 API 概述；实际 MATLAB 兼容性按发行版。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.comsol.com/support/learning-center/article/overview-of-the-comsol-api-107912"
+          ],
+          "locator": "LiveLink for MATLAB；Summary of API Use Cases"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：已验证模型 → 导出 .m 模型代码 → MATLAB 中核对并修改参数 → 求解并比较同一结果表达式。",
+          "sourceUrl": "https://www.comsol.com/support/learning-center/article/overview-of-the-comsol-api-107912"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "COMSOL：API 概述",
+        "url": "https://www.comsol.com/support/learning-center/article/overview-of-the-comsol-api-107912"
+      }
+    ]
+  },
+  {
+    "name": "LAMMPS",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "依据查询时 release 文档；Python 包会在初始化时检查共享库版本一致性，不能混用不同发行版。",
+      "humanEntry": "可用终端、Python IDE 或交互 Python；本条不依赖图形界面。",
+      "coverage": "覆盖共享库实例、输入命令、原子/热力学数据访问及命令行输入。",
+      "unknowns": [
+        "实际编译包、势函数和 MPI 配置本次未选定，不能据文档推定全部命令可用。",
+        "未对任何模型做运行、数值稳定性或物理有效性验证。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "C Library / Python API",
+        "category": "program",
+        "entry": "C 使用 library.h 与实例句柄；Python 使用 lammps 包，动态加载匹配的共享库。",
+        "role": "宿主程序持有一个或多个 LAMMPS 实例，Python 封装 C API。",
+        "direction": "输入命令/数据→实例；原子、盒子与计算结果→调用方。",
+        "operations": [
+          "创建与删除实例。",
+          "从字符串或文件执行命令。",
+          "访问热力学量、原子数据及计算对象。",
+          "Python close 释放实例；finalize 关闭 MPI/Kokkos 等环境。"
+        ],
+        "dataContract": "C 以 void* 句柄定位实例，数组与指针须符合数据类型及缓冲区大小。Python 可返回 NumPy 数组；数据有效期须按具体函数查看。",
+        "workflow": [
+          "建议：确认 Python 包与共享库版本，再运行官方小示例。",
+          "建议：建立实例→载入输入→执行→提取量，并核对单位体系。",
+          "建议：结束实例后再按应用需要处理全局 finalize；不要在 finalize 后继续建立实例。"
+        ],
+        "execution": "库模式需要管理实例与 MPI communicator；官方明确不保证所有附加包线程安全，多个线程不能随意共用 MPI_COMM_WORLD。",
+        "failure": "C 库捕获异常后可查询错误状态和信息；Python 转为异常。包/共享库版本不一致会触发 AttributeError；C 无效指针或缓冲区可能导致崩溃。",
+        "prerequisites": "Python 调用需 shared 构建及匹配包；并行调用还要求 MPI 与宿主一致并正确安排 communicator。",
+        "version": "查询时 release 文档；具体版本以运行库 version 为准。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://doc.lammps.org/Library.html",
+            "https://doc.lammps.org/Python_module.html"
+          ],
+          "locator": "Library：Thread-safety / Errors versus exceptions；Python module：Version check / close / finalize"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：安装匹配库和 Python 包 → 依官方示例创建 lammps 实例 → 执行输入并读取结果 → close。",
+          "sourceUrl": "https://doc.lammps.org/Library.html"
+        }
+      },
+      {
+        "name": "LAMMPS input scripts",
+        "category": "program",
+        "entry": "LAMMPS 可执行程序的 -in 输入选项，或库的 file 方法。",
+        "role": "命令行进程顺序解释输入脚本并驱动模拟。",
+        "direction": "输入脚本与参数→LAMMPS；状态日志和脚本配置的结果→文件或屏幕。",
+        "operations": [
+          "读取并解释输入命令。",
+          "通过 -log 指定状态日志。",
+          "按脚本定义执行初始化、积分、最小化和结果输出。"
+        ],
+        "dataContract": "脚本命令与 units、atom_style、势函数及已编译包相关；输出内容由脚本中的相应命令决定。日志默认名为 log.lammps，分区运行有独立日志。",
+        "workflow": [
+          "建议：先核对脚本所需包和势文件。",
+          "建议：为一次运行保留独立输入、日志和输出路径。",
+          "建议：检查错误、实际完成步数与物理量，再归档结果。"
+        ],
+        "execution": "独立进程从输入解释至结束；多分区启动是另一种运行设置，不能将脚本本身视为通用实时服务。",
+        "failure": "独立可执行程序遇错误打印信息并中止；建议保留日志并检查最后执行命令，退出码含义本次未逐平台核实。",
+        "prerequisites": "需可用的 LAMMPS 构建及输入依赖；MPI 运行还需匹配启动环境。",
+        "version": "查询时 release 命令行文档。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://doc.lammps.org/Run_options.html",
+            "https://doc.lammps.org/Library.html"
+          ],
+          "locator": "Command-line options：-in / -log；Library：Errors versus exceptions"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：准备完整输入与势文件 → 使用 -in 指向输入 → 指定独立日志 → 核对完成步数和输出。",
+          "sourceUrl": "https://doc.lammps.org/Run_options.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "LAMMPS：Library Interfaces",
+        "url": "https://doc.lammps.org/Library.html"
+      },
+      {
+        "title": "LAMMPS：Python Overview",
+        "url": "https://doc.lammps.org/Python_overview.html"
+      },
+      {
+        "title": "LAMMPS：Python module API",
+        "url": "https://doc.lammps.org/Python_module.html"
+      },
+      {
+        "title": "LAMMPS：Command-line options",
+        "url": "https://doc.lammps.org/Run_options.html"
+      }
+    ]
+  },
+  {
+    "name": "SuperPro Designer",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "公开新功能页包含自 v6 引入 COM、后续扩展与 v7.5 类库重写的历史记录；没有把这些描述当作当前发行版的完整 API。",
+      "humanEntry": "先在桌面建立与检查工艺案例；外部程序可使用 VBA、C# 或 C++ 作为 COM 客户端，安装示例包括 COM5.spf、COM6.spf。",
+      "coverage": "确认载入案例、改输入、重算、取结果与部分报表/图表功能；当前方法签名需要安装版 COM 帮助。",
+      "unknowns": [
+        "当前 COM 注册标识、类型库版本和方法参数未在所读公开页中列全。",
+        "COM 调用的同步性、计算结束标志、异常码和释放流程未核实。",
+        "无人值守、多实例及远程部署的授权和运行规则未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "COM Server",
+        "category": "program",
+        "entry": "Windows 中的 SuperPro COM/OLE 类库；官方历史说明列出 Designer.Application、Designer.Document 类。",
+        "role": "外部 VBA/.NET/C++ 程序控制设计案例与计算。",
+        "direction": "输入参数→设计案例；计算值、报表和图表→客户端/文件。",
+        "operations": [
+          "载入设计案例并修改物流或操作参数。",
+          "执行物料能量衡算和成本计算。",
+          "读取选定输出参数。",
+          "设置部分报表选项并生成报表；更新已配置的 Excel 关联表。"
+        ],
+        "dataContract": "对象包括设计案例、物流、操作和设备内容；年操作成本是官方给出的结果示例。公开页没有足够信息构造当前版本的逐方法调用表。",
+        "workflow": [
+          "建议：先在 GUI 核实案例可计算，再打开安装版 COM 示例及说明。",
+          "建议：从一个输入和一个输出开始，重算后与桌面结果比较。",
+          "建议：把报表另存到新目录；验证结束后按安装版文档释放文档和应用。"
+        ],
+        "execution": "官方证明可由客户端重算并取值，但本次未确认阻塞调用、事件回调或轮询字段。",
+        "failure": "界面 Error Output Pane 会集中显示仿真错误与警告；COM 如何返回相同诊断未在本次来源中定义。建议同时保留调用异常和计算诊断。",
+        "prerequisites": "需 Windows SuperPro 安装、可用 COM 类库及相应软件许可；当前位数和客户端兼容性以实际安装文档为准。",
+        "version": "COM 自 v6；类库与能力后续逐版扩展，引用的是历史新功能页。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.intelligen.com/products/superpro-new-features/"
+          ],
+          "locator": "OLE / COM Server Library；Expanded COM Server’s Programmer Interface；Revised COM Library Classes；Error Output Pane"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：GUI 验证案例 → 安装目录查阅 COM5.spf/COM6.spf 及配套说明 → 客户端载入副本 → 改输入并重算 → 对照结果。",
+          "sourceUrl": "https://www.intelligen.com/products/superpro-new-features/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Intelligen：SuperPro Designer 产品范围",
+        "url": "https://www.intelligen.com/products/superpro-designer/"
+      },
+      {
+        "title": "Intelligen：COM Server 接口扩展说明",
+        "url": "https://www.intelligen.com/products/superpro-new-features/"
+      }
+    ]
+  },
+  {
+    "name": "PAS-X MES",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "所读公开数字集成产品页未注明软件发行号；不能将产品级接口能力外推至所有 PAS-X 历史版本。",
+      "humanEntry": "MES 的生产与批记录界面是人工入口；集成工程由 MSI、ERP 接口和 Open APIs 等组件承担，公开页未展示配置菜单。",
+      "coverage": "确认 MSI 兼容 OPC UA，以及面向 LIMS/WMS/序列化的开放 API 框架；没有公开可直接调用的端点或消息定义。",
+      "unknowns": [
+        "MSI 的 OPC UA 客户端/服务器角色、节点和业务消息字段未公开在所读页面。",
+        "Open APIs 的路径、版本、认证、分页、幂等及错误响应未从公开页获得。",
+        "生产批记录状态与接口交易的提交/回滚规则、组件许可清单未取得。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "MSI / OPC UA",
+        "category": "runtime",
+        "entry": "PAS-X Message-based Shopfloor Integration（MSI）组件；对接车间自动化层。",
+        "role": "PAS-X 车间集成组件；本次来源未明确 OPC UA 连接角色。",
+        "direction": "公开页确认车间层连接，逐消息上行/下行方向未列出。",
+        "operations": [
+          "以兼容 OPC UA 的消息式接口连接自动化层。",
+          "以厂商标准化集成方式接入设备。"
+        ],
+        "dataContract": "本页只确认消息式集成和协议兼容；设备标识、批号、消息状态、质量位与握手字段需获取项目接口规范。",
+        "workflow": [
+          "建议：先取得对应版本 MSI 接口与设备集成文档。",
+          "建议：在测试系统确认设备对象、消息映射和状态转换。",
+          "建议：分别检查正常执行、重复消息与中断恢复后批记录的一致性。"
+        ],
+        "execution": "消息处理、批记录关联和恢复时序没有在公开页定义；不据 OPC UA 名称推断业务事务完成。",
+        "failure": "本次未取得 MSI 错误码和失败重放契约。建议同时核对连接诊断、消息处理状态及 MES 批记录。",
+        "prerequisites": "需 PAS-X 与 MSI 部署和设备侧兼容接口；组件授权范围未在所读产品页列明。",
+        "version": "公开产品说明未注明发行号。",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.koerber.com/en/solutions/software-and-ai/life-sciences-mes/digital-integration-msi"
+          ],
+          "locator": "PAS-X MES digital integration components：Message-based Shopfloor integration (MSI)"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：取得版本化 MSI 规范 → 配置测试设备与消息映射 → 核对 OPC UA 连接 → 用可追溯消息检查批记录。",
+          "sourceUrl": "https://www.koerber.com/en/solutions/software-and-ai/life-sciences-mes/digital-integration-msi"
+        }
+      },
+      {
+        "name": "Open API framework",
+        "category": "program",
+        "entry": "PAS-X 的 Open APIs 集成框架；公开产品页无服务 URL 或方法目录。",
+        "role": "第三方 LIMS、WMS 或序列化系统作为集成对端。",
+        "direction": "确认可集成上述系统，具体资源的读写方向未公开。",
+        "operations": [
+          "通过可扩展 Open API 框架连接第三方系统。"
+        ],
+        "dataContract": "所读页面未提供资源模型或 JSON/XML Schema；不将行业常见的检验、库存或序列化字段当成该产品已核实契约。",
+        "workflow": [
+          "建议：获取对应 PAS-X 发行版的 API 文档与测试环境。",
+          "建议：先核对资源标识、认证及允许操作，再制定读写样例。",
+          "建议：核对接口结果与 MES 业务记录；在幂等规则确认前不要自动重试写入。"
+        ],
+        "execution": "会话、认证、事务及异步回执规则未公开，需据部署版 API 文档决定调用生命周期。",
+        "failure": "未取得状态码、业务错误和重试条件；建议将鉴权失败、数据校验失败及业务状态冲突分开核查。",
+        "prerequisites": "需 PAS-X 集成配置、对端账户与具体 API 组件权限；许可细目未在公开页提供。",
+        "version": "公开产品说明未注明发行号。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.koerber.com/en/solutions/software-and-ai/life-sciences-mes/digital-integration-msi"
+          ],
+          "locator": "PAS-X MES digital integration components：Open APIs"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：Open APIs 版本文档 → 确定具体资源/权限 → 测试系统验证 → 对照 MES 业务记录；本次未运行。",
+          "sourceUrl": "https://www.koerber.com/en/solutions/software-and-ai/life-sciences-mes/digital-integration-msi"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Körber：PAS-X 数字集成组件",
+        "url": "https://www.koerber.com/en/solutions/software-and-ai/life-sciences-mes/digital-integration-msi"
+      }
+    ]
+  },
+  {
+    "name": "Opcenter Execution Pharma",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "公开功能页确认 OPC 与 OPC UA client，未将该功能绑定到一个精确版本；页面另介绍 EX PH 2025，不能据此推定所有历史安装版相同。",
+      "humanEntry": "人工通过 MES 主批记录、电子批记录、设备与物料界面工作；自动化集成由项目配置。",
+      "coverage": "明确是 OPC/OPC UA 客户端，且与 PCS 7 / SIMATIC Batch 有原生集成；未取得客户端节点配置和调用服务清单。",
+      "unknowns": [
+        "所用发行版的 OPC UA 安全策略、节点映射和写权限未由功能页给出。",
+        "PCS 7/SIMATIC Batch 原生集成与通用 OPC 接入的消息映射、授权和错误行为不能混为一套。",
+        "批次状态变化与设备侧确认之间的事务边界未从公开页面获得。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "OPC / OPC UA client",
+        "category": "runtime",
+        "entry": "Opcenter Execution Pharma Automation integration 中的 OPC、OPC UA client。",
+        "role": "MES 是 OPC 客户端；对接设备或自动化服务器。",
+        "direction": "确认采集自动化层信息；写入、方法调用和批控制命令范围未在所读功能页定义。",
+        "operations": [
+          "连接 OPC 或 OPC UA 自动化层。",
+          "在 HMI 集成 MES task list。",
+          "与 SIMATIC PCS 7、SIMATIC Batch 原生集成。"
+        ],
+        "dataContract": "需要项目中的设备、数据点和生产上下文映射；公开页未提供 NodeId、类型、质量码或批次消息 Schema。",
+        "workflow": [
+          "建议：取得部署版本 Automation integration 手册并区分 OPC 与原生连接器。",
+          "建议：用测试服务器验证只读数据点，再核对批记录上下文。",
+          "建议：写入或批控制在明确服务及权限后单独验证。"
+        ],
+        "execution": "公开页未定义订阅、断线续连及批次命令完成状态；不能把客户端已连接视为批执行完成。",
+        "failure": "未取得产品业务错误码；建议分别检查 OPC 状态、连接日志与 MES 批次/任务状态。",
+        "prerequisites": "需对应 MES 版本、可访问的自动化服务器及账户权限；连接器许可配置未在页面列出。",
+        "version": "产品功能页；具体安装版未核实。",
+        "implementation": "内置接口",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.siemens.com/en-gb/campaigns/pharma-industry-opcenter-execution/"
+          ],
+          "locator": "Every functionality you need：Automation integration"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：对应版 Automation integration 文档 → 配置测试 OPC 服务器 → 对照 HMI/MES 数据点与批记录。",
+          "sourceUrl": "https://www.siemens.com/en-gb/campaigns/pharma-industry-opcenter-execution/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens：Opcenter Execution Pharma 功能说明",
+        "url": "https://www.siemens.com/en-gb/campaigns/pharma-industry-opcenter-execution/"
+      }
+    ]
+  },
+  {
+    "name": "LabWare LIMS / Integration Platform",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "公开 Integration Platform 介绍未标具体版本；HL7/ASTM 能力另由官方 Healthcare 页面补充。",
+      "humanEntry": "人工在 LIMS 管理样品、检验及结果；接口由 Integration Platform、LabStation 或配置式系统连接承担。",
+      "coverage": "覆盖 API、仪器消息及文件三种入口；本次没有获得部署版 API 路径、完整仪器协议或文件字段模板。",
+      "unknowns": [
+        "REST 端点、鉴权方式、资源方法及响应结构没有在所读公开页提供。",
+        "厂商写 HL7、ASTM，未在此给出具体版本或 ASTM 标准编号；不映射为 HL7 FHIR。",
+        "CSV 列、XML Schema、结果审核状态与导入去重规则必须来自实际实验室配置。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "RESTful / JSON",
+        "category": "program",
+        "entry": "LabWare Integration Platform 的 API-driven integrations；公开页未给端点。",
+        "role": "LIMS 与仪器或企业系统的集成端，调用方/服务方角色按项目确定。",
+        "direction": "公开页确认 API 集成，未逐资源定义读写权限。",
+        "operations": [
+          "使用 RESTful/JSON 方式连接实验室仪器与企业系统。"
+        ],
+        "dataContract": "JSON 仅确定载荷形式；样品、检验、结果和审核等字段的 API 模型未公开于所读页面。",
+        "workflow": [
+          "建议：取得部署版接口文档及授权测试账户。",
+          "建议：用一份已确认样品及结果核对资源标识、单位与审核状态。",
+          "建议：检查重复提交、缺字段及无权限时的结果，写入重试须等待幂等规则明确。"
+        ],
+        "execution": "本次未核实会话令牌、异步任务、事务及版本协商方式。",
+        "failure": "未取得 HTTP/业务错误表；建议区分传输、鉴权、字段校验及 LIMS 业务规则失败。",
+        "prerequisites": "需可用 Integration Platform 和项目配置；具体 API 授权和部署条件未在产品页披露。",
+        "version": "公开产品说明未注明发行号。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.labware.com/lims/integration"
+          ],
+          "locator": "Comprehensive：direct, file-based and API-driven integrations"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：部署版 API 文档 → 测试账户 → 样品/结果样例映射 → 核查响应和 LIMS 审核状态。",
+          "sourceUrl": "https://www.labware.com/lims/integration"
+        }
+      },
+      {
+        "name": "HL7 / ASTM 仪器接口",
+        "category": "runtime",
+        "entry": "LabWare 仪器集成及 Healthcare 页面所述 ASTM communications module、配置式 HL7 接口。",
+        "role": "LIMS 接收或交换分析仪数据，也可与医疗信息系统或 Instrument Manager 集成。",
+        "direction": "官方明确支持仪器单向或双向通信；每台仪器的订单/结果方向取决于其接口配置。",
+        "operations": [
+          "通过 ASTM 或仪器专有消息交换分析仪数据。",
+          "使用 HL7 配置系统间通信。",
+          "通过 LabStation 对接 RS-232 或文件式仪器输出。"
+        ],
+        "dataContract": "需具体仪器的消息和标识映射；ASTM 标准编号、HL7 版本、字符集、结果编码、确认机制未在这些产品页中定义。",
+        "workflow": [
+          "建议：取得仪器主机接口与 LIMS 配置说明。",
+          "建议：核对样品标识、检测项目、单位和异常标记，并先导入模拟消息。",
+          "建议：双向接口分别验证订单下发与结果接收的对应关系。"
+        ],
+        "execution": "产品页说明能力，未给出会话、ACK、序号重放或断线缓存规则。",
+        "failure": "建议针对漏样、重复结果、标识不匹配及仪器确认失败检查接口日志；这些是建议核查项，并非已确认的 LabWare 错误码。",
+        "prerequisites": "需相关模块、仪器连接与字段映射；串行/网络部署和驱动依具体设备。",
+        "version": "公开产品说明未注明发行号；协议版本未列明。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.labware.com/industries/healthcare",
+            "https://www.labware.com/lims/integration"
+          ],
+          "locator": "Healthcare：Instrument Interfacing Tools；Interoperability Tools；Integration Platform：Comprehensive"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：仪器 Host Interface 手册 → 选择 LIMS 对接方式 → 模拟订单/结果 → 核对样品和结果审核。",
+          "sourceUrl": "https://www.labware.com/industries/healthcare"
+        }
+      },
+      {
+        "name": "XML / CSV",
+        "category": "file",
+        "entry": "Integration Platform 的 file-based integration；LabStation 可解析文件并导入结果。",
+        "role": "仪器或其他系统导出文件，LIMS 接口解析并形成结果。",
+        "direction": "本次来源明确文件集成及仪器结果导入；不能据此确认所有 XML/CSV 都可双向交换。",
+        "operations": [
+          "解析文件式仪器结果。",
+          "将匹配数据送入 LIMS 结果流程。"
+        ],
+        "dataContract": "XML/CSV 是承载方式，具体结构、单位、样品键和项目键由配置定义；本次未取得通用 Schema。",
+        "workflow": [
+          "建议：保留原始文件，以小样本确定列/元素及编码映射。",
+          "建议：导入测试系统，逐项比对样品、单位和结果值。",
+          "建议：在确认文件完成写入、重复导入规则和审核要求后再自动化。"
+        ],
+        "execution": "文件发现、锁定、归档与结果提交时机未在产品页定义。",
+        "failure": "建议检查空值、分隔符/编码、单位、同名文件及重复导入；未核实该产品对这些情况的具体诊断。",
+        "prerequisites": "需文件解析配置及可访问路径；文件夹权限、导入模板和审核流程属于部署信息。",
+        "version": "公开产品说明未注明发行号。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.labware.com/lims/integration",
+            "https://www.labware.com/industries/healthcare"
+          ],
+          "locator": "Integration Platform：Comprehensive；Healthcare：LabStation"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：仪器结果样例文件 → 配置解析映射 → 测试导入 → 对照原始记录与 LIMS 审核。",
+          "sourceUrl": "https://www.labware.com/lims/integration"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "LabWare：Integration Platform 支持的接口",
+        "url": "https://www.labware.com/lims/integration"
+      },
+      {
+        "title": "LabWare：Healthcare laboratory instrument interfaces",
+        "url": "https://www.labware.com/industries/healthcare"
+      }
+    ]
+  },
+  {
+    "name": "Materialise Mimics / Mimics Innovation Suite",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "官方自动化页与教程确认 Python 脚本，但未对所有函数给出产品版本；Mimics 与 3-matic 的脚本覆盖需要分别核查。",
+      "humanEntry": "Mimics 桌面的影像分割、三维模型及脚本功能；官方 Academy 提供 Python 安装和自动化教程。",
+      "coverage": "确认影像预处理、分割、清理、批处理及导出等脚本用途；未从本次公开页面得到完整 Python API reference。",
+      "unknowns": [
+        "当前安装版脚本对象、函数签名与 Python 版本兼容性未在所读概述中列出。",
+        "Mimics 与 3-matic 之间的对象转换、会话及许可证边界未核实。",
+        "批处理失败恢复、脚本超时/取消和模型保存原子性未取得规范。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Mimics Python API",
+        "category": "program",
+        "entry": "Mimics 的 scripting 功能；官方 Python 安装教程覆盖 Mimics 和 3-matic。",
+        "role": "Python 脚本自动化应用内影像/模型工作流。",
+        "direction": "影像与项目设置→脚本处理；分割、模型和导出文件→项目或文件。",
+        "operations": [
+          "自动化阈值、遮罩和区域生长等预处理。",
+          "分割、对象清理及三维模型准备。",
+          "跨类似案例批处理或批量导出。"
+        ],
+        "dataContract": "公开自动化页给出功能范围，未列具体 Python 模块、对象字段与导出参数；不据医学影像场景自动推定 API 支持全部 DICOM 服务。",
+        "workflow": [
+          "建议：先使用官方 Academy 的 Python 安装与脚本教程。",
+          "建议：在脱敏项目副本上记录一条人工流程，再用同版脚本示例复现。",
+          "建议：对照分割掩膜、几何和输出文件，保留参数及运行日志。"
+        ],
+        "execution": "本次未核实脚本是否可在独立 Python 进程运行，或必须依赖已启动应用；不可把桌面脚本能力推断为无人值守服务。",
+        "failure": "未取得统一异常类与任务状态接口。建议区分影像读取、对象选择、计算与保存失败，并对结果几何做复核。",
+        "prerequisites": "需可用 Mimics 及脚本功能授权；Python 环境应依对应安装教程，医疗产品可用地区需另行确定。",
+        "version": "公开概述未标发行号；函数覆盖按安装版脚本指南。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.materialise.com/en/healthcare/mimics/accelerate-workflow-automation",
+            "https://www.materialise.com/en/academy/healthcare/mimics-innovation-suite/video-tutorials"
+          ],
+          "locator": "What can you automate；Academy：Scripting / How to Install Python to Use with Mimics and 3-Matic"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：Academy 的 Python 安装教程 → 同版脚本示例 → 项目副本执行 → 对照影像分割与导出模型。",
+          "sourceUrl": "https://www.materialise.com/en/healthcare/mimics/accelerate-workflow-automation"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Materialise：Mimics 脚本与自动化",
+        "url": "https://www.materialise.com/zh/healthcare/mimics/scripting-automation"
+      },
+      {
+        "title": "Materialise：官方 MIS Scripting 社区 API 范围",
+        "url": "https://community.materialise.com/c/mis-scripting-forum/5"
+      },
+      {
+        "title": "Materialise：Mimics workflow automation",
+        "url": "https://www.materialise.com/en/healthcare/mimics/accelerate-workflow-automation"
+      },
+      {
+        "title": "Materialise Academy：MIS tutorials",
+        "url": "https://www.materialise.com/en/academy/healthcare/mimics-innovation-suite/video-tutorials"
+      }
+    ]
+  },
+  {
+    "name": "UNICORN / UNICORN OPC Server",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "接口详情以 OPC Server 1.2.1 手册 29744019 AA 为准；另有官方后续 release notes，不把 1.2.1 称为最新版。",
+      "humanEntry": "UNICORN 桌面用于层析方法与运行；OPC Server 配置工具及外部 OPC UA 客户端承担集成设置与访问。",
+      "coverage": "确认 UA 的实时数据、报警事件、历史数据和方法/手动指令访问；需按节点和权限分别确定可读写范围。",
+      "unknowns": [
+        "未在实际系统中读取端点、证书、命名空间及设备专属标签。",
+        "版本兼容、服务器许可和账户权限依兼容矩阵及安装配置，本次未建立系统。",
+        "对具体 Start/Stop、方法执行的幂等、超时和断线恢复行为未实测。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "OPC UA（UNICORN OPC Server）",
+        "category": "runtime",
+        "entry": "安装并配置 UNICORN OPC Server 后，由 OPC UA 客户端连接配置中的服务器端点；手册提供配置与客户端操作过程。",
+        "role": "UNICORN OPC Server 是 UA 服务端，外部系统是 UA 客户端。",
+        "direction": "服务端提供实时/报警/历史数据；客户端可在手册规定的标签与权限下执行方法/手动指令及报警操作。",
+        "operations": [
+          "访问 Data Access、Alarms and Events。",
+          "通过 Historical Data Access 访问运行历史。",
+          "按手册执行方法或手动指令。",
+          "触发并确认示例报警。"
+        ],
+        "dataContract": "手册将 DA/AE/HDA 纳入 OPC UA；支持 Basic256Sha256 与 Aes128_Sha256_RsaOaep。地址空间包含过程标签与历史对象，部分历史内容按手册 XML 结构表示。",
+        "workflow": [
+          "建议：先核对 UNICORN/OPC Server 兼容矩阵、服务和账户。",
+          "建议：完成端点及证书信任后浏览地址空间，先验证只读过程值与历史数据。",
+          "建议：在测试设备上按手册验证指令和报警，再比较 UNICORN 运行状态。"
+        ],
+        "execution": "客户端连接和订阅依赖服务器会话；实际方法完成、运行结束和历史可读是不同状态。手册展示功能，本次未连接设备。",
+        "failure": "建议同时检查 UA StatusCode、报警状态、服务日志与 UNICORN 运行状态；本次未验证具体设备错误码或网络故障恢复。",
+        "prerequisites": "需兼容 UNICORN 与 OPC Server、配置数据库/许可服务及允许的用户和证书；具体许可清单按安装文件。",
+        "version": "OPC Server 1.2.1，手册 29744019 AA。",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://d3.cytivalifesciences.com/prod/IFU/29744019.pdf",
+            "https://d3.cytivalifesciences.com/prod/IFU/29729832.pdf"
+          ],
+          "locator": "§1.2 OPC UA standards；§2.7 method/manual instruction and alarms；§6 HDA address space"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：OPC Server 配置 → UA 客户端浏览 → 只读标签与 HDA 核对 → 按 §2.7 在测试系统执行指令及报警确认。",
+          "sourceUrl": "https://d3.cytivalifesciences.com/prod/IFU/29744019.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Cytiva：UNICORN OPC Server 1.2.1 用户手册",
+        "url": "https://d3.cytivalifesciences.com/prod/IFU/29744019.pdf"
+      },
+      {
+        "title": "Cytiva：UNICORN OPC Server release notes",
+        "url": "https://d3.cytivalifesciences.com/prod/IFU/29729832.pdf"
+      }
+    ]
+  },
+  {
+    "name": "Opcenter Execution Process",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "Information Model Kit V3.0（2023-06）§2.4.6 明确此握手式车间集成自 Opcenter Execution Process 4.4 起提供。",
+      "humanEntry": "MES 用于工单及物料事务，PLC/自动化工程与 Automation Gateway 用于节点及消息映射；模型文档介绍 SiOME 配置。",
+      "coverage": "确认四类工单/物料交互及 OPC UA 对象模型；客户侧完整业务文档部分通过受许可支持入口提供。",
+      "unknowns": [
+        "实际 PLC NodeId、设备/物料主数据和全部必填字段需要部署项目映射。",
+        "部分工单对象细节指向需 Opcenter 客户访问的支持材料，本次未读取。",
+        "网关版本、许可证组合以及中断后的去重/事务恢复未实测。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "OPC UA / Automation Gateway",
+        "category": "runtime",
+        "entry": "Opcenter Execution Process 的 shopfloor integration，经 Automation Gateway 对接 PLC OPC UA 消息对象。",
+        "role": "MES 与自动化层通过网关映射握手结构和内容结构。",
+        "direction": "工单下载及状态请求由 MES→自动化层；状态通知及物料事务由自动化层→MES。",
+        "operations": [
+          "Order Download 下发工单操作及过程信息。",
+          "Order Status Request 请求车间执行状态变化。",
+          "Order Status Notification 上报已执行状态变化。",
+          "Material Transaction Execution 上报移动、消耗、生产或创建。"
+        ],
+        "dataContract": "模型使用 urn:MachineIntegrationProcess.Siemens.com 命名空间；对象含握手与内容字段。文档指出网关不支持直接以 VariableType 整体映射载荷，需逐标签映射。",
+        "workflow": [
+          "建议：按 §2.4.6 和工单对象定义确认用例与主数据。",
+          "建议：在 PLC/SiOME 准备节点并在 Automation Gateway 逐标签映射。",
+          "建议：先测试一次工单下载，再分别验证状态通知与物料事务，记录双方握手和业务结果。"
+        ],
+        "execution": "这是带握手的消息传递；单纯写入节点并不证明 MES 已接受业务事务。实际超时及重复处理需依据该部署版网关文档。",
+        "failure": "建议对照握手状态、载荷字段、网关诊断与 MES 工单/物料记录；完整错误码和恢复行为本次未取得。",
+        "prerequisites": "需对应 MES 车间集成、Automation Gateway、PLC UA 配置及主数据；客户业务文档需有效支持权限。",
+        "version": "Opcenter Execution Process ≥ 4.4；所读模型包 V3.0。",
+        "implementation": "官方附加组件",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://cache.industry.siemens.com/dl/files/835/109814835/att_1140017/v2/109814835_SiemensInformationModelKit_DOC_v3_0_en.pdf"
+          ],
+          "locator": "§2.4.6；§2.5；§3.6 Process model；§4 SiOME configuration"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：Information Model Process → PLC 节点与标签映射 → Automation Gateway → 测试工单下载和反向状态/物料事务。",
+          "sourceUrl": "https://cache.industry.siemens.com/dl/files/835/109814835/att_1140017/v2/109814835_SiemensInformationModelKit_DOC_v3_0_en.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens：Process 4.4 车间集成说明",
+        "url": "https://blogs.sw.siemens.com/opcenter/available-now-opcenter-execution-process-4-4/"
+      },
+      {
+        "title": "Siemens：Information Model Kit §2.4.6",
+        "url": "https://cache.industry.siemens.com/dl/files/835/109814835/att_1140017/v2/109814835_SiemensInformationModelKit_DOC_v3_0_en.pdf"
+      }
+    ]
+  },
+  {
+    "name": "Sepasoft MES / Batch Procedure",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "依据查询时 Sepasoft MES Module Suite 在线文档；这些页面未注明单一模块构建号，实际部署需匹配 Ignition 与模块版本。",
+      "humanEntry": "Batch Recipe Editor 可人工创建/修改配方；Ignition 脚本环境提供 system.mes.batch 命名空间。",
+      "coverage": "覆盖配方定义、逻辑、验证、保存接口与队列命令；XML 导入返回未保存对象，需与执行分开。",
+      "unknowns": [
+        "saveRecipe/validateRecipe 的详细返回与异常页本次无法直接读取，保留方法存在证据而不推断返回值。",
+        "配方状态、用户版本与系统版本如何参与生产审批需依据实际配置。",
+        "队列 Start 的权限、重试、取消及设备阶段失败处理未从所读示例完整核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "system.mes.batch.*",
+        "category": "program",
+        "entry": "Ignition/Sepasoft 运行环境中的 system.mes.batch.recipe 与 system.mes.batch.queue；人工可使用 Batch Recipe Editor。",
+        "role": "脚本创建并配置定义对象，通过队列对象请求批次执行。",
+        "direction": "定义/命令→MES；对象链接、验证信息与队列状态→脚本/界面。",
+        "operations": [
+          "createRecipe 创建配方，createLogic 构造过程逻辑。",
+          "设置数量、比例及用户版本。",
+          "validateRecipe / saveRecipe 提供验证及保存入口。",
+          "queue.addEntry 建立队列项，executeEntryCommand 请求 Start。"
+        ],
+        "dataContract": "主要对象为 BatchMasterRecipe、BatchMasterLogic、MESObjectLink/MESObjectList；名称、UUID、父类链接和逻辑关联不能随意互换。",
+        "workflow": [
+          "建议：在测试项目创建配方及逻辑，确认类、单元和阶段引用存在。",
+          "建议：验证并按部署版文档保存，再重新加载核对有效状态。",
+          "建议：显式选择已批准的配方链接建立队列，在测试设备上检查执行状态。"
+        ],
+        "execution": "创建对象、验证/保存、加入队列和启动是不同步骤。官方示例创建与随后启动引用了不同名称的配方，不能当作同一新建配方的完整投产脚本。",
+        "failure": "建议核对有效性、引用缺失及队列/阶段状态；示例不构成异常或失败重试规范。",
+        "prerequisites": "需 Ignition、相应 Sepasoft Batch 模块及可用项目/数据库、类/阶段配置；实际脚本 scope 和权限依据部署版文档。",
+        "version": "当前在线 MES Module Suite 文档；具体构建号未标。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.sepasoft.com/articles/user-manual/create-a-recipe-and-add-a-batch-for-execution",
+            "https://docs.sepasoft.com/articles/user-manual/batchmasterrecipe-object"
+          ],
+          "locator": "Creating a Recipe and Adding a Batch for Execution；BatchMasterRecipe：Scripting Functions / Header / Procedure Logic"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：Batch Recipe Editor 或脚本创建 → 验证 → 保存并重新载入 → 选择已批准配方 → 队列启动；本次未执行。",
+          "sourceUrl": "https://docs.sepasoft.com/articles/user-manual/create-a-recipe-and-add-a-batch-for-execution"
+        }
+      },
+      {
+        "name": "Recipe XML",
+        "category": "file",
+        "entry": "system.mes.batch.recipe.exportRecipe(recipeLink) 与 importRecipe(xml, parentLink)。",
+        "role": "MES 配方定义的导出方和导入方；脚本接收/生成 XML 字符串。",
+        "direction": "配方及逻辑→XML 字符串；XML→未保存的 MES 对象列表。",
+        "operations": [
+          "exportRecipe 导出主配方及逻辑对象。",
+          "importRecipe 解析 XML 并返回待保存对象。"
+        ],
+        "dataContract": "导出返回 String，内容为 BatchMasterRecipe/BatchMasterLogic 的 XML 列表；导入参数为 XML 字符串及可选父类 MESObjectLink，返回 MESObjectList。此格式是 Sepasoft 对象序列化，未证实为通用 ISA-88 XML。",
+        "workflow": [
+          "建议：先导出一个小配方并保留原始文件。",
+          "建议：在测试项目中导入，明确父类，检查对象列表与引用。",
+          "建议：按该版验证/保存规则持久化，重新载入确认后再决定是否入队。"
+        ],
+        "execution": "importRecipe 只产生未保存对象；文件导入完成不能等同于配方已保存、批准或执行。",
+        "failure": "本次未取得 XML 解析错误及冲突处理契约。建议验证对象名/UUID、父类和阶段引用，避免直接导入生产项目。",
+        "prerequisites": "需相应 Batch 运行环境、脚本权限及导入目标类；外部工具必须保留本产品对象结构。",
+        "version": "当前在线函数文档；版本构建号未标。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.sepasoft.com/articles/user-manual/system-mes-batch-recipe-importrecipe-xml-parentlink/",
+            "https://docs.sepasoft.com/articles/user-manual/system-mes-batch-recipe-exportrecipe-recipelink/",
+            "https://docs.sepasoft.com/articles/user-manual/batchmasterrecipe-object"
+          ],
+          "locator": "importRecipe：Parameters / Returns；exportRecipe：Returns"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：exportRecipe 获得 XML → 测试项目 importRecipe → 检查返回列表 → 依据版本文档验证并保存。",
+          "sourceUrl": "https://docs.sepasoft.com/articles/user-manual/system-mes-batch-recipe-importrecipe-xml-parentlink/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Sepasoft：BatchMasterRecipe 对象与 XML 方法",
+        "url": "https://docs.sepasoft.com/articles/user-manual/BatchMasterRecipe-Object/"
+      },
+      {
+        "title": "Sepasoft：创建配方并执行批次示例",
+        "url": "https://docs.sepasoft.com/articles/user-manual/create-a-recipe-and-add-a-batch-for-execution"
+      },
+      {
+        "title": "Sepasoft：BatchMasterRecipe object",
+        "url": "https://docs.sepasoft.com/articles/user-manual/batchmasterrecipe-object"
+      },
+      {
+        "title": "Sepasoft：importRecipe",
+        "url": "https://docs.sepasoft.com/articles/user-manual/system-mes-batch-recipe-importrecipe-xml-parentlink/"
+      },
+      {
+        "title": "Sepasoft：exportRecipe",
+        "url": "https://docs.sepasoft.com/articles/user-manual/system-mes-batch-recipe-exportrecipe-recipelink/"
+      }
+    ]
+  },
+  {
+    "name": "SIMATIC WinCC Unified",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "Open Pipe 以 V20（2025-06）文档为准；GraphQL 操作类型以 V21（2026-03）为准。产品页的总体能力不能用来消除 PC、Panel、Data Hub 和版本差异。",
+      "humanEntry": "TIA Portal/Unified 工程用于组态，Runtime 的 HMI/Web 界面供人工操作；外部程序分别通过 OPC UA/MQTT、GraphQL 或本机 Open Pipe。",
+      "coverage": "区分现场/消息连接、远程查询与订阅、本机管道三类交互；Open Pipe 的错误与关联字段已有公开文档。",
+      "unknowns": [
+        "本次未取得实际项目的 UA 地址空间、MQTT 主题和载荷。",
+        "GraphQL 的具体部署 URL、各运行平台许可及历史数据 schema 未从所读页面完整核实。",
+        "工程下载、标签改名与连接重建对现有订阅的影响需按实际更新版验证。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "OPC UA / MQTT",
+        "category": "runtime",
+        "entry": "WinCC Unified 的 OPC UA 数据交换及 MQTT broker 连接，在工程/运行配置中启用。",
+        "role": "Unified 是自动化数据集成端；具体 UA 客户端/服务器配置与 MQTT 主题由项目确定。",
+        "direction": "产品页确认交换自动化数据及与 MQTT broker 交换数据，未规定所有标签均可双向写。",
+        "operations": [
+          "通过 OPC UA 交换自动化数据。",
+          "与 MQTT broker 交换数据。"
+        ],
+        "dataContract": "UA 数据点及权限与 MQTT topic/payload 需分别配置；本次未取得该项目的节点类型、质量位和主题载荷约定。",
+        "workflow": [
+          "建议：在版本文档中确认平台支持的 UA/MQTT 角色与选件。",
+          "建议：建立测试节点或主题，并核对数值、单位和时间戳。",
+          "建议：再验证授权写入、订阅变化和中断后的数据行为。"
+        ],
+        "execution": "连接/订阅与 Runtime 项目关联；数据刷新、消息保留与重连策略未在产品页给出。",
+        "failure": "建议分别检查 UA 状态、MQTT broker 连接与 Runtime 标签质量；不把网络连接成功视为有效数据。",
+        "prerequisites": "需 Unified Runtime、项目连接配置和对端服务器/broker；证书、账户及授权取决于所用版。",
+        "version": "产品页能力概述；实际角色和许可按运行平台与发行版。",
+        "implementation": "内置接口",
+        "standardIds": [
+          "p01",
+          "p02"
+        ],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.siemens.com/en-us/products/simatic-wincc/unified/"
+          ],
+          "locator": "Integration Platform；FAQ：Integrated Connectivity"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：版本化连接手册 → 测试 OPC UA 节点/MQTT topic → Runtime 标签核对 → 再测写入与断线。",
+          "sourceUrl": "https://www.siemens.com/en-us/products/simatic-wincc/unified/"
+        }
+      },
+      {
+        "name": "GraphQL",
+        "category": "runtime",
+        "entry": "已运行 Unified 项目的 GraphQL 服务，由外部 GraphQL 客户端访问；具体 URL 从部署配置取得。",
+        "role": "Unified 为 GraphQL 服务端，外部程序为查询/订阅客户端。",
+        "direction": "Query 读取；Mutation 写入允许对象；Subscription 接收事件变化。",
+        "operations": [
+          "查询标签或符合过滤条件的报警。",
+          "通过 mutation 写允许的标签值/QualityCode。",
+          "订阅标签或报警变化。"
+        ],
+        "dataContract": "V21 文档区分三种操作；Query 经 HTTPS，订阅经 WebSocket 并使用 graphql-transport-ws。资源名、数据类型与 schema 以该 Runtime 为准，历史查询与 Data Hub 权限不能与实时接口混用。",
+        "workflow": [
+          "建议：在对应版本文档中取得服务地址并完成证书、登录和权限配置。",
+          "建议：先查询一个已存在测试标签，再订阅其变化。",
+          "建议：在允许写入的测试标签上单独验证 mutation；结束时关闭订阅和会话。"
+        ],
+        "execution": "订阅维持 WebSocket，可由任一端关闭或因网络故障结束；服务访问受已登录 Runtime 范围及用户读写权限限制。",
+        "failure": "V20 安全文档区分查询/订阅读权限与 mutation 写权限。建议分别记录 HTTPS/登录、GraphQL 错误及数据 QualityCode；重连后是否补发历史未在本次证据中保证。",
+        "prerequisites": "需对应 Runtime GraphQL 功能、证书及用户权限；具体许可、PC/Panel 和历史功能覆盖未完整核实。",
+        "version": "操作类型：V21；安全权限依据 V20 文档，实际更新版需对应。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.tia.siemens.cloud/r/en-us/v21/wincc-unified-graphql-rt-unified/reference-of-graphql-api-rt-unified/graphql-operation-types-rt-unified?contentId=9CR4AQkVjF_j4ikM2J3tag",
+            "https://docs.tia.siemens.cloud/r/en-us/v20/wincc-unified-graphql-rt-unified/basics-rt-unified/security-rt-unified",
+            "https://www.siemens.com/en-us/products/simatic-wincc/unified/"
+          ],
+          "locator": "GraphQL operation types：Queries / Mutations / Subscriptions；Security"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：配置该 Runtime 的 GraphQL 客户端 → 登录 → Query 测试标签 → Subscription 观察变化 → 结束订阅；写入另用授权测试标签。",
+          "sourceUrl": "https://docs.tia.siemens.cloud/r/en-us/v21/wincc-unified-graphql-rt-unified/reference-of-graphql-api-rt-unified/graphql-operation-types-rt-unified?contentId=9CR4AQkVjF_j4ikM2J3tag"
+        }
+      },
+      {
+        "name": "Open Pipe",
+        "category": "runtime",
+        "entry": "V20 文档给出本机管道：Windows 为 \\\\.\\pipe\\HmiRuntime，Linux 为 /tmp/HmiRuntime；安装介质 SDK 的 OpenPipe/Samples 含示例。",
+        "role": "Runtime 的 OpennessManager 创建管道并处理请求；客户程序连接同一管道收发。",
+        "direction": "请求→Runtime；响应或订阅通知→客户程序。",
+        "operations": [
+          "ReadTag/WriteTag 读写一个或多个标签。",
+          "SubscribeTag/UnsubscribeTag 管理监视。",
+          "ReadAlarm、SubscribeAlarm/UnsubscribeAlarm 处理报警。",
+          "BrowseTags 与配置浏览接口发现对象。"
+        ],
+        "dataContract": "命令为单行并以换行结尾；expert syntax 使用 UTF-8 JSON，含 Message、Params 和必需 ClientCookie，回复保留 cookie。成功通知含对象值、时间戳和质量信息，失败提供错误字段。",
+        "workflow": [
+          "建议：解压安装介质 Support/Openness 的对应 SDK，查看 OpenPipe/Samples。",
+          "建议：连接测试 Runtime，先浏览和读取标签并用 ClientCookie 区分请求。",
+          "建议：测试订阅后取消，最后关闭管道；写入在已授权测试标签进行。"
+        ],
+        "execution": "本机两进程通过有缓冲的 FIFO 管道通信，响应回到同一实例；expert syntax 允许一个请求涉及多个对象。该接口功能范围少于完整 RT Openness。",
+        "failure": "失败消息按 Error<Command> 返回 ErrorCode、ErrorDescription 和 ClientCookie。官方提示文档只列部分错误，项目错误文本可能不同。",
+        "prerequisites": "需对应 Unified Runtime 正在运行、管道访问权限及配套版本语法；无需推定必须使用某一种编程语言。",
+        "version": "WinCC Unified Open Pipe V20，2025-06。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.tia.siemens.cloud/r/en-us/v20/wincc-unified-open-pipe-rt-unified/introduction-rt-unified",
+            "https://docs.tia.siemens.cloud/r/en-us/v20/wincc-unified-open-pipe-rt-unified/using-expert-syntax-rt-unified/basics-of-expert-syntax-rt-unified"
+          ],
+          "locator": "Introduction：Pipe technology / Samples；Basics of expert syntax：Characteristics / Response / Errors"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：安装介质 SDK 的 OpenPipe/Samples → 连接本机管道 → BrowseTags/ReadTag → 按 cookie 核对响应 → 取消订阅并关闭连接。",
+          "sourceUrl": "https://docs.tia.siemens.cloud/r/en-us/v20/wincc-unified-open-pipe-rt-unified/introduction-rt-unified"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens：WinCC Unified 开放接口",
+        "url": "https://www.siemens.com/en-us/products/simatic-wincc/unified/"
+      },
+      {
+        "title": "Siemens：V20 Open Pipe",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v20/wincc-unified-open-pipe-rt-unified/introduction-rt-unified"
+      },
+      {
+        "title": "Siemens：GraphQL 授权与设备限制",
+        "url": "https://sieportal.siemens.com/en-ww/products-services/10620165?tree=CatalogTree"
+      },
+      {
+        "title": "Siemens：Open Pipe V20 expert syntax",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v20/wincc-unified-open-pipe-rt-unified/using-expert-syntax-rt-unified/basics-of-expert-syntax-rt-unified"
+      },
+      {
+        "title": "Siemens：GraphQL V21 operation types",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v21/wincc-unified-graphql-rt-unified/reference-of-graphql-api-rt-unified/graphql-operation-types-rt-unified?contentId=9CR4AQkVjF_j4ikM2J3tag"
+      },
+      {
+        "title": "Siemens：GraphQL V20 security",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v20/wincc-unified-graphql-rt-unified/basics-rt-unified/security-rt-unified"
+      }
+    ]
+  },
+  {
+    "name": "AVEVA Manufacturing Execution System",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "所读 Development library 文档属于 MES 2023 R2，页面更新于 2026-04-24；升级 MES 后，API DLL 必须同步升级。",
+      "humanEntry": "MES 客户端提供人工生产操作；安装 Development Library 后，第三方应用或脚本引用 API DLL。",
+      "coverage": "确认 Stateful/Stateless 两套 .NET API 和组件文件；未读取完整 API Reference，不填写推测业务方法。",
+      "unknowns": [
+        "Stateful/Stateless 的具体登录、会话释放、事务和业务方法签名未从本次组件页取得。",
+        "DLL 的类名和授权规则不能从文件名自动推断；本次未加载程序集。",
+        "集群、进程位数、并发调用与断线重试的限制未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "MES .NET Stateful / Stateless API",
+        "category": "program",
+        "entry": "MES 安装组件 Development Library，安装 API DLL；详细方法由 MES Stateless and Stateful API Reference online help 提供。",
+        "role": "第三方 .NET 应用引用 MES 官方客户端库。",
+        "direction": "文档确认第三方开发入口，但具体业务资源的读写方向未列于组件页。",
+        "operations": [
+          "安装并引用 MES API DLL。",
+          "通过对应 Stateful 或 Stateless API 开发应用。",
+          "升级时替换为与 MES 匹配的 DLL。"
+        ],
+        "dataContract": "文件包括 FactMES.API.Core/Prod/Quality 等及 FactMES.Client.*；这些是程序集名，不构成已核实的方法列表或 REST 端点。业务对象与返回结构待同版 API Reference。",
+        "workflow": [
+          "建议：在测试客户端安装与服务器版本一致的 Development Library。",
+          "建议：从同版 API Reference 选择一个有文档的只读方法，核对登录与对象标识。",
+          "建议：明确事务及错误规则后再验证业务写入；升级时重做兼容性检查。"
+        ],
+        "execution": "仅凭 Stateful/Stateless 名称不能推定会话保持、事务隔离或线程安全；本次未取得生命周期 API。",
+        "failure": "未取得异常类型、结果状态或业务错误码。建议按官方 Reference 分类处理，不把 .NET 调用成功视为业务事务成功。",
+        "prerequisites": "需 MES 及 Development Library、匹配的程序集和开发/运行授权；具体账号和连接配置从部署文档获取。",
+        "version": "MES 2023 R2；DLL 随系统升级。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.aveva.com/bundle/manufacturing-execution-system/page/352856.html"
+          ],
+          "locator": "Development library (API DLLs)：安装说明、升级说明和 DLL 列表"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：安装 Development Library → 引用同版 API DLL → 查 Stateful/Stateless Reference → 测试只读调用 → 明确事务后再验证写入。",
+          "sourceUrl": "https://docs.aveva.com/bundle/manufacturing-execution-system/page/352856.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "AVEVA：MES 开发库 API DLL",
+        "url": "https://docs.aveva.com/bundle/manufacturing-execution-system/page/352856.html"
+      },
+      {
+        "title": "AVEVA：MES 产品与行业范围",
+        "url": "https://www.aveva.com/en/products/manufacturing-execution-system/"
+      }
+    ]
+  },
+  {
+    "name": "Esko Automation Engine / WebCenter 集成",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "集成任务以 WebCenter 24.11 文档为依据；JDF Workflow Connections 的所读文档为 WebCenter 18，不能默认所有字段和版本互通。",
+      "humanEntry": "Automation Engine 中的 Integrate with WebCenter 任务供工程人员配置；WebCenter 用户也可在浏览器中人工操作项目与文档。",
+      "coverage": "确认按 WebCenter 服务器实际提供的 Action 列表执行查询/修改，以及由 Workflow Connections 发送 JDF 创建/更新作业。",
+      "unknowns": [
+        "更详细 WebCenter SDK 文档指向官方知识库，本次未取得完整端点/动作返回契约。",
+        "JDF 版本、ICS 子集、投递方式和失败重送机制未在所读 Workflow Connections 页面规定。",
+        "不同版本服务器的 Action 集合和权限需由实际连接返回，不可预置为固定全集。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "WebCenter SDK 集成任务",
+        "category": "program",
+        "entry": "Automation Engine 任务 Integrate with WebCenter：配置 Site、Action、Options 和 Authentication。",
+        "role": "Automation Engine 调用所选 WebCenter 的集成能力；WebCenter 服务端提供实际可用动作。",
+        "direction": "查询数据从 WebCenter→任务输出；修改类动作从任务→WebCenter。",
+        "operations": [
+          "连接指定 Site 并获取其 Action 列表。",
+          "执行 Get List of Documents 或 Get Document History 等动作。",
+          "按 Action 生成输出文件或映射 Output Parameters 到 Workflow Parameters。"
+        ],
+        "dataContract": "参数结构随 Action 变化；身份验证支持用户名/密码或 Stored Password。Site 配置由管理员维护；动作以被选服务器返回为准。",
+        "workflow": [
+          "建议：管理员配置测试 WebCenter Site，确认连接返回的动作列表。",
+          "建议：使用最低必要权限先查询文档列表或历史，核对输出。",
+          "建议：再为已确认动作配置参数和结果映射；修改操作使用测试项目。"
+        ],
+        "execution": "连接配置动作会读取服务器命令列表，不只是网络测试；任务输出文件是否存在取决于所选 Action。",
+        "failure": "文档要求执行用户具有相应权限；统一错误码和异步作业状态未在本页给出。建议核对登录、Action 参数及任务输出。",
+        "prerequisites": "需匹配 Automation Engine 与 WebCenter、可访问 Site 和授权用户；完整 SDK 文档在官方知识库入口。",
+        "version": "WebCenter 24.11 集成任务文档。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.esko.com/docs/en-us/webcenter/24.11/installationguide/en-us/common/ae/concept/co_ae_AEWCR_IntegrWithWCRtask.html"
+          ],
+          "locator": "Task Options：Site / Action / Authentication；Modifying workflow parameters"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "官方操作路径：Integrate with WebCenter → Site → Action → Options → Authentication；建议先选查询动作验证输出。",
+          "sourceUrl": "https://docs.esko.com/docs/en-us/webcenter/24.11/installationguide/en-us/common/ae/concept/co_ae_AEWCR_IntegrWithWCRtask.html"
+        }
+      },
+      {
+        "name": "JDF",
+        "category": "file",
+        "entry": "WebCenter 的 Workflow Connections 生成并向 Automation Engine/工作流系统发送 JDF。",
+        "role": "WebCenter 为项目信息发送端；Automation Engine 为作业接收端。",
+        "direction": "WebCenter 项目/文档→JDF→Automation Engine 新建或更新 Job。",
+        "operations": [
+          "同步项目、文档和属性信息。",
+          "创建或更新 Automation Engine Job。",
+          "由连接提交外部工作流。"
+        ],
+        "dataContract": "项目/文档属性映射到 Job Setup 参数，文档映射到 job documents。该页确认的是 JDF，不能据协议目录合并名称推定同时支持 XJDF 或全部 JMF。",
+        "workflow": [
+          "建议：以测试项目定义属性和文档到 Job Setup 的映射。",
+          "建议：发送一次 JDF，检查作业创建与已有作业更新两种情形。",
+          "建议：保留发送文件、接收日志和最终参数，核对标识和附件。"
+        ],
+        "execution": "同步/提交由 Workflow Connections 触发；本页没有给出传输协议、确认状态或原子提交保证。",
+        "failure": "建议核对缺失属性、目标作业标识及附件可达性；失败码和自动重送规则本次未确认。",
+        "prerequisites": "需 WebCenter Workflow Connections、目标工作流系统和映射配置；具体授权及网络投递按版本安装文档。",
+        "version": "WebCenter 18 文档；未验证与当前 Automation Engine 组合。",
+        "implementation": "文件交换",
+        "standardIds": [
+          "p22"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.esko.com/docs/en-us/webcenter/18/adminguide/en-us/common/wc/concept/co_wc_AEIntegrateWFConnections.html"
+          ],
+          "locator": "Workflow Connections：JDF；mapping to Automation Engine Jobs"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议操作路径：Workflow Connections → 测试项目/文档映射 → 发送 JDF → 核对 Automation Engine Job 与文档。",
+          "sourceUrl": "https://docs.esko.com/docs/en-us/webcenter/18/adminguide/en-us/common/wc/concept/co_wc_AEIntegrateWFConnections.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Esko：Integrate with WebCenter 任务",
+        "url": "https://docs.esko.com/docs/en-us/webcenter/24.11/installationguide/en-us/common/ae/concept/co_ae_AEWCR_IntegrWithWCRtask.html"
+      },
+      {
+        "title": "Esko：Workflow Connections JDF 交换",
+        "url": "https://docs.esko.com/docs/en-us/webcenter/18/adminguide/en-us/common/wc/concept/co_wc_AEIntegrateWFConnections.html"
+      }
+    ]
+  },
+  {
+    "name": "CLO",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "versionBoundary": "官方 DXF 帮助按当前选项描述，并明确 2026.1 起缝份自动读取/转换的变更；旧版菜单与行为不应直接套用。",
+      "humanEntry": "桌面 File > Import / Import (Add) / Export > DXF；导出对话框选择格式、尺寸组和单位。",
+      "coverage": "确认服装 DXF 的双向版型交换，涵盖放码、刀口、缝线/裁线及缝份相关选项。",
+      "unknowns": [
+        "所用下游 CAD/裁床软件是否保留全部标记和放码规则尚未实测。",
+        "兼容表不提供程序 API 的错误契约；本条只描述原记录中的文件接口。",
+        "当前安装版本、下游导入选项及实际尺寸组未指定。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "DXF-AAMA / DXF-ASTM",
+        "category": "file",
+        "entry": "File > Import/Import (Add) > DXF 或 File > Export > DXF；在对话框明确 AAMA/ASTM 格式。",
+        "role": "CLO 与服装 CAD 通过版型文件互换。",
+        "direction": "服装 CAD→CLO 导入；CLO→下游 CAD 导出。",
+        "operations": [
+          "导入二维版型并选择单位、旋转、标注及刀口选项。",
+          "导出指定尺寸组，选择 AAMA/ASTM。",
+          "将放码随 DXF 保存或另用 Rule File。",
+          "按需要交换裁线/缝线或导出选中版片。"
+        ],
+        "dataContract": "文件承载二维版型；每个导出文件只选择一个尺寸组。单位、放码、刀口、缝线/裁线与曲线点选项影响互操作。2026.1 起缝份自动转换为锁定的自定义缝份。",
+        "workflow": [
+          "建议：用少量含放码、刀口与缝份的版片建立样例。",
+          "建议：明确格式、尺寸组与单位，导出后在下游重新导入。",
+          "建议：比对尺寸、曲线、刀口和放码；记录裁线/缝线互换等选项后再批量交换。"
+        ],
+        "execution": "由桌面导入/导出生成文件，不能据此推断后台程序调用；成功打开文件也不能证明生产语义完整。",
+        "failure": "官方给出通过选项处理曲线失真、线型差异和缝份转换的办法。建议把尺寸缩放、标记缺失和曲线变化分别检查；未取得错误码表。",
+        "prerequisites": "需 CLO 和支持相应服装 DXF 的下游 CAD；无需将服装 AAMA/ASTM 与普通 DXF 混同。",
+        "version": "官方当前帮助；缝份行为变更自 2026.1 起。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://support.clo3d.com/hc/en-us/articles/115000493067-2D-Pattern-DXF-Import-Export"
+          ],
+          "locator": "Import (Add) / Export：File Format、Scale、Size format、Swap Cutting Line and Sewing Line、2026.1 change"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "官方入口：File → Export → DXF → 选择 DXF-AAMA 或 DXF-ASTM、尺寸组和单位；建议在下游回读核对。",
+          "sourceUrl": "https://support.clo3d.com/hc/en-us/articles/115000493067-2D-Pattern-DXF-Import-Export"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "CLO：Compatible File Format",
+        "url": "https://support.clo3d.com/hc/en-us/articles/115002000227-Compatible-File-Format"
+      },
+      {
+        "title": "CLO：2D Pattern DXF Import/Export",
+        "url": "https://support.clo3d.com/hc/en-us/articles/115000493067-2D-Pattern-DXF-Import-Export"
+      }
+    ]
+  }
+]

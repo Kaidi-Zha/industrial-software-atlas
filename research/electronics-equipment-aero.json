@@ -1,0 +1,728 @@
+[
+  {
+    "name": "KLayout",
+    "vendor": "KLayout 项目 / Matthias Köfferlein",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "芯片制造掩模版图查看、编辑和几何处理；可将版图处理纳入自动化流程。",
+    "interfaces": [
+      {
+        "name": "Python / Ruby API",
+        "type": "API/SDK",
+        "detail": "内嵌 Python 与 Ruby；Python 包的 klayout.db 可生成、修改、分析版图。"
+      },
+      {
+        "name": "GDSII / OASIS / CIF / DXF / Gerber",
+        "type": "文件格式",
+        "detail": "官方模块说明列出这些版图或绘图文件的读写能力。"
+      }
+    ],
+    "constraints": "PyPI 包仅提供完整 API 的子集，缺少用户界面类。",
+    "sources": [
+      {
+        "title": "KLayout 官方 Python 模块说明",
+        "url": "https://www.klayout.org/klayout-pypi/"
+      }
+    ],
+    "evidence": "官方文档明确用途是芯片制造掩模版图，并说明 Ruby/Python、文件读写及 PyPI 子集边界。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OpenROAD",
+    "vendor": "The OpenROAD Project",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "数字集成电路物理实现，覆盖布局、时钟树、布线等步骤。",
+    "interfaces": [
+      {
+        "name": "Tcl / Python",
+        "type": "脚本/CLI",
+        "detail": "Tcl 命令和脚本驱动实现流程；可用 openroad -python 执行 Python。"
+      },
+      {
+        "name": "LEF / DEF / Verilog / OpenDB",
+        "type": "文件格式",
+        "detail": "官方 API 提供 read_lef、read_def、read_verilog、write_db 等设计数据命令。"
+      }
+    ],
+    "constraints": "Python 支持有限：不支持 read_verilog、write_verilog、write_abstract_lef。工艺适配依赖对应 PDK 与流程配置。依据为 latest 在线文档，未固定安装提交。",
+    "sources": [
+      {
+        "title": "OpenROAD 官方 API 文档",
+        "url": "https://openroad.readthedocs.io/en/latest/main/src/README.html"
+      }
+    ],
+    "evidence": "官方文档列出设计数据命令及 Tcl/Python 差别，并展示从 RTL 到详细布线的示例流程。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "KiCad",
+    "vendor": "KiCad 开发团队",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "电子原理图与 PCB 设计，以及 PCB 制造资料输出。",
+    "interfaces": [
+      {
+        "name": "IPC API / kicad-python",
+        "type": "API/SDK",
+        "detail": "KiCad 9.0 起提供进程间 API；官方 Python 客户端可操作受支持的编辑器对象。IPC 在此指进程间通信。"
+      },
+      {
+        "name": "kicad-cli",
+        "type": "脚本/CLI",
+        "detail": "插件可调用 kicad-cli 自动绘图或导出；其导出功能与 GUI IPC API 分开提供。"
+      }
+    ],
+    "constraints": "KiCad 9/10 的 IPC API 仅连接运行中的 PCB GUI，不支持直接绘图导出。在线开发文档将无界面模式、原理图插件和 API 导出列为 KiCad 11 新增能力。",
+    "sources": [
+      {
+        "title": "KiCad 官方：插件开发者的 IPC API 文档",
+        "url": "https://dev-docs.kicad.org/en/apis-and-binding/ipc-api/for-addon-developers/"
+      },
+      {
+        "title": "KiCad 官方 PCB 编辑器手册",
+        "url": "https://docs.kicad.org/master/ca/pcbnew/pcbnew.html"
+      }
+    ],
+    "evidence": "官方开发文档逐项区分 9/10 与 11 的 API 范围；PCB 手册说明制造输出用途。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Altium Designer",
+    "vendor": "Altium",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "PCB 原理图、布线、设计规则和电子系统设计资料准备。",
+    "interfaces": [
+      {
+        "name": "DelphiScript",
+        "type": "脚本/CLI",
+        "detail": "内置脚本系统支持 Delphi 运行时库的子集，并可调用 Altium Designer API。"
+      },
+      {
+        "name": "Altium Designer Scripting API",
+        "type": "API/SDK",
+        "detail": "通过脚本访问设计文档和受支持的编辑器对象，扩展或自动化设计操作。"
+      }
+    ],
+    "constraints": "脚本系统仅支持 Delphi RTL 的子集。API 持续变化，部分旧示例可能失效，需结合实际版本复核。",
+    "sources": [
+      {
+        "title": "Altium Designer 官方产品页",
+        "url": "https://www.altium.com/altium-designer"
+      },
+      {
+        "title": "Altium 官方 DelphiScript 支持说明",
+        "url": "https://www.altium.com/documentation/altium-designer/scripting/delphiscript/support"
+      },
+      {
+        "title": "Altium 官方：编写脚本",
+        "url": "https://www.altium.com/documentation/altium-designer/scripting/writing-scripts"
+      }
+    ],
+    "evidence": "官方产品页确认 PCB 设计用途；DelphiScript 文档确认 RTL 子集、软件 API 以及旧示例兼容性风险。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Ansys HFSS",
+    "vendor": "Ansys",
+    "sector": "electronics",
+    "stage": "工艺仿真",
+    "purpose": "高频三维电磁仿真，用于天线、封装和电子组件的电磁性能分析。",
+    "interfaces": [
+      {
+        "name": "PyAEDT Hfss API",
+        "type": "API/SDK",
+        "detail": "Python 接口可创建或连接 HFSS 设计、设置求解并访问后处理。"
+      },
+      {
+        "name": "AEDT / AEDTZ",
+        "type": "文件格式",
+        "detail": "Hfss 构造接口接受 AEDT 工程文件或 AEDTZ 归档路径。"
+      },
+      {
+        "name": "Touchstone sNp / CSV",
+        "type": "文件格式",
+        "detail": "官方 API 列出适用时导出 sNp 结果，以及参数化计算结果 CSV 导出。"
+      }
+    ],
+    "constraints": "需要兼容的 AEDT 安装、HFSS 求解器授权和 PyAEDT 版本；可用导出取决于求解类型与结果状态。",
+    "sources": [
+      {
+        "title": "Ansys HFSS 官方介绍",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v252/en/PDFs/An%20Introduction%20to%20HFSS.pdf"
+      },
+      {
+        "title": "PyAEDT 官方 Hfss API",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.hfss.Hfss.html"
+      }
+    ],
+    "evidence": "2025 R2 官方介绍确认高频产品仿真用途；PyAEDT API 直接列明工程输入、结果导出和设计操作。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Victory TCAD / DeckBuild",
+    "vendor": "Silvaco",
+    "sector": "electronics",
+    "stage": "工艺仿真",
+    "purpose": "半导体工艺与器件仿真流程；DeckBuild 提供输入 deck 编辑、执行、调试与参数提取环境。",
+    "interfaces": [
+      {
+        "name": "DeckBuild 仿真 deck",
+        "type": "脚本/CLI",
+        "detail": "仿真输入支持变量、循环、条件与 SOURCE 外部文件调用；EXTRACT 用于提取器件或工艺参数。"
+      },
+      {
+        "name": "DeckBuild Python 3 模块",
+        "type": "API/SDK",
+        "detail": "集成 Python 3 模块用于仿真器控制、自定义提取和 GUI 扩展；该接口归属 DeckBuild。"
+      }
+    ],
+    "constraints": "Victory Process、Victory Device 等求解器与 DeckBuild/Interactive Tools 的模块及授权需分别确认；部分官方手册需账号。此处的 Python 接口属于 DeckBuild。",
+    "sources": [
+      {
+        "title": "Silvaco 官方 Interactive Tools 产品简介",
+        "url": "https://silvaco.com/wp-content/uploads/product/pdf/Interactive_Tools_brief.pdf"
+      },
+      {
+        "title": "Silvaco 官方：Victory Visual 与 DeckBuild",
+        "url": "https://silvaco.com/solutions/ftco/victory-visual/"
+      },
+      {
+        "title": "Silvaco 官方 DeckBuild SOURCE 示例",
+        "url": "https://silvaco.com/examples/examples-tcad/examples-tcad-tool/examples-tcad-tool-deckbuild/examples-tcad-tool-deckbuild-deckbuild/deckbuild-ex04/"
+      }
+    ],
+    "evidence": "官方简介把 DeckBuild 定义为 TCAD 输入与运行环境；产品页明确 Python 3；官方示例演示 SOURCE。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "NX / NX CAM",
+    "vendor": "Siemens Digital Industries Software",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "装备零部件 CAD/CAM，数控编程、加工路径生成与机床加工仿真。",
+    "interfaces": [
+      {
+        "name": "NX Open",
+        "type": "API/SDK",
+        "detail": "官方培训列出 Visual Basic.NET、C#、C/C++、Python 与 Java，访问 NX Common API。"
+      },
+      {
+        "name": "G-code / NC 程序",
+        "type": "文件格式",
+        "detail": "NX CAM 后处理生成针对机床配置的数控程序，并提供 G-code 驱动仿真。"
+      }
+    ],
+    "constraints": "CAD/CAM 功能及 NX Open 开发、执行权限随版本、产品包和授权变化；数控输出需要适配机床的后处理器。",
+    "sources": [
+      {
+        "title": "Siemens 官方 NX CAM 软件",
+        "url": "https://www.siemens.com/en-us/products/nx-manufacturing/cam-software/"
+      },
+      {
+        "title": "Siemens Xcelerator Academy：NX Open API",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=TR-OPENAPI____NX___1926.0_B3"
+      }
+    ],
+    "evidence": "NX CAM 产品页确认数控编程、后处理与 G-code 仿真；官方课程明确 NX Open 所支持语言。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SOLIDWORKS Design",
+    "vendor": "Dassault Systèmes / SOLIDWORKS",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "装备零件、装配体与工程图设计，为制造准备三维模型和关联图纸。",
+    "interfaces": [
+      {
+        "name": "SOLIDWORKS API / API SDK",
+        "type": "API/SDK",
+        "detail": "官方 2025 API 文档提供 C#、VB.NET 插件模板及 C++/CLI COM 插件向导。"
+      }
+    ],
+    "constraints": "依据为 SOLIDWORKS 2025 API 开发说明；需要相应软件安装、SDK 和 Visual Studio。PDM 与 Document Manager 另有 API 和授权要求。",
+    "sources": [
+      {
+        "title": "SOLIDWORKS Design 官方产品页",
+        "url": "https://www.solidworks.com/product/solidworks-design"
+      },
+      {
+        "title": "SOLIDWORKS 2025 API 入门概览",
+        "url": "https://help.solidworks.com/2025/english/api/sldworksapiprogguide/GettingStarted/SolidWorks_API_Getting_Started_Overview.htm"
+      }
+    ],
+    "evidence": "官方产品页说明零件、装配和生产图纸用途；版本化 API 文档给出 SDK 安装与插件语言模板。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Mastercam",
+    "vendor": "Mastercam / CNC Software",
+    "sector": "equipment",
+    "stage": "工艺仿真",
+    "purpose": "数控铣削、车削及多轴加工编程，生成刀路并输出机床程序。",
+    "interfaces": [
+      {
+        "name": "C-Hook SDK / 开放 API",
+        "type": "API/SDK",
+        "detail": "官方第三方开发者计划提供 C-Hook SDK；产品页确认开放 API 用于定制流程。"
+      },
+      {
+        "name": "G-code / 后处理输出",
+        "type": "文件格式",
+        "detail": "将 CAM 刀路经后处理转为对应 CNC 机床的加工程序。"
+      }
+    ],
+    "constraints": "SDK 获取与详细开发文档依赖开发者计划；当前 SDK 精确版本未核实。多轴、机床仿真和后处理器能力随模块及机床配置变化。",
+    "sources": [
+      {
+        "title": "Mastercam 官方第三方开发者计划",
+        "url": "https://www.mastercam.com/community/3rd-party-developers/"
+      },
+      {
+        "title": "Mastercam 官方铣削产品说明",
+        "url": "https://www.mastercam.com/solutions/products/mill-solutions/"
+      },
+      {
+        "title": "Mastercam 官方产品与 CAD/CAM 工作流",
+        "url": "https://www.mastercam.com/solutions/products/"
+      }
+    ],
+    "evidence": "开发者页面列出 C-Hook SDK；产品页说明刀路、API、后处理及 CNC 程序生成。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "RobotStudio",
+    "vendor": "ABB Robotics",
+    "sector": "equipment",
+    "stage": "工艺仿真",
+    "purpose": "机器人工作站离线编程与仿真，并配置、监督真实或虚拟机器人控制器。",
+    "interfaces": [
+      {
+        "name": "RobotStudio SDK",
+        "type": "API/SDK",
+        "detail": "开发插件、SmartComponents 与自定义应用；2026 SDK 基于 .NET 10。"
+      },
+      {
+        "name": "PC SDK",
+        "type": "API/SDK",
+        "detail": "可开发连接 IRC5 或 OmniCore 真实/虚拟控制器的程序及 RobotStudio 插件；与工作站 SDK 分属不同接口。"
+      }
+    ],
+    "constraints": "2026 SDK 要求旧 .NET Framework 插件迁移。引用 ABB.Robotics.RobotStudio.dll 的插件运行需 Premium；控制器访问另受 RobotWare、权限和配置约束。",
+    "sources": [
+      {
+        "title": "ABB 官方 RobotStudio SDK",
+        "url": "https://developercenter.robotstudio.com/api/robotstudio/"
+      },
+      {
+        "title": "ABB 官方 SDK 安装与授权",
+        "url": "https://developercenter.robotstudio.com/api/robotstudio/articles/Introduction/Installation.html"
+      },
+      {
+        "title": "ABB 官方 PC SDK",
+        "url": "https://developercenter.robotstudio.com/api/pcsdk/"
+      }
+    ],
+    "evidence": "官方 SDK 首页说明机器人工作站用途及扩展对象；安装页说明运行授权；PC SDK 页明确控制器范围。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "TwinCAT 3",
+    "vendor": "Beckhoff Automation",
+    "sector": "equipment",
+    "stage": "设备控制",
+    "purpose": "PLC、运动控制及自动化设备工程与运行，连接控制任务和上层应用。",
+    "interfaces": [
+      {
+        "name": "ADS",
+        "type": "通信协议",
+        "detail": "TwinCAT 自身的通信协议，用于过程映像、变量、状态、I/O 任务等数据交换和访问。"
+      },
+      {
+        "name": "ADS C/C++ / .NET",
+        "type": "API/SDK",
+        "detail": "官方提供 ADS 组件用于将外部应用接入 TwinCAT。"
+      },
+      {
+        "name": "OPC UA（TF6100）",
+        "type": "通信协议",
+        "detail": "TF6100 的 Server/Client 等组件提供 OPC UA 数据交换。"
+      }
+    ],
+    "constraints": "OPC UA 需要 TF6100 相应组件与授权；ADS 路由、系统权限和安全配置需按部署环境确认。",
+    "sources": [
+      {
+        "title": "Beckhoff 官方 TwinCAT ADS",
+        "url": "https://infosys.beckhoff.com/content/1033/tcinfosys3/11291871243.html"
+      },
+      {
+        "title": "Beckhoff 官方 TwinCAT 技术接口",
+        "url": "https://infosys.beckhoff.com/content/1033/tcinfosys3/4340785803.html"
+      },
+      {
+        "title": "Beckhoff 官方 TF6100 组件概览",
+        "url": "https://infosys.beckhoff.com/content/1033/tf6100_tc3_opcua_gateway/15549189643.html"
+      }
+    ],
+    "evidence": "官方资料直接定义 ADS 为 TwinCAT 通信协议，列出外部开发组件，并明确 OPC UA 各组件所属 TF6100。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Ignition",
+    "vendor": "Inductive Automation",
+    "sector": "equipment",
+    "stage": "运行运维",
+    "purpose": "构建工厂监控、数据采集与工业应用，汇聚设备数据并支持监视和交互。",
+    "interfaces": [
+      {
+        "name": "OPC UA（OPC UA 模块）",
+        "type": "通信协议",
+        "detail": "官方模块提供 OPC UA 服务端和客户端能力，连接设备与外部系统。"
+      },
+      {
+        "name": "system.opcua",
+        "type": "API/SDK",
+        "detail": "Ignition 8.3 脚本 API 提供 addConnection、removeConnection、callMethod 等 OPC UA 操作。"
+      }
+    ],
+    "constraints": "功能取决于安装模块、驱动、授权和连接权限；8.3 函数需按 Gateway/Perspective 等作用域核实。",
+    "sources": [
+      {
+        "title": "Ignition 官方 OPC UA 模块说明",
+        "url": "https://s3.amazonaws.com/files.inductiveautomation.com/sellsheets/modules/ProductDataSheet-Module-OPCUA.pdf"
+      },
+      {
+        "title": "Ignition 8.3 官方 system.opcua 文档",
+        "url": "https://docs.inductiveautomation.com/docs/8.3/appendix/scripting-functions/system-opcua"
+      },
+      {
+        "title": "Ignition 官方工业应用平台说明",
+        "url": "https://assets.inductiveautomation.com/static/pdf/Product%20Sheet_Ignitionv7.9.bd5cdac4bb33.pdf"
+      }
+    ],
+    "evidence": "官方产品资料说明工业监控与数据连接用途；8.3 API 文档列明 OPC UA 操作。平台总览资料对应较早版本，8.3 接口以版本化文档为依据。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CATIA V5",
+    "vendor": "Dassault Systèmes",
+    "sector": "aerospace",
+    "stage": "研发设计",
+    "purpose": "航空器零件、曲面和装配设计；适用于航空装备的三维产品开发。",
+    "interfaces": [
+      {
+        "name": "CAA V5 API",
+        "type": "API/SDK",
+        "detail": "官方指南提供 CAA API 安装、C++ 编译、执行和调试的开发步骤。"
+      }
+    ],
+    "constraints": "CAA 安装指南基于 V5-6R2025；需匹配版本、编译器和开发授权。完整开发指南需 Support 访问权限。3DEXPERIENCE CATIA 的接口适配需另行核实。",
+    "sources": [
+      {
+        "title": "Dassault Systèmes 官方 CATIA V5 与 CAA API 安装指南",
+        "url": "https://www.3ds.com/support/documentation/resource-library/installation-catia-v5-and-caa-api"
+      },
+      {
+        "title": "Dassault Systèmes 官方开发者指南入口",
+        "url": "https://www.3ds.com/support/documentation/developer-guides"
+      },
+      {
+        "title": "Dassault Systèmes 官方 Vertical Aerospace 案例",
+        "url": "https://www.3ds.com/sites/default/files/2021-02/vertical-aerospace-cs-electric-aircraft.pdf"
+      }
+    ],
+    "evidence": "官方 CAA 文档说明 V5 编程开发方法；官方航空案例说明 CATIA 在航空器零件三维设计中的用途。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Abaqus",
+    "vendor": "Dassault Systèmes / SIMULIA",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "航空结构的非线性有限元分析，如复杂接触、复合材料及冲击载荷响应。",
+    "interfaces": [
+      {
+        "name": "Abaqus Scripting Interface / Python",
+        "type": "API/SDK",
+        "detail": "通过 Python 自动化 CAE 操作与 ODB 结果访问。"
+      },
+      {
+        "name": "abaqus python",
+        "type": "脚本/CLI",
+        "detail": "官方技术文章展示使用命令行执行 Python 脚本以处理分析数据。"
+      }
+    ],
+    "constraints": "Python 证据包含较早的官方技术文章；具体 Python 版本、模块、求解器授权和结果数据库兼容性需对照所用 Abaqus 发布版。",
+    "sources": [
+      {
+        "title": "Dassault Systèmes 官方 Abaqus 产品页",
+        "url": "https://www.3ds.com/products/simulia/abaqus"
+      },
+      {
+        "title": "Dassault Systèmes 官方航空防务仿真说明",
+        "url": "https://www.3ds.com/products/simulia/aerospace-defense"
+      },
+      {
+        "title": "Dassault Systèmes 官方：Abaqus Scripting Interface 的 ODB 结果处理",
+        "url": "https://blog.3ds.com/ko/brands/simulia/tip-abaqus-scripting-interface-abaqus-odb/"
+      }
+    ],
+    "evidence": "官方产品与行业页确认非线性结构和航空应用；官方技术文章确认 Python、ODB 与命令行访问方式。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Ansys STK",
+    "vendor": "Ansys / AGI",
+    "sector": "aerospace",
+    "stage": "研发设计",
+    "purpose": "航天和航空任务级建模，分析卫星、飞行器、载荷与任务环境之间的关系。",
+    "interfaces": [
+      {
+        "name": "STK Python API",
+        "type": "API/SDK",
+        "detail": "可连接 STK Desktop 或 Engine；当前官方文档还说明可选 gRPC 远程通信。"
+      },
+      {
+        "name": "Connect 命令",
+        "type": "脚本/CLI",
+        "detail": "字符串命令可设置对象和获取报告；可通过 TCP/IP socket 或适用的 COM 入口发送。"
+      },
+      {
+        "name": "Connect over TCP/IP",
+        "type": "通信协议",
+        "detail": "STK 通过指定端口接收 Connect 命令，官方默认端口为 5001。"
+      }
+    ],
+    "constraints": "需要安装并授权 STK/Engine。Python 入门示例为 STK 13.1，要求 Python 3.10 及以上；远程 API 另需 grpcio/protobuf。Connect 与 Object Model 的功能范围不同，COM 不支持异步 Connect。",
+    "sources": [
+      {
+        "title": "Ansys 官方 STK 产品页",
+        "url": "https://ansys.synopsys.com/products/missions/ansys-stk"
+      },
+      {
+        "title": "STK 官方 Python API 入门",
+        "url": "https://help.agi.com/stkdevkit/Content/python/pythonGettingStarted.htm"
+      },
+      {
+        "title": "STK 官方 Connect 入门",
+        "url": "https://help.agi.com/stk/Subsystems/connect/Content/start.htm"
+      }
+    ],
+    "evidence": "官方产品页确认任务级环境；API 文档明确 Python、gRPC、Connect 传输、默认端口和前提条件。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OpenVSP",
+    "vendor": "OpenVSP 项目",
+    "sector": "aerospace",
+    "stage": "研发设计",
+    "purpose": "参数化航空器几何建模与概念设计分析，支持方案权衡和外部优化流程。",
+    "interfaces": [
+      {
+        "name": "C++ / Python / MATLAB API",
+        "type": "API/SDK",
+        "detail": "官方说明 API 将 GUI 的建模分析功能暴露给程序，可无界面运行并集成外部软件。"
+      },
+      {
+        "name": "AngelScript",
+        "type": "脚本/CLI",
+        "detail": "官方发行版包含 AngelScript API 示例及 CustomGeom 自定义几何脚本。"
+      }
+    ],
+    "constraints": "主要服务参数化几何与概念分析；生产详设和制造定义需通过对应工程流程完成。API 包、运行库和 Python 环境需与发行版匹配。",
+    "sources": [
+      {
+        "title": "OpenVSP 官方项目代码仓库",
+        "url": "https://github.com/OpenVSP/OpenVSP"
+      },
+      {
+        "title": "OpenVSP 官方 Python API 文档",
+        "url": "https://openvsp.org/pyapi_docs/latest/"
+      }
+    ],
+    "evidence": "项目仓库定义其为参数化航空器几何工具；API 首页明确 C++、Python/MATLAB、无界面集成和 AngelScript 示例。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Simpack（含 Rail 模块）",
+    "vendor": "Dassault Systèmes / SIMULIA",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "轨道车辆轮轨接触、转向架、列车动力学以及航空装备多体动力学分析。",
+    "interfaces": [
+      {
+        "name": "FMI / FMU Import & Export",
+        "type": "信息模型",
+        "detail": "多域接口模块支持导入 Model Exchange 和 Co-Simulation FMU；导出当前主要面向 Co-Simulation。"
+      },
+      {
+        "name": "SIMAT",
+        "type": "API/SDK",
+        "detail": "Simpack 与 MATLAB/Simulink 的联合仿真及线性系统矩阵接口。"
+      },
+      {
+        "name": "IPC Co-Simulation / TCP/IP sockets",
+        "type": "通信协议",
+        "detail": "通过 TCP/IP socket 将 Simpack 与其他仿真软件或硬件耦合。"
+      },
+      {
+        "name": "MAT",
+        "type": "文件格式",
+        "detail": "MATLAB Result Export 可输出指定仿真结果为 .mat 文件。"
+      }
+    ],
+    "constraints": "Rail 与 Multi-Domain Interfaces 需要对应模块授权。FMI 支持版本未核实；联算步长与平台兼容性需另查。",
+    "sources": [
+      {
+        "title": "Dassault Systèmes 官方 Simpack 产品与 Rail 用途",
+        "url": "https://www.3ds.com/products/simulia/simpack"
+      },
+      {
+        "title": "Dassault Systèmes 官方 Simpack 多域接口",
+        "url": "https://akamai.3ds.com/products/simulia/simpack/multi-domain-interfaces"
+      }
+    ],
+    "evidence": "官方产品页列明轨道车辆动力学和航空应用；多域接口页逐项说明 FMI、SIMAT、MAT 与 TCP/IP 联算。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Simcenter Amesim",
+    "vendor": "Siemens Digital Industries Software",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "航空燃油等多物理系统的一维建模与仿真，评估系统动态响应和参数方案。",
+    "interfaces": [
+      {
+        "name": "Python Script API",
+        "type": "API/SDK",
+        "detail": "官方培训列明 Simcenter 脚本 API 与 Python，用于任务自动化和应用开发。"
+      },
+      {
+        "name": "FMU 导出",
+        "type": "信息模型",
+        "detail": "官方 2019.2 发布说明明确，含 Modelica/Simulink 组件的 Amesim 模型可在适用 Windows/Linux 平台导出为 FMU。"
+      }
+    ],
+    "constraints": "接口依据包含 2019.2 官方课程和发布说明；当前版本的精确 API、FMI 版本、可导出组件及授权未逐项核实。",
+    "sources": [
+      {
+        "title": "Siemens 官方航空燃油系统仿真课程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=ILTLG018017___LMS__2020.2_B1105"
+      },
+      {
+        "title": "Siemens 官方 Python 与 App Designer 课程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=1D+AmePyApp-PRLMS__2019.2_B9"
+      },
+      {
+        "title": "Siemens 官方系统仿真软件 2019.2 发布说明",
+        "url": "https://blogs.sw.siemens.com/simcenter/simcenter-system-simulation-solutions-2019-2-whats-new/"
+      }
+    ],
+    "evidence": "官方航空课程明确燃油系统用途；Python 课程确认脚本 API；官方发布说明区分 Amesim FMU 导出与其他产品功能。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Cadence Virtuoso Studio",
+    "vendor": "Cadence Design Systems",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "定制、模拟、射频与混合信号集成电路的原理图、仿真、版图和结果分析流程。",
+    "interfaces": [
+      {
+        "name": "SKILL",
+        "type": "脚本/CLI",
+        "detail": "Virtuoso Layout Suite 官方资料明确 SKILL 支持直接数据库访问、工具配置及与其他工具互操作，可编写版图自动化。"
+      },
+      {
+        "name": "OCEAN",
+        "type": "脚本/CLI",
+        "detail": "ViVA 官方资料明确 OCEAN 提供命令行函数，可批量运行仿真并分析模拟、射频、混合信号结果。"
+      }
+    ],
+    "constraints": "SKILL、OCEAN 函数范围随 Layout Suite、ADE、ViVA 等组件及版本变化；求解器与 PDK 需配置和授权。OCEAN 依据为较早的官方 ViVA 数据表，IC25.1 命令兼容性未逐项核实。",
+    "sources": [
+      {
+        "title": "Cadence 官方 Virtuoso Studio 产品页",
+        "url": "https://www.cadence.com/en_US/home/tools/custom-ic-analog-rf-design/virtuoso-studio.html"
+      },
+      {
+        "title": "Cadence 官方 Virtuoso Layout Suite 数据表",
+        "url": "https://www.cadence.com/en_US/home/resources/datasheets/virtuoso-layout-suite-ds.html"
+      },
+      {
+        "title": "Cadence 官方 Virtuoso Visualization and Analysis 数据表",
+        "url": "https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/custom-ic-analog-rf-design/virtuoso-visualization-analysis-ds.pdf"
+      }
+    ],
+    "evidence": "产品页确认定制 IC 工作流；Layout Suite 数据表直接说明 SKILL 数据库访问；ViVA 数据表的 Post-processing and scripting 段明确 OCEAN 批处理与结果分析。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Synopsys Sentaurus TCAD",
+    "vendor": "Synopsys",
+    "sector": "electronics",
+    "stage": "工艺仿真",
+    "purpose": "半导体制造工艺、器件工作特性和可靠性仿真；通过 Workbench 管理参数化仿真流程。",
+    "interfaces": [
+      {
+        "name": "Tcl（Sentaurus Visual）",
+        "type": "脚本/CLI",
+        "detail": "2025 官方产品册确认 Sentaurus Visual 支持 Tcl 脚本，用于后处理、生成曲线和提取参数。"
+      }
+    ],
+    "constraints": "各求解器、Workbench 和 Visual 的功能及授权需分别确认。Workbench 内部 Tcl 命令块、命令行工具和当前精确 API 未核实。产品页列出的 X-2025.06 未逐项对应各组件接口。",
+    "sources": [
+      {
+        "title": "Synopsys 官方 TCAD 产品页",
+        "url": "https://www.synopsys.com/manufacturing/tcad.html"
+      },
+      {
+        "title": "Synopsys 官方 Sentaurus TCAD 产品册（2025）",
+        "url": "https://www.synopsys.com/content/dam/synopsys/silicon-engineering/documents/brochures/sentauras-tcad-brochure.pdf"
+      }
+    ],
+    "evidence": "官方产品页说明 TCAD 工艺/器件优化与 Workbench 输入预处理；2025 产品册分别列明 Visual Tcl、Workbench DOE 和网络作业。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Opcenter Execution Semiconductor",
+    "vendor": "Siemens Digital Industries Software",
+    "sector": "electronics",
+    "stage": "生产执行",
+    "purpose": "半导体制造执行系统，管理在制品与批次、工艺执行、设备协同、晶圆级追溯和配方相关流程。",
+    "interfaces": [
+      {
+        "name": "REST API",
+        "type": "API/SDK",
+        "detail": "官方 2310 更新资料描述车间和建模事务、返回错误信息、配置及多字段选择值调用；2404 发布说明继续确认 REST API 增强。"
+      },
+      {
+        "name": ".NET API（Execution Core）",
+        "type": "API/SDK",
+        "detail": "官方 Semiconductor 入门培训包含 Execution Core 的 NET API Deep Dive；接口归属底层 Core，需核对具体产品组合。"
+      }
+    ],
+    "constraints": "REST API 依据为 2310、2404；.NET API 依据为官方培训中的 Core 模块。具体端点和授权需按部署版本确认；设备连接方案及 SECS/GEM 支持方式未核实。",
+    "sources": [
+      {
+        "title": "Siemens 官方 Opcenter Execution Semiconductor 产品页",
+        "url": "https://www.siemens.com/en-gb/products/opcenter/execution/semiconductor/"
+      },
+      {
+        "title": "Siemens 官方 Semiconductor 2310 更新说明",
+        "url": "https://static.sw.cdn.siemens.com/siemens-disw-assets/public/7zFu8YrKuQQdux402fYJ7P/en-US/Siemens-SW-Siemens-Opcenter-Execution-Semiconductor-2310-FS-85615-D3.pdf"
+      },
+      {
+        "title": "Siemens 官方 Semiconductor 2404 发布说明",
+        "url": "https://blogs.sw.siemens.com/opcenter/whats-new-in-opcenter-execution-semiconductor-2404/"
+      },
+      {
+        "title": "Siemens 官方 Semiconductor Onboarding 课程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=ILTLG080008___OES__8.0____B1017"
+      }
+    ],
+    "evidence": "产品页明确半导体 MES 定位与追溯流程；2310 和 2404 的产品专属更新资料直接确认 REST API；官方课程将 .NET API 定位于 Execution Core。",
+    "sourceDate": "2026-10-19"
+  }
+]
