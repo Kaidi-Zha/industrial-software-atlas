@@ -1,0 +1,412 @@
+[
+  {
+    "name": "MATPOWER",
+    "vendor": "MATPOWER 项目",
+    "sector": "power",
+    "stage": "仿真分析",
+    "purpose": "在 MATLAB 或 Octave 中进行电力系统潮流和最优潮流研究，补充可脚本复核的算例与算法实验。",
+    "interfaces": [
+      {
+        "name": "MATLAB / Octave 函数",
+        "type": "API/SDK",
+        "detail": "运行潮流；设置算法和容差；取得结果结构与成功标志"
+      },
+      {
+        "name": "MATPOWER case / M 与 MAT 文件",
+        "type": "文件格式",
+        "detail": "交换网络拓扑和参数；保存求解后算例"
+      }
+    ],
+    "constraints": "依据 MATPOWER 8.1 参考手册中的 legacy 函数；MP-Core 新接口、第三方扩展和求解器需分别匹配版本。",
+    "sources": [
+      {
+        "title": "MATPOWER 8.1：runpf",
+        "url": "https://matpower.org/documentation/ref-manual/legacy/functions/runpf.html"
+      },
+      {
+        "title": "MATPOWER 8.1：caseformat",
+        "url": "https://matpower.org/documentation/ref-manual/legacy/functions/caseformat.html"
+      },
+      {
+        "title": "MATPOWER：官方代码与许可",
+        "url": "https://github.com/MATPOWER/matpower"
+      }
+    ],
+    "evidence": "官方开发文档、用户手册或官方示例；接口未安装运行。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PyPSA",
+    "vendor": "PyPSA 项目",
+    "sector": "power",
+    "stage": "仿真分析",
+    "purpose": "用 Python 构建电网与多能源系统，研究容量扩展、运行调度和情景优化。",
+    "interfaces": [
+      {
+        "name": "Network / Linopy 优化 API",
+        "type": "API/SDK",
+        "detail": "构建和求解优化模型；增加约束；读取状态和终止条件"
+      },
+      {
+        "name": "NetCDF / CSV 网络交换",
+        "type": "文件格式",
+        "detail": "保存网络与时序属性；重载算例；向后处理程序交付数据"
+      }
+    ],
+    "constraints": "依据 latest 滚动文档；Network.optimize 使用 Linopy。固定 PyPSA、Linopy、求解器及网络文件版本后再复现。",
+    "sources": [
+      {
+        "title": "PyPSA：优化 API",
+        "url": "https://docs.pypsa.org/latest/api/networks/optimize/"
+      },
+      {
+        "title": "PyPSA：网络导入导出",
+        "url": "https://docs.pypsa.org/latest/api/networks/io/"
+      }
+    ],
+    "evidence": "官方开发文档、用户手册或官方示例；接口未安装运行。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "GridLAB-D",
+    "vendor": "GridLAB-D 项目",
+    "sector": "power",
+    "stage": "仿真分析",
+    "purpose": "建立配电网络、建筑负荷及其随时间变化的模型，分析分布式资源与用能行为。",
+    "interfaces": [
+      {
+        "name": "GLM 模型 / 命令行运行",
+        "type": "脚本/CLI",
+        "detail": "装载模块与对象；设置仿真时钟；批量运行算例"
+      },
+      {
+        "name": "Tape recorder / player CSV",
+        "type": "文件格式",
+        "detail": "输入负荷或设定值序列；记录电压、电流和功率；按对象组汇总输出"
+      }
+    ],
+    "constraints": "依据项目仓库和滚动教程；GLM 类属性、模块和安装发行版须一致，不将实验性 Python 包写成默认稳定接口。",
+    "sources": [
+      {
+        "title": "GridLAB-D：官方仓库",
+        "url": "https://github.com/gridlab-d/gridlab-d"
+      },
+      {
+        "title": "GridLAB-D：运行模型",
+        "url": "https://gridlab-d.readthedocs.io/en/docs/docs/3.0%20-%20Modeling%20Reference/Other%20Features/Simulation%20Options/"
+      },
+      {
+        "title": "GridLAB-D：记录器与播放器",
+        "url": "https://gridlab-d.readthedocs.io/en/latest/docs/2.0%20-%20New%20Users/Tutorial/2.2.6%20-%20Recorders%20and%20Players/"
+      }
+    ],
+    "evidence": "官方开发文档、用户手册或官方示例；接口未安装运行。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OpenEMS（能源管理系统）",
+    "vendor": "OpenEMS 项目",
+    "sector": "power",
+    "stage": "设备控制",
+    "purpose": "通过 Edge 组件采集和控制储能及能源设备，向外部系统提供通道和控制入口。",
+    "interfaces": [
+      {
+        "name": "Edge REST / JSON-RPC",
+        "type": "API/SDK",
+        "detail": "读取通道值和元数据；在允许模式下写通道；查询组件配置"
+      },
+      {
+        "name": "Edge Modbus TCP / RTU 服务端",
+        "type": "通信协议",
+        "detail": "读取选定组件的通道；按读写配置提交控制值；导出寄存器映射"
+      }
+    ],
+    "constraints": "依据 latest 组件文档；需固定 OpenEMS 提交、OSGi Factory-PID、设备驱动和配置。通道可写性随组件与权限变化。",
+    "sources": [
+      {
+        "title": "OpenEMS：REST 控制器",
+        "url": "https://openems.github.io/openems.io/openems/latest/edge/controller.d/io.openems.edge.controller.api.rest.html"
+      },
+      {
+        "title": "OpenEMS：Modbus 控制器",
+        "url": "https://openems.github.io/openems.io/openems/latest/edge/controller.d/io.openems.edge.controller.api.modbus.html"
+      },
+      {
+        "title": "OpenEMS：官方代码",
+        "url": "https://github.com/OpenEMS/openems"
+      }
+    ],
+    "evidence": "官方开发文档、用户手册或官方示例；接口未安装运行。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "EcoStruxure Power Operation",
+    "vendor": "Schneider Electric",
+    "sector": "power",
+    "stage": "设备控制",
+    "purpose": "配置电力监控 SCADA 工程，组织实时变量、告警、趋势及外部数据连接。",
+    "interfaces": [
+      {
+        "name": "Cicode 工程脚本",
+        "type": "API/SDK",
+        "detail": "访问变量标签、告警与趋势；定制工程行为"
+      },
+      {
+        "name": "OPC DA 服务端 / 客户端",
+        "type": "通信协议",
+        "detail": "向客户端提供项目标签；配置外部 OPC 数据源；按更新周期采集变量"
+      }
+    ],
+    "constraints": "依据 Power Operation 2024 官方帮助，页面于 2026 年更新；对应安装版、驱动、许可和帮助文件须匹配。",
+    "sources": [
+      {
+        "title": "Power Operation：Cicode",
+        "url": "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/pwrscada/custmzprojusingcicode.htm"
+      },
+      {
+        "title": "Power Operation：OPC DA 服务端",
+        "url": "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/8_reference/cnfgrpsoasopcdasrvr.htm"
+      },
+      {
+        "title": "Power Operation：OPC DA 客户端",
+        "url": "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/8_reference/cnfgrpsoasopcdaclient.htm"
+      }
+    ],
+    "evidence": "官方开发文档、用户手册或官方示例；接口未安装运行。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "AVEVA PI System",
+    "vendor": "AVEVA",
+    "sector": "power",
+    "stage": "运行运维",
+    "purpose": "管理工业历史时序与资产上下文，供能源监测、运行分析和报表应用读取数据。",
+    "interfaces": [
+      {
+        "name": "PI Web API / HTTP",
+        "type": "API/SDK",
+        "detail": "查找对象和读历史值；按权限写值；创建样例资产层级"
+      },
+      {
+        "name": "Asset Framework SDK / .NET",
+        "type": "API/SDK",
+        "detail": "访问资产层级和属性；按模板组织事件框架；读取能源分析相关数据"
+      }
+    ],
+    "constraints": "PI Web API Python 示例版本为 1.0.34；AF 入门示例针对 AF 2.10，不是当前所有 SDK 的兼容保证。安装组件、SDK 和 .NET 运行时需分别核对。",
+    "sources": [
+      {
+        "title": "AVEVA：开发技术",
+        "url": "https://www.aveva.com/en/products/aveva-pi-system-developer-technologies/"
+      },
+      {
+        "title": "AVEVA：PI Web API Python 示例",
+        "url": "https://github.com/AVEVA/sample-pi_web_api-common_actions-python"
+      },
+      {
+        "title": "AVEVA：AF SDK 入门示例",
+        "url": "https://github.com/AVEVA/AF-SDK-Getting-Started-Guide"
+      }
+    ],
+    "evidence": "官方开发文档、用户手册或官方示例；接口未安装运行。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "QGIS",
+    "vendor": "QGIS 项目",
+    "sector": "environment",
+    "stage": "研发设计",
+    "purpose": "整理环境、水务与地理空间数据，进行空间分析并准备模型输入和专题地图。",
+    "interfaces": [
+      {
+        "name": "PyQGIS Python / 插件",
+        "type": "API/SDK",
+        "detail": "加载和操作图层；使用空间处理算法；扩展应用交互"
+      },
+      {
+        "name": "qgis_process / Processing CLI",
+        "type": "脚本/CLI",
+        "detail": "列出算法；运行算法或模型；读取 JSON 输出"
+      }
+    ],
+    "constraints": "本条固定 QGIS 3.44 文档；不将 3.x 插件与 Python/PyQt 依赖自动视为 QGIS 4 兼容。",
+    "sources": [
+      {
+        "title": "QGIS 3.44：PyQGIS 入口",
+        "url": "https://docs.qgis.org/3.44/en/docs/pyqgis_developer_cookbook/intro.html"
+      },
+      {
+        "title": "QGIS 3.44：Processing 命令行",
+        "url": "https://docs.qgis.org/3.44/en/docs/user_manual/processing/standalone.html"
+      }
+    ],
+    "evidence": "官方开发文档、用户手册或官方示例；接口未安装运行。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ArcGIS Pro",
+    "vendor": "Esri",
+    "sector": "environment",
+    "stage": "研发设计",
+    "purpose": "管理和分析环境及工程空间数据，通过地理处理流程建立可重复的数据准备和分析任务。",
+    "interfaces": [
+      {
+        "name": "ArcPy 地理处理 / Python",
+        "type": "API/SDK",
+        "detail": "批处理地理处理工具；管理空间数据；读取工具消息与错误"
+      }
+    ],
+    "constraints": "依据 Pro latest 滚动帮助；ArcPy 必须匹配 Pro 安装和 Python 环境，扩展工具另核对授权。",
+    "sources": [
+      {
+        "title": "ArcGIS Pro：ArcPy",
+        "url": "https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/what-is-arcpy-.html"
+      },
+      {
+        "title": "ArcGIS Pro：安装 ArcPy",
+        "url": "https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/installing-arcpy.html"
+      },
+      {
+        "title": "ArcGIS Pro：Python 错误处理",
+        "url": "https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/error-handling-with-python.html"
+      }
+    ],
+    "evidence": "官方开发文档、用户手册或官方示例；接口未安装运行。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "WEAP",
+    "vendor": "Stockholm Environment Institute",
+    "sector": "environment",
+    "stage": "仿真分析",
+    "purpose": "建立流域供需水与资源配置情景，比较需求、供水和环境约束下的方案。",
+    "interfaces": [
+      {
+        "name": "COM Automation / WEAP 对象 API",
+        "type": "API/SDK",
+        "detail": "改变表达式与输入假设；运行情景计算；导出分析结果"
+      },
+      {
+        "name": "ReadFromFile / CSV 时序",
+        "type": "文件格式",
+        "detail": "导入流量、气候和需求时序；指定列名及单位；按兼容格式导出结果"
+      }
+    ],
+    "constraints": "依据在线帮助与官方 API 示例；公开页面未统一固定产品版本，部署前核对安装版、Windows 脚本组件和对象模型。",
+    "sources": [
+      {
+        "title": "WEAP：Automation API",
+        "url": "https://www.weap21.org/webhelp/api.htm"
+      },
+      {
+        "title": "WEAP：官方自动化例子",
+        "url": "https://planningwww.weap21.org/WebHelp/APIExample.htm"
+      },
+      {
+        "title": "WEAP：ReadFromFile",
+        "url": "https://weap.weap21.org/WebHelp/ReadFromFile.htm"
+      }
+    ],
+    "evidence": "官方开发文档、用户手册或官方示例；接口未安装运行。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "WNTR",
+    "vendor": "US EPA / Sandia National Laboratories",
+    "sector": "environment",
+    "stage": "仿真分析",
+    "purpose": "在 Python 中建立供水管网、扰动与韧性分析流程，并可调用 EPANET 或 WNTR 水力求解。",
+    "interfaces": [
+      {
+        "name": "Python 网络 / 模拟器 API",
+        "type": "API/SDK",
+        "detail": "建立和修改管网；运行扩展周期水力分析；检查收敛和结果"
+      },
+      {
+        "name": "EPANET INP / 网络 IO",
+        "type": "文件格式",
+        "detail": "读取现有管网；写出模型文件；为其他分析流程准备网络"
+      }
+    ],
+    "constraints": "依据滚动 API 文档；WNTRSimulator 仅进行水力模拟，EpanetSimulator 的水质和版本选项须按其文档核对。",
+    "sources": [
+      {
+        "title": "WNTR：网络对象",
+        "url": "https://usepa.github.io/WNTR/apidoc/wntr.network.model.WaterNetworkModel.html"
+      },
+      {
+        "title": "WNTR：水力模拟器",
+        "url": "https://usepa.github.io/WNTR/apidoc/wntr.sim.core.WNTRSimulator.html"
+      },
+      {
+        "title": "WNTR：EPANET 模拟器",
+        "url": "https://usepa.github.io/WNTR/apidoc/wntr.sim.epanet.EpanetSimulator.html"
+      },
+      {
+        "title": "WNTR：文件 IO",
+        "url": "https://usepa.github.io/WNTR/apidoc/wntr.network.io.html"
+      }
+    ],
+    "evidence": "官方开发文档、用户手册或官方示例；接口未安装运行。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CMAQ",
+    "vendor": "US EPA",
+    "sector": "environment",
+    "stage": "仿真分析",
+    "purpose": "进行区域大气化学输送分析，研究排放、气象和化学过程对空气质量及沉降的影响。",
+    "interfaces": [
+      {
+        "name": "CCTM 构建与运行脚本",
+        "type": "脚本/CLI",
+        "detail": "选择编译和科学模块配置；设定运行选项；按日期运行模拟"
+      },
+      {
+        "name": "I/O API / netCDF 模型数据",
+        "type": "文件格式",
+        "detail": "读取多类模型输入；按逻辑名绑定实际文件；交付网格结果供后处理"
+      }
+    ],
+    "constraints": "依据官方 main 分支用户指南；应固定 CMAQ 提交、化学机制、编译器、MPI、I/O API 与 netCDF 库，不将滚动文档等同于任意安装版。",
+    "sources": [
+      {
+        "title": "CMAQ：运行指南",
+        "url": "https://raw.githubusercontent.com/USEPA/CMAQ/main/DOCS/Users_Guide/CMAQ_UG_ch05_running_a_simulation.md"
+      },
+      {
+        "title": "CMAQ：输入与文件契约",
+        "url": "https://raw.githubusercontent.com/USEPA/CMAQ/main/DOCS/Users_Guide/CMAQ_UG_ch04_model_inputs.md"
+      },
+      {
+        "title": "US EPA：CMAQ 文档",
+        "url": "https://www.epa.gov/cmaq/cmaq-documentation"
+      }
+    ],
+    "evidence": "官方开发文档、用户手册或官方示例；接口未安装运行。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "TELEMAC-MASCARET",
+    "vendor": "Open TELEMAC-MASCARET 联合开发组织",
+    "sector": "environment",
+    "stage": "仿真分析",
+    "purpose": "模拟河流、河口和海岸的水动力过程；本条具体核查 TELEMAC-2D 的模型与结果文件交互。",
+    "interfaces": [
+      {
+        "name": "Steering / SERAFIN 模型与结果文件",
+        "type": "文件格式",
+        "detail": "指定模型关键字与参数；交付几何及边界条件；保存供后处理读取的结果"
+      }
+    ],
+    "constraints": "已读取的官方文件手册为 TELEMAC-2D v6.0（2010）；仅作该版契约说明。当前发行版的 CLI、Python API 和格式兼容尚未完成核实。",
+    "sources": [
+      {
+        "title": "TELEMAC-2D v6.0：官方用户手册 §3.2 与文件说明",
+        "url": "https://www.opentelemac.com/downloads/Archive/v6p0/telemac2d_user_manual_v6p0.pdf"
+      }
+    ],
+    "evidence": "官方开发文档、用户手册或官方示例；接口未安装运行。",
+    "sourceDate": "2026-10-19"
+  }
+]

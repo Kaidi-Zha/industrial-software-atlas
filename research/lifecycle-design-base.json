@@ -1,0 +1,578 @@
+[
+  {
+    "name": "FreeCAD",
+    "vendor": "FreeCAD 项目",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "参数化机械建模与零件几何设计。",
+    "interfaces": [
+      {
+        "name": "应用／文档 API（C++／Python）",
+        "type": "API/SDK",
+        "detail": "通过文档对象管理特征和重算；精确C++签名见官方源码文档。"
+      },
+      {
+        "name": "STEP／IGES 几何文件输出",
+        "type": "文件格式",
+        "detail": "TopoShape提供exportStep和exportIges，以文件名作为输出参数。"
+      }
+    ],
+    "constraints": "主程序为开源软件；官方仓库包含 LGPL 2.1 许可文本，第三方组件另有许可。公开 SourceDoc 固定于2022年文档构建，不能据此保证当前版本全部签名。",
+    "sources": [
+      {
+        "title": "FreeCAD 官方代码库",
+        "url": "https://github.com/FreeCAD/FreeCAD"
+      },
+      {
+        "title": "FreeCAD 源码文档版本",
+        "url": "https://freecad.github.io/SourceDoc/"
+      },
+      {
+        "title": "Document API",
+        "url": "https://freecad.github.io/SourceDoc/d8/d3e/classApp_1_1Document.html"
+      },
+      {
+        "title": "TopoShape API",
+        "url": "https://freecad.github.io/SourceDoc/d8/ded/classPart_1_1TopoShape.html"
+      },
+      {
+        "title": "FreeCAD 仓库许可文本",
+        "url": "https://raw.githubusercontent.com/FreeCAD/FreeCAD/main/LICENSE"
+      }
+    ],
+    "evidence": "Document：addObject、removeObject、recompute、getErrorDescription；文档首页的构建提交。；TopoShape：exportStep、exportIges与encodeFilename引用。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "LibreCAD",
+    "vendor": "LibreCAD 项目",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "二维工程图绘制与DXF图纸处理。",
+    "interfaces": [
+      {
+        "name": "DXF 图纸文件交换",
+        "type": "文件格式",
+        "detail": "通过文件打开、保存及另存为处理二维图纸；DXF为官方转换工具确认的输入格式。"
+      },
+      {
+        "name": "dxf2pdf 控制台转换",
+        "type": "脚本/CLI",
+        "detail": "终端执行librecad dxf2pdf，把一个或多个DXF转换为PDF。"
+      }
+    ],
+    "constraints": "主程序为免费开源2D CAD，官网标注GPLv2。latest手册面向2.2.x.y预发布系列，master代码库与稳定安装包的命令覆盖可能不同；DWG支持有构建条件。",
+    "sources": [
+      {
+        "title": "LibreCAD 官方首页及许可",
+        "url": "https://www.librecad.org/"
+      },
+      {
+        "title": "LibreCAD File菜单",
+        "url": "https://docs.librecad.org/en/latest/ref/menu.html"
+      },
+      {
+        "title": "LibreCAD 控制台转换工具",
+        "url": "https://docs.librecad.org/en/latest/guides/console-tool.html"
+      },
+      {
+        "title": "LibreCAD 当前代码库说明",
+        "url": "https://github.com/LibreCAD/LibreCAD/blob/master/README.md?plain=1"
+      },
+      {
+        "title": "LibreCAD 图纸模板与DXF保存",
+        "url": "https://docs.librecad.org/en/2.2.0_a/guides/dwg-setup.html"
+      }
+    ],
+    "evidence": "File菜单Open/Save/Save as；图纸设置指南的DXF模板保存；控制台DXF输入；README的DWG构建条件。；Console tool：usage、-o、多文件示例；README说明当前命令与构建差异。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "GstarCAD（浩辰CAD）",
+    "vendor": "浩辰软件（Gstarsoft）",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "工程图纸设计及CAD功能的行业定制开发。",
+    "interfaces": [
+      {
+        "name": "LISP 脚本扩展",
+        "type": "脚本/CLI",
+        "detail": "内置LISP语言用于命令和绘图流程扩展；2026指南列VLISP／VLIDE编辑入口。"
+      },
+      {
+        "name": "GRX C++ SDK",
+        "type": "API/SDK",
+        "detail": "官方按发行版提供GRX SDK及开发指南，用于编译型CAD扩展。"
+      }
+    ],
+    "constraints": "主程序需对应商业许可；开发者入口提供LISP、GRX、.NET等资料。SDK按平台和版本发布，Windows与Linux条目分别列出；本次未取得SDK再分发条款。",
+    "sources": [
+      {
+        "title": "GstarCAD 开发者入口",
+        "url": "https://www.gstarcad.net/developer/"
+      },
+      {
+        "title": "浩辰CAD 版本化SDK目录",
+        "url": "https://www.gstarcad.com/sdk_doc/"
+      },
+      {
+        "title": "GstarCAD 2026 用户指南",
+        "url": "https://cdn-sg-gw.gstarcad.net/gstarsoft_pdf/GstarCAD_2026_User_Guide.pdf"
+      }
+    ],
+    "evidence": "开发者页的LISP；2026用户指南索引中的VLISP/VLIDE。；开发者页GRX；中文SDK目录的版本、平台及下载条目。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ZWCAD（中望CAD）",
+    "vendor": "中望软件（ZWSOFT）",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "工程图纸设计、LISP定制及外部程序驱动CAD。",
+    "interfaces": [
+      {
+        "name": "LISP 脚本扩展",
+        "type": "脚本/CLI",
+        "detail": "官方说明LISP为集成式解释语言，开发说明也随程序帮助提供。"
+      },
+      {
+        "name": "COM 自动化接口",
+        "type": "API/SDK",
+        "detail": "官方提供COM开发资料，允许不同语言调用CAD接口。"
+      }
+    ],
+    "constraints": "主程序按商业版本提供。官方开发文档目录覆盖LISP、VBA、ZRX、.NET和COM；部分下载跳转云盘或旧链接不可取，本次未取得全部开发包和再分发条款。",
+    "sources": [
+      {
+        "title": "ZWCAD 官方开发文档目录",
+        "url": "https://www.zwsoft.com/support/zwcad-devdoc"
+      },
+      {
+        "title": "ZWCAD 官方版本功能对照",
+        "url": "https://www.zwsoft.com/product/autocad-comparison"
+      }
+    ],
+    "evidence": "LISP栏目：integrated interpreter、安装帮助及版本开发文档。；COM栏目：cross-language invocation及版本文档下载；未取得全部开发契约。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Solid Edge",
+    "vendor": "Siemens Digital Industries Software",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "机械零件、装配和工程图设计及桌面CAD自动化。",
+    "interfaces": [
+      {
+        "name": "COM／.NET 自动化",
+        "type": "API/SDK",
+        "detail": "经SolidEdge.Application连接运行中的桌面应用；官方给出STA及OleMessageFilter。"
+      },
+      {
+        "name": "SaveAs 文档／格式输出",
+        "type": "文件格式",
+        "detail": "PartDocument.SaveAs另存文档，官方说明可改变名称、目录或格式。"
+      }
+    ],
+    "constraints": "主程序需相应商业许可；公开SDK例文为ST7时代资料。外部COM调用涉及STA线程及忙碌调用重试，当前版本兼容性须查安装版SDK。",
+    "sources": [
+      {
+        "title": "Solid Edge SDK 连接",
+        "url": "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/ConnectingToSolidEdge.html"
+      },
+      {
+        "title": "Solid Edge SDK 宏与类型库",
+        "url": "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/CreatingMacros.html"
+      },
+      {
+        "title": "Solid Edge SDK COM消息过滤器",
+        "url": "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/OleMessageFilterUsage.html"
+      },
+      {
+        "title": "PartDocument.SaveAs",
+        "url": "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/SolidEdgePart~PartDocument~SaveAs.html"
+      }
+    ],
+    "evidence": "Connecting代码；Macros的COM Type Libraries；OleMessageFilter的两项HRESULT及STA说明。；SaveAs Description、NewName、unsupported optional arguments与FileFormat注释。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Onshape",
+    "vendor": "PTC",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "云端参数化CAD与定制特征、应用集成。",
+    "interfaces": [
+      {
+        "name": "REST API／OAuth 与 API Key",
+        "type": "API/SDK",
+        "detail": "REST接口通过开发文档与API Explorer发现；认证区分公开应用OAuth与内部API键。"
+      },
+      {
+        "name": "FeatureScript 定制特征",
+        "type": "脚本/CLI",
+        "detail": "在Feature Studio中编写定制特征／表格，按显式版本引用标准库。"
+      }
+    ],
+    "constraints": "云服务需相应账户与计划；公开发布App Store应用须遵守开发者授权及OAuth要求，内部应用可使用现有客户许可。FeatureScript标准库开源与Onshape云服务许可分别适用。",
+    "sources": [
+      {
+        "title": "Onshape 开发文档入口",
+        "url": "https://onshape-public.github.io/docs/"
+      },
+      {
+        "title": "Onshape API Key认证",
+        "url": "https://onshape-public.github.io/docs/auth/apikeys/"
+      },
+      {
+        "title": "Onshape 集成及开发授权",
+        "url": "https://www.onshape.com/en/app-integrations/build-an-integration"
+      },
+      {
+        "title": "FeatureScript 官方文档",
+        "url": "https://cad.onshape.com/FsDoc/index.html"
+      },
+      {
+        "title": "FeatureScript 标准库",
+        "url": "https://cad.onshape.com/FsDoc/library.html"
+      }
+    ],
+    "evidence": "开发文档API Explorer；API Keys的scope、stack与OAuth要求；Build an integration的许可说明。；Feature Studio入口；library的Context、Id与版本保留说明。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "RoboDK",
+    "vendor": "RoboDK",
+    "sector": "equipment",
+    "stage": "工艺仿真",
+    "purpose": "机器人工作站仿真、离线编程及控制器程序生成。",
+    "interfaces": [
+      {
+        "name": "RoboDK 编程 API",
+        "type": "API/SDK",
+        "detail": "官方提供Python、C#、MATLAB等接口；Python以Robolink连接工作站。"
+      },
+      {
+        "name": "后处理器／控制器程序文件",
+        "type": "文件格式",
+        "detail": "选择控制器后处理器后，将工作站程序生成对应控制器代码文件。"
+      }
+    ],
+    "constraints": "主程序按商业／试用许可提供，功能和程序生成限制随许可变化。公开C++ API头文件标Apache 2.0，不代表RoboDK主程序开源。在线驱动真实机器人还需单独配置和权限。",
+    "sources": [
+      {
+        "title": "RoboDK API概览",
+        "url": "https://robodk.com/doc/en/RoboDK-API.html"
+      },
+      {
+        "title": "RoboDK Python API",
+        "url": "https://robodk.com/doc/en/PythonAPI/robodk.html?highlight=robolink"
+      },
+      {
+        "title": "RoboDK 后处理器操作",
+        "url": "https://robodk.com/doc/en/Post-Processors.html"
+      },
+      {
+        "title": "RoboDK 后处理器开发",
+        "url": "https://robodk.com/doc/en/PythonAPI/postprocessor.html"
+      },
+      {
+        "title": "RoboDK C++ API头文件许可",
+        "url": "https://robodk.com/doc/en/CppAPI/robodk__api_8h_source.html"
+      },
+      {
+        "title": "RoboDK 许可与试用",
+        "url": "https://robodk.com/pricing"
+      }
+    ],
+    "evidence": "API overview：支持语言与仿真／离线／在线；Python Robolink、Item。；Select Post Processor、生成程序与定制命名说明；RobotPost及控制器输出语法。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CoppeliaSim",
+    "vendor": "Coppelia Robotics",
+    "sector": "equipment",
+    "stage": "工艺仿真",
+    "purpose": "机器人及自动化场景仿真、脚本控制与外部程序联接。",
+    "interfaces": [
+      {
+        "name": "Lua／Python 仿真脚本",
+        "type": "脚本/CLI",
+        "detail": "官方脚本体系支持集成Lua解释器及外部Python解释器，提供仿真回调与sim接口。"
+      },
+      {
+        "name": "ZeroMQ Remote API",
+        "type": "API/SDK",
+        "detail": "官方客户端让外部程序调用sim及已启用插件接口，并支持步进或连续仿真。"
+      }
+    ],
+    "constraints": "Pro／Lite与EDU许可条件不同。EDU仅限符合资格的学校／大学师生，禁止商业使用；公司、研究机构和一般非营利组织不适用EDU许可。插件可有独立许可。",
+    "sources": [
+      {
+        "title": "CoppeliaSim 脚本模型",
+        "url": "https://manual.coppeliarobotics.com/en/scripts.htm"
+      },
+      {
+        "title": "CoppeliaSim ZeroMQ Remote API",
+        "url": "https://manual.coppeliarobotics.com/en/zmqRemoteApiOverview.htm"
+      },
+      {
+        "title": "CoppeliaSim 许可条件",
+        "url": "https://manual.coppeliarobotics.com/en/licensing.htm"
+      },
+      {
+        "title": "CoppeliaSim legacy API弃用说明",
+        "url": "https://manual.coppeliarobotics.com/en/legacyRemoteApiOverview.htm"
+      }
+    ],
+    "evidence": "Scripts：解释器、embedded／sandbox／add-on及生命周期入口。；ZeroMQ overview：客户端包、require(sim)、stepping及启停示例；legacy弃用提示。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "TIA Portal（STEP 7／WinCC工程平台）",
+    "vendor": "Siemens Digital Industries Software",
+    "sector": "equipment",
+    "stage": "研发设计",
+    "purpose": "PLC与HMI项目的集成工程设计、配置及工程自动化。",
+    "interfaces": [
+      {
+        "name": "TIA Portal Openness .NET 工程 API",
+        "type": "API/SDK",
+        "detail": "通过版本匹配的.NET程序集连接或创建工程会话，访问允许的工程对象。"
+      },
+      {
+        "name": "SimaticML 工程 XML 交换",
+        "type": "文件格式",
+        "detail": "Openness导入／导出PLC块与类型的工程XML；Schema和属性支持按对象及版本确认。"
+      }
+    ],
+    "constraints": "需相应TIA Portal工程产品／版本许可、Openness组件与Windows用户组权限。这里覆盖工程项目API和工程XML，不涉及WinCC运行API或PLC现场通信。V21重组了程序集。",
+    "sources": [
+      {
+        "title": "TIA Openness V21 API目录",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/tia-portal-openness-api?contentId=~~8wSiwSWV3Triktc6ADDw"
+      },
+      {
+        "title": "TIA V21程序集迁移",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v21/technology-objects/upgrading-to-openness-v21?contentId=bDQSpJdDLSEbtKQy7SQYRg"
+      },
+      {
+        "title": "TIA Openness用户组权限",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/basics/installation/adding-users-to-the-siemens-tia-openness-user-group"
+      },
+      {
+        "title": "TIA Openness断开与生命周期",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/tia-portal-openness-api/general-functions/terminating-the-connection-to-the-tia-portal"
+      },
+      {
+        "title": "TIA PLC块／类型XML属性交换",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/export/import/importing/exporting-data-of-a-plc-device/blocks/export/import-of-unit-specific-publishing-attribute-of-blocks-and-types"
+      }
+    ],
+    "evidence": "Upgrading V21：Base/Step7 DLL；用户组的EngineeringSecurityException；Terminating connection的Dispose／NonRecoverableException。；Export/import of unit-specific publishing attribute：前提、SimaticML及IgnoreUnitAttributes适用条件。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "KEPServerEX",
+    "vendor": "PTC Kepware",
+    "sector": "equipment",
+    "stage": "运行运维",
+    "purpose": "工业设备数据连接、OPC UA服务及连接项目配置。",
+    "interfaces": [
+      {
+        "name": "OPC UA 运行数据服务",
+        "type": "通信协议",
+        "detail": "运行客户端连接配置的OPC UA端点；地址、安全策略及身份由服务器配置决定。"
+      },
+      {
+        "name": "Configuration REST API",
+        "type": "API/SDK",
+        "detail": "通过JSON REST配置接口管理服务项目对象，与实时标签读写接口分开。"
+      }
+    ],
+    "constraints": "主程序、设备驱动和可选插件的许可分别确认。6.18.296.0发布说明确认OPC UA与Configuration API；部分详文位于后续共享Kepware Server帮助树，部署时需对照实际版本。",
+    "sources": [
+      {
+        "title": "KEPServerEX 6.18.296.0发布说明",
+        "url": "https://support.ptc.com/help/kepware/kepserverex/en/kepware/kepserverex/whats_new/whats_new_6_18_296_0.html"
+      },
+      {
+        "title": "Kepware Configuration API数据服务",
+        "url": "https://support.ptc.com/help/kepware/kepware_server/en/kepware/server/config-api-data.html"
+      },
+      {
+        "title": "Kepware Configuration API文档入口",
+        "url": "https://support.ptc.com/help/kepware/kepware_server/en/kepware/server/config-api-doc-endpoint.html"
+      },
+      {
+        "title": "Kepware OPC UA服务端点配置",
+        "url": "https://support.ptc.com/help/kepware/features/en/kepware/features/OPCUACONFIGMNGR/server-endpoints.html"
+      }
+    ],
+    "evidence": "6.18发布说明的UA Interface；Server Endpoints的URL、证书、重新初始化及用户验证。；Data Services：JSON、PROJECT_ID、单写者、401、207及not_applied；Documentation Endpoint。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Ansys LS-DYNA",
+    "vendor": "Ansys",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "显式／非线性结构动力学及碰撞、冲击等有限元分析。",
+    "interfaces": [
+      {
+        "name": "LS-DYNA 关键字输入文件",
+        "type": "文件格式",
+        "detail": "求解输入以关键字Deck表示；R17分卷手册定义各关键字和参数。"
+      },
+      {
+        "name": "PyDYNA keywords Python API",
+        "type": "API/SDK",
+        "detail": "官方Python库以类型化关键字对象与Deck读写LS-DYNA输入。"
+      }
+    ],
+    "constraints": "LS-DYNA求解器需有效商业许可；PyDYNA采用MIT许可且不改变求解器许可。PyDYNA stable的v0.11.0迁移说明移除pre／run，但模块目录仍残留run描述，本文只确证keywords路径。",
+    "sources": [
+      {
+        "title": "Ansys LS-DYNA 产品用途",
+        "url": "https://ansys.synopsys.com/products/structures/ansys-ls-dyna"
+      },
+      {
+        "title": "LS-DYNA 官方手册下载与版本",
+        "url": "https://lsdyna.ansys.com/manuals-download/"
+      },
+      {
+        "title": "PyDYNA 开始使用／迁移提示",
+        "url": "https://dyna.docs.pyansys.com/version/stable/getting-started.html"
+      },
+      {
+        "title": "PyDYNA 模块目录",
+        "url": "https://dyna.docs.pyansys.com/version/stable/getting-started/modules.html"
+      },
+      {
+        "title": "PyDYNA keywords开发说明",
+        "url": "https://dyna.docs.pyansys.com/version/stable/getting-started/modules/keywords.html"
+      },
+      {
+        "title": "PyDYNA 官方代码与许可",
+        "url": "https://github.com/ansys/pydyna"
+      }
+    ],
+    "evidence": "Manuals Download的R17关键字手册版本；keywords文档的Deck文本示例。；Getting started的v0.11.0移除提示；keywords的SectionTShell、Deck.loads、Deck.write。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Dymola",
+    "vendor": "Dassault Systèmes",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "基于Modelica的多领域物理系统建模、仿真与模型交换。",
+    "interfaces": [
+      {
+        "name": "Python 仿真接口",
+        "type": "API/SDK",
+        "detail": "官方Python接口可设置参数并读取仿真结果；2024x R1调整了Python版本与安装包。"
+      },
+      {
+        "name": "FMI／FMU 模型导入导出",
+        "type": "文件格式",
+        "detail": "导入或导出FMU以连接其他仿真工具；FMI版本与导出授权分别确认。"
+      }
+    ],
+    "constraints": "Dymola主程序为商业产品；模型导出能力取决于许可选项。免费且无需许可密钥的FMI Kit for Simulink是独立辅助组件，不代表Dymola主程序免费。",
+    "sources": [
+      {
+        "title": "Dymola 产品说明",
+        "url": "https://www.3ds.com/products/catia/dymola"
+      },
+      {
+        "title": "Dymola 与其他软件接口及导出选项",
+        "url": "https://www.3ds.com/products/catia/dymola/export-capabilities-interfacing-other-software"
+      },
+      {
+        "title": "Dymola 2024x Refresh1发布说明",
+        "url": "https://www.3ds.com/assets/invest/2024-05/dymola-2024x-r1-release-notes.pdf"
+      },
+      {
+        "title": "Dymola 当前发行说明入口",
+        "url": "https://www.3ds.com/products/catia/dymola/latest-release/"
+      }
+    ],
+    "evidence": "Interface页Python；2024x R1发布说明的Python支持、wheel、listvariables与SetVariable。；Export capabilities：FMI版本、export licensing及免费FMI Kit范围；发布说明FMI3限制。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OpenModelica",
+    "vendor": "Open Source Modelica Consortium／OpenModelica 项目",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "Modelica多领域物理系统的建模、编译与仿真。",
+    "interfaces": [
+      {
+        "name": "OMPython 编译器接口",
+        "type": "API/SDK",
+        "detail": "官方Python接口经ZeroMQ与OpenModelica编译器交互，当前仓库用OMCSessionLocal。"
+      },
+      {
+        "name": "FMI／FMU 模型导出",
+        "type": "文件格式",
+        "detail": "通过OMEdit或buildModelFMU输出支持的FMI模型包。"
+      }
+    ],
+    "constraints": "OpenModelica按AGPLv3／OSMC Public License提供；OMPython另用OSMC Public Runtime License。商业使用及再分发应选择并遵守适用条款，不能将接口库许可直接套用到编译器和全部组件。",
+    "sources": [
+      {
+        "title": "OpenModelica 联盟与许可",
+        "url": "https://openmodelica.org/home/consortium/"
+      },
+      {
+        "title": "OMPython 官方代码、入口与许可",
+        "url": "https://github.com/OpenModelica/OMPython"
+      },
+      {
+        "title": "OpenModelica 1.25 FMI用户指南",
+        "url": "https://openmodelica.org/doc/OpenModelicaUsersGuide/1.25/fmitlm.html"
+      },
+      {
+        "title": "buildModelFMU 官方函数参考",
+        "url": "https://build.openmodelica.org/Documentation/OpenModelica.Scripting.buildModelFMU.html"
+      }
+    ],
+    "evidence": "README：OMCSessionLocal、sendExpression(getVersion())、Python要求及OSMC Public Runtime License。；User Guide FMU export菜单／函数；buildModelFMU的className、version、fmuType与返回路径。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "NASA GMAT",
+    "vendor": "NASA Goddard Space Flight Center／GMAT 项目",
+    "sector": "aerospace",
+    "stage": "工艺仿真",
+    "purpose": "航天器轨道、任务设计、优化与导航分析。",
+    "interfaces": [
+      {
+        "name": "任务脚本／GUI 交互",
+        "type": "脚本/CLI",
+        "detail": "GMAT提供与GUI相连的任务脚本基础设施，用于定义并执行任务分析。"
+      },
+      {
+        "name": "GMAT API（Python／Java，SWIG）",
+        "type": "API/SDK",
+        "detail": "官方API以SWIG包装C++类，并提供脚本装载／运行和组件访问能力。"
+      }
+    ],
+    "constraints": "NASA资料列GMAT及GMAT API／插件为Apache 2.0开源。平台二进制、可选插件及外部工具依赖需按实际发行包确认；外部工具不自动受同一许可覆盖。",
+    "sources": [
+      {
+        "title": "NASA GMAT软件目录",
+        "url": "https://software.nasa.gov/software/GSC-19640-1"
+      },
+      {
+        "title": "NASA 2023飞行力学工具互操作报告",
+        "url": "https://ntrs.nasa.gov/api/citations/20230006507/downloads/20230006507_5-23.pdf"
+      },
+      {
+        "title": "GMAT 官方用户文档入口",
+        "url": "https://gmat.atlassian.net/wiki/spaces/GW/pages/380273265/User+Documentation"
+      }
+    ],
+    "evidence": "NASA报告§6.2.2：任务用途、脚本与报告；User Documentation：发行包docs/help。；NASA报告§7.1.1与表1：SWIG、语言包装器、脚本控制及Apache2.0；User Documentation的API文件路径。",
+    "sourceDate": "2026-10-19"
+  }
+]

@@ -1,0 +1,178 @@
+[
+  {
+    "name": "嘉立创EDA（标准版 / 专业版）",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "Web/桌面编辑器、原理图与 PCB 画布、标准版脚本、专业版运行脚本/扩展管理器。",
+      "coverage": "覆盖板级设计对象与制造资料；中国团队开发据官方公司介绍。硬件开源社区、扩展 SDK 与编辑器主程序的授权范围不同。",
+      "versionBoundary": "标准版与专业版是不同编辑器/API 体系；专业版文档分别说明 V2/V3 入口，扩展 API 使用独立的 major.minor.patch 版本，不等于编辑器版本。未锁定安装包。",
+      "unknowns": [
+        "具体安装包、扩展 API 版本及使用套餐的对应关系。",
+        "标准版与专业版工程互转的字段保留和第三方模型兼容范围。",
+        "编辑器主程序的完整许可与再分发条件；SDK 开源不能作为主程序开源证据。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "标准版 JavaScript 编辑器 API",
+        "category": "program",
+        "entry": "标准版的扩展/脚本入口执行 api(命令, 参数)。",
+        "role": "编辑器内脚本读写当前原理图或 PCB 对象。",
+        "direction": "JavaScript ⇄ 编辑器工程对象",
+        "operations": [
+          "读取 JSON、压缩源或 SVG",
+          "修改对象后以 applySource 应用",
+          "按图元 ID 查询和修改属性"
+        ],
+        "dataContract": "标准版 JSON 与图元 ID；Canvas 为像素且纵坐标向下，PCB 需转换 mm/mil/inch。该约定不推广到专业版。",
+        "workflow": [
+          "建议：在副本打开单个 PCB 并导出原始 JSON",
+          "建议：执行只读 getSource 后，再试一个对象修改",
+          "建议：以新文档应用并核对对象、单位和工程保存结果"
+        ],
+        "execution": "调用返回编辑器数据或应用修改；applySource 的 createNew 控制创建新文档或修改活动文档，执行完不等于完成文件保存。",
+        "failure": "建议记录脚本异常与活动文档；整体回滚和并发修改契约未核实，先以副本验证。",
+        "prerequisites": "可运行脚本的标准版会话、工程访问权限；不是独立无界面服务 API。",
+        "version": "标准版滚动 API 手册；专业版 eda 对象不与本 API 通用。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.lceda.cn/cn/API/3-API-List/",
+            "https://docs.lceda.cn/cn/API/1-How-to-Use-API/",
+            "https://docs.lceda.cn/cn/API/2-Coordinate-System-and-Unit/"
+          ],
+          "locator": "API List：getSource / applySource；坐标系统与单位"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "var result = api('getSource', {type:'json'});",
+          "sourceUrl": "https://docs.lceda.cn/cn/API/3-API-List/"
+        }
+      },
+      {
+        "name": "专业版 TypeScript / JavaScript 扩展 API",
+        "category": "program",
+        "entry": "扩展运行时根作用域中的 eda 对象；独立脚本或已安装扩展调用类实例方法。",
+        "role": "在专业版编辑器内组织工程、PCB 和原理图扩展。",
+        "direction": "扩展 ⇄ 专业版编辑器对象",
+        "operations": [
+          "访问按命名空间注册的 API 对象",
+          "在独立脚本中调试调用",
+          "编译并导入扩展包后使用菜单入口"
+        ],
+        "dataContract": "每个扩展有独立 eda 对象；独立脚本对象用后即抛。独立脚本不能使用依赖扩展包或外部交互的全部 API。",
+        "workflow": [
+          "建议：固定编辑器、API 及扩展包版本",
+          "建议：在测试工程从只读调用和日志开始",
+          "建议：编译、导入扩展，核对权限及受控修改"
+        ],
+        "execution": "在宿主执行；各方法同步/Promise 返回按具体签名。独立脚本本地保存位置由浏览器存储管理，不作为工程持久化保证。",
+        "failure": "扩展异常可按官方 safetyMode=true 暂时禁用脚本系统后诊断；不把全局删除扩展作为常规恢复。具体方法错误返回须逐项确认。",
+        "prerequisites": "专业版、匹配开发工具及工程权限；涉及联网的扩展需外部交互权限，不能据 SDK 开源推定主程序开源。",
+        "version": "标准版与专业版是不同编辑器/API 体系；专业版文档分别说明 V2/V3 入口，扩展 API 使用独立的 major.minor.patch 版本，不等于编辑器版本。未锁定安装包。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://prodocs.lceda.cn/cn/api/guide/invoke-apis.html",
+            "https://prodocs.lceda.cn/cn/api/user-guide/using-extension.html",
+            "https://prodocs.lceda.cn/cn/api/guide/stability.html",
+            "https://prodocs.lceda.cn/cn/api/guide/error-handling.html",
+            "https://prodocs.lceda.cn/cn/api/guide/ancillary-projects/easyeda-api-sdk.html"
+          ],
+          "locator": "调用方法、独立脚本限制；API 版本控制；安全模式"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：固定编辑器、API 及扩展包版本 → 在测试工程从只读调用和日志开始 → 编译、导入扩展，核对权限及受控修改",
+          "sourceUrl": "https://prodocs.lceda.cn/cn/api/guide/invoke-apis.html"
+        }
+      },
+      {
+        "name": "专业版生产资料文件 API（Beta）",
+        "category": "file",
+        "entry": "eda.pcb_ManufactureData.getManufactureData() 取得当前 PCB 的制造资料。",
+        "role": "从编辑器生成交付制造或外部检查的文件。",
+        "direction": "当前 PCB → File / 制造资料",
+        "operations": [
+          "异步取得制造资料文件",
+          "检查返回对象后另行保存和核对输出"
+        ],
+        "dataContract": "方法签名 Promise<File | undefined>；必须处理 undefined。格式、层集合和单位依实际输出及设置核对，不用它反推整个工程可无损交换。",
+        "workflow": [
+          "建议：准备包含层与钻孔的最小 PCB",
+          "建议：等待方法返回并确认不是 undefined",
+          "建议：保存输出并在独立查看器中核对层、孔与版本"
+        ],
+        "execution": "这是异步文件生成；返回 File 仍需完成保存，不能据此认定已上传制造或已下单。",
+        "failure": "明确检查 undefined/异常及文件内容；官方标记 Beta 并明确不用于生产环境，稳定性不能按正式 API 推定。",
+        "prerequisites": "支持该方法的专业版会话及工程权限；正式制造交付须采用经验证的稳定路径。",
+        "version": "所读滚动参考标记 Beta；API 版本与编辑器版本独立。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://prodocs.lceda.cn/en/api/reference/pro-api.pcb_manufacturedata.getmanufacturedata.html",
+            "https://prodocs.lceda.cn/cn/api/guide/stability.html"
+          ],
+          "locator": "getManufactureData：Beta 提示、Signature、Returns"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：准备包含层与钻孔的最小 PCB → 等待方法返回并确认不是 undefined → 保存输出并在独立查看器中核对层、孔与版本",
+          "sourceUrl": "https://prodocs.lceda.cn/en/api/reference/pro-api.pcb_manufacturedata.getmanufacturedata.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "嘉立创EDA：公司与产品归属",
+        "url": "https://lceda.cn/page/company"
+      },
+      {
+        "title": "嘉立创EDA标准版：API 列表",
+        "url": "https://docs.lceda.cn/cn/API/3-API-List/"
+      },
+      {
+        "title": "嘉立创EDA标准版：API 使用方法",
+        "url": "https://docs.lceda.cn/cn/API/1-How-to-Use-API/"
+      },
+      {
+        "title": "嘉立创EDA标准版：坐标系统与单位",
+        "url": "https://docs.lceda.cn/cn/API/2-Coordinate-System-and-Unit/"
+      },
+      {
+        "title": "嘉立创EDA专业版：调用扩展 API",
+        "url": "https://prodocs.lceda.cn/cn/api/guide/invoke-apis.html"
+      },
+      {
+        "title": "嘉立创EDA专业版：扩展的获取和使用",
+        "url": "https://prodocs.lceda.cn/cn/api/user-guide/using-extension.html"
+      },
+      {
+        "title": "嘉立创EDA专业版：接口稳定性",
+        "url": "https://prodocs.lceda.cn/cn/api/guide/stability.html"
+      },
+      {
+        "title": "嘉立创EDA专业版：扩展错误处理",
+        "url": "https://prodocs.lceda.cn/cn/api/guide/error-handling.html"
+      },
+      {
+        "title": "嘉立创EDA：easyeda-api-sdk 开发工具",
+        "url": "https://prodocs.lceda.cn/cn/api/guide/ancillary-projects/easyeda-api-sdk.html"
+      },
+      {
+        "title": "EasyEDA Pro：getManufactureData Beta API",
+        "url": "https://prodocs.lceda.cn/en/api/reference/pro-api.pcb_manufacturedata.getmanufacturedata.html"
+      },
+      {
+        "title": "嘉立创EDA标准版：设计与制造输出",
+        "url": "https://lceda.cn/standard"
+      }
+    ]
+  }
+]

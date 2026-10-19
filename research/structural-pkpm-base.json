@@ -1,0 +1,42 @@
+[
+  {
+    "name": "PKPM 结构设计软件（含 SATWE）",
+    "vendor": "北京构力科技有限公司（PKPM）",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "建筑结构建模、分析与设计；SATWE 支持地震作用、反应谱及动力弹性时程等抗震分析，并可为结构参数调整和优化提供模型及计算数据。",
+    "interfaces": [
+      {
+        "name": "结构二次开发 API（C# / Python / C++）",
+        "type": "API/SDK",
+        "detail": "C#、Python、C++ 工具包连接 PM 模型与 SATWE 计算设计结果，支持参数修改与迭代示例。"
+      },
+      {
+        "name": "JWD / SQLite 模型与结果数据库交换",
+        "type": "文件格式",
+        "detail": "以 .jwd SQLite 模型/结果库进行结构数据交换；重新导入属于整库覆盖路径。"
+      }
+    ],
+    "constraints": "接口证据分别限定历史结构 API、JWD 版本和 PM/SATWE 模型；不是 PKPM 全系列的统一 SDK。JWD 重导入会覆盖上一版本数据；具体许可、当前 schema 与兼容性未核实。本次未安装或实测。",
+    "sources": [
+      {
+        "title": "PKPM：利用 API 进行结构参数化调整和优化的探索，2021-10-26",
+        "url": "https://help.pkpm.cn/admin/ms/detail?SiteID=123&id=3162"
+      },
+      {
+        "title": "PKPM：V5.2 更新说明，2020-09-08，第 13 章 SQLite 模型接口",
+        "url": "https://update.pkpm.cn/PKPM2010/Soft/V5/V52/PKPM2010_V52Update_20200908.pdf"
+      },
+      {
+        "title": "PKPM：SATWE 的基本功能与限制，2019-11-26",
+        "url": "https://help.pkpm.cn/admin/ms/detail?SiteID=123&flagReader=1&id=1308&type=sourceBook"
+      },
+      {
+        "title": "PKPM：SATWE 适配工业结构设计改进，2024-11-21",
+        "url": "https://help.pkpm.cn/admin/ms/detail?SiteID=123&id=5700"
+      }
+    ],
+    "evidence": "官方技术专题、官方更新说明及 SATWE 手册；逐路径版本与未知项见交互详情。",
+    "sourceDate": "2026-10-19"
+  }
+]

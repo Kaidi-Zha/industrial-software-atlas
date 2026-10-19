@@ -1,0 +1,166 @@
+[
+  {
+    "name": "Ansys Mechanical APDL（MAPDL）",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "Mechanical APDL 命令环境、APDL 输入脚本与 Python/PyMAPDL 客户端。",
+      "coverage": "MAPDL 为具体分析应用/求解环境。Ansys 是产品体系名称，Mechanical、MAPDL、HFSS 等不共享一个通用对象 API；模型归档与结果读取另列。",
+      "versionBoundary": "APDL 语言说明取自 2024 R2；反应谱示例取自 2025 R2；PyMAPDL 为滚动 stable 文档，客户端、MAPDL 安装版、许可及结果读取依赖须匹配。",
+      "unknowns": [
+        "实际安装包与 PyMAPDL/结果读取后端兼容组合。",
+        "目标项目所需材料、单元、阻尼、分析假设及具体许可。",
+        "服务并发、断线恢复、输入撤销及结果转换的完整保证；均未运行验证。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "APDL 命令 / 输入脚本",
+        "category": "program",
+        "entry": "Mechanical APDL 命令解释器或命令/批处理输入文件；可通过 PyMAPDL input_strings/input 提交既有文本。",
+        "role": "控制有限元模型、分析处理器和结果后处理。",
+        "direction": "APDL 文本/参数 → MAPDL → 日志与结果",
+        "operations": [
+          "参数化定义模型和载荷",
+          "按脚本进入前处理、求解和后处理",
+          "执行官方反应谱分析流程中的模态和谱分析阶段"
+        ],
+        "dataContract": "命令依当前处理器和选择集执行；节点、单元、材料编号、单位体系及载荷方向须由工程明确。反应谱与时程不是同一输入契约。",
+        "workflow": [
+          "建议：在副本固定版本与自洽单位",
+          "建议：分阶段运行一个已验证小模型",
+          "建议：检查命令响应、求解日志与预期结果后保存"
+        ],
+        "execution": "脚本可组织宏、条件和循环；PyMAPDL 非交互上下文会先缓冲命令，退出上下文时再提交，期间读取结果可能与待执行命令不同步。",
+        "failure": "错误日志和未收敛信息分别检查；进程正常结束或存在结果文件不代表工程分析正确。自动回滚未核实。",
+        "prerequisites": "匹配的 MAPDL 安装、求解许可和文件权限；并行/HPC 条件按部署核对。",
+        "version": "APDL 语言说明取自 2024 R2；反应谱示例取自 2025 R2；PyMAPDL 为滚动 stable 文档，客户端、MAPDL 安装版、许可及结果读取依赖须匹配。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://mapdl.docs.pyansys.com/version/stable/user_guide/mapdl.html",
+            "https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/ans_apdl/Hlp_P_APDL1.html",
+            "https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/ans_str/Hlp_G_STR6_6.html"
+          ],
+          "locator": "APDL Introduction；PyMAPDL non_interactive；Structural Analysis Guide §6.4"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "mapdl.run(\"/SOLU\")",
+          "sourceUrl": "https://mapdl.docs.pyansys.com/version/stable/user_guide/mapdl.html"
+        }
+      },
+      {
+        "name": "PyMAPDL / gRPC 会话",
+        "category": "program",
+        "entry": "ansys.mapdl.core.launch_mapdl() 启动或按 ip/port 连接实例，再使用 Mapdl 方法或 run() 发命令。",
+        "role": "Python 客户端组织 MAPDL 会话和模型操作。",
+        "direction": "Python 客户端 ⇄ MAPDL 服务",
+        "operations": [
+          "启动或连接指定版本实例",
+          "将 APDL 命令映射为 Python 方法",
+          "读取参数或数组并管理会话生命周期"
+        ],
+        "dataContract": "会话受当前数据库、处理器、选择集和文件位置影响；启动配置中的 clear_on_connect、cleanup_on_exit 与实例归属应明确，不能当作无状态服务。",
+        "workflow": [
+          "建议：明确新建实例或连接已有实例及清理选项",
+          "建议：先查询版本和只读模型信息",
+          "建议：执行受控操作后保存并按实例归属释放资源"
+        ],
+        "execution": "launch_mapdl 的启动/连接参数和 gRPC 模式决定行为；non_interactive 中的命令延迟提交，不宜在其中混入依赖即时结果的 Python 读取。",
+        "failure": "默认检测 MAPDL 的错误文本可触发 MapdlRuntimeError；ignore_errors 可改变行为。连接失败、超时与求解问题需分开诊断。",
+        "prerequisites": "兼容的 Python/PyMAPDL、可达 MAPDL 与许可；远程认证、端口和安全配置按实际部署核对。",
+        "version": "所引 stable 文档未锁定包版本；不将 PyMAPDL 接口当作 PyMechanical 或全部 Workbench 应用的对象模型。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://mapdl.docs.pyansys.com/version/stable/api/_autosummary/ansys.mapdl.core.launcher.launch_mapdl.html",
+            "https://mapdl.docs.pyansys.com/version/stable/user_guide/mapdl.html",
+            "https://mapdl.docs.pyansys.com/version/stable/api/_autosummary/ansys.mapdl.core.Mapdl.ignore_errors.html"
+          ],
+          "locator": "launch_mapdl 参数；命令映射；ignore_errors"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：明确新建实例或连接已有实例及清理选项 → 先查询版本和只读模型信息 → 执行受控操作后保存并按实例归属释放资源",
+          "sourceUrl": "https://mapdl.docs.pyansys.com/version/stable/api/_autosummary/ansys.mapdl.core.launcher.launch_mapdl.html"
+        }
+      },
+      {
+        "name": "CDB 归档 / RST 结果读取",
+        "category": "file",
+        "entry": "CDWRITE/CDREAD 归档读写；Mapdl.result 接入结构分析二进制结果的官方读取后端。",
+        "role": "交换模型数据库的特定内容并提取结果。",
+        "direction": "模型 ⇄ CDB 归档；RST → 结果读取工具",
+        "operations": [
+          "按选项写出几何、材料、载荷或数据库内容",
+          "读取匹配的命令格式归档",
+          "使用 DPF 或 MAPDL Reader 后端读取结果"
+        ],
+        "dataContract": "CDWRITE 各选项保存内容不同，不能将任一 CDB 当作完整 Workbench 工程；二进制结果后端取决于安装依赖，保留节点/单元编号及结果集含义。",
+        "workflow": [
+          "建议：确认归档选项、坐标、单位及完整依赖",
+          "建议：在独立副本重读并比较模型对象",
+          "建议：选择明确结果集提取并与宿主结果核对"
+        ],
+        "execution": "文件交换与求解会话分开；Mapdl.result 可使用 ansys-dpf-core 或 ansys-mapdl-reader，具体返回对象依依赖而异。",
+        "failure": "归档可读不等于全部材料、单元或载荷语义无损；自定义单元特征及二进制版本兼容须额外核对。",
+        "prerequisites": "模型与结果文件访问权限、匹配求解器/读取后端及依赖；不同归档选项需要不同附属文件。",
+        "version": "CDREAD/CDWRITE 与 result 依据 stable 文档；历史或更新版本结果兼容未运行验证。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://mapdl.docs.pyansys.com/version/stable/mapdl_commands/prep7/_autosummary/ansys.mapdl.core._commands.prep7.database.Database.cdwrite.html",
+            "https://mapdl.docs.pyansys.com/version/stable/mapdl_commands/prep7/_autosummary/ansys.mapdl.core._commands.prep7.database.Database.cdread.html",
+            "https://mapdl.docs.pyansys.com/version/stable/api/_autosummary/ansys.mapdl.core.Mapdl.result.html"
+          ],
+          "locator": "CDWRITE Options/Notes；CDREAD；Mapdl.result"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认归档选项、坐标、单位及完整依赖 → 在独立副本重读并比较模型对象 → 选择明确结果集提取并与宿主结果核对",
+          "sourceUrl": "https://mapdl.docs.pyansys.com/version/stable/mapdl_commands/prep7/_autosummary/ansys.mapdl.core._commands.prep7.database.Database.cdwrite.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Ansys：APDL 参数化语言",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/ans_apdl/Hlp_P_APDL1.html"
+      },
+      {
+        "title": "Ansys 2025 R2：反应谱命令/批处理示例",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/ans_str/Hlp_G_STR6_6.html"
+      },
+      {
+        "title": "PyMAPDL：命令、脚本和非交互缓冲行为",
+        "url": "https://mapdl.docs.pyansys.com/version/stable/user_guide/mapdl.html"
+      },
+      {
+        "title": "PyMAPDL：启动或连接 MAPDL",
+        "url": "https://mapdl.docs.pyansys.com/version/stable/api/_autosummary/ansys.mapdl.core.launcher.launch_mapdl.html"
+      },
+      {
+        "title": "PyMAPDL：ignore_errors 与 MapdlRuntimeError",
+        "url": "https://mapdl.docs.pyansys.com/version/stable/api/_autosummary/ansys.mapdl.core.Mapdl.ignore_errors.html"
+      },
+      {
+        "title": "PyMAPDL：CDWRITE 数据库归档",
+        "url": "https://mapdl.docs.pyansys.com/version/stable/mapdl_commands/prep7/_autosummary/ansys.mapdl.core._commands.prep7.database.Database.cdwrite.html"
+      },
+      {
+        "title": "PyMAPDL：CDREAD 归档读取",
+        "url": "https://mapdl.docs.pyansys.com/version/stable/mapdl_commands/prep7/_autosummary/ansys.mapdl.core._commands.prep7.database.Database.cdread.html"
+      },
+      {
+        "title": "PyMAPDL：二进制结果读取入口",
+        "url": "https://mapdl.docs.pyansys.com/version/stable/api/_autosummary/ansys.mapdl.core.Mapdl.result.html"
+      }
+    ]
+  }
+]

@@ -1,0 +1,569 @@
+[
+  {
+    "name": "Cantera",
+    "vendor": "Cantera 开发社区",
+    "sector": "materials",
+    "stage": "工艺仿真",
+    "purpose": "化学反应动力学、热力学、输运及反应器网络计算，补充机理建模与小尺度过程研究。",
+    "interfaces": [
+      {
+        "name": "Python Solution / ReactorNet API",
+        "type": "API/SDK",
+        "detail": "相对象提供热力学、动力学和输运性质，ReactorNet 推进反应器网络。"
+      },
+      {
+        "name": "YAML 机理文件 / 转换工具",
+        "type": "文件格式",
+        "detail": "YAML 定义相、组分和反应；官方提供 Chemkin、CTI/CTML 等格式转换脚本。"
+      }
+    ],
+    "constraints": "需兼容的 Cantera 安装与机理数据；软件为 BSD-3-Clause，外部机理数据来源/许可单独确认。；需对应版本的 Cantera 转换工具、完整原始文件和可用数据许可。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Cantera：社区与 BSD-3-Clause 许可",
+        "url": "https://testing.cantera.org/community.html"
+      },
+      {
+        "title": "Cantera：Python Module Documentation 3.2.0",
+        "url": "https://cantera.org/stable/python/index.html"
+      },
+      {
+        "title": "Cantera：Python Tutorial 3.2.0",
+        "url": "https://cantera.org/stable/userguide/python-tutorial.html"
+      },
+      {
+        "title": "Cantera：YAML Input File Reference 3.2.0",
+        "url": "https://cantera.org/stable/yaml/index.html"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CP2K",
+    "vendor": "CP2K 开发社区",
+    "sector": "materials",
+    "stage": "研发设计",
+    "purpose": "材料、液体和分子体系的量子化学、电子结构与原子尺度模拟。",
+    "interfaces": [
+      {
+        "name": "Python / libcp2k 进程内接口",
+        "type": "API/SDK",
+        "detail": "Python 包通过 ctypes 调用 libcp2k C API，默认在本进程计算，不解析外部可执行程序输出。"
+      },
+      {
+        "name": "CP2K 命令行 / 分节输入文件",
+        "type": "脚本/CLI",
+        "detail": "可执行程序通过 -i/-o 读取计算输入、写日志，按编译配置使用 MPI/OpenMP。"
+      }
+    ],
+    "constraints": "需源码匹配的 Python 包、以 BUILD_SHARED_LIBS 构建的 libcp2k、数据目录与数值库；仅 pip 安装包装层不能替代求解器。；需可用 CP2K 构建、匹配输入/数据文件和计算资源；源码按 GPL，第三方依赖许可分别确认。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "CP2K：项目用途与 GPL 许可",
+        "url": "https://www.cp2k.org/"
+      },
+      {
+        "title": "CP2K：Python interface，trunk",
+        "url": "https://manual.cp2k.org/trunk/technologies/python.html"
+      },
+      {
+        "title": "CP2K：Run a First Calculation，trunk",
+        "url": "https://manual.cp2k.org/trunk/getting-started/first-calculation.html"
+      },
+      {
+        "title": "CP2K：Troubleshooting，trunk",
+        "url": "https://manual.cp2k.org/trunk/getting-started/troubleshooting.html"
+      },
+      {
+        "title": "CP2K：Input Reference，trunk",
+        "url": "https://manual.cp2k.org/trunk/CP2K_INPUT.html"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ChemSep",
+    "vendor": "Harry Kooijman / Ross Taylor；ChemSep",
+    "sector": "materials",
+    "stage": "工艺仿真",
+    "purpose": "精馏、吸收等多组分分离过程的平衡级与速率模型，补充分离单元设计及流程组件。",
+    "interfaces": [
+      {
+        "name": "CAPE-OPEN 分离单元组件",
+        "type": "API/SDK",
+        "detail": "ChemSep 可作为兼容流程软件中的 CAPE-OPEN 单元操作，官方书籍给出 COCO 流程示例。"
+      },
+      {
+        "name": "命令行变量访问 / .sep 工程",
+        "type": "脚本/CLI",
+        "detail": "官方命令表支持无 GUI 检查 .sep、查询结果变量及设置输入变量。"
+      }
+    ],
+    "constraints": "需 ChemSep 相应授权及兼容 CAPE-OPEN 宿主；LITE 限制依实际安装版本，不采用旧文献的组分数限值外推。；需包含对应命令能力的 ChemSep 安装和 .sep 案例；完整功能与 LITE 的差异按版本授权。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "ChemSep：The ChemSep Book，CAPE-OPEN 与命令行",
+        "url": "https://chemsep.org/book/docs/book2.pdf"
+      },
+      {
+        "title": "COCO：ChemSep-LITE 组件说明",
+        "url": "https://www.cocosimulator.org/"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Aspen Custom Modeler",
+    "vendor": "AspenTech",
+    "sector": "materials",
+    "stage": "工艺仿真",
+    "purpose": "建立特种设备和单元操作的方程模型，进行稳态/动态计算并部署到受支持流程环境。",
+    "interfaces": [
+      {
+        "name": "ACM Simulation scripts / Excel Automation",
+        "type": "API/SDK",
+        "detail": "官方课程确认 Simulation scripts，并可从 Excel 控制 ACM 和交换数据。"
+      },
+      {
+        "name": "自定义单元模型导出至 Aspen Plus / HYSYS",
+        "type": "信息模型",
+        "detail": "ACM 模型可导出并作为 Aspen Plus/HYSYS 的自定义单元操作使用。"
+      }
+    ],
+    "constraints": "需商业 ACM 与对应自动化/Excel 环境；开发、运行与模块授权按厂商许可。；需相容的 ACM、目标 Aspen Plus/HYSYS 环境及相关模型运行授权；同厂商不代表任意版本直接兼容。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "AspenTech：ACM 建模、脚本与 Excel 自动化课程 EAP2311",
+        "url": "https://esupport.aspentech.com/apex/T_course?id=a3p0B0000004YqGQAU"
+      },
+      {
+        "title": "AspenTech：ACM 产品与模型集成",
+        "url": "https://www.aspentech.com/en/products/engineering/aspen-custom-modeler"
+      },
+      {
+        "title": "AspenTech：eLearning，ACM 模型导出/部署",
+        "url": "https://solutions.aspentech.com/-/media/aspentech/home/knowledge/elearning/at-04304-aspen_elearning_catalog.pdf?sc_lang=en"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "GROMACS",
+    "vendor": "GROMACS 开发团队",
+    "sector": "biopharma",
+    "stage": "研发设计",
+    "purpose": "蛋白质、膜与分子体系的动力学模拟及轨迹分析，补充生物医药分子模拟工作环节。",
+    "interfaces": [
+      {
+        "name": "gmxapi Python 工作流",
+        "type": "API/SDK",
+        "detail": "通过 read_tpr、modify_input 和 mdrun 组织模拟；操作先构图，再显式执行。"
+      },
+      {
+        "name": "gmx mdrun / TPR 与轨迹文件",
+        "type": "脚本/CLI",
+        "detail": "mdrun 读取运行输入并生成轨迹、能量与检查点等文件；支持按参数恢复运行。"
+      }
+    ],
+    "constraints": "需相容 GROMACS、gmxapi、Python 与 MPI 依赖；GROMACS 为开源软件，力场和外部数据许可另核。；需可用 GROMACS 构建、完整 TPR 及所需续算文件；GPU/MPI 支持依安装。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "GROMACS：项目性质与已发布版本",
+        "url": "https://www.gromacs.org/"
+      },
+      {
+        "title": "GROMACS：gmxapi Python 使用指南",
+        "url": "https://manual.gromacs.org/current/gmxapi/userguide/usage.html"
+      },
+      {
+        "title": "GROMACS：gmxapi API 与异常参考",
+        "url": "https://manual.gromacs.org/current/gmxapi/userguide/pythonreference.html"
+      },
+      {
+        "title": "GROMACS：gmxapi 版本概览",
+        "url": "https://manual.gromacs.org/current/gmxapi/index.html"
+      },
+      {
+        "title": "GROMACS：gmx mdrun 命令参考",
+        "url": "https://manual.gromacs.org/current/onlinehelp/gmx-mdrun.html"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OpenMM",
+    "vendor": "OpenMM 开发团队",
+    "sector": "biopharma",
+    "stage": "研发设计",
+    "purpose": "可定制的分子模拟，用于分子体系的力场、动力学及能量计算研发。",
+    "interfaces": [
+      {
+        "name": "Python Simulation / Context API",
+        "type": "API/SDK",
+        "detail": "Simulation 关联拓扑、体系、积分器和 Context，可推进步数、能量最小化并配置结果 reporter。"
+      },
+      {
+        "name": "XML State / binary checkpoint",
+        "type": "文件格式",
+        "detail": "XML State 可移植保存公开状态；二进制 checkpoint 保存更多内部状态但有严格兼容条件。"
+      }
+    ],
+    "constraints": "需 OpenMM 和可用计算平台；软件部分为 MIT、部分为 LGPL，附加力场/插件依各自许可。；需与来源相符的模拟配置；checkpoint 还需匹配平台/硬件/版本；备份应保留完整模型与参数。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "OpenMM：项目与许可概览",
+        "url": "https://openmm.org/"
+      },
+      {
+        "title": "OpenMM：Simulation Python API",
+        "url": "https://docs.openmm.org/latest/api-python/generated/openmm.app.simulation.Simulation.html"
+      },
+      {
+        "title": "OpenMM：运行、保存 XML 状态与二进制检查点",
+        "url": "https://docs.openmm.org/latest/userguide/application/02_running_sims.html"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "RDKit",
+    "vendor": "RDKit 开发社区",
+    "sector": "biopharma",
+    "stage": "研发设计",
+    "purpose": "分子结构清洗、子结构检索、描述符和化学信息处理，补充药物研发数据准备。",
+    "interfaces": [
+      {
+        "name": "Python 分子对象 / 子结构 API",
+        "type": "API/SDK",
+        "detail": "可从结构表示建立 Mol 对象，并对分子进行子结构检索等处理。"
+      },
+      {
+        "name": "SMILES / MOL / SDF 文件交换",
+        "type": "文件格式",
+        "detail": "Supplier 读取分子集合，Writer 输出受支持结构格式与属性。"
+      }
+    ],
+    "constraints": "需兼容的 RDKit 构建与 Python 环境；BSD 许可，所用数据、模型与第三方组件分别确认。；需有效源文件及匹配的 RDKit 格式模块；CSV 业务字段映射不由分子格式自动定义。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "RDKit：工具库性质与 BSD 许可",
+        "url": "https://www.rdkit.org/docs/Overview.html"
+      },
+      {
+        "title": "RDKit：读取/写入分子集合示例",
+        "url": "https://www.rdkit.org/docs/GettingStartedInPython.html"
+      },
+      {
+        "title": "RDKit：rdmolfiles 分子格式 API",
+        "url": "https://www.rdkit.org/docs/source/rdkit.Chem.rdmolfiles.html"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "FEBio",
+    "vendor": "FEBio 开发团队",
+    "sector": "biopharma",
+    "stage": "研发设计",
+    "purpose": "生物力学有限元计算及材料模型扩展，补充组织、材料与医疗器械相关的力学研发模拟。",
+    "interfaces": [
+      {
+        "name": "C++ 材料插件 / FECore",
+        "type": "API/SDK",
+        "detail": "通过继承材料基类、注册类并实现应力与切线等方法扩展求解器。"
+      },
+      {
+        "name": "FEBio 命令行 / XML .feb 输入",
+        "type": "脚本/CLI",
+        "detail": "Studio 可导出 FE model 为 .feb，再由 febio4 -i 独立运行并检查终止消息。"
+      }
+    ],
+    "constraints": "需匹配的 FEBio 开发环境和相容 C++ 工具链；源码/二进制/第三方库许可分别核对。；需对应 FEBio 安装和有效 .feb；官网二进制为自定义许可，外部求解库可能有独立条件。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "FEBio：项目与生物力学用途",
+        "url": "https://febio.org/"
+      },
+      {
+        "title": "FEBio：知识库及源码/二进制许可区别",
+        "url": "https://febio.org/knowledgebase/"
+      },
+      {
+        "title": "FEBio：Material Plugins 开发说明 4.8",
+        "url": "https://help.febio.org/doxygen/febio4.8/material.html"
+      },
+      {
+        "title": "FEBio：从 FEBio Studio 导出并命令行运行",
+        "url": "https://febio.org/knowledgebase/tutorials/intro-to-fe/running-your-first-simulation-in-febio-studio/"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "3D Slicer",
+    "vendor": "3D Slicer 社区 / BWH 等贡献机构",
+    "sector": "biopharma",
+    "stage": "研发设计",
+    "purpose": "科研影像计算、分割与三维模型处理，补充医疗器械研发中的影像前处理和测量。",
+    "interfaces": [
+      {
+        "name": "应用内 Python / CLI 模块调度",
+        "type": "API/SDK",
+        "detail": "Python Console 可访问应用、MRML 场景和模块；可同步或后台运行 CLI 模块并检查状态。"
+      },
+      {
+        "name": "MRML / MRB 场景交换",
+        "type": "文件格式",
+        "detail": "MRML 保存场景元数据及外部引用；MRB 打包场景数据与元数据。"
+      }
+    ],
+    "constraints": "需相应 Slicer 安装、模块和输入节点；Slicer 专用 BSD-style 许可，扩展及依赖另核。；需相容 Slicer/扩展与足够存储；外部影像与模型数据使用权限单独确认。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "3D Slicer：应用用途与专用许可说明",
+        "url": "https://slicer.readthedocs.io/en/latest/user_guide/about.html"
+      },
+      {
+        "title": "3D Slicer：Python FAQ",
+        "url": "https://slicer.readthedocs.io/en/latest/developer_guide/python_faq.html"
+      },
+      {
+        "title": "3D Slicer：数据加载保存及 MRML/MRB 格式",
+        "url": "https://slicer.readthedocs.io/en/latest/user_guide/data_loading_and_saving.html"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "LabKey Server",
+    "vendor": "LabKey",
+    "sector": "biopharma",
+    "stage": "质量检测",
+    "purpose": "管理与整合实验、检测及研究表格数据，通过应用数据结构和客户端接口与分析流程衔接。",
+    "interfaces": [
+      {
+        "name": "Python Client API / 服务查询与写入",
+        "type": "API/SDK",
+        "detail": "官方客户端可查询、插入和更新 LabKey Server 数据；Web 界面能导出查询用 Python 起始脚本。"
+      },
+      {
+        "name": "Assay / 表格 TSV、CSV、Excel 导入",
+        "type": "文件格式",
+        "detail": "标准 Assay 等数据结构可映射实验表格；文本导入按 UTF-8 解析。"
+      }
+    ],
+    "constraints": "需 LabKey 实例及授权账户、可达服务和 Python 客户端；客户端 Apache-2.0，Premium 功能按服务器许可。；需目标数据结构、导入权限与可用的文件格式；商业模块和自动导入服务授权另核。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "LabKey：platform 核心模块及 Apache-2.0 许可",
+        "url": "https://github.com/LabKey/platform"
+      },
+      {
+        "title": "LabKey：Python API",
+        "url": "https://www.labkey.org/Documentation/wiki-page.view?name=python"
+      },
+      {
+        "title": "LabKey：官方 Python 客户端与版本/认证说明",
+        "url": "https://github.com/LabKey/labkey-api-python"
+      },
+      {
+        "title": "LabKey：Import Data",
+        "url": "https://www.labkey.org/Documentation/wiki-page.view?name=importData"
+      },
+      {
+        "title": "LabKey：Preparing Data for Import",
+        "url": "https://www.labkey.org/Documentation/wiki-page.view?name=dataImport"
+      },
+      {
+        "title": "LabKey：Assay Data",
+        "url": "https://www.labkey.org/Documentation/wiki-page.view?name=instrumentData"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Valentina",
+    "vendor": "Smart Pattern / Valentina 项目",
+    "sector": "food",
+    "stage": "研发设计",
+    "purpose": "服装轻工的参数化纸样设计、尺码与排料图输出，补充开源版型设计工具。",
+    "interfaces": [
+      {
+        "name": "Valentina 命令行批量导出",
+        "type": "脚本/CLI",
+        "detail": "命令行可指定纸样、替代测量文件、输出目录与导出格式，生成排料输出。"
+      },
+      {
+        "name": "SVG / DXF AAMA、ASTM 纸样导出",
+        "type": "文件格式",
+        "detail": "Valentina 可导出 SVG、DXF 等；后续官方发行说明另列 DXF AAMA/ASTM 兼容改进。"
+      }
+    ],
+    "constraints": "需同版 Valentina、可解析的纸样/测量和写入目录；GPL 许可，依赖组件许可分别核对。；需包含对应导出能力的 Valentina/Puzzle 版本；GPL 源码可用不等于任何第三方 CAD 无损兼容。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Seamly 维护者：项目分叉及后续支持范围",
+        "url": "https://forum.seamly.io/t/is-a-nameless-point-possible/2445/2"
+      },
+      {
+        "title": "Valentina：用户手册 Edition 1.5，2020-12-23，Appendix A",
+        "url": "https://media.smart-pattern.com.ua/images/products/2021/03/Valentina._User_manual._Preview_version.pdf"
+      },
+      {
+        "title": "Valentina：官方发行说明",
+        "url": "https://gitlab.com/smart-pattern/valentina/-/releases"
+      },
+      {
+        "title": "Valentina 0.7：Quick Guide，项目组成及开源说明",
+        "url": "https://media.smart-pattern.com.ua/images/products/2022/09/Valentina_0.7._Quick_guide._Preview_version.pdf"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Seamly2D",
+    "vendor": "FashionFreedom / Seamly 项目",
+    "sector": "food",
+    "stage": "研发设计",
+    "purpose": "服装轻工的参数化版型与量体纸样设计，提供图形和批量输出。",
+    "interfaces": [
+      {
+        "name": "Seamly2D CLI / console export",
+        "type": "脚本/CLI",
+        "detail": "命令解析器支持纸样、测量、输出目录与格式等导出参数；通过本机 --help 查询实际选项。"
+      },
+      {
+        "name": "SVG / DXF AAMA、ASTM 布局导出",
+        "type": "文件格式",
+        "detail": "官方导出实现列 SVG 及多种 DXF Flat/AAMA/ASTM 格式，并提供文字转路径、二进制 DXF 等选项。"
+      }
+    ],
+    "constraints": "需匹配的 Seamly2D、纸样及测量文件；GPLv3+，第三方库许可另列于项目。；需对应 Seamly2D 版本和合法输出目录；纸样与测量保留原件，接收 CAD 的兼容性另核。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Seamly：官方仓库与 GPLv3+ 许可",
+        "url": "https://github.com/fashionfreedom/seamly2d"
+      },
+      {
+        "title": "Seamly 维护者：项目分叉及后续支持范围",
+        "url": "https://forum.seamly.io/t/is-a-nameless-point-possible/2445/2"
+      },
+      {
+        "title": "Seamly：VCommandLine 源码文档",
+        "url": "https://fashionfreedom.github.io/Seamly2D/df/d9b/vcmdexport_8cpp_source.html"
+      },
+      {
+        "title": "Seamly：维护者命令行说明",
+        "url": "https://forum.seamly.io/t/how-to-command-line-interface/2155"
+      },
+      {
+        "title": "Seamly：ExportLayoutDialog 源码文档",
+        "url": "https://fashionfreedom.github.io/Seamly2D/dd/d54/export__layout__dialog_8cpp_source.html"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Opcenter APS",
+    "vendor": "Siemens",
+    "sector": "food",
+    "stage": "生产执行",
+    "purpose": "跨行业的生产计划、有限能力排程与计划修复，补足食品轻工目录的计划排程工作环节。",
+    "interfaces": [
+      {
+        "name": "APS SDK / Planner .NET API",
+        "type": "API/SDK",
+        "detail": "SDK 支持对象访问、自定义动作和排程规则；18.2 增加 Planner .NET 方法及自定义窗口。"
+      },
+      {
+        "name": "Import/Export 与 Sequencer 控制台",
+        "type": "脚本/CLI",
+        "detail": "独立控制台可运行配置内导入/导出脚本、材料规则及排程规则，不必交互打开排程界面。"
+      }
+    ],
+    "constraints": "需对应商业 APS 模块、SDK 权限与匹配 .NET 环境；不是全部档位均可任意定制。；需包含所用控制台/规则的 APS 授权和配置，批处理期间遵守同版应用并发限制。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "Siemens Academy：Preactor APS 更名说明",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=APS5002_______SIT__18.0___B3"
+      },
+      {
+        "title": "Siemens：Opcenter APS 18.6 unattended consoles",
+        "url": "https://blogs.sw.siemens.com/opcenter/whats-new-in-opcenter-aps-18-6/"
+      },
+      {
+        "title": "Siemens：Opcenter APS 18.2 Planner .NET API",
+        "url": "https://blogs.sw.siemens.com/opcenter/available-now-opcenter-aps-18-2/"
+      },
+      {
+        "title": "Siemens：Opcenter APS 18.2 Fact Sheet",
+        "url": "https://www.plm.automation.siemens.com/media/global/en/Siemens%20SW%20Opcenter%20APS%20v18.2%20Fact%20Sheet_tcm27-82112.pdf"
+      },
+      {
+        "title": "Siemens Academy：Opcenter APS API Objects 与开发流程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=ILTLG080017___OPS__18.00__B1020"
+      },
+      {
+        "title": "Siemens：Opcenter APS 18.1 控制台与集成说明",
+        "url": "https://www.plm.automation.siemens.com/media/global/en/Siemens%20SW%20Whats%20new%20in%20Siemens%20Opcenter%20APS%2018-1%20Fact%20Sheet_tcm27-71164.pdf"
+      },
+      {
+        "title": "Siemens：Opcenter APS 18.1 发布说明",
+        "url": "https://blogs.sw.siemens.com/opcenter/available-now-siemens-opcenter-aps-18-1/"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Packmage（包装魔术师）",
+    "vendor": "广州中为信息技术有限公司",
+    "sector": "food",
+    "stage": "研发设计",
+    "purpose": "包装结构参数化设计、3D 虚拟打样与刀模/拼版准备，补充国产包装软件。",
+    "interfaces": [
+      {
+        "name": "DXF / PDF 包装展开图交付",
+        "type": "文件格式",
+        "detail": "云设计明确提供 DXF/PDF 输出；桌面 CAD 官方说明也确认展开图可导出供后续设计与刀模流程使用。"
+      }
+    ],
+    "constraints": "需对应桌面/云设计授权和导出权限；云设计需要网络服务，免费或付费档位功能按实际合同。。本次仅核查文档，未安装或实测。",
+    "sources": [
+      {
+        "title": "包装魔术师：CAD 产品范围",
+        "url": "https://www.packmage.cn/Cad/Index"
+      },
+      {
+        "title": "包装魔术师：云设计·接口产品说明，技术契约未公开取得",
+        "url": "https://www.packmage.cn/Ass/OnlineApi"
+      },
+      {
+        "title": "包装魔术师：业务助手的用户/订单接口声明",
+        "url": "https://www.packmage.cn/Ass/Index"
+      },
+      {
+        "title": "包装魔术师：云设计输出格式与单位",
+        "url": "https://www.packmage.cn/Ass/Online"
+      },
+      {
+        "title": "包装魔术师：CAD 展开图和刀模/印版交付说明",
+        "url": "https://www.packmage.cn/about/article/253-A"
+      }
+    ],
+    "evidence": "官方技术文档/官方示例或产品说明；逐路径确定性和版本见交互详情。",
+    "sourceDate": "2026-10-19"
+  }
+]

@@ -1,0 +1,1527 @@
+[
+  {
+    "name": "FreeCAD",
+    "profile": {
+      "versionBoundary": "SourceDoc 首页注明 docs 分支、提交0d61c6a72b、2022-07-15；以下C++签名按该快照。Python绑定与当前安装版需另核对。",
+      "humanEntry": "FreeCAD 图形界面、Python开发环境；C++插件／宿主代码。",
+      "coverage": "文档对象与重算状态，以及几何形状的中性文件输出。",
+      "unknowns": [
+        "当前发行版Python绑定的参数、异常及线程约定未逐项核实。",
+        "STEP应用协议版本、属性保留和外部接收器兼容性未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "应用／文档 API（C++／Python）",
+        "category": "program",
+        "entry": "App::Document 类；FreeCAD开发环境中的文档对象。公开文档索引同时覆盖C++与Python，具体Python调用形式按安装版帮助核对。",
+        "role": "把机械特征建模组织为可重复的程序操作。",
+        "direction": "插件／脚本参数 → 文档对象；对象及重算状态 → 调用方",
+        "operations": [
+          "添加和删除特征",
+          "查询对象与依赖",
+          "重算并检查对象错误"
+        ],
+        "dataContract": "C++ addObject接收类型与对象名并返回对象指针；recompute返回重算特征数，可通过hasError参数及getErrorDescription检查错误。该C++返回合同不直接等同Python绑定。",
+        "workflow": [
+          "建议：核对安装版与源码文档版本",
+          "建议：建立最小文档和特征，保留对象名称",
+          "建议：重算并检查错误说明，再保存文档"
+        ],
+        "execution": "对象属于文档生命周期；修改后需按依赖重算。跨线程使用与Python对象失效规则未在本次文档核实。",
+        "failure": "建议检查对象类型、名称、依赖及重算错误；完整异常类别和进程退出码未核实。",
+        "prerequisites": "FreeCAD安装或匹配源码开发环境；相应工作台及几何依赖。",
+        "version": "2022-07-15 SourceDoc；Document类。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://freecad.github.io/SourceDoc/",
+            "https://freecad.github.io/SourceDoc/d8/d3e/classApp_1_1Document.html"
+          ],
+          "locator": "Document：addObject、removeObject、recompute、getErrorDescription；文档首页的构建提交。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对安装版与源码文档版本 → 建议：建立最小文档和特征，保留对象名称 → 建议：重算并检查错误说明，再保存文档",
+          "sourceUrl": "https://freecad.github.io/SourceDoc/"
+        }
+      },
+      {
+        "name": "STEP／IGES 几何文件输出",
+        "category": "file",
+        "entry": "Part::TopoShape::exportStep(FileName)／exportIges(FileName)，或安装版对应几何导出入口。",
+        "role": "把零件几何交给其他CAD／CAE工具。",
+        "direction": "FreeCAD几何形状 → STEP／IGES文件 → 接收软件",
+        "operations": [
+          "输出STEP几何",
+          "输出IGES几何",
+          "核对接收后的几何完整性"
+        ],
+        "dataContract": "源码文档列出const char*文件名与void返回签名；这里只确认几何文件输出，不确认特定STEP AP版本、完整特征历史或装配语义。",
+        "workflow": [
+          "建议：先保存原生文档并选择待输出几何",
+          "建议：按安装版导出指定格式到独立路径",
+          "建议：用接收软件回读并比较尺度、形状和对象数量"
+        ],
+        "execution": "输出形成文件副本；接收工具的导入是另一个操作。导出时机应在几何重算完成后。",
+        "failure": "void签名没有成功状态返回值；异常全集未核实，应检查日志、目标文件及回读结果。",
+        "prerequisites": "有效TopoShape、可写目录、接收端相应格式导入器。",
+        "version": "2022-07-15 SourceDoc的TopoShape导出方法；格式版本未明确。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://freecad.github.io/SourceDoc/d8/ded/classPart_1_1TopoShape.html"
+          ],
+          "locator": "TopoShape：exportStep、exportIges与encodeFilename引用。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先保存原生文档并选择待输出几何 → 建议：按安装版导出指定格式到独立路径 → 建议：用接收软件回读并比较尺度、形状和对象数量",
+          "sourceUrl": "https://freecad.github.io/SourceDoc/d8/ded/classPart_1_1TopoShape.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "FreeCAD 官方代码库",
+        "url": "https://github.com/FreeCAD/FreeCAD"
+      },
+      {
+        "title": "FreeCAD 源码文档版本",
+        "url": "https://freecad.github.io/SourceDoc/"
+      },
+      {
+        "title": "Document API",
+        "url": "https://freecad.github.io/SourceDoc/d8/d3e/classApp_1_1Document.html"
+      },
+      {
+        "title": "TopoShape API",
+        "url": "https://freecad.github.io/SourceDoc/d8/ded/classPart_1_1TopoShape.html"
+      },
+      {
+        "title": "FreeCAD 仓库许可文本",
+        "url": "https://raw.githubusercontent.com/FreeCAD/FreeCAD/main/LICENSE"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "LibreCAD",
+    "profile": {
+      "versionBoundary": "公开latest手册标注2.2.x.y、仍在编写；以安装包实际help确认CLI，不能把master新增转换命令视作所有稳定版都有。",
+      "humanEntry": "二维绘图界面、File菜单；终端转换命令。",
+      "coverage": "DXF图纸文件往返及无界面的DXF转PDF作业。",
+      "unknowns": [
+        "DXF各版本实体、字体和扩展数据的完整保真范围未逐项核实。",
+        "CLI系统退出码及批量部分失败行为未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "DXF 图纸文件交换",
+        "category": "file",
+        "entry": "File → Open／Save／Save as；输出格式与版本由安装版对话框确认。",
+        "role": "在二维绘图和下游图纸工具之间传递图纸。",
+        "direction": "DXF → LibreCAD绘图；绘图 → 图纸文件",
+        "operations": [
+          "打开图纸",
+          "编辑并另存副本",
+          "用接收端检查图元和文字"
+        ],
+        "dataContract": "图纸包含二维图元及图层等绘图信息；已核实DXF输入与文件保存入口，具体保存版本、字体替代及自定义实体保留需按样本核对。",
+        "workflow": [
+          "建议：在安装版中打开一个已知DXF样本",
+          "建议：检查图层、尺度和文字后另存副本",
+          "建议：重开副本并与原图比较"
+        ],
+        "execution": "文件操作由界面触发；另存目标路径不会自动证明接收端能完整读取。",
+        "failure": "建议检查读取警告、缺失字体与实体数量；格式错误的诊断码未核实。",
+        "prerequisites": "LibreCAD安装、可读取图纸和可写输出目录；外部字体或扩展实体另核对。",
+        "version": "2.2.x.y在线手册；DWG需对应构建支持，不据DXF支持推定。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.librecad.org/en/latest/ref/menu.html",
+            "https://docs.librecad.org/en/latest/guides/console-tool.html",
+            "https://github.com/LibreCAD/LibreCAD/blob/master/README.md?plain=1",
+            "https://docs.librecad.org/en/2.2.0_a/guides/dwg-setup.html"
+          ],
+          "locator": "File菜单Open/Save/Save as；图纸设置指南的DXF模板保存；控制台DXF输入；README的DWG构建条件。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在安装版中打开一个已知DXF样本 → 建议：检查图层、尺度和文字后另存副本 → 建议：重开副本并与原图比较",
+          "sourceUrl": "https://docs.librecad.org/en/latest/ref/menu.html"
+        }
+      },
+      {
+        "name": "dxf2pdf 控制台转换",
+        "category": "program",
+        "entry": "终端librecad dxf2pdf，使用-o指定输出文件。",
+        "role": "将图纸输出接入批处理流程。",
+        "direction": "DXF路径及打印选项 → 转换程序 → PDF",
+        "operations": [
+          "转换单个或多个DXF",
+          "设置纸张、缩放及边距",
+          "选择灰度或单色输出"
+        ],
+        "dataContract": "输入为DXF文件路径与命令选项；手册给出-o outfile.pdf file_name1.dxf file_name2.dxf形式。显式指定输出路径可避免不同文档对默认位置描述不一致。",
+        "workflow": [
+          "建议：查询安装版dxf2pdf帮助",
+          "建议：显式指定纸张、输出路径和最小样本",
+          "建议：检查PDF页数、比例及转换诊断"
+        ],
+        "execution": "控制台工具用于无交互转换；显示环境需求依具体打包和平台核查，不假定任意安装均可无显示运行。",
+        "failure": "进程退出码、部分输入失败时是否继续以及诊断流归属未完整核实，需同时核对日志和输出。",
+        "prerequisites": "包含相应控制台功能的LibreCAD构建、DXF输入、输出目录。",
+        "version": "latest 2.2.x.y手册的dxf2pdf；不把master其他子命令扩展到旧包。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.librecad.org/en/latest/guides/console-tool.html",
+            "https://github.com/LibreCAD/LibreCAD/blob/master/README.md?plain=1"
+          ],
+          "locator": "Console tool：usage、-o、多文件示例；README说明当前命令与构建差异。"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "librecad dxf2pdf -o outfile.pdf file_name1.dxf file_name2.dxf",
+          "sourceUrl": "https://docs.librecad.org/en/latest/guides/console-tool.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "LibreCAD 官方首页及许可",
+        "url": "https://www.librecad.org/"
+      },
+      {
+        "title": "LibreCAD File菜单",
+        "url": "https://docs.librecad.org/en/latest/ref/menu.html"
+      },
+      {
+        "title": "LibreCAD 控制台转换工具",
+        "url": "https://docs.librecad.org/en/latest/guides/console-tool.html"
+      },
+      {
+        "title": "LibreCAD 当前代码库说明",
+        "url": "https://github.com/LibreCAD/LibreCAD/blob/master/README.md?plain=1"
+      },
+      {
+        "title": "LibreCAD 图纸模板与DXF保存",
+        "url": "https://docs.librecad.org/en/2.2.0_a/guides/dwg-setup.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "GstarCAD（浩辰CAD）",
+    "profile": {
+      "versionBoundary": "官方中文SDK目录同时列2026／2027与Linux独立资料；此处以Windows 2026为开发参考，不承诺跨发行版二进制兼容。",
+      "humanEntry": "CAD命令环境与LISP编辑入口；安装版应用加载及GRX开发工具链。",
+      "coverage": "LISP命令扩展与编译型C++ CAD插件。",
+      "unknowns": [
+        "GRX构建依赖、异常类别、线程与卸载限制需读取对应SDK包。",
+        "2026用户指南体积较大，本次只取得官方索引文本；详细开发签名以SDK为准。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "LISP 脚本扩展",
+        "category": "program",
+        "entry": "CAD的LISP环境；Windows 2026中VLISP／VLIDE启动指南所述编辑／调试工具。",
+        "role": "将重复图纸操作写成脚本。",
+        "direction": "LISP表达式／脚本 → CAD命令与绘图环境；反馈 → 命令环境",
+        "operations": [
+          "扩展绘图命令",
+          "组织重复操作",
+          "在开发帮助中核对函数"
+        ],
+        "dataContract": "官方确认LISP开发支持；函数族、选择集、数据库对象及返回值应以安装版LISP开发帮助为契约，本次未逐项核实与其他CAD方言的差异。",
+        "workflow": [
+          "建议：打开匹配版本LISP帮助和编辑入口",
+          "建议：用独立图纸核对最小只读表达式及加载流程",
+          "建议：逐步加入修改操作并保存检查结果"
+        ],
+        "execution": "脚本在CAD命令／文档环境中执行；文档切换、用户取消和调试会话的具体行为待版本帮助核对。",
+        "failure": "统一错误码、异常及取消返回未取得完整依据；建议保留命令反馈并检查活动图纸。",
+        "prerequisites": "许可有效的GstarCAD与对应LISP帮助；外部编辑器配置按2026指南确认。",
+        "version": "Windows GstarCAD 2026用户指南；其他版本入口可能不同。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.gstarcad.net/developer/",
+            "https://www.gstarcad.com/sdk_doc/",
+            "https://cdn-sg-gw.gstarcad.net/gstarsoft_pdf/GstarCAD_2026_User_Guide.pdf"
+          ],
+          "locator": "开发者页的LISP；2026用户指南索引中的VLISP/VLIDE。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：打开匹配版本LISP帮助和编辑入口 → 建议：用独立图纸核对最小只读表达式及加载流程 → 建议：逐步加入修改操作并保存检查结果",
+          "sourceUrl": "https://www.gstarcad.net/developer/"
+        }
+      },
+      {
+        "name": "GRX C++ SDK",
+        "category": "program",
+        "entry": "对应发行版GRX SDK、开发指南及CAD应用加载机制；构建和加载入口以包内说明为准。",
+        "role": "开发直接访问CAD能力的编译插件。",
+        "direction": "C++插件调用 → CAD应用／文档；对象及状态 → 插件",
+        "operations": [
+          "依据SDK编译扩展",
+          "在匹配CAD版加载应用",
+          "按SDK访问绘图与应用能力"
+        ],
+        "dataContract": "SDK提供C++开发接口；精确类、ABI、对象所有权及数据库事务约定未从公开目录核实。开发者概览的兼容性描述不能替代逐项移植检查。",
+        "workflow": [
+          "建议：下载Windows 2026对应GRX包和指南",
+          "建议：按官方模板核对编译器及目标架构",
+          "建议：在测试图纸加载最小插件并检查卸载及结果"
+        ],
+        "execution": "编译产物在主程序支持的扩展环境中运行；模块生命周期与多文档行为需依SDK指南。",
+        "failure": "加载失败、二进制不匹配、对象访问错误的具体代码未核实，应保留CAD加载诊断。",
+        "prerequisites": "相应GstarCAD许可、匹配GRX包、受支持C++工具链；SDK许可条款另核对。",
+        "version": "官方目录列Windows 2026 GRX SDK／指南；Linux与2027另列。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.gstarcad.net/developer/",
+            "https://www.gstarcad.com/sdk_doc/"
+          ],
+          "locator": "开发者页GRX；中文SDK目录的版本、平台及下载条目。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：下载Windows 2026对应GRX包和指南 → 建议：按官方模板核对编译器及目标架构 → 建议：在测试图纸加载最小插件并检查卸载及结果",
+          "sourceUrl": "https://www.gstarcad.net/developer/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "GstarCAD 开发者入口",
+        "url": "https://www.gstarcad.net/developer/"
+      },
+      {
+        "title": "浩辰CAD 版本化SDK目录",
+        "url": "https://www.gstarcad.com/sdk_doc/"
+      },
+      {
+        "title": "GstarCAD 2026 用户指南",
+        "url": "https://cdn-sg-gw.gstarcad.net/gstarsoft_pdf/GstarCAD_2026_User_Guide.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ZWCAD（中望CAD）",
+    "profile": {
+      "versionBoundary": "官方目录列2026、2025、2024开发资料；接口存在性已确认，具体函数、ProgID与二进制要求需以安装版文档确定。",
+      "humanEntry": "CAD内置LISP环境；外部Windows COM客户端及对应开发帮助。",
+      "coverage": "解释型绘图扩展和跨语言COM自动化。",
+      "unknowns": [
+        "COM注册名、对象模型完整范围、HRESULT与线程模型未在可访问目录公开核实。",
+        "不同商业版本／操作系统的接口许可矩阵未完整核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "LISP 脚本扩展",
+        "category": "program",
+        "entry": "ZWCAD内置LISP环境与安装版LISP开发帮助。",
+        "role": "为图纸和命令流程编写定制功能。",
+        "direction": "LISP表达式／脚本 → CAD环境；反馈 → 命令窗口",
+        "operations": [
+          "执行LISP表达式",
+          "扩展绘图命令",
+          "依据本地帮助核对函数"
+        ],
+        "dataContract": "语言解释器集成在软件内；函数名、参数、实体表示及兼容差异由安装版帮助定义。公开目录不足以确定每个函数的读写范围。",
+        "workflow": [
+          "建议：打开相同版本LISP帮助",
+          "建议：在图纸副本测试最小命令和加载方式",
+          "建议：检查对象和命令反馈后再复用脚本"
+        ],
+        "execution": "脚本依当前CAD会话和文档执行；会话退出、文档切换及取消机制需对应帮助核对。",
+        "failure": "错误文本、取消返回值与异常类型未完整核实，应记录命令反馈并检查修改结果。",
+        "prerequisites": "ZWCAD安装与所需版本许可；相应LISP帮助和受控测试图纸。",
+        "version": "官方开发目录2026／2025／2024，具体函数随安装版核对。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.zwsoft.com/support/zwcad-devdoc"
+          ],
+          "locator": "LISP栏目：integrated interpreter、安装帮助及版本开发文档。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：打开相同版本LISP帮助 → 建议：在图纸副本测试最小命令和加载方式 → 建议：检查对象和命令反馈后再复用脚本",
+          "sourceUrl": "https://www.zwsoft.com/support/zwcad-devdoc"
+        }
+      },
+      {
+        "name": "COM 自动化接口",
+        "category": "program",
+        "entry": "支持COM的外部客户端；先依相同版本COM指南确认注册与对象入口。",
+        "role": "从外部应用驱动CAD工作流程。",
+        "direction": "外部COM调用 → ZWCAD；对象及调用反馈 → 客户端",
+        "operations": [
+          "按COM指南连接CAD",
+          "访问指南允许的应用／图纸对象",
+          "保存调用结果并释放客户端引用"
+        ],
+        "dataContract": "官方目录确认跨语言COM接口；本次未取得完整指南正文，故不预填ProgID、方法签名、返回对象、DISPID或错误码。",
+        "workflow": [
+          "建议：取得与安装版一致的COM指南",
+          "建议：先核对注册、位数和连接示例",
+          "建议：在测试图纸执行只读操作，再检查释放与退出行为"
+        ],
+        "execution": "COM客户端与CAD进程的连接／释放行为以该版指南为准；同步、并发和会话退出约定未核实。",
+        "failure": "需区分注册／位数不匹配、主程序不可用和对象调用错误；具体HRESULT未公开核实。",
+        "prerequisites": "相应版本ZWCAD、Windows COM客户端环境；接口许可范围及再分发另核对。",
+        "version": "官方目录提供2026等COM文档；部分历史下载未成功取得。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.zwsoft.com/support/zwcad-devdoc"
+          ],
+          "locator": "COM栏目：cross-language invocation及版本文档下载；未取得全部开发契约。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得与安装版一致的COM指南 → 建议：先核对注册、位数和连接示例 → 建议：在测试图纸执行只读操作，再检查释放与退出行为",
+          "sourceUrl": "https://www.zwsoft.com/support/zwcad-devdoc"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "ZWCAD 官方开发文档目录",
+        "url": "https://www.zwsoft.com/support/zwcad-devdoc"
+      },
+      {
+        "title": "ZWCAD 官方版本功能对照",
+        "url": "https://www.zwsoft.com/product/autocad-comparison"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Solid Edge",
+    "profile": {
+      "versionBoundary": "公开路径se/107对应ST7；以下连接、宏和SaveAs依据该历史SDK，不视为当前发行版全部API保证。",
+      "humanEntry": "Solid Edge桌面会话；VB.NET／C#等COM客户端。",
+      "coverage": "会话自动化与文档另存输出。",
+      "unknowns": [
+        "当前发行版接口／类型库变化、支持.NET版本及许可组合未核实。",
+        "SaveAs各交换格式的具体参数、版本和完整保真范围未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "COM／.NET 自动化",
+        "category": "program",
+        "entry": "COM类型库引用SolidEdgeFramework；.NET客户端使用Marshal.GetActiveObject(\"SolidEdge.Application\")连接运行中应用。",
+        "role": "自动化机械CAD应用与文档操作。",
+        "direction": "客户端方法／属性调用 → Solid Edge；对象或COM反馈 → 客户端",
+        "operations": [
+          "连接运行中应用",
+          "使用引用的类型库访问对象",
+          "注册和撤销消息过滤器"
+        ],
+        "dataContract": "官方示例将COM应用对象转换为SolidEdgeFramework.Application；外部调用受桌面应用忙碌状态影响。类型库和Interop程序集必须与安装环境匹配。",
+        "workflow": [
+          "建议：按安装版SDK建立STA客户端和类型库引用",
+          "建议：注册OleMessageFilter后连接已启动应用",
+          "建议：完成操作后按示例撤销过滤器并释放所持引用"
+        ],
+        "execution": "公开示例使用STA线程；消息过滤器处理服务器暂时拒绝调用。COM引用释放和是否退出主程序应由客户端明确定义。",
+        "failure": "官方列RPC_E_CALL_REJECTED 0x80010001与RPC_E_SERVERCALL_RETRYLATER 0x8001010A；其他错误需结合COM异常与应用状态。",
+        "prerequisites": "已启动且许可有效的Solid Edge、匹配COM类型库／Interop程序集；STA客户端。",
+        "version": "ST7 SDK的Connecting、Creating Macros与OleMessageFilter说明。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/ConnectingToSolidEdge.html",
+            "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/CreatingMacros.html",
+            "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/OleMessageFilterUsage.html"
+          ],
+          "locator": "Connecting代码；Macros的COM Type Libraries；OleMessageFilter的两项HRESULT及STA说明。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：按安装版SDK建立STA客户端和类型库引用 → 建议：注册OleMessageFilter后连接已启动应用 → 建议：完成操作后按示例撤销过滤器并释放所持引用",
+          "sourceUrl": "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/ConnectingToSolidEdge.html"
+        }
+      },
+      {
+        "name": "SaveAs 文档／格式输出",
+        "category": "file",
+        "entry": "SolidEdgePart.PartDocument.SaveAs(NewName,...)；由类型库或相应界面入口调用。",
+        "role": "为CAD协作和下游处理生成文档副本。",
+        "direction": "零件文档 → 新名称／目录／支持格式的文件",
+        "operations": [
+          "指定完整输出名称",
+          "按安装版支持格式另存",
+          "重开输出文件并核查文档身份变化"
+        ],
+        "dataContract": "NewName是字符串；公开说明列举多项可选参数但注明多数不支持；FileFormat布尔参数仅用于PDF的2D／3D选择，不是通用格式枚举。",
+        "workflow": [
+          "建议：查明目标格式对应的安装版SaveAs规则",
+          "建议：保存原文档并向独立路径另存",
+          "建议：核对输出、当前文档名称及下游回读结果"
+        ],
+        "execution": "SaveAs会影响文档名称、窗口／最近使用项及文档唯一标识等；需检查后续代码仍指向正确文档。",
+        "failure": "具体转换错误码、覆盖文件提示与失败后的状态未完整核实；建议捕获COM错误并回读文件。",
+        "prerequisites": "有效零件文档、相应格式能力和可写目录；CAD许可与插件选项另核对。",
+        "version": "ST7 PartDocument.SaveAs；不预填当前版本交换格式列表。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/SolidEdgePart~PartDocument~SaveAs.html"
+          ],
+          "locator": "SaveAs Description、NewName、unsupported optional arguments与FileFormat注释。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：查明目标格式对应的安装版SaveAs规则 → 建议：保存原文档并向独立路径另存 → 建议：核对输出、当前文档名称及下游回读结果",
+          "sourceUrl": "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/SolidEdgePart~PartDocument~SaveAs.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Solid Edge SDK 连接",
+        "url": "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/ConnectingToSolidEdge.html"
+      },
+      {
+        "title": "Solid Edge SDK 宏与类型库",
+        "url": "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/CreatingMacros.html"
+      },
+      {
+        "title": "Solid Edge SDK COM消息过滤器",
+        "url": "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/OleMessageFilterUsage.html"
+      },
+      {
+        "title": "PartDocument.SaveAs",
+        "url": "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/SolidEdgePart~PartDocument~SaveAs.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Onshape",
+    "profile": {
+      "versionBoundary": "REST文档、API Explorer及FeatureScript库均持续更新；企业堆栈、API键和库版本需固定，未据页面更新推定所有租户同步。",
+      "humanEntry": "浏览器CAD／Feature Studio；开发者门户、API Explorer与外部客户端。",
+      "coverage": "云端REST集成及Part Studio内的定制特征。",
+      "unknowns": [
+        "各端点权限、限流、重试与状态码需在API Explorer逐项确认。",
+        "企业实例与公共实例的版本／功能和数据驻留条件未逐项核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "REST API／OAuth 与 API Key",
+        "category": "program",
+        "entry": "Onshape开发者门户创建授权；使用所属堆栈API Explorer确认实际端点。",
+        "role": "让外部应用连接云端CAD数据与功能。",
+        "direction": "授权客户端请求 → Onshape服务；端点规定的响应 → 客户端",
+        "operations": [
+          "按用途选择OAuth或API键",
+          "查询API Explorer中的对象及操作",
+          "按最小权限授权并撤销不用的凭据"
+        ],
+        "dataContract": "API键包含权限范围且仅对创建它的堆栈有效；所有App Store应用必须OAuth2。具体资源标识、请求Schema和响应对象按所选端点核对，不设一个通用读写合同。",
+        "workflow": [
+          "建议：在所属堆栈确认开发者账户和许可",
+          "建议：从API Explorer选择一个只读操作并核对认证",
+          "建议：检查响应与权限，再安排凭据撤销及异常处理"
+        ],
+        "execution": "调用发生于远程服务；API键可撤销。任务是否同步、轮询方式与分页规则属于端点合同，未统一推定。",
+        "failure": "签名、授权范围和堆栈不匹配均需核查；精确HTTP状态、限流与自动重试策略未逐端点核实。",
+        "prerequisites": "Onshape账户、适用计划及开发权限；公开集成的开发者许可／OAuth注册。",
+        "version": "当前公开开发文档；实际端点版本以所属堆栈API Explorer为准。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://onshape-public.github.io/docs/",
+            "https://onshape-public.github.io/docs/auth/apikeys/",
+            "https://www.onshape.com/en/app-integrations/build-an-integration"
+          ],
+          "locator": "开发文档API Explorer；API Keys的scope、stack与OAuth要求；Build an integration的许可说明。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在所属堆栈确认开发者账户和许可 → 建议：从API Explorer选择一个只读操作并核对认证 → 建议：检查响应与权限，再安排凭据撤销及异常处理",
+          "sourceUrl": "https://onshape-public.github.io/docs/"
+        }
+      },
+      {
+        "name": "FeatureScript 定制特征",
+        "category": "program",
+        "entry": "Onshape文档的Feature Studio；FeatureScript文档及标准库引用。",
+        "role": "把参数化设计规则组织成CAD内置定制特征。",
+        "direction": "FeatureScript定义及参数 → Part Studio Context；几何／特征结果 → CAD文档",
+        "operations": [
+          "定义和调试定制特征",
+          "按版本引用标准库",
+          "操作Context中的几何和变量"
+        ],
+        "dataContract": "每个Part Studio有Context，存储几何、变量与错误状态；操作Id需唯一。不同Context通常独立，合并需相应操作。标准库版本可保留历史行为。",
+        "workflow": [
+          "建议：创建测试文档和Feature Studio",
+          "建议：固定标准库版本并编写最小特征",
+          "建议：在Part Studio验证参数、几何及错误状态"
+        ],
+        "execution": "特征随参数化模型求值；脚本在Onshape环境执行。标准库可读源代码不意味着任意服务功能都可在脚本访问。",
+        "failure": "建议检查编译诊断、特征错误与Id冲突；完整异常、求值资源限制及并发契约未逐项核实。",
+        "prerequisites": "Onshape文档编辑权限、Feature Studio及相应标准库版本；库许可与云服务条款分别核对。",
+        "version": "当前FeatureScript文档；导入标准库时使用明确版本。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://cad.onshape.com/FsDoc/index.html",
+            "https://cad.onshape.com/FsDoc/library.html"
+          ],
+          "locator": "Feature Studio入口；library的Context、Id与版本保留说明。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：创建测试文档和Feature Studio → 建议：固定标准库版本并编写最小特征 → 建议：在Part Studio验证参数、几何及错误状态",
+          "sourceUrl": "https://cad.onshape.com/FsDoc/index.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Onshape 开发文档入口",
+        "url": "https://onshape-public.github.io/docs/"
+      },
+      {
+        "title": "Onshape API Key认证",
+        "url": "https://onshape-public.github.io/docs/auth/apikeys/"
+      },
+      {
+        "title": "Onshape 集成及开发授权",
+        "url": "https://www.onshape.com/en/app-integrations/build-an-integration"
+      },
+      {
+        "title": "FeatureScript 官方文档",
+        "url": "https://cad.onshape.com/FsDoc/index.html"
+      },
+      {
+        "title": "FeatureScript 标准库",
+        "url": "https://cad.onshape.com/FsDoc/library.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "RoboDK",
+    "profile": {
+      "versionBoundary": "官方API与后处理文档持续更新；接口库、主程序、控制器与后处理器版本需成套确认，本文建议流程只在离线工作站验证。",
+      "humanEntry": "RoboDK工作站界面；Python等API客户端；后处理器选择和程序生成入口。",
+      "coverage": "工作站程序控制及控制器源程序文件生成。",
+      "unknowns": [
+        "各控制器后处理覆盖、额外控制器选件及程序可执行性需现场确认。",
+        "API连接错误码、并发与对象失效完整约定未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "RoboDK 编程 API",
+        "category": "program",
+        "entry": "Python robodk.robolink的Robolink；其他语言使用官方对应库。",
+        "role": "以外部程序建立和操作离线机器人工作站。",
+        "direction": "客户端调用 → RoboDK工作站；Item与执行反馈 → 客户端",
+        "operations": [
+          "连接工作站",
+          "查询和操作Item对象",
+          "在仿真模式检查程序与机器人路径"
+        ],
+        "dataContract": "Robolink表示到RoboDK的连接，Item表示工作站对象；不存在运行实例时连接入口可启动RoboDK。相同API体系涉及仿真、离线生成和在线模式，执行模式必须显式核对。",
+        "workflow": [
+          "建议：先打开不连接实体控制器的测试工作站",
+          "建议：建立API连接并确认对象和运行模式",
+          "建议：只执行仿真检查，记录路径及反馈"
+        ],
+        "execution": "对象依赖RoboDK工作站与连接生命周期。在线运动能力需驱动配置，离线调用不自动等同真实机器人执行。",
+        "failure": "建议检查连接、Item有效性、运动可达性与运行模式；具体异常和线程安全约定未完整核实。",
+        "prerequisites": "RoboDK主程序及适用许可、对应语言库、有效工作站；联网真实设备要求另核对。",
+        "version": "当前官方API文档；API库和主程序版本兼容需确认。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://robodk.com/doc/en/RoboDK-API.html",
+            "https://robodk.com/doc/en/PythonAPI/robodk.html?highlight=robolink"
+          ],
+          "locator": "API overview：支持语言与仿真／离线／在线；Python Robolink、Item。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先打开不连接实体控制器的测试工作站 → 建议：建立API连接并确认对象和运行模式 → 建议：只执行仿真检查，记录路径及反馈",
+          "sourceUrl": "https://robodk.com/doc/en/RoboDK-API.html"
+        }
+      },
+      {
+        "name": "后处理器／控制器程序文件",
+        "category": "file",
+        "entry": "右击机器人／程序选择Select Post Processor；程序生成入口。定制后处理器参阅官方RobotPost接口。",
+        "role": "把离线路径转换为特定机器人控制器程序。",
+        "direction": "工作站程序 → 选定后处理器 → 控制器代码文件",
+        "operations": [
+          "选择后处理器",
+          "生成对应控制器程序",
+          "核查定制后处理器与控制器版本"
+        ],
+        "dataContract": "输出语法和扩展名由后处理器决定，例如KUKA KRC系列SRC；RobotPost定义程序开始／结束等生成步骤。控制器可能还需ASCII加载或编译选件。",
+        "workflow": [
+          "建议：匹配机器人控制器型号与后处理器",
+          "建议：在离线工作站生成最小程序并保留源项目",
+          "建议：经控制器工具检查语法、选件和坐标，再安排受控验证"
+        ],
+        "execution": "生成文件与把文件部署到控制器是不同步骤。默认后处理器可能随更新替换，定制副本应使用独立名称。",
+        "failure": "生成成功不证明设备可安全运行；后处理错误、控制器语法拒绝和选件缺失的具体诊断随控制器核查。",
+        "prerequisites": "适用RoboDK程序生成许可、匹配后处理器与控制器选件；定制源文件可用性随后处理器确认。",
+        "version": "官方后处理说明及Python RobotPost文档；控制器与后处理器版本需固定。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://robodk.com/doc/en/Post-Processors.html",
+            "https://robodk.com/doc/en/PythonAPI/postprocessor.html"
+          ],
+          "locator": "Select Post Processor、生成程序与定制命名说明；RobotPost及控制器输出语法。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：匹配机器人控制器型号与后处理器 → 建议：在离线工作站生成最小程序并保留源项目 → 建议：经控制器工具检查语法、选件和坐标，再安排受控验证",
+          "sourceUrl": "https://robodk.com/doc/en/Post-Processors.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "RoboDK API概览",
+        "url": "https://robodk.com/doc/en/RoboDK-API.html"
+      },
+      {
+        "title": "RoboDK Python API",
+        "url": "https://robodk.com/doc/en/PythonAPI/robodk.html?highlight=robolink"
+      },
+      {
+        "title": "RoboDK 后处理器操作",
+        "url": "https://robodk.com/doc/en/Post-Processors.html"
+      },
+      {
+        "title": "RoboDK 后处理器开发",
+        "url": "https://robodk.com/doc/en/PythonAPI/postprocessor.html"
+      },
+      {
+        "title": "RoboDK C++ API头文件许可",
+        "url": "https://robodk.com/doc/en/CppAPI/robodk__api_8h_source.html"
+      },
+      {
+        "title": "RoboDK 许可与试用",
+        "url": "https://robodk.com/pricing"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CoppeliaSim",
+    "profile": {
+      "versionBoundary": "当前在线手册；legacy remote API自V4.4起弃用，此处采用ZeroMQ Remote API，不混用两套函数。",
+      "humanEntry": "仿真场景与脚本编辑器；外部Python等远程客户端。",
+      "coverage": "场景内回调和外部仿真控制，不将仿真调用直接描述为真实设备通信。",
+      "unknowns": [
+        "插件提供的sim.*之外接口、Python环境及版本兼容需逐项确认。",
+        "远程API超时、线程安全与异常类别全集未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Lua／Python 仿真脚本",
+        "category": "program",
+        "entry": "场景／模型脚本、add-on或sandbox；选择Lua或配置外部Python解释器。",
+        "role": "把对象行为和仿真控制写入适当脚本生命周期。",
+        "direction": "脚本回调／调用 → 仿真对象；仿真状态 → 脚本",
+        "operations": [
+          "编写场景或模型行为",
+          "调用sim接口",
+          "按脚本类型响应仿真生命周期"
+        ],
+        "dataContract": "嵌入式脚本随场景／模型保存；sandbox和add-on跨场景工作。Lua集成在程序，Python由外部解释器执行；具体API参数由各函数参考定义。",
+        "workflow": [
+          "建议：确认脚本类型和Python／Lua环境",
+          "建议：在最小场景使用官方相应回调示例",
+          "建议：检查启动、步进和停止后的对象状态"
+        ],
+        "execution": "不同脚本有各自执行顺序、回调和线程模式；不能把所有脚本视作同一常驻循环。具体回调名称与可调用阶段应查对应参考。",
+        "failure": "建议查看脚本诊断和仿真状态；各函数的错误返回、异常与清理规则未逐项核实。",
+        "prerequisites": "相应CoppeliaSim许可、场景和所需插件；Python脚本需外部解释器配置。",
+        "version": "当前Scripts手册；具体插件和解释器支持随安装包核对。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://manual.coppeliarobotics.com/en/scripts.htm"
+          ],
+          "locator": "Scripts：解释器、embedded／sandbox／add-on及生命周期入口。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认脚本类型和Python／Lua环境 → 建议：在最小场景使用官方相应回调示例 → 建议：检查启动、步进和停止后的对象状态",
+          "sourceUrl": "https://manual.coppeliarobotics.com/en/scripts.htm"
+        }
+      },
+      {
+        "name": "ZeroMQ Remote API",
+        "category": "program",
+        "entry": "Python包coppeliasim-zmqremoteapi-client；RemoteAPIClient()后client.require(\"sim\")取得接口。",
+        "role": "让外部算法控制和读取仿真。",
+        "direction": "外部方法调用 → CoppeliaSim；调用结果／仿真状态 → 客户端",
+        "operations": [
+          "取得sim接口",
+          "启动／停止仿真",
+          "设置步进模式并逐步执行"
+        ],
+        "dataContract": "官方示例使用sim.setStepping(True)、startSimulation、step与stopSimulation；ZeroMQ与CBOR由客户端封装。可访问接口受服务端已启用插件限制。",
+        "workflow": [
+          "建议：安装与服务端匹配的官方客户端",
+          "建议：在无实体设备的最小场景取得sim接口并启用步进",
+          "建议：启动后逐步核查状态，结束时停止仿真"
+        ],
+        "execution": "步进模式由客户端发出step推动仿真；连续模式由仿真自身推进。客户端断开是否自动清理场景及重连状态未核实。",
+        "failure": "建议区分服务未启用、库／服务端不匹配和sim调用失败；具体超时、异常与重试协议未完整核实。",
+        "prerequisites": "CoppeliaSim及许可、启用的ZeroMQ服务、官方客户端和相应插件。",
+        "version": "当前ZeroMQ文档；不使用V4.4起弃用legacy API的simx调用。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://manual.coppeliarobotics.com/en/zmqRemoteApiOverview.htm",
+            "https://manual.coppeliarobotics.com/en/legacyRemoteApiOverview.htm"
+          ],
+          "locator": "ZeroMQ overview：客户端包、require(sim)、stepping及启停示例；legacy弃用提示。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：安装与服务端匹配的官方客户端 → 建议：在无实体设备的最小场景取得sim接口并启用步进 → 建议：启动后逐步核查状态，结束时停止仿真",
+          "sourceUrl": "https://manual.coppeliarobotics.com/en/zmqRemoteApiOverview.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "CoppeliaSim 脚本模型",
+        "url": "https://manual.coppeliarobotics.com/en/scripts.htm"
+      },
+      {
+        "title": "CoppeliaSim ZeroMQ Remote API",
+        "url": "https://manual.coppeliarobotics.com/en/zmqRemoteApiOverview.htm"
+      },
+      {
+        "title": "CoppeliaSim 许可条件",
+        "url": "https://manual.coppeliarobotics.com/en/licensing.htm"
+      },
+      {
+        "title": "CoppeliaSim legacy API弃用说明",
+        "url": "https://manual.coppeliarobotics.com/en/legacyRemoteApiOverview.htm"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "TIA Portal（STEP 7／WinCC工程平台）",
+    "profile": {
+      "versionBoundary": "按V21、03/2026在线文档；相较V20及以前存在不兼容API重组，需替换原Siemens.Engineering.dll引用。",
+      "humanEntry": "TIA Portal工程界面；外部.NET Openness客户端及工程数据导入／导出。",
+      "coverage": "STEP 7／WinCC工程平台的一条目录记录；详细路径聚焦Openness会话和PLC块／类型的SimaticML。",
+      "unknowns": [
+        "STEP 7／WinCC不同版本、产品选件与对象的全部许可／读写矩阵未核实。",
+        "SimaticML所有Schema、工程编译错误及跨版本迁移兼容性未逐项核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "TIA Portal Openness .NET 工程 API",
+        "category": "program",
+        "entry": "V21参考Siemens.Engineering.Base.dll及Siemens.Engineering.Step7.dll等分拆程序集；按安装版示例连接工程会话。",
+        "role": "自动化工程项目配置与处理。",
+        "direction": "外部.NET工程调用 → TIA工程对象；状态／异常 → 客户端",
+        "operations": [
+          "建立工程会话连接",
+          "按对象服务处理工程项目",
+          "Dispose断开并处理会话消失"
+        ],
+        "dataContract": "访问对象及方法由V21各模块定义。Windows用户必须属于Siemens TIA Openness组；V21 DLL布局改变，旧程序集引用不可直接照搬。",
+        "workflow": [
+          "建议：核对TIA版本、许可、组件及用户组",
+          "建议：采用V21对应程序集和最小工程连接示例",
+          "建议：捕获会话失效并按文档Dispose"
+        ],
+        "execution": "Dispose通常断开；若客户端创建无界面实例且是唯一连接者，可能关闭该实例。用户关闭TIA后下次访问可抛NonRecoverableException。",
+        "failure": "无用户组权限可抛EngineeringSecurityException；主程序关闭可致NonRecoverableException。对象级错误与可恢复范围需逐项查文档。",
+        "prerequisites": "对应TIA工程许可与Openness组件；Windows用户组成员资格，修改后需重新登录；匹配.NET程序集。",
+        "version": "Openness V21 03/2026；V21程序集与V20及以前不同。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/tia-portal-openness-api?contentId=~~8wSiwSWV3Triktc6ADDw",
+            "https://docs.tia.siemens.cloud/r/en-us/v21/technology-objects/upgrading-to-openness-v21?contentId=bDQSpJdDLSEbtKQy7SQYRg",
+            "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/basics/installation/adding-users-to-the-siemens-tia-openness-user-group",
+            "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/tia-portal-openness-api/general-functions/terminating-the-connection-to-the-tia-portal"
+          ],
+          "locator": "Upgrading V21：Base/Step7 DLL；用户组的EngineeringSecurityException；Terminating connection的Dispose／NonRecoverableException。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对TIA版本、许可、组件及用户组 → 建议：采用V21对应程序集和最小工程连接示例 → 建议：捕获会话失效并按文档Dispose",
+          "sourceUrl": "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/tia-portal-openness-api?contentId=~~8wSiwSWV3Triktc6ADDw"
+        }
+      },
+      {
+        "name": "SimaticML 工程 XML 交换",
+        "category": "file",
+        "entry": "V21 Openness的PLC块／类型Export／Import服务；使用该版生成的SimaticML。",
+        "role": "在受支持范围内传递PLC工程对象。",
+        "direction": "工程对象 → SimaticML XML；XML → 目标工程对象",
+        "operations": [
+          "导出支持的块／类型",
+          "检查单元发布属性及目标上下文",
+          "按导入选项处理属性兼容"
+        ],
+        "dataContract": "示例文档涉及unit-specific publishing attributes及Access属性。导出自软件单元的属性导入非单元上下文有条件限制；IgnoreUnitAttributes是特定兼容选项，不是任意XML修复开关。",
+        "workflow": [
+          "建议：从测试项目导出最小PLC对象并保留原件",
+          "建议：对照V21 Schema及目标单元上下文核查属性",
+          "建议：导入测试工程后检查编译和对象差异"
+        ],
+        "execution": "导入要求工程打开且API已连接；文件修改必须符合相应对象Schema。导入与工程编译／部署为不同阶段。",
+        "failure": "未定义属性值或不匹配上下文可导致导入失败；具体诊断与事务回滚保证未完整核实，应保留导入日志和工程副本。",
+        "prerequisites": "有效工程会话、允许的PLC对象、V21 Schema与可写目标工程；相应工程许可。",
+        "version": "V21 PLC blocks/types的单元属性交换文档；不扩展为全项目任意XML往返。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/export/import/importing/exporting-data-of-a-plc-device/blocks/export/import-of-unit-specific-publishing-attribute-of-blocks-and-types"
+          ],
+          "locator": "Export/import of unit-specific publishing attribute：前提、SimaticML及IgnoreUnitAttributes适用条件。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从测试项目导出最小PLC对象并保留原件 → 建议：对照V21 Schema及目标单元上下文核查属性 → 建议：导入测试工程后检查编译和对象差异",
+          "sourceUrl": "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/export/import/importing/exporting-data-of-a-plc-device/blocks/export/import-of-unit-specific-publishing-attribute-of-blocks-and-types"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "TIA Openness V21 API目录",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/tia-portal-openness-api?contentId=~~8wSiwSWV3Triktc6ADDw"
+      },
+      {
+        "title": "TIA V21程序集迁移",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v21/technology-objects/upgrading-to-openness-v21?contentId=bDQSpJdDLSEbtKQy7SQYRg"
+      },
+      {
+        "title": "TIA Openness用户组权限",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/basics/installation/adding-users-to-the-siemens-tia-openness-user-group"
+      },
+      {
+        "title": "TIA Openness断开与生命周期",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/tia-portal-openness-api/general-functions/terminating-the-connection-to-the-tia-portal"
+      },
+      {
+        "title": "TIA PLC块／类型XML属性交换",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/export/import/importing/exporting-data-of-a-plc-device/blocks/export/import-of-unit-specific-publishing-attribute-of-blocks-and-types"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "KEPServerEX",
+    "profile": {
+      "versionBoundary": "KEPServerEX 6.18.296.0（2025-06-10）为产品版本依据；共享帮助中的具体安全选项与配置API行为需用安装版文档复核。",
+      "humanEntry": "配置界面、OPC UA Configuration Manager；配置REST客户端与运行数据客户端。",
+      "coverage": "运行数据访问及channels／devices／tags等配置对象管理。",
+      "unknowns": [
+        "每个驱动可写性、插件功能和授权组合未逐项核实。",
+        "不同6.x补丁与共享帮助所列安全策略及接口能力差异未完整核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "OPC UA 运行数据服务",
+        "category": "runtime",
+        "entry": "OPC UA Configuration Manager → Server Endpoints；实际URL为opc.tcp://<hostname>:<port>配置值。",
+        "role": "把已配置设备数据提供给上层运行客户端。",
+        "direction": "设备／服务器标签 → UA客户端；允许的客户端写入 → 可写标签",
+        "operations": [
+          "配置启用的服务端点",
+          "设置信任证书及身份验证",
+          "按实际标签权限核对读写"
+        ],
+        "dataContract": "每个端点由URL与安全策略组成；同一实例共用实例证书。节点类型与数据访问行为按版本／驱动确认，不能假定每个标签均可写。",
+        "workflow": [
+          "建议：在测试项目确认驱动标签和读写属性",
+          "建议：配置端点、证书信任及用户权限",
+          "建议：由客户端核对值、状态和时间信息后再扩展标签"
+        ],
+        "execution": "运行期间变更端点需重新初始化UA运行服务；此动作可能影响已有会话，应按部署窗口验证。",
+        "failure": "建议区分证书／身份拒绝、会话中断与驱动数据质量；各UA状态码及驱动错误需查实际版本文档。",
+        "prerequisites": "许可有效的KEPServerEX、已配置设备驱动与标签、UA客户端和证书信任／用户权限。",
+        "version": "KEPServerEX 6.18.296.0发布说明及共享Server Endpoints帮助；不借用Kepware Edge配置。",
+        "implementation": "内置接口",
+        "standardIds": [
+          "p01"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://support.ptc.com/help/kepware/kepserverex/en/kepware/kepserverex/whats_new/whats_new_6_18_296_0.html",
+            "https://support.ptc.com/help/kepware/features/en/kepware/features/OPCUACONFIGMNGR/server-endpoints.html"
+          ],
+          "locator": "6.18发布说明的UA Interface；Server Endpoints的URL、证书、重新初始化及用户验证。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在测试项目确认驱动标签和读写属性 → 建议：配置端点、证书信任及用户权限 → 建议：由客户端核对值、状态和时间信息后再扩展标签",
+          "sourceUrl": "https://support.ptc.com/help/kepware/kepserverex/en/kepware/kepserverex/whats_new/whats_new_6_18_296_0.html"
+        }
+      },
+      {
+        "name": "Configuration REST API",
+        "category": "program",
+        "entry": "按安装配置的https://<hostname_or_ip>:<port>/config/文档入口发现对象端点和属性。",
+        "role": "以程序管理连接项目配置。",
+        "direction": "JSON配置请求 → 服务配置；HTTP／JSON结果 → 客户端",
+        "operations": [
+          "GET读取对象及PROJECT_ID",
+          "POST／PUT创建或修改支持对象",
+          "DELETE删除允许对象及其子树"
+        ],
+        "dataContract": "JSON对象属性随对象类型；GET包含PROJECT_ID，PUT需相应ID或明确Force_Update。批量POST可返回207 MultiStatus；200响应也可能含not_applied，必须检查响应体和逐项结果。",
+        "workflow": [
+          "建议：先查询部署版本的/config/文档和只读配置",
+          "建议：记录PROJECT_ID后在测试项目提交最小变更",
+          "建议：检查HTTP、逐项状态及not_applied，再回读配置"
+        ],
+        "execution": "运行配置同一时刻仅一个用户写入；GUI配置打开时非管理员写操作可返回401。强制更新会绕过陈旧状态保护，不建议作为默认流程。",
+        "failure": "JSON错误包含code/message；207不是全部成功，200不保证所有属性已应用。权限、只读属性、依赖及活动客户端引用可能阻止变更。",
+        "prerequisites": "启用并授权的Configuration API、适用服务器许可、匹配API文档；管理写入协调与配置备份。",
+        "version": "共享Kepware Server数据服务详文；KEPServerEX 6.18发布说明确认该API，实际端点能力按部署版本查询。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://support.ptc.com/help/kepware/kepserverex/en/kepware/kepserverex/whats_new/whats_new_6_18_296_0.html",
+            "https://support.ptc.com/help/kepware/kepware_server/en/kepware/server/config-api-data.html",
+            "https://support.ptc.com/help/kepware/kepware_server/en/kepware/server/config-api-doc-endpoint.html"
+          ],
+          "locator": "Data Services：JSON、PROJECT_ID、单写者、401、207及not_applied；Documentation Endpoint。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先查询部署版本的/config/文档和只读配置 → 建议：记录PROJECT_ID后在测试项目提交最小变更 → 建议：检查HTTP、逐项状态及not_applied，再回读配置",
+          "sourceUrl": "https://support.ptc.com/help/kepware/kepserverex/en/kepware/kepserverex/whats_new/whats_new_6_18_296_0.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "KEPServerEX 6.18.296.0发布说明",
+        "url": "https://support.ptc.com/help/kepware/kepserverex/en/kepware/kepserverex/whats_new/whats_new_6_18_296_0.html"
+      },
+      {
+        "title": "Kepware Configuration API数据服务",
+        "url": "https://support.ptc.com/help/kepware/kepware_server/en/kepware/server/config-api-data.html"
+      },
+      {
+        "title": "Kepware Configuration API文档入口",
+        "url": "https://support.ptc.com/help/kepware/kepware_server/en/kepware/server/config-api-doc-endpoint.html"
+      },
+      {
+        "title": "Kepware OPC UA服务端点配置",
+        "url": "https://support.ptc.com/help/kepware/features/en/kepware/features/OPCUACONFIGMNGR/server-endpoints.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Ansys LS-DYNA",
+    "profile": {
+      "versionBoundary": "手册目录列R17 Keyword Manual（2026-06-11）；PyDYNA stable迁移说明为v0.11.0。Python包版本与求解器关键字版本需配套。",
+      "humanEntry": "LS-DYNA输入文件与求解器环境；Python的PyDYNA keywords模块。",
+      "coverage": "求解器关键字输入和Python生成／修改输入Deck，不将CAD平台或SDK另算产品。",
+      "unknowns": [
+        "当前PyDYNA run启动支持在官方入口之间不一致，未确定可用签名。",
+        "各关键字的R17覆盖、求解退出码及并行／HPC许可未逐项核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "LS-DYNA 关键字输入文件",
+        "category": "file",
+        "entry": "LS-DYNA对应版本的Keyword Manual；由前处理器或文本／Deck工具准备关键字输入，启动入口按安装版求解器说明。",
+        "role": "将材料、单元与控制等有限元定义交给求解器。",
+        "direction": "关键字输入及引用文件 → LS-DYNA；求解输出 → 后处理",
+        "operations": [
+          "准备并检查关键字Deck",
+          "匹配模型关键字与求解器版本",
+          "检查求解诊断和输出是否完整"
+        ],
+        "dataContract": "关键字及卡片字段由求解器版本手册规定，输入单位由模型统一约定。PyDYNA示例以*KEYWORD／*END包装关键字；文件可解析不代表物理参数合理。",
+        "workflow": [
+          "建议：固定求解器版本并选择对应分卷手册",
+          "建议：以已知小模型核对材料、单元、单位与引用路径",
+          "建议：按授权环境执行后检查终止状态和结果文件"
+        ],
+        "execution": "这是输入文件契约，具体串行／并行启动参数由安装包与许可决定。输出文件种类和完成标志按所选分析配置核对。",
+        "failure": "求解器退出码、资源耗尽及数值失败的完整区分未核实；需检查求解诊断、终止时刻和结果完整性。",
+        "prerequisites": "匹配LS-DYNA许可与求解器、有效输入及引用数据、所需计算资源。",
+        "version": "R17 Keyword Manual I／II／III，2026-06-11；旧模型需按版本迁移检查。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://lsdyna.ansys.com/manuals-download/",
+            "https://dyna.docs.pyansys.com/version/stable/getting-started/modules/keywords.html"
+          ],
+          "locator": "Manuals Download的R17关键字手册版本；keywords文档的Deck文本示例。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：固定求解器版本并选择对应分卷手册 → 建议：以已知小模型核对材料、单元、单位与引用路径 → 建议：按授权环境执行后检查终止状态和结果文件",
+          "sourceUrl": "https://lsdyna.ansys.com/manuals-download/"
+        }
+      },
+      {
+        "name": "PyDYNA keywords Python API",
+        "category": "program",
+        "entry": "ansys.dyna.core.keywords中的keywords；ansys.dyna.core.Deck。",
+        "role": "用Python创建和修改输入，而不依赖已移除的旧启动模块。",
+        "direction": "Python对象／Deck文本 → keywords／Deck；关键字文件 → 外部求解流程",
+        "operations": [
+          "建立关键字对象",
+          "Deck.loads读取文本",
+          "Deck.write输出关键字文件"
+        ],
+        "dataContract": "关键字类对应输入卡片；多行数据可使用pandas DataFrame；Deck承载关键字集合。具体字段验证及求解器版本覆盖应按类参考和关键字手册确认。",
+        "workflow": [
+          "建议：固定PyDYNA包与求解器版本",
+          "建议：从官方SectionTShell等最小对象开始构建Deck",
+          "建议：输出后回读并与对应关键字手册逐项比较"
+        ],
+        "execution": "keywords不需gRPC；创建Deck本身不启动求解器。v0.11.0移除pre／run的迁移提示优先记录为版本边界。",
+        "failure": "Python字段验证异常、解析失败与求解器数值失败分别处理；异常类型全集未核实，输出需交求解器验证。",
+        "prerequisites": "匹配Python环境与PyDYNA；生成文件后执行求解仍需合法LS-DYNA许可。",
+        "version": "stable文档v0.11.0提示；目录／README的run描述与迁移说明不一致，未采用其启动签名。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://dyna.docs.pyansys.com/version/stable/getting-started.html",
+            "https://dyna.docs.pyansys.com/version/stable/getting-started/modules.html",
+            "https://dyna.docs.pyansys.com/version/stable/getting-started/modules/keywords.html",
+            "https://github.com/ansys/pydyna"
+          ],
+          "locator": "Getting started的v0.11.0移除提示；keywords的SectionTShell、Deck.loads、Deck.write。"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "from ansys.dyna.core.keywords import keywords\nshell = keywords.SectionTShell()",
+          "sourceUrl": "https://dyna.docs.pyansys.com/version/stable/getting-started/modules/keywords.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Ansys LS-DYNA 产品用途",
+        "url": "https://ansys.synopsys.com/products/structures/ansys-ls-dyna"
+      },
+      {
+        "title": "LS-DYNA 官方手册下载与版本",
+        "url": "https://lsdyna.ansys.com/manuals-download/"
+      },
+      {
+        "title": "PyDYNA 开始使用／迁移提示",
+        "url": "https://dyna.docs.pyansys.com/version/stable/getting-started.html"
+      },
+      {
+        "title": "PyDYNA 模块目录",
+        "url": "https://dyna.docs.pyansys.com/version/stable/getting-started/modules.html"
+      },
+      {
+        "title": "PyDYNA keywords开发说明",
+        "url": "https://dyna.docs.pyansys.com/version/stable/getting-started/modules/keywords.html"
+      },
+      {
+        "title": "PyDYNA 官方代码与许可",
+        "url": "https://github.com/ansys/pydyna"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Dymola",
+    "profile": {
+      "versionBoundary": "官网列Dymola 2026x Refresh1（2026-04-17）；Python细节以2024x Refresh1发布说明核实。FMI3在官方能力页仍有功能限制，未认定完整支持。",
+      "humanEntry": "Modelica建模界面；已安装Python接口；FMU导入／导出设置。",
+      "coverage": "Python参数与结果交互及FMI模型互操作。",
+      "unknowns": [
+        "2026x Python精确方法、进程启动／关闭及全部异常合同未取得完整公开手册。",
+        "FMI3的现行限制、各导出目标所需许可与第三方库再分发条件需逐项确认。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python 仿真接口",
+        "category": "program",
+        "entry": "使用Dymola安装包提供的Python接口wheel；按对应版手册配置Python路径并连接Dymola。",
+        "role": "从外部计算流程操作模型参数与结果。",
+        "direction": "Python参数／仿真操作 → Dymola；结果／状态 → Python",
+        "operations": [
+          "设置支持的变量值",
+          "查询变量列表",
+          "读取仿真结果并导出需要的数据"
+        ],
+        "dataContract": "2024x R1说明SetVariable接受bool、int、float、str、list及Expression；原list()更名listvariables()。具体返回结构、方法大小写及模型上下文以接口手册为准。",
+        "workflow": [
+          "建议：先确认Python与接口wheel版本",
+          "建议：按安装版示例建立连接并读取最小模型变量",
+          "建议：设置受支持类型后核对仿真和结果，再按手册关闭连接"
+        ],
+        "execution": "2024x R1要求Python3.7或更新、取消Python2并改用wheel；多版本接口安装需检查实际加载版本。进程生命周期与并发规则未核实。",
+        "failure": "参数类型、模型状态与接口版本不匹配需分别排查；错误返回值和异常全集未从公开发布说明核实。",
+        "prerequisites": "Dymola相应许可、匹配Python／wheel与可仿真模型；第三方模型库许可另核对。",
+        "version": "Python细节为Dymola2024x R1 §3.7相关接口更新，未无条件扩展到2026x。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.3ds.com/products/catia/dymola/export-capabilities-interfacing-other-software",
+            "https://www.3ds.com/assets/invest/2024-05/dymola-2024x-r1-release-notes.pdf"
+          ],
+          "locator": "Interface页Python；2024x R1发布说明的Python支持、wheel、listvariables与SetVariable。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先确认Python与接口wheel版本 → 建议：按安装版示例建立连接并读取最小模型变量 → 建议：设置受支持类型后核对仿真和结果，再按手册关闭连接",
+          "sourceUrl": "https://www.3ds.com/products/catia/dymola/export-capabilities-interfacing-other-software"
+        }
+      },
+      {
+        "name": "FMI／FMU 模型导入导出",
+        "category": "model",
+        "entry": "Dymola模型导入／导出FMU入口；按目标选择Model Exchange／Co-Simulation及支持的版本。",
+        "role": "在工具之间传递可执行或方程模型。",
+        "direction": "Dymola模型 ↔ FMU ↔ 支持的仿真宿主",
+        "operations": [
+          "导入兼容FMU",
+          "按支持版本导出模型",
+          "核对二进制／源代码导出许可"
+        ],
+        "dataContract": "官方能力页列FMI1／2及受限FMI3支持；FMU使用方式、平台二进制及Model Exchange／Co-Simulation取决于导出设置与目标宿主。不是所有导出模式均可无目标机许可执行。",
+        "workflow": [
+          "建议：确认宿主FMI版本、模型类型和平台",
+          "建议：核对Dymola导出许可选项后生成最小FMU",
+          "建议：在目标宿主比较初始化、输入输出及事件行为"
+        ],
+        "execution": "FMU生命周期由FMI版本和模式规定；Dymola具体FMI3可选功能仍需当前文档逐项核对。",
+        "failure": "建议检查FMU校验、平台依赖、初始化和步进状态；导出／宿主错误码映射未逐项核实。",
+        "prerequisites": "Dymola与相应模型／导出许可、目标FMI宿主、平台依赖；Modelica库再分发另核对。",
+        "version": "官方能力页FMI1／2与受限FMI3；2024x R1发布说明补充早期FMI3限制。",
+        "implementation": "文件交换",
+        "standardIds": [
+          "p13"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.3ds.com/products/catia/dymola/export-capabilities-interfacing-other-software",
+            "https://www.3ds.com/assets/invest/2024-05/dymola-2024x-r1-release-notes.pdf"
+          ],
+          "locator": "Export capabilities：FMI版本、export licensing及免费FMI Kit范围；发布说明FMI3限制。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认宿主FMI版本、模型类型和平台 → 建议：核对Dymola导出许可选项后生成最小FMU → 建议：在目标宿主比较初始化、输入输出及事件行为",
+          "sourceUrl": "https://www.3ds.com/products/catia/dymola/export-capabilities-interfacing-other-software"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Dymola 产品说明",
+        "url": "https://www.3ds.com/products/catia/dymola"
+      },
+      {
+        "title": "Dymola 与其他软件接口及导出选项",
+        "url": "https://www.3ds.com/products/catia/dymola/export-capabilities-interfacing-other-software"
+      },
+      {
+        "title": "Dymola 2024x Refresh1发布说明",
+        "url": "https://www.3ds.com/assets/invest/2024-05/dymola-2024x-r1-release-notes.pdf"
+      },
+      {
+        "title": "Dymola 当前发行说明入口",
+        "url": "https://www.3ds.com/products/catia/dymola/latest-release/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OpenModelica",
+    "profile": {
+      "versionBoundary": "FMI流程依据1.25系列用户指南；OMPython当前仓库已用OMCSessionLocal，旧文档OMCSessionZMQ不视为同一版本签名。buildModelFMU页面为滚动生成参考。",
+      "humanEntry": "OMEdit界面、OpenModelica编译器及OMPython环境；FMU导出入口。",
+      "coverage": "Python调用编译器和FMU模型输出。",
+      "unknowns": [
+        "OMPython当前仓库版本与具体OpenModelica发布包兼容矩阵未取得。",
+        "FMI3支持、FMU中模型库授权与目标平台依赖未完整核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "OMPython 编译器接口",
+        "category": "program",
+        "entry": "安装OMPython及匹配OpenModelica；当前README示例OMCSessionLocal().sendExpression(...)。",
+        "role": "从Python组织模型加载、编译器命令和仿真流程。",
+        "direction": "Python表达式字符串 → OMC；解析后的返回值 → Python",
+        "operations": [
+          "建立编译器会话",
+          "查询getVersion()",
+          "按编译器脚本参考调用模型操作"
+        ],
+        "dataContract": "sendExpression接收OpenModelica脚本表达式；具体返回类型随命令。当前仓库要求Python>=3.10，OMPath功能要求>=3.12；旧OMCSessionZMQ例文须按包版本区分。",
+        "workflow": [
+          "建议：固定OMPython与编译器版本",
+          "建议：先建立会话并记录getVersion返回",
+          "建议：按脚本参考处理命令结果与诊断，结束时依版本说明清理"
+        ],
+        "execution": "会话连接本地编译器服务；ZeroMQ为该接口的传输实现。关闭、重连、超时与并行会话的具体保证未核实。",
+        "failure": "建议检查Python包／编译器路径、会话建立、命令返回及编译器诊断；异常类型全集和自动恢复未核实。",
+        "prerequisites": "OpenModelica安装、匹配Python与OMPython；OMPython运行库许可和编译器许可分别适用。",
+        "version": "当前官方仓库README；旧1.25.2文档入口与当前类名不同，不直接混用。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://github.com/OpenModelica/OMPython"
+          ],
+          "locator": "README：OMCSessionLocal、sendExpression(getVersion())、Python要求及OSMC Public Runtime License。"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "import OMPython\nomc = OMPython.OMCSessionLocal()\nomc.sendExpression(\"getVersion()\")",
+          "sourceUrl": "https://github.com/OpenModelica/OMPython"
+        }
+      },
+      {
+        "name": "FMI／FMU 模型导出",
+        "category": "model",
+        "entry": "OMEdit File → Export → FMU；编译器脚本函数buildModelFMU。",
+        "role": "把Modelica模型交给外部FMI宿主。",
+        "direction": "Modelica模型／导出配置 → FMU文件 → 目标宿主",
+        "operations": [
+          "选择模型及FMI版本",
+          "选择me／cs／me_cs类型",
+          "生成并核查FMU文件路径"
+        ],
+        "dataContract": "函数参考列className必需、version默认\"2.0\"，文档说明1.0／2.0；fmuType选择me、cs或me_cs，返回生成文件完整路径。未据此认定FMI3支持。",
+        "workflow": [
+          "建议：核对安装版支持的FMI版本、平台和模型类型",
+          "建议：对最小模型调用导出或使用OMEdit菜单",
+          "建议：检查返回路径并在目标宿主验证初始化与轨迹"
+        ],
+        "execution": "生成FMU涉及模型编译；默认位置按工作目录及当前设置，用户指南说明会输出生成路径。FMU生命周期由宿主与FMI类型决定。",
+        "failure": "建议结合返回路径、编译器诊断和宿主状态检查；失败返回及各平台工具链错误码未逐项核实。",
+        "prerequisites": "可编译的Modelica模型、所需编译工具链与依赖、适用模型库许可和目标宿主。",
+        "version": "1.25系列FMI指南；滚动buildModelFMU参考列FMI1.0／2.0及参数。",
+        "implementation": "文件交换",
+        "standardIds": [
+          "p13"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://openmodelica.org/doc/OpenModelicaUsersGuide/1.25/fmitlm.html",
+            "https://build.openmodelica.org/Documentation/OpenModelica.Scripting.buildModelFMU.html"
+          ],
+          "locator": "User Guide FMU export菜单／函数；buildModelFMU的className、version、fmuType与返回路径。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对安装版支持的FMI版本、平台和模型类型 → 建议：对最小模型调用导出或使用OMEdit菜单 → 建议：检查返回路径并在目标宿主验证初始化与轨迹",
+          "sourceUrl": "https://openmodelica.org/doc/OpenModelicaUsersGuide/1.25/fmitlm.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "OpenModelica 联盟与许可",
+        "url": "https://openmodelica.org/home/consortium/"
+      },
+      {
+        "title": "OMPython 官方代码、入口与许可",
+        "url": "https://github.com/OpenModelica/OMPython"
+      },
+      {
+        "title": "OpenModelica 1.25 FMI用户指南",
+        "url": "https://openmodelica.org/doc/OpenModelicaUsersGuide/1.25/fmitlm.html"
+      },
+      {
+        "title": "buildModelFMU 官方函数参考",
+        "url": "https://build.openmodelica.org/Documentation/OpenModelica.Scripting.buildModelFMU.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "NASA GMAT",
+    "profile": {
+      "versionBoundary": "NASA软件目录列R2026；接口架构细节依据2023 NASA报告，API用户文档由对应发行包提供，当前签名与平台兼容需本地文档复核。",
+      "humanEntry": "GMAT图形界面与任务脚本；Python／Java等外部API客户端及发行包docs帮助。",
+      "coverage": "任务脚本运行和通过SWIG暴露的GMAT组件交互。",
+      "unknowns": [
+        "当前R2026各平台API模块名、启动辅助脚本、精确函数签名与依赖未取得完整公开开发手册。",
+        "API对象所有权、会话清理、异常和线程安全规则未核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "任务脚本／GUI 交互",
+        "category": "program",
+        "entry": "GMAT安装版任务脚本编辑／装载界面；用户帮助位于发行包docs/help。具体命令行参数未核实。",
+        "role": "将轨道模型、目标与分析过程组织为可重复任务。",
+        "direction": "任务脚本／配置 → GMAT任务序列；报告／轨道与绘图 → 用户",
+        "operations": [
+          "准备任务脚本及资源",
+          "运行轨道传播／目标或优化流程",
+          "检查报告与任务执行反馈"
+        ],
+        "dataContract": "官方确认脚本环境与GUI结合；脚本语法、对象字段、坐标系和时间系统以安装版用户手册为准。轨道单位与参考系应在模型中明确，未预填通用交换Schema。",
+        "workflow": [
+          "建议：从发行包官方样例选择最小任务",
+          "建议：按用户手册检查坐标系、历元、资源和输出",
+          "建议：装载并执行后比较预期轨道及报告"
+        ],
+        "execution": "任务由配置和任务序列决定；脚本装载／执行状态应与数值结果分别检查。CLI退出码与无界面批处理开关未核实。",
+        "failure": "建议区分语法、资源缺失、传播失败与优化未收敛；准确错误码和可恢复行为需安装版手册。",
+        "prerequisites": "GMAT对应平台发行包、用户文档、所需星历／外部数据及可选插件。",
+        "version": "NASA目录R2026；2023报告§6.2.2与§7.1确认脚本／GUI结构，语法按发行包。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://software.nasa.gov/software/GSC-19640-1",
+            "https://ntrs.nasa.gov/api/citations/20230006507/downloads/20230006507_5-23.pdf",
+            "https://gmat.atlassian.net/wiki/spaces/GW/pages/380273265/User+Documentation"
+          ],
+          "locator": "NASA报告§6.2.2：任务用途、脚本与报告；User Documentation：发行包docs/help。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从发行包官方样例选择最小任务 → 建议：按用户手册检查坐标系、历元、资源和输出 → 建议：装载并执行后比较预期轨道及报告",
+          "sourceUrl": "https://software.nasa.gov/software/GSC-19640-1"
+        }
+      },
+      {
+        "name": "GMAT API（Python／Java，SWIG）",
+        "category": "program",
+        "entry": "发行包docs/GMAT_API_OC_HTML/index.html；按该包API说明配置Python／Java包装器及启动辅助文件。",
+        "role": "让外部计算程序调用任务或复用飞行力学组件。",
+        "direction": "外部语言包装调用 → GMAT类／脚本；状态与计算结果 → 外部程序",
+        "operations": [
+          "按包装器配置GMAT环境",
+          "装载和运行脚本并修改允许参数",
+          "访问API已暴露的GMAT组件"
+        ],
+        "dataContract": "2023报告说明语言包装器暴露C++类，并提供装载脚本、修改设置和值、运行脚本的辅助能力；精确模块名、数据类型和方法签名未在本次公开文档核实，故不提供猜测代码。",
+        "workflow": [
+          "建议：先阅读同一发行包API首页与启动说明",
+          "建议：采用官方最小示例确认已暴露对象及依赖",
+          "建议：先执行只读查询，再核对脚本运行、结果和清理"
+        ],
+        "execution": "这是外部程序驱动GMAT的API，与GMAT脚本调用外部Python／MATLAB函数的方向不同。生命周期、对象所有权与并发约定需完整API手册。",
+        "failure": "导入／加载依赖失败、脚本运行反馈和组件调用错误需分层检查；各返回码、异常类和重试规则未核实。",
+        "prerequisites": "带所需API包装器的GMAT发行包、匹配语言环境及插件；GMAT／API为Apache2.0，外部组件许可另核对。",
+        "version": "API架构依据2023报告§7.1.1；官方用户文档入口2025-03说明API HTML路径，R2026实际包装器需核对。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://ntrs.nasa.gov/api/citations/20230006507/downloads/20230006507_5-23.pdf",
+            "https://gmat.atlassian.net/wiki/spaces/GW/pages/380273265/User+Documentation",
+            "https://software.nasa.gov/software/GSC-19640-1"
+          ],
+          "locator": "NASA报告§7.1.1与表1：SWIG、语言包装器、脚本控制及Apache2.0；User Documentation的API文件路径。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先阅读同一发行包API首页与启动说明 → 建议：采用官方最小示例确认已暴露对象及依赖 → 建议：先执行只读查询，再核对脚本运行、结果和清理",
+          "sourceUrl": "https://ntrs.nasa.gov/api/citations/20230006507/downloads/20230006507_5-23.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "NASA GMAT软件目录",
+        "url": "https://software.nasa.gov/software/GSC-19640-1"
+      },
+      {
+        "title": "NASA 2023飞行力学工具互操作报告",
+        "url": "https://ntrs.nasa.gov/api/citations/20230006507/downloads/20230006507_5-23.pdf"
+      },
+      {
+        "title": "GMAT 官方用户文档入口",
+        "url": "https://gmat.atlassian.net/wiki/spaces/GW/pages/380273265/User+Documentation"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  }
+]

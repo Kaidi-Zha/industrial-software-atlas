@@ -1,0 +1,63 @@
+[
+  {
+    "name": "Ansys Mechanical APDL（MAPDL）",
+    "vendor": "Ansys",
+    "sector": "civil",
+    "stage": "仿真分析",
+    "purpose": "参数化有限元与结构动力学分析，可用命令或批处理组织模态、反应谱和相关分析；与 Mechanical 图形应用的脚本接口分开。",
+    "interfaces": [
+      {
+        "name": "APDL 命令 / 输入脚本",
+        "type": "脚本/CLI",
+        "detail": "参数化定义模型和载荷；按脚本进入前处理、求解和后处理；执行官方反应谱分析流程中的模态和谱分析阶段"
+      },
+      {
+        "name": "PyMAPDL / gRPC 会话",
+        "type": "API/SDK",
+        "detail": "启动或连接指定版本实例；将 APDL 命令映射为 Python 方法；读取参数或数组并管理会话生命周期"
+      },
+      {
+        "name": "CDB 归档 / RST 结果读取",
+        "type": "文件格式",
+        "detail": "按选项写出几何、材料、载荷或数据库内容；读取匹配的命令格式归档；使用 DPF 或 MAPDL Reader 后端读取结果"
+      }
+    ],
+    "constraints": "APDL 语言说明取自 2024 R2；反应谱示例取自 2025 R2；PyMAPDL 为滚动 stable 文档，客户端、MAPDL 安装版、许可及结果读取依赖须匹配。",
+    "sources": [
+      {
+        "title": "Ansys：APDL 参数化语言",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v242/en/ans_apdl/Hlp_P_APDL1.html"
+      },
+      {
+        "title": "Ansys 2025 R2：反应谱命令/批处理示例",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/ans_str/Hlp_G_STR6_6.html"
+      },
+      {
+        "title": "PyMAPDL：命令、脚本和非交互缓冲行为",
+        "url": "https://mapdl.docs.pyansys.com/version/stable/user_guide/mapdl.html"
+      },
+      {
+        "title": "PyMAPDL：启动或连接 MAPDL",
+        "url": "https://mapdl.docs.pyansys.com/version/stable/api/_autosummary/ansys.mapdl.core.launcher.launch_mapdl.html"
+      },
+      {
+        "title": "PyMAPDL：ignore_errors 与 MapdlRuntimeError",
+        "url": "https://mapdl.docs.pyansys.com/version/stable/api/_autosummary/ansys.mapdl.core.Mapdl.ignore_errors.html"
+      },
+      {
+        "title": "PyMAPDL：CDWRITE 数据库归档",
+        "url": "https://mapdl.docs.pyansys.com/version/stable/mapdl_commands/prep7/_autosummary/ansys.mapdl.core._commands.prep7.database.Database.cdwrite.html"
+      },
+      {
+        "title": "PyMAPDL：CDREAD 归档读取",
+        "url": "https://mapdl.docs.pyansys.com/version/stable/mapdl_commands/prep7/_autosummary/ansys.mapdl.core._commands.prep7.database.Database.cdread.html"
+      },
+      {
+        "title": "PyMAPDL：二进制结果读取入口",
+        "url": "https://mapdl.docs.pyansys.com/version/stable/api/_autosummary/ansys.mapdl.core.Mapdl.result.html"
+      }
+    ],
+    "evidence": "官方语言、开发和结构分析指南。",
+    "sourceDate": "2026-10-19"
+  }
+]

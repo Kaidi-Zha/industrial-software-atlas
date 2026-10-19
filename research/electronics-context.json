@@ -1,0 +1,392 @@
+{
+  "description": "先按设计对象定位工具，再核对平台、套件、具体应用和厂商定制版。专题入口用于查阅相关条目，不作为市场份额或能力排名。",
+  "comparisonBoundary": "功能重叠不能据此认定可以互换。应比较模型方言、器件库与加密模型、求解设置、数据格式、接口、运行环境和许可；平台关系导览不另计软件。",
+  "products": {
+    "嘉立创EDA（标准版 / 专业版）": {
+      "level": "板级设计平台",
+      "ecosystem": "嘉立创EDA / EasyEDA；标准版与专业版接口分列",
+      "availability": "国产平台；主程序与 SDK 许可分别核对",
+      "note": "官方说明为中国团队开发。开源硬件项目与开源扩展 SDK 不等同于编辑器主程序开源；不从开放 API 推定主程序可再分发。",
+      "sources": [
+        {
+          "title": "嘉立创EDA：公司与产品归属",
+          "url": "https://lceda.cn/page/company"
+        },
+        {
+          "title": "嘉立创EDA：扩展 SDK 开发工具及许可",
+          "url": "https://prodocs.lceda.cn/cn/api/guide/ancillary-projects/easyeda-api-sdk.html"
+        },
+        {
+          "title": "嘉立创EDA：pro-api-sdk 许可说明",
+          "url": "https://prodocs.lceda.cn/cn/api/guide/ancillary-projects/pro-api-sdk.html"
+        }
+      ]
+    },
+    "KiCad": {
+      "level": "设计套件",
+      "ecosystem": "原理图、PCB、制造输出及 ngspice 集成",
+      "availability": "开源软件；程序主要为 GPLv3+",
+      "note": "程序、元件库和文档采用不同许可；不能将程序许可直接套用于全部库资产。",
+      "sources": [
+        {
+          "title": "KiCad：程序、库与文档许可",
+          "url": "https://www.kicad.org/about/licenses/"
+        }
+      ]
+    },
+    "KLayout": {
+      "level": "版图工具",
+      "ecosystem": "集成电路版图查看、编辑与脚本",
+      "availability": "开源软件；GPLv2 或更高版本",
+      "note": "脚本、Python 包和 C++ 源码的许可边界按官方说明核对。",
+      "sources": [
+        {
+          "title": "KLayout：许可与脚本边界",
+          "url": "https://www.klayout.de/license.html"
+        }
+      ]
+    },
+    "OpenROAD": {
+      "level": "物理设计工具",
+      "ecosystem": "数字 IC 物理实现流程",
+      "availability": "开源软件；BSD 3-Clause",
+      "note": "工具代码、工艺 PDK 和第三方依赖的获取与许可分别核对。",
+      "sources": [
+        {
+          "title": "OpenROAD：BSD 3-Clause License",
+          "url": "https://raw.githubusercontent.com/The-OpenROAD-Project/OpenROAD/master/LICENSE"
+        }
+      ]
+    },
+    "ngspice": {
+      "level": "电路仿真引擎",
+      "ecosystem": "命令行 / 交互解释器 / 可嵌入共享库",
+      "availability": "开源软件；主要采用 BSD 许可",
+      "note": "部分组件有不同许可；共享库集成、模型文件及模型方言需分别核对。",
+      "sources": [
+        {
+          "title": "ngspice：开发与代码许可",
+          "url": "https://ngspice.sourceforge.io/devel.html"
+        }
+      ]
+    },
+    "openEMS": {
+      "level": "电磁仿真求解器",
+      "ecosystem": "FDTD；Python / Octave / MATLAB 前后处理",
+      "availability": "开源软件；openEMS 为 GPLv3+",
+      "note": "CSXCAD 为 LGPLv3+；MATLAB 自身许可与开源求解器分别核对。",
+      "sources": [
+        {
+          "title": "openEMS：求解器与 CSXCAD 许可",
+          "url": "https://docs.openems.de/en/latest/intro.html"
+        }
+      ]
+    },
+    "LTspice": {
+      "level": "器件厂商仿真工具",
+      "ecosystem": "Analog Devices 的 SPICE 电路仿真工具",
+      "availability": "免费提供；使用条件见安装版许可",
+      "note": "免费获取不等于开源或可任意再分发。模型语法、器件模型和加密模型不能与其他 SPICE 产品自动互换。",
+      "sources": [
+        {
+          "title": "Analog Devices：LTspice 获取与免费说明",
+          "url": "https://www.analog.com/en/resources/design-tools-and-calculators/ltspice-simulator.html"
+        }
+      ]
+    },
+    "PSpice（含 PSpice for TI）": {
+      "level": "仿真产品及厂商定制版",
+      "ecosystem": "Cadence PSpice；TI 提供 PSpice for TI",
+      "availability": "Cadence 版按授权；TI 版免费提供",
+      "note": "PSpice 核心产品来自 Cadence。DMI / Systems Option 与 TI 版的模型导入分开记录；不把商业版本全部接口和套餐能力归给 TI 版。",
+      "sources": [
+        {
+          "title": "Cadence：PSpice 与 OrCAD 授权关系",
+          "url": "https://www.cadence.com/en_US/home/tools/pcb-design-and-analysis/orcad/faqs.html"
+        },
+        {
+          "title": "TI：PSpice for TI 产品与免费说明",
+          "url": "https://www.ti.com/tool/PSPICE-FOR-TI"
+        }
+      ]
+    },
+    "Cadence OrCAD / OrCAD X": {
+      "level": "PCB 设计套件 / 平台",
+      "ecosystem": "Capture、PSpice、Presto / PCB Editor 等应用",
+      "availability": "商业产品；应用与模块按许可核对",
+      "note": "原理图、仿真和 PCB 编辑器有不同对象模型。与 Allegro X 的技术/数据关系不代表功能和许可相同。",
+      "sources": [
+        {
+          "title": "Cadence：OrCAD X 应用与设计流程",
+          "url": "https://resources.academic.cadence.com/pcb-design-and-analysis-resources/2025-orcad-x-quick-start-tutorial"
+        },
+        {
+          "title": "Cadence：OrCAD X 与 Allegro X 产品关系",
+          "url": "https://www.cadence.com/en_US/home/company/newsroom/press-releases/pr/2023/cadence-unveils-next-generation-ai-driven-orcad-x-delivering-up.html"
+        }
+      ]
+    },
+    "Cadence Allegro X PCB Editor": {
+      "level": "PCB 布局工具",
+      "ecosystem": "Cadence Allegro X；与 OrCAD X 产品线相关",
+      "availability": "商业产品；具体能力按许可核对",
+      "note": "不能由 Allegro PCB Editor 一项推定 Cadence 全部原理图、仿真、封装或 IC 设计产品的能力。",
+      "sources": [
+        {
+          "title": "Cadence：OrCAD X 与 Allegro X 产品关系",
+          "url": "https://www.cadence.com/en_US/home/company/newsroom/press-releases/pr/2023/cadence-unveils-next-generation-ai-driven-orcad-x-delivering-up.html"
+        }
+      ]
+    },
+    "Siemens PADS（Standard / Professional）": {
+      "level": "PCB 设计产品家族",
+      "ecosystem": "Classic Standard / Plus；Professional 与 Xpedition 技术体系",
+      "availability": "商业产品；分支与套餐按许可核对",
+      "note": "经典 PADS 与 PADS Professional 的对象及自动化入口分开；不能将 Xpedition 的某项 API 直接视为 PADS 支持。",
+      "sources": [
+        {
+          "title": "Siemens：PADS 产品分支与 Xpedition 体系",
+          "url": "https://www.siemens.com/en-us/products/pcb/pads/"
+        }
+      ]
+    },
+    "Siemens Xpedition": {
+      "level": "PCB 设计产品家族",
+      "ecosystem": "Siemens PCB 产品体系；与 PADS Professional 技术相关",
+      "availability": "商业产品；具体能力按许可核对",
+      "note": "产品家族的技术关系不代表版本、工程数据和接口无条件通用。",
+      "sources": [
+        {
+          "title": "Siemens：PADS 产品分支与 Xpedition 体系",
+          "url": "https://www.siemens.com/en-us/products/pcb/pads/"
+        }
+      ]
+    },
+    "Ansys HFSS": {
+      "level": "AEDT 内设计工具",
+      "ecosystem": "Ansys Electronics Desktop（AEDT）及相关电子分析工具",
+      "availability": "商业求解器；开源 Python 包不代替产品许可",
+      "note": "高频电磁求解；HFSS 只覆盖 Ansys 电子设计产品中的相应设计类型。",
+      "sources": [
+        {
+          "title": "Ansys：AEDT 设计类型与工作环境",
+          "url": "https://ansyshelp.ansys.com/public/views/secured/electronics/v252/en/subsystems/icepak/content/GettingStarted/GettingStartedwithANSYSElectronicsDesktop.htm"
+        },
+        {
+          "title": "Ansys：电子设计平台与产品",
+          "url": "https://ansys.synopsys.com/Products/Electronics"
+        }
+      ]
+    },
+    "Ansys Circuit": {
+      "level": "AEDT 内设计工具",
+      "ecosystem": "Ansys Electronics Desktop（AEDT）及相关电子分析工具",
+      "availability": "商业求解器；开源 Python 包不代替产品许可",
+      "note": "电路/系统级设计类型，含 Nexxim 相关接口；不等同于 HFSS 电磁模型。",
+      "sources": [
+        {
+          "title": "Ansys：AEDT 设计类型与工作环境",
+          "url": "https://ansyshelp.ansys.com/public/views/secured/electronics/v252/en/subsystems/icepak/content/GettingStarted/GettingStartedwithANSYSElectronicsDesktop.htm"
+        },
+        {
+          "title": "Ansys：电子设计平台与产品",
+          "url": "https://ansys.synopsys.com/Products/Electronics"
+        }
+      ]
+    },
+    "Ansys Icepak": {
+      "level": "电子热分析工具",
+      "ecosystem": "Ansys Electronics Desktop（AEDT）及相关电子分析工具",
+      "availability": "商业求解器；开源 Python 包不代替产品许可",
+      "note": "AEDT Icepak 与 Icepak Classic 的项目及转换路径分开核对。",
+      "sources": [
+        {
+          "title": "Ansys：AEDT 设计类型与工作环境",
+          "url": "https://ansyshelp.ansys.com/public/views/secured/electronics/v252/en/subsystems/icepak/content/GettingStarted/GettingStartedwithANSYSElectronicsDesktop.htm"
+        },
+        {
+          "title": "Ansys：电子设计平台与产品",
+          "url": "https://ansys.synopsys.com/Products/Electronics"
+        }
+      ]
+    },
+    "Ansys siwave": {
+      "level": "独立应用与平台集成工具",
+      "ecosystem": "Ansys Electronics Desktop（AEDT）及相关电子分析工具",
+      "availability": "商业求解器；开源 Python 包不代替产品许可",
+      "note": "siwave 可与 AEDT 联算，但 COM/批处理属于 siwave 应用；不把它写成 AEDT 内同一进程的设计类型。",
+      "sources": [
+        {
+          "title": "Ansys：AEDT 设计类型与工作环境",
+          "url": "https://ansyshelp.ansys.com/public/views/secured/electronics/v252/en/subsystems/icepak/content/GettingStarted/GettingStartedwithANSYSElectronicsDesktop.htm"
+        },
+        {
+          "title": "Ansys：电子设计平台与产品",
+          "url": "https://ansys.synopsys.com/Products/Electronics"
+        },
+        {
+          "title": "Ansys：siwave 与 AEDT 联算向导",
+          "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v261/en/Subsystems/SIwave/Content/CosimulationusingSIwizard.htm"
+        }
+      ]
+    }
+  },
+  "areas": [
+    {
+      "id": "pcb",
+      "name": "原理图与 PCB",
+      "softwareNames": [
+        "KiCad",
+        "Altium Designer",
+        "Cadence Allegro X PCB Editor",
+        "Siemens Xpedition",
+        "嘉立创EDA（标准版 / 专业版）",
+        "Cadence OrCAD / OrCAD X",
+        "Siemens PADS（Standard / Professional）"
+      ]
+    },
+    {
+      "id": "circuit",
+      "name": "电路与器件仿真",
+      "softwareNames": [
+        "ngspice",
+        "LTspice",
+        "PSpice（含 PSpice for TI）",
+        "Ansys Circuit",
+        "Keysight PathWave ADS"
+      ]
+    },
+    {
+      "id": "em",
+      "name": "电磁、SI/PI 与热分析",
+      "softwareNames": [
+        "Ansys HFSS",
+        "openEMS",
+        "Ansys Icepak",
+        "Ansys siwave",
+        "Keysight PathWave ADS"
+      ]
+    },
+    {
+      "id": "ic",
+      "name": "IC、FPGA 与工艺设计",
+      "softwareNames": [
+        "KLayout",
+        "OpenROAD",
+        "Victory TCAD / DeckBuild",
+        "Cadence Virtuoso Studio",
+        "Synopsys Sentaurus TCAD",
+        "Cadence Innovus",
+        "Synopsys Fusion Compiler",
+        "Synopsys VCS",
+        "Siemens Calibre",
+        "AMD Vivado"
+      ]
+    },
+    {
+      "id": "manufacturing",
+      "name": "制造执行",
+      "softwareNames": [
+        "Opcenter Execution Semiconductor"
+      ]
+    }
+  ],
+  "access": [
+    {
+      "id": "open",
+      "name": "开源工具",
+      "softwareNames": [
+        "KiCad",
+        "KLayout",
+        "OpenROAD",
+        "ngspice",
+        "openEMS"
+      ]
+    },
+    {
+      "id": "domestic",
+      "name": "国产板级平台",
+      "softwareNames": [
+        "嘉立创EDA（标准版 / 专业版）"
+      ]
+    },
+    {
+      "id": "vendor",
+      "name": "器件厂商仿真版本",
+      "softwareNames": [
+        "LTspice",
+        "PSpice（含 PSpice for TI）"
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "name": "Ansys Electronics Desktop（AEDT）",
+      "level": "统一电子设计平台",
+      "description": "HFSS、Circuit、AEDT Icepak 属于平台明确列出的设计类型；siwave 按独立应用及与平台集成的路径理解。共享工作环境不代表求解器、工程对象或许可一致。",
+      "softwareNames": [
+        "Ansys HFSS",
+        "Ansys Circuit",
+        "Ansys Icepak",
+        "Ansys siwave"
+      ],
+      "sources": [
+        {
+          "title": "Ansys：AEDT 设计类型与工作环境",
+          "url": "https://ansyshelp.ansys.com/public/views/secured/electronics/v252/en/subsystems/icepak/content/GettingStarted/GettingStartedwithANSYSElectronicsDesktop.htm"
+        },
+        {
+          "title": "Ansys：电子设计平台与产品",
+          "url": "https://ansys.synopsys.com/Products/Electronics"
+        },
+        {
+          "title": "Ansys：siwave 与 AEDT 联算向导",
+          "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v261/en/Subsystems/SIwave/Content/CosimulationusingSIwizard.htm"
+        }
+      ]
+    },
+    {
+      "name": "Cadence 板级设计产品",
+      "level": "套件、应用与相关产品线",
+      "description": "OrCAD / OrCAD X 组织 Capture、仿真和 PCB 设计流程；Allegro X 是相关产品线，PSpice 是电路仿真产品。TI 定制版的功能与限制单独核对，不将 Cadence 全部产品归为一款工具。",
+      "softwareNames": [
+        "Cadence OrCAD / OrCAD X",
+        "Cadence Allegro X PCB Editor",
+        "PSpice（含 PSpice for TI）"
+      ],
+      "sources": [
+        {
+          "title": "Cadence：OrCAD X 应用与设计流程",
+          "url": "https://resources.academic.cadence.com/pcb-design-and-analysis-resources/2025-orcad-x-quick-start-tutorial"
+        },
+        {
+          "title": "Cadence：OrCAD X 与 Allegro X 产品关系",
+          "url": "https://www.cadence.com/en_US/home/company/newsroom/press-releases/pr/2023/cadence-unveils-next-generation-ai-driven-orcad-x-delivering-up.html"
+        },
+        {
+          "title": "Cadence：PSpice 与 OrCAD 授权关系",
+          "url": "https://www.cadence.com/en_US/home/tools/pcb-design-and-analysis/orcad/faqs.html"
+        },
+        {
+          "title": "TI：PSpice for TI 产品与免费说明",
+          "url": "https://www.ti.com/tool/PSPICE-FOR-TI"
+        }
+      ]
+    },
+    {
+      "name": "Siemens PADS 与 Xpedition",
+      "level": "产品家族与技术关系",
+      "description": "PADS Standard / Plus 与 PADS Professional 采用不同流程。Professional 与 Xpedition 技术相关；具体编辑器、自动化接口、文件版本和套餐能力仍按产品分支核对。",
+      "softwareNames": [
+        "Siemens PADS（Standard / Professional）",
+        "Siemens Xpedition"
+      ],
+      "sources": [
+        {
+          "title": "Siemens：PADS 产品分支与 Xpedition 体系",
+          "url": "https://www.siemens.com/en-us/products/pcb/pads/"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,522 @@
+[
+  {
+    "name": "Ansys Circuit",
+    "profile": {
+      "versionBoundary": "PyAEDT 按查询日 stable 文档；该 URL 会更新，未锁定 Python 包版本。AEDT 平台关系按 2025 R2 帮助；不将 Circuit、Maxwell Circuit、Twin Builder 视为同一工具。",
+      "humanEntry": "工程师在 AEDT 的 Project 菜单插入 Circuit Design，以原理图或 Circuit Netlist 组织模型、设置激励并求解。",
+      "coverage": "Parent：Ansys Electronics Desktop（AEDT，平台，不另计软件）；官方列 Circuit 为 Nexxim 原理图界面，Circuit Netlist 为其文本界面；HFSS 与 AEDT Icepak 是同平台的其他设计类型。此记录只新增 Circuit，保留原 HFSS 条目。",
+      "unknowns": [
+        "PyAEDT 安装页称 Circuit 为 basic support，不能据统一 API 推定所有 Nexxim 功能已包装",
+        "求解器及 HPC 授权、Python/AEDT 兼容版本和补丁需实际环境核对",
+        "仅文档核查，未启动 AEDT、运行电路或验证跨线程调用安全"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "PyAEDT Circuit 建模与求解",
+        "category": "program",
+        "entry": "Python 导入 ansys.aedt.core.Circuit；以 project、design 和 version 选择或创建宿主工程/设计。",
+        "role": "Python 客户端编排 AEDT Circuit 宿主与 Nexxim 分析",
+        "direction": "客户端设置工程/激励/分析选项，宿主返回对象或成功标志；结果另经后处理或文件导出。",
+        "operations": [
+          "连接或创建 Circuit 设计",
+          "创建 source 和 setup",
+          "运行 analyze",
+          "保存工程并释放桌面连接"
+        ],
+        "dataContract": "Circuit 工程/设计名及 .aedt/.aedtz 路径；create_source 的类型包括 VoltageDC、VoltageSin、CurrentSin 等，返回 Sources 对象；analyze 返回布尔值。",
+        "workflow": [
+          "建议：锁定兼容 AEDT 与 PyAEDT 版本并检查 Circuit 授权",
+          "建议：在工程副本连接明确的 Circuit design",
+          "建议：创建一个所需激励和分析设置",
+          "建议：调用 analyze 并检查日志/结果",
+          "建议：保存工程后按会话所有权释放连接"
+        ],
+        "execution": "构造器区分连接已有与新建 AEDT；close_on_exit 默认不释放。analyze 默认阻塞，blocking 参数注明从 AEDT 2023 R2 生效；batch 会保存、关闭、求解、再打开，run_in_thread 只表示批命令线程提交，不是任意 API 的线程安全保证。",
+        "failure": "analyze 文档返回 True/False；锁定工程默认不强制解锁并可抛异常。建议同时查设计校验、求解日志、许可和结果，完整异常枚举未核实。",
+        "prerequisites": "兼容 PyAEDT/Python、AEDT 安装及 Circuit 求解权益；指定 HPC 资源还需相应许可和设置。",
+        "version": "stable 文档；blocking 的明确下界为 AEDT 2023 R2",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.html",
+            "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.create_source.html",
+            "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.analyze.html",
+            "https://aedt.docs.pyansys.com/version/stable/Getting_started/Installation.html"
+          ],
+          "locator": "Circuit：constructor/session；create_source：types/return；analyze：blocking/batch/return"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：锁定兼容 AEDT 与 PyAEDT 版本并检查 Circuit 授权 → 在工程副本连接明确的 Circuit design → 创建一个所需激励和分析设置 → 调用 analyze 并检查日志/结果 → 保存工程后按会话所有权释放连接。本次未执行。",
+          "sourceUrl": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.html"
+        }
+      },
+      {
+        "name": "HSPICE 网表导入原理图",
+        "category": "file",
+        "entry": "连接 Circuit 后调用 create_schematic_from_netlist(input_file)，传入网表完整路径。",
+        "role": "外部网表到 AEDT Circuit 模型的离线转换",
+        "direction": "HSpice 文件输入；Circuit 原理图对象输出，不声称对任意 HSPICE 模型完整兼容。",
+        "operations": [
+          "读取 HSpice 网表",
+          "将已支持元件转换成原理图",
+          "核对节点和模型关联"
+        ],
+        "dataContract": "所读方法页明确列 R、L、C、Diodes、BJTs 和 Uxxx 离散元件语法；完整行为模型、控制语句、模型库与方言兼容不在该方法的承诺中。",
+        "workflow": [
+          "建议：准备只含受支持元件的最小网表",
+          "建议：在空白 Circuit 副本导入",
+          "建议：核对元件数量、节点和模型名",
+          "建议：再检查分析设置后求解"
+        ],
+        "execution": "文件解析并创建宿主设计内容；导入成功不代表分析设置齐全或电路数值等价。",
+        "failure": "返回 True 或 False；完整解析诊断和逐行错误格式未公开核实，建议核查不支持语法、文件路径及生成的连线。",
+        "prerequisites": "PyAEDT 与 AEDT Circuit；可读的 HSpice 网表及所需模型资源，许可另核。",
+        "version": "当前 stable 方法页，元件子集按本页限定",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.create_schematic_from_netlist.html"
+          ],
+          "locator": "create_schematic_from_netlist：Supported currently / Parameters / Returns"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：准备只含受支持元件的最小网表 → 在空白 Circuit 副本导入 → 核对元件数量、节点和模型名 → 再检查分析设置后求解。本次未执行。",
+          "sourceUrl": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.create_schematic_from_netlist.html"
+        }
+      },
+      {
+        "name": "Touchstone 网络结果导出",
+        "category": "file",
+        "entry": "Circuit 实例调用 export_touchstone，指定已求解 setup、sweep、输出文件及可选变体。",
+        "role": "电路频域网络结果向其他分析工具交付",
+        "direction": "Circuit 求解结果向外导出；本条不据导出函数推定所有 Touchstone 版次双向兼容。",
+        "operations": [
+          "选择已求解设置和 sweep",
+          "选择参数变体",
+          "导出网络数据",
+          "按需重归一化"
+        ],
+        "dataContract": "Touchstone 文件及端口网络数据；renormalization 默认关闭，阻抗参数以欧姆计，开启重归一化时须核对参考阻抗、端口顺序与频率单位。",
+        "workflow": [
+          "建议：确认对应设置/变体已经求解",
+          "建议：明确输出路径及是否重归一化",
+          "建议：导出后检查返回文件名",
+          "建议：在目标读取器核对端口数、频率和参考阻抗"
+        ],
+        "execution": "求解后的文件输出；不是运行时测量仪器连接，也不自动导出未求解变体。",
+        "failure": "文档返回文件名或 False；建议检查已求解 sweep、变量对应、输出权限及文件内容，完整异常契约未核实。",
+        "prerequisites": "兼容 PyAEDT/Circuit、有效求解结果；目标工具支持实际写出的 Touchstone 结构。",
+        "version": "stable 方法页；Touchstone 文件标准版次未注明",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.export_touchstone.html"
+          ],
+          "locator": "export_touchstone：solved setup/sweep / variations / renormalization / Returns"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认对应设置/变体已经求解 → 明确输出路径及是否重归一化 → 导出后检查返回文件名 → 在目标读取器核对端口数、频率和参考阻抗。本次未执行。",
+          "sourceUrl": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.export_touchstone.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Ansys：AEDT platform overview",
+        "url": "https://ansys.synopsys.com/Products/Electronics",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "AEDT 2025 R2：design types and Circuit/Nexxim",
+        "url": "https://ansyshelp.ansys.com/public/views/secured/electronics/v252/en/subsystems/icepak/content/GettingStarted/GettingStartedwithANSYSElectronicsDesktop.htm",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PyAEDT：installation / requirements / Circuit basic support",
+        "url": "https://aedt.docs.pyansys.com/version/stable/Getting_started/Installation.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PyAEDT：Circuit class",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PyAEDT：Circuit.create_source",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.create_source.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PyAEDT：Circuit.analyze",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.analyze.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PyAEDT：Circuit.create_schematic_from_netlist",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.create_schematic_from_netlist.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PyAEDT：Circuit.export_touchstone",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.export_touchstone.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Ansys Icepak",
+    "profile": {
+      "versionBoundary": "PyAEDT 按 stable 方法文档；Classic 项目迁移规则固定依据 AEDT 2025 R1 帮助，不将旧版转换限制表推定为所有当前版本。",
+      "humanEntry": "工程师在 AEDT 中建立 Icepak design，准备几何、材料、热/流边界、网格和分析；Classic standalone 项目通过明确的转换路径迁入。",
+      "coverage": "Parent：AEDT 的 Icepak 设计类型；PyAEDT Icepak 类操作 AEDT 中的设计。Icepak Classic（standalone）是须转换的另一前处理环境，不能直接套用 PyAEDT 对象 API；与 HFSS 等设计的损耗链接属于平台集成。",
+      "unknowns": [
+        "Classic standalone 的完整脚本 API、当前维护状态与支持版本未在本次核实",
+        "PyAEDT/宿主版本兼容、求解及源电磁工具许可需实际环境确认",
+        "损耗映射不等于双向温度反馈；迭代收敛和耦合调度没有在本条验证",
+        "完整线程模型和错误类型未知；本次未进行网格、求解或转换实验"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "PyAEDT Icepak 热源边界",
+        "category": "program",
+        "entry": "Python ansys.aedt.core.Icepak 连接 AEDT Icepak design 后调用 assign_source。",
+        "role": "以脚本定义电子热模型的源边界",
+        "direction": "几何对象/面与热条件输入，返回宿主 BoundaryObject；不是读取硬件传感器。",
+        "operations": [
+          "指定对象/面",
+          "设总功率、面热量或温度",
+          "按文档使用瞬态/温度相关赋值",
+          "检查边界对象"
+        ],
+        "dataContract": "assignment 是面 ID、对象名或列表；thermal_condition 接受 Total Power、Surface Heat、Temperature，assignment_value 含值和单位或受支持字典对象。",
+        "workflow": [
+          "建议：连接明确的 AEDT Icepak 设计副本",
+          "建议：核对目标面/对象和单位",
+          "建议：创建一个简单固定热源",
+          "建议：检查 BoundaryObject 和模型边界列表",
+          "建议：补齐网格/求解设置后比较温升"
+        ],
+        "execution": "创建/更新宿主边界不是立即执行热求解；对象名称和面 ID 随几何修改可能需重查。共享会话的跨线程修改安全未核实。",
+        "failure": "文档称成功返回 BoundaryObject、失败返回 None；建议检查选择、单位、条件类型和宿主日志，完整异常枚举未核实。",
+        "prerequisites": "PyAEDT、兼容 AEDT Icepak 安装与许可；已有可用几何对象和相应热模型。",
+        "version": "stable 方法页；未核实该签名在每个旧版可用",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.icepak.Icepak.html",
+            "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.icepak.Icepak.assign_source.html"
+          ],
+          "locator": "Icepak class；assign_source：assignment / thermal_condition / assignment_value / Returns"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：连接明确的 AEDT Icepak 设计副本 → 核对目标面/对象和单位 → 创建一个简单固定热源 → 检查 BoundaryObject 和模型边界列表 → 补齐网格/求解设置后比较温升。本次未执行。",
+          "sourceUrl": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.icepak.Icepak.html"
+        }
+      },
+      {
+        "name": "AEDT 电磁损耗映射（PyAEDT）",
+        "category": "model",
+        "entry": "Icepak.assign_em_losses；源设计由 design、setup、sweep 和可选 source_project_name 标识。",
+        "role": "电磁场求解结果驱动热仿真的平台内多物理场链接",
+        "direction": "源电磁损耗 → Icepak 热边界；本方法不自动证明存在反向温度反馈。",
+        "operations": [
+          "选择源设计与解设置",
+          "指定接收损耗的对象",
+          "映射频率和变量",
+          "控制是否补求源结果及保留源解"
+        ],
+        "dataContract": "对象列表、源设计/设置/sweep 名称、频率与变量映射；parameters 可按列表同名关联，或按字典指定源变量到 Icepak 变量。返回 BoundaryObject。",
+        "workflow": [
+          "建议：先核对源电磁设计的已求解结果",
+          "建议：明确几何/变量/频率映射",
+          "建议：确认是否允许 force_source_solve 补求源结果",
+          "建议：建立损耗边界并核查总功率",
+          "建议：再独立检查热求解结果"
+        ],
+        "execution": "force_source_solve 默认可在缺结果时触发源求解，preserve_source_solution 控制源解保留；未核实多步耦合调度、数据更新时点及线程保证，不标为 FMI。",
+        "failure": "本页未给完整失败返回/异常枚举；建议检查源设计存在性、setup/sweep、几何映射、变量单位及两个求解器日志。",
+        "prerequisites": "AEDT Icepak 与所需源电磁求解器、对应许可和有效源模型/结果；不同源类型的支持以安装版帮助为准。",
+        "version": "stable 方法页；具体源求解器/版本配对未逐项核实",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.icepak.Icepak.assign_em_losses.html"
+          ],
+          "locator": "assign_em_losses：source design/setup/sweep / parameters / force_source_solve / preserve_source_solution"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先核对源电磁设计的已求解结果 → 明确几何/变量/频率映射 → 确认是否允许 force_source_solve 补求源结果 → 建立损耗边界并核查总功率 → 再独立检查热求解结果。本次未执行。",
+          "sourceUrl": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.icepak.Icepak.assign_em_losses.html"
+        }
+      },
+      {
+        "name": "Classic Icepak .tzr → AEDT 转换",
+        "category": "file",
+        "entry": "Classic 保存/生成 .tzr；在 AEDT 打开 Classic 项目进行转换。2025 R1 帮助还提供导出 AEDT Script 和 TZRBatchConverter 的批转换路径。",
+        "role": "Classic 与 AEDT 两种环境之间的项目迁移",
+        "direction": "Classic 项目 → AEDT 几何、边界和设置；不声明无损双向往返。",
+        "operations": [
+          "转换几何和热/流属性",
+          "转换支持的网格、监控与分析设置",
+          "检查不支持项",
+          "另存 AEDT 项目"
+        ],
+        "dataContract": "Classic 对象转换为 AEDT 几何与边界；名称可能改写/截断，部分材料和网格功能不转换，HPC 核数/任务数须在转换后重新指定。",
+        "workflow": [
+          "建议：保留原 Classic 项目和 .tzr 副本",
+          "建议：按对应版本打开或批转换",
+          "建议：对照官方 limitation 表检查名称、材料、网格与监控",
+          "建议：重设 HPC 和必要的求解选项",
+          "建议：与原案例比较功率与温度等关键结果"
+        ],
+        "execution": "离线迁移而非共享同一运行对象；非活动对象默认处理和批转换配置有版本专门规则，不能把 .tzr 导入成功当成所有功能已复现。",
+        "failure": "官方列有不支持项、名称重写和 Linux 导入环境问题；建议核查转换消息和物理配置，而非仅检查新工程存在。",
+        "prerequisites": "Classic 可导出项目、兼容 AEDT Icepak；Student 的含 ECAD 项目导入限制按 2025 R1 帮助另核，商业许可也须匹配。",
+        "version": "固定依据 AEDT 2025 R1（v251）帮助",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v251/en/Subsystems/Icepak/Content/Variables/OpeningIcepakClassicProjects.htm",
+            "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v251/en/Subsystems/Icepak/Content/Variables/IcepakClassicProjectConversionLimitations.htm"
+          ],
+          "locator": "Opening Icepak Classic Projects；Conversion Limitations：Naming / HPC / Materials / ECAD"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：保留原 Classic 项目和 .tzr 副本 → 按对应版本打开或批转换 → 对照官方 limitation 表检查名称、材料、网格与监控 → 重设 HPC 和必要的求解选项 → 与原案例比较功率与温度等关键结果。本次未执行。",
+          "sourceUrl": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v251/en/Subsystems/Icepak/Content/Variables/OpeningIcepakClassicProjects.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Ansys：AEDT platform overview",
+        "url": "https://ansys.synopsys.com/Products/Electronics",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "AEDT 2025 R2：Icepak design type",
+        "url": "https://ansyshelp.ansys.com/public/views/secured/electronics/v252/en/subsystems/icepak/content/GettingStarted/GettingStartedwithANSYSElectronicsDesktop.htm",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Ansys：Icepak electronic cooling",
+        "url": "https://www.ansys.com/content/ansysincprogram/en-us/home/products/electronics/ansys-icepak.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PyAEDT：installation / requirements",
+        "url": "https://aedt.docs.pyansys.com/version/stable/Getting_started/Installation.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PyAEDT：Icepak class",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.icepak.Icepak.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PyAEDT：Icepak.assign_source",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.icepak.Icepak.assign_source.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PyAEDT：Icepak.assign_em_losses",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.icepak.Icepak.assign_em_losses.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "AEDT 2025 R1：Opening Icepak Classic Projects",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v251/en/Subsystems/Icepak/Content/Variables/OpeningIcepakClassicProjects.htm",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "AEDT 2025 R1：Classic conversion limitations",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v251/en/Subsystems/Icepak/Content/Variables/IcepakClassicProjectConversionLimitations.htm",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Ansys siwave",
+    "profile": {
+      "versionBoundary": "SIwave 功能/集成关系按 2026 R1 帮助；Python COM 包装依据官方 PyEDB main 源码，批处理依据 stable 文档，未固定 PyEDB 包版本或源码提交。",
+      "humanEntry": "工程师在 siwave 中准备 PCB/封装叠层、网络、端口与电源地，运行相应分析或由 SIwizard 交付 AEDT Circuit。",
+      "coverage": "AEDT 是可访问 siwave 的电子系统设计平台；关系是集成工具，不能由产品页推断 siwave 是 AEDT 内部同一进程的 design。官方 Python 路径区分 pyedb.siwave 的 Siwave.Application COM 会话和 SiwaveSolve 的 siwave_ng.exe 批进程；SIwizard 再把网络模型交给 AEDT Circuit/Nexxim。",
+      "unknowns": [
+        "当前所称 PySIwave 能力在此追溯至 PyEDB 的 pyedb.siwave 类；未把未核实的独立 PySIwave 包当成另一个 SDK",
+        "官方 2026 R1 概览称 SIwizard 默认动态链接，专页称默认网表；两种方式均确认，本文不固定默认值",
+        "COM 线程公寓、全局会话并发和自动退出后的状态保障未公开核实",
+        "各求解器功能/许可证、PyEDB 后端与宿主兼容矩阵、批处理错误契约需安装版验证；未实际运行"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "PyEDB Siwave COM 自动化",
+        "category": "program",
+        "entry": "Python pyedb.siwave.Siwave(specified_version=...)；官方源码通过版本化 Siwave.Application ProgID 和 win32com.client 连接应用。",
+        "role": "Python 包装独立 siwave 应用/活动工程的 COM 自动化",
+        "direction": "客户端打开/保存工程、发起 DC 分析和导出数据；返回值依具体包装方法，不能统一当作 bool。",
+        "operations": [
+          "open_project / save_project",
+          "run_dc_simulation",
+          "export_dc_simulation_report",
+          "close_project / quit_application"
+        ],
+        "dataContract": "活动工程对象及 .siw 工程路径、分析名、导出路径；run_dc_simulation 返回底层 ScrRunDcSimulation 的值，而报告导出检查底层状态并等待文件。",
+        "workflow": [
+          "建议：核对所装 PyEDB 源码/版本与 COM 注册",
+          "建议：用专用 siwave 工程副本启动会话",
+          "建议：确认活动工程后运行已有 DC 设置",
+          "建议：导出并检查非空报告文件",
+          "建议：显式保存/关闭工程并退出自有会话"
+        ],
+        "execution": "所读源码使用模块主命名空间中的 oSiwave/活动工程；关闭工程与退出应用分别执行。导出辅助循环等待文件存在/非空，未见统一超时；不能据此推定适合多线程共享。",
+        "failure": "未知版本可触发 ValueError，缺少 COM 依赖会抛异常；open_project 路径不存在返回 False。底层 DC 状态码语义和完整 COM 异常未核实。",
+        "prerequisites": "Windows 上相应 siwave 安装/许可、版本 COM 注册、所需 win32com/PythonNET 依赖与兼容 PyEDB。",
+        "version": "官方 main 源码（查询日），未锁提交；不是所有 PyEDB 历史版的承诺",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://github.com/ansys/pyedb/blob/main/src/pyedb/siwave.py"
+          ],
+          "locator": "Siwave.__init__ / open_project / run_dc_simulation / export_dc_simulation_report / close_project / quit_application"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对所装 PyEDB 源码/版本与 COM 注册 → 用专用 siwave 工程副本启动会话 → 确认活动工程后运行已有 DC 设置 → 导出并检查非空报告文件 → 显式保存/关闭工程并退出自有会话。本次未执行。",
+          "sourceUrl": "https://github.com/ansys/pyedb/blob/main/src/pyedb/siwave.py"
+        }
+      },
+      {
+        "name": "PyEDB SiwaveSolve 无界面批处理",
+        "category": "program",
+        "entry": "from pyedb.generic.process import SiwaveSolve；以所用 EDB 对象构建包装后调用 solve_siwave，或按文档调用 solve。",
+        "role": "Python 包装 siwave_ng 求解进程，而非 AEDT Circuit 对象方法",
+        "direction": "工程/EDB 路径与分析类型输入，外部求解结果/报告输出；统一作业返回结构未公开核实。",
+        "operations": [
+          "指定模型路径",
+          "选择 SYZ、DCIR、CPA、串扰或阻抗分析",
+          "以 siwave_ng 求解",
+          "按需要调用 DC report 导出"
+        ],
+        "dataContract": "solve_siwave 接收已有 .aedb 目录或 .siw/.siwz 路径及 analysis_type；允许类型按该页枚举；export_dc_report 返回所生成文件列表。",
+        "workflow": [
+          "建议：用对应版本 EDB/siwave 建立可运行设置",
+          "建议：关闭或按文档释放占用该数据库的会话",
+          "建议：在独立输出目录运行一个小型 batch",
+          "建议：检查求解进程、日志与结果",
+          "建议：再按明确分析名导出 DC 报告"
+        ],
+        "execution": "文档仅承诺非图形批处理；solve 使用 siwave_ng.exe，export_dc_report 描述包含关闭 EDB 后调用 siwave。进程完成、超时与并发上限未核实。",
+        "failure": "本页未给完整批处理退出码或异常枚举；建议区分可执行文件发现、许可、文件锁、分析设置和求解失败，检查报告文件列表。",
+        "prerequisites": "兼容 PyEDB 与 siwave/EDB 安装、目标分析权益；.aedb/.siw 输入完整且未被冲突写入。",
+        "version": "PyEDB stable 文档；具体库/宿主配对未固定",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://edb.docs.pyansys.com/version/stable/autoapi/pyedb/generic/process/SiwaveSolve.html"
+          ],
+          "locator": "SiwaveSolve：solve_siwave / solve / export_dc_report"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：用对应版本 EDB/siwave 建立可运行设置 → 关闭或按文档释放占用该数据库的会话 → 在独立输出目录运行一个小型 batch → 检查求解进程、日志与结果 → 再按明确分析名导出 DC 报告。本次未执行。",
+          "sourceUrl": "https://edb.docs.pyansys.com/version/stable/autoapi/pyedb/generic/process/SiwaveSolve.html"
+        }
+      },
+      {
+        "name": "SIwizard → AEDT Circuit / Nexxim",
+        "category": "model",
+        "entry": "siwave：Simulation → SIwizard；选择分析网络、驱动/接收器模型、电源地与瞬态选项。",
+        "role": "独立 siwave 网络抽取到 AEDT Circuit 系统级仿真的集成工作流",
+        "direction": "siwave 网络/S 参数模型 → AEDT Circuit/Nexxim；时域报表显示在 AEDT，SYZ 结果也可在 siwave 查看。",
+        "operations": [
+          "选择单端或差分网络",
+          "指定端口及 IBIS 模型",
+          "选择网表或动态链接路径",
+          "抽取网络模型并运行时域分析"
+        ],
+        "dataContract": "端口、信号/电源地网络、IBIS 驱动/接收器及 N-port 模型；不等同于 FMI 接口，也不声称任意电磁模型都可直接互换。",
+        "workflow": [
+          "建议：先识别电源地并做 Validation Check",
+          "建议：选择小型网络和明确的 buffer/model corner",
+          "建议：确认本安装版向导实际提供的网表/动态链接选项",
+          "建议：运行并观察 Process Monitor",
+          "建议：在 AEDT 核对波形/眼图及端口模型"
+        ],
+        "execution": "专页说明 siwave 完成相应阶段后打开 AEDT 运行协同分析；网表路径再交 Nexxim 瞬态分析。没有动态链接时，向导临时端口可在生成解后删除；两页默认选项口径不一，须以安装界面确认。",
+        "failure": "建议检查向导 Process Monitor、端口/IBIS 关联、抽取日志及 Nexxim 报表；完整跨进程失败恢复和重试语义未核实。",
+        "prerequisites": "siwave、AEDT Circuit/Nexxim 与对应分析许可；正确的叠层、网络、端口和缓冲器模型。",
+        "version": "SIwave 2026 R1（v261）官方帮助；默认模式口径存在差异",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v261/en/Subsystems/SIwave/Content/RunningSimulations.htm",
+            "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v261/en/Subsystems/SIwave/Content/CosimulationusingSIwizard.htm"
+          ],
+          "locator": "Running Simulations：SIwizard；Cosimulation Using SI Wizard：ports / buffers / netlist or dynamic link / handoff"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先识别电源地并做 Validation Check → 选择小型网络和明确的 buffer/model corner → 确认本安装版向导实际提供的网表/动态链接选项 → 运行并观察 Process Monitor → 在 AEDT 核对波形/眼图及端口模型。本次未执行。",
+          "sourceUrl": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v261/en/Subsystems/SIwave/Content/RunningSimulations.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Ansys：AEDT platform overview",
+        "url": "https://ansys.synopsys.com/Products/Electronics",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SIwave 2026 R1：Running Simulations and integration modes",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v261/en/Subsystems/SIwave/Content/RunningSimulations.htm",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SIwave 2026 R1：Cosimulation Using SI Wizard",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v261/en/Subsystems/SIwave/Content/CosimulationusingSIwizard.htm",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Official PyEDB：Siwave COM wrapper source",
+        "url": "https://github.com/ansys/pyedb/blob/main/src/pyedb/siwave.py",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "PyEDB：SiwaveSolve",
+        "url": "https://edb.docs.pyansys.com/version/stable/autoapi/pyedb/generic/process/SiwaveSolve.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  }
+]

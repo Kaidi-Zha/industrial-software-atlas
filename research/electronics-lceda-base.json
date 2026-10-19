@@ -1,0 +1,75 @@
+[
+  {
+    "name": "嘉立创EDA（标准版 / 专业版）",
+    "vendor": "深圳嘉立创科技集团股份有限公司 / 嘉立创EDA",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "中国团队开发的板级 EDA 平台，覆盖原理图、PCB 与制造资料准备；标准版和专业版接口分开核对。",
+    "interfaces": [
+      {
+        "name": "标准版 JavaScript 编辑器 API",
+        "type": "脚本/CLI",
+        "detail": "读取 JSON、压缩源或 SVG；修改对象后以 applySource 应用；按图元 ID 查询和修改属性"
+      },
+      {
+        "name": "专业版 TypeScript / JavaScript 扩展 API",
+        "type": "脚本/CLI",
+        "detail": "访问按命名空间注册的 API 对象；在独立脚本中调试调用；编译并导入扩展包后使用菜单入口"
+      },
+      {
+        "name": "专业版生产资料文件 API（Beta）",
+        "type": "文件格式",
+        "detail": "异步取得制造资料文件；检查返回对象后另行保存和核对输出"
+      }
+    ],
+    "constraints": "标准版与专业版是不同编辑器/API 体系；专业版文档分别说明 V2/V3 入口，扩展 API 使用独立的 major.minor.patch 版本，不等于编辑器版本。未锁定安装包。",
+    "sources": [
+      {
+        "title": "嘉立创EDA：公司与产品归属",
+        "url": "https://lceda.cn/page/company"
+      },
+      {
+        "title": "嘉立创EDA标准版：API 列表",
+        "url": "https://docs.lceda.cn/cn/API/3-API-List/"
+      },
+      {
+        "title": "嘉立创EDA标准版：API 使用方法",
+        "url": "https://docs.lceda.cn/cn/API/1-How-to-Use-API/"
+      },
+      {
+        "title": "嘉立创EDA标准版：坐标系统与单位",
+        "url": "https://docs.lceda.cn/cn/API/2-Coordinate-System-and-Unit/"
+      },
+      {
+        "title": "嘉立创EDA专业版：调用扩展 API",
+        "url": "https://prodocs.lceda.cn/cn/api/guide/invoke-apis.html"
+      },
+      {
+        "title": "嘉立创EDA专业版：扩展的获取和使用",
+        "url": "https://prodocs.lceda.cn/cn/api/user-guide/using-extension.html"
+      },
+      {
+        "title": "嘉立创EDA专业版：接口稳定性",
+        "url": "https://prodocs.lceda.cn/cn/api/guide/stability.html"
+      },
+      {
+        "title": "嘉立创EDA专业版：扩展错误处理",
+        "url": "https://prodocs.lceda.cn/cn/api/guide/error-handling.html"
+      },
+      {
+        "title": "嘉立创EDA：easyeda-api-sdk 开发工具",
+        "url": "https://prodocs.lceda.cn/cn/api/guide/ancillary-projects/easyeda-api-sdk.html"
+      },
+      {
+        "title": "EasyEDA Pro：getManufactureData Beta API",
+        "url": "https://prodocs.lceda.cn/en/api/reference/pro-api.pcb_manufacturedata.getmanufacturedata.html"
+      },
+      {
+        "title": "嘉立创EDA标准版：设计与制造输出",
+        "url": "https://lceda.cn/standard"
+      }
+    ],
+    "evidence": "官方编辑器 API 与版本文档；制造资料 API 为 Beta。",
+    "sourceDate": "2026-10-19"
+  }
+]

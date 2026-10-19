@@ -1,0 +1,172 @@
+{
+  "title": "结构与抗震分析工具",
+  "description": "按结构建模、抗震计算和有限元分析任务查阅。Ansys 按 Mechanical 与 Mechanical APDL 等具体应用列示；跨领域软件保留原条目，只增加土木领域关联。",
+  "boundary": "分析工具、接口与规范设计流程的适用范围不同。应按项目核对模型假设、地震输入、单位、求解与结果含义；软件名称或文档示例不作为工程验收依据。",
+  "softwareNames": [
+    "PKPM 结构设计软件（含 SATWE）",
+    "OpenSees / OpenSeesPy",
+    "Abaqus",
+    "Ansys Mechanical",
+    "Ansys Mechanical APDL（MAPDL）",
+    "COMSOL Multiphysics"
+  ],
+  "products": {
+    "PKPM 结构设计软件（含 SATWE）": {
+      "level": "建筑结构设计套件",
+      "ecosystem": "PKPM 的 PM 建模与 SATWE 计算设计",
+      "availability": "版本、模块与使用/再分发条件见条目",
+      "note": "API 所证实范围为 PM/SATWE；建筑结构抗震用途不代表全套产品共享接口或当前规范配置。",
+      "sources": [
+        {
+          "title": "PKPM：利用 API 进行结构参数化调整和优化的探索，2021-10-26",
+          "url": "https://help.pkpm.cn/admin/ms/detail?SiteID=123&id=3162"
+        },
+        {
+          "title": "PKPM：V5.2 更新说明，2020-09-08，第 13 章 SQLite 模型接口",
+          "url": "https://update.pkpm.cn/PKPM2010/Soft/V5/V52/PKPM2010_V52Update_20200908.pdf"
+        },
+        {
+          "title": "PKPM：SATWE 的基本功能与限制，2019-11-26",
+          "url": "https://help.pkpm.cn/admin/ms/detail?SiteID=123&flagReader=1&id=1308&type=sourceBook"
+        },
+        {
+          "title": "PKPM：SATWE 适配工业结构设计改进，2024-11-21",
+          "url": "https://help.pkpm.cn/admin/ms/detail?SiteID=123&id=5700"
+        }
+      ]
+    },
+    "OpenSees / OpenSeesPy": {
+      "level": "结构与岩土地震模拟框架",
+      "ecosystem": "OpenSees 核心；Tcl 与 OpenSeesPy 入口",
+      "availability": "版本、模块与使用/再分发条件见条目",
+      "note": "抗震分析模型、地震动输入、求解策略与记录器分别核对。核心与 Python 发行的许可及商业再分发条件分开。",
+      "sources": [
+        {
+          "title": "OpenSees官网：结构与岩土抗震仿真、3.8.0",
+          "url": "https://opensees.berkeley.edu/"
+        },
+        {
+          "title": "OpenSees User：Tcl与官方Python文档入口",
+          "url": "https://opensees.berkeley.edu/wiki/index.php/OpenSees_User"
+        },
+        {
+          "title": "OpenSees：Tcl交互、source与批处理运行",
+          "url": "https://opensees.berkeley.edu/wiki/index.php?title=Getting_Started_with_OpenSees_--_Run_OpenSees"
+        },
+        {
+          "title": "OpenSees：analyze命令",
+          "url": "https://opensees.github.io/OpenSeesDocumentation/user/manual/analysis/analyze.html"
+        },
+        {
+          "title": "OpenSeesPy：官方首页、版本与商业再分发条件",
+          "url": "https://openseespydoc.readthedocs.io/en/latest/"
+        },
+        {
+          "title": "OpenSeesPy：analyze命令",
+          "url": "https://openseespydoc.readthedocs.io/en/latest/src/analyze.html"
+        },
+        {
+          "title": "OpenSeesPy：wipe生命周期",
+          "url": "https://openseespydoc.readthedocs.io/en/latest/src/wipe.html"
+        },
+        {
+          "title": "OpenSeesPy：Path TimeSeries",
+          "url": "https://openseespydoc.readthedocs.io/en/latest/src/pathTs.html"
+        },
+        {
+          "title": "OpenSees：Path TimeSeries",
+          "url": "https://opensees.github.io/OpenSeesDocumentation/user/manual/model/timeseries/pathTimeSeries.html"
+        },
+        {
+          "title": "OpenSees：Uniform Excitation及相对响应",
+          "url": "https://opensees.github.io/OpenSeesDocumentation/user/manual/model/pattern/uniformExcitationPattern.html"
+        },
+        {
+          "title": "OpenSees：Node Recorder及输出示例",
+          "url": "https://opensees.github.io/OpenSeesDocumentation/user/manual/output/NodeRecorder.html"
+        },
+        {
+          "title": "OpenSeesPy：Node recorder",
+          "url": "https://openseespydoc.readthedocs.io/en/latest/src/nodeRecorder.html"
+        },
+        {
+          "title": "OpenSees：核心版权与使用许可",
+          "url": "https://opensees.berkeley.edu/OpenSees/copyright.php"
+        },
+        {
+          "title": "OpenSees：Copyright and License",
+          "url": "https://opensees.github.io/OpenSeesDocumentation/developer/license.html"
+        }
+      ]
+    },
+    "Abaqus": {
+      "level": "通用非线性有限元软件",
+      "ecosystem": "SIMULIA；Abaqus/CAE、求解器与 ODB 后处理",
+      "availability": "商业产品；求解器及接口环境需匹配",
+      "note": "建筑/岩土与动力时程应用有官方资料；AEC 白皮书为历史应用证据，不证明现售许可。不能将整套 3DEXPERIENCE 功能归给独立 Abaqus。",
+      "sources": [
+        {
+          "title": "Dassault Systèmes：AEC 结构仿真白皮书",
+          "url": "https://www.3ds.com/fileadmin/Industries/Architecture-Engineering-Construction/Pdf/Whitepapers/simulation-architecture-construction-aec-wp.pdf"
+        },
+        {
+          "title": "Dassault Systèmes：Zonneveld 建筑抗震案例",
+          "url": "https://www.3ds.com/insights/customer-stories/zonneveld-ingenieurs"
+        }
+      ]
+    },
+    "Ansys Mechanical": {
+      "level": "结构分析应用",
+      "ecosystem": "Ansys 产品体系；PyMechanical 操作 Mechanical 应用对象",
+      "availability": "商业求解器；Python 客户端不替代产品许可",
+      "note": "反应谱是前置模态基础上的线性峰值分析，不能代替完整时程或非线性破坏分析；Transient Structural 为另一分析类型。线程约定依嵌入/远程模式核对。",
+      "sources": [
+        {
+          "title": "Ansys 2026 R1：Mechanical 反应谱分析",
+          "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v261/en/wb_sim/ds_response_spectrum_analysis_type.html"
+        },
+        {
+          "title": "Ansys 2026 R1：瞬态结构分析",
+          "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v261/en/wb_sim/ds_transient_mechanical_analysis_type.html"
+        },
+        {
+          "title": "PyMechanical：对象 API 线程约束",
+          "url": "https://mechanical.docs.pyansys.com/version/stable/user_guide/scripting/threading.html"
+        }
+      ]
+    },
+    "Ansys Mechanical APDL（MAPDL）": {
+      "level": "命令驱动分析环境",
+      "ecosystem": "Ansys 产品体系；APDL / PyMAPDL",
+      "availability": "商业求解器；Python 客户端不替代产品许可",
+      "note": "与 Mechanical 图形应用的对象 API 分开；命令输入、模型归档、二进制结果采用不同交互路径。",
+      "sources": [
+        {
+          "title": "Ansys 2025 R2：MAPDL 结构反应谱命令示例",
+          "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/ans_str/Hlp_G_STR6_6.html"
+        }
+      ]
+    },
+    "COMSOL Multiphysics": {
+      "level": "多物理场平台与附加模块",
+      "ecosystem": "COMSOL；结构力学模块及 Java / MATLAB 接口",
+      "availability": "商业平台；附加模块与 LiveLink 许可分别核对",
+      "note": "结构动力和建筑地震分析依赖相应模块。岩土、非线性材料及 MATLAB 集成可能有额外条件；不推定基础平台具备全部模块能力。",
+      "sources": [
+        {
+          "title": "COMSOL：结构力学模块与土木工程",
+          "url": "https://www.comsol.com/structural-mechanics-module"
+        },
+        {
+          "title": "COMSOL：建筑地震分析示例",
+          "url": "https://www.comsol.com/model/earthquake-analysis-of-a-building-65521"
+        }
+      ]
+    }
+  },
+  "descriptions": {
+    "COMSOL Multiphysics": "多物理场建模，用于材料工艺、传热流动及结构动力学；可通过结构力学等模块开展建筑地震与岩土相关分析。",
+    "Abaqus": "非线性有限元与结构动力学分析，覆盖航空部件及建筑、岩土结构的接触、材料非线性和动力响应。",
+    "Ansys Mechanical": "结构、热与相关有限元分析；土木结构场景包括模态、地震反应谱和瞬态时程分析，各分析类型的假设与接口分别核对。"
+  }
+}

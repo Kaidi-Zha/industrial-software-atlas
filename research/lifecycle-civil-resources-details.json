@@ -1,0 +1,1556 @@
+[
+  {
+    "name": "盈建科 YJK",
+    "profile": {
+      "versionBoundary": "SDK 语言与能力依据 2023 年 V5.3.0 官方公告；当前文档需登录，旧公告不代表现版兼容。",
+      "humanEntry": "工程师在 YJK 中建模、设置荷载、计算并检查图纸。",
+      "coverage": "结构软件 SDK；与门户另列的 BIM 平台和云服务接口分开。",
+      "unknowns": [
+        "当前 SDK 函数签名、对象与错误类型需登录核查",
+        "运行权限、开发者资格和应用发布要求按协议核对",
+        "无界面执行、线程及批任务生命周期未核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "YJK 结构软件 SDK",
+        "category": "program",
+        "entry": "开放平台取得结构软件 SDK；具体导入包、程序集和菜单入口需登录文档核对。",
+        "role": "扩展结构设计宿主",
+        "direction": "创建/修改模型和荷载、触发计算、提取结果；逐对象范围另核。",
+        "operations": [
+          "创建构件",
+          "修改荷载",
+          "执行计算",
+          "提取结果"
+        ],
+        "dataContract": "结构模型、构件、荷载及结果对象；字段、单位与 ID 未在公开公告展开。",
+        "workflow": [
+          "建议：确认账号与安装版 SDK",
+          "建议：在副本执行官方最小例程",
+          "建议：核对荷载与计算结果",
+          "建议：检查保存后的模型"
+        ],
+        "execution": "公开介绍覆盖建模到结果处理；进程、异步完成和并发约定未知。",
+        "failure": "错误类型未公开核实；建议检查无效构件、求解失败和权限不足时的日志。",
+        "prerequisites": "相应 YJK 软件使用权；开发协议另有开发资格与应用对外发布审核要求。",
+        "version": "2023 年 V5.3.0 公告；当前参考需登录",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://dl-cdn.yjk.cn/article/1792/",
+            "https://open.yjk.cn/developerAgreement.html",
+            "https://open.yjk.cn/center.html?type=4"
+          ],
+          "locator": "V5.3.0 SDK 公告；开发者协议；文档中心"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认账号与安装版 SDK → 在副本执行官方最小例程 → 核对荷载与计算结果 → 检查保存后的模型。本次未执行。",
+          "sourceUrl": "https://dl-cdn.yjk.cn/article/1792/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "YJK 开放平台",
+        "url": "https://open.yjk.cn/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "YJK：V5.3.0 SDK 介绍",
+        "url": "https://dl-cdn.yjk.cn/article/1792/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "YJK 开发者协议",
+        "url": "https://open.yjk.cn/developerAgreement.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "YJK 文档中心（需登录）",
+        "url": "https://open.yjk.cn/center.html?type=4",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Dlubal RFEM 6 / RSTAB 9",
+    "profile": {
+      "versionBoundary": "新 API 文档首页为 2.16.2（2026-10-12）；新 gRPC 与旧 RFEM 6 SOAP 分列。",
+      "humanEntry": "在 RFEM/RSTAB 创建结构与荷载，计算并审阅结果。",
+      "coverage": "新 API 环境和 RFEM 计算方法；另保留旧 SOAP 修改路径。",
+      "unknowns": [
+        "RFEM/RSTAB 的对象和方法不可跨产品照搬",
+        "旧 SOAP 当前支持和迁移权益需核对",
+        "方法线程安全、取消及结果分块未逐项核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Dlubal gRPC Python API",
+        "category": "program",
+        "entry": "Python 3.10+ 安装 dlubal.api；导入对应产品客户端，通过 Application 和 API key 连接。",
+        "role": "外部结构分析自动化",
+        "direction": "调用模型操作并取得响应；本条以 RFEM 计算方法为明确例证。",
+        "operations": [
+          "连接产品",
+          "取得应用信息",
+          "计算指定模型",
+          "检查返回状态"
+        ],
+        "dataContract": "RFEM calculate_all 的 OperationResult 含 succeeded、data、message；未给 model_id 时使用活动模型。",
+        "workflow": [
+          "建议：匹配宿主与客户端",
+          "建议：配置 API key",
+          "建议：连接 RFEM 小模型计算",
+          "建议：检查状态并释放客户端"
+        ],
+        "execution": "官方示例用 Application 上下文管理会话；RFEM 方法不直接等同 RSTAB 对应方法。",
+        "failure": "无效 key 或配额/权限问题可报 RuntimeError / gRPC UNAUTHENTICATED；需检查消息和计算结果。",
+        "prerequisites": "有效宿主许可、API key 及 API 请求权益；Python 包公开不代表无限免费调用。",
+        "version": "文档首页 2.16.2；RFEM calculate_all 参考",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://apidocs.dlubal.com/",
+            "https://apidocs.dlubal.com/quick_start.html",
+            "https://apidocs.dlubal.com/access_control.html",
+            "https://apidocs.dlubal.com/source/rst_methods/rfem/calculate_all.html",
+            "https://apidocs.dlubal.com/examples.html"
+          ],
+          "locator": "Quick Start；Access Control；RFEM calculate_all：Parameters / Return"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：匹配宿主与客户端 → 配置 API key → 连接 RFEM 小模型计算 → 检查状态并释放客户端。本次未执行。",
+          "sourceUrl": "https://apidocs.dlubal.com/"
+        }
+      },
+      {
+        "name": "RFEM 6 WebService SOAP",
+        "category": "program",
+        "entry": "RFEM 6 WebService 及相应 SOAP 客户端；端点和端口按安装配置核对。",
+        "role": "旧模型修改与计算编排",
+        "direction": "模型变更提交后请求计算；逐对象范围依旧参考。",
+        "operations": [
+          "开始修改",
+          "提交变更",
+          "结束修改",
+          "执行计算"
+        ],
+        "dataContract": "XML/SOAP 服务对象；旧对象不等同新 gRPC 类型。",
+        "workflow": [
+          "建议：确认旧接口可用",
+          "建议：在副本开始并结束修改",
+          "建议：修改结束后计算",
+          "建议：检查结果和迁移需求"
+        ],
+        "execution": "文档要求在 finish_modification 之后计算，不在修改阶段计算；会话释放需对应版参考。",
+        "failure": "SOAP fault、未完成修改和计算日志需检查；完整错误契约未核实。",
+        "prerequisites": "支持 WebService 的 RFEM 6 与相应权益；新 API key 规则不自动适用旧 SOAP。",
+        "version": "旧 RFEM 6 WebService 手册；现版可用性另核",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.dlubal.com/en/downloads-and-information/documents/online-manuals/rfem-6-webservice-api/002199",
+            "https://www.dlubal.com/en/downloads-and-information/documents/online-manuals/rfem-6-webservice-api/002219"
+          ],
+          "locator": "XML/SOAP；模型修改与 CalculateAll 顺序"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认旧接口可用 → 在副本开始并结束修改 → 修改结束后计算 → 检查结果和迁移需求。本次未执行。",
+          "sourceUrl": "https://www.dlubal.com/en/downloads-and-information/documents/online-manuals/rfem-6-webservice-api/002199"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Dlubal API 文档",
+        "url": "https://apidocs.dlubal.com/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Dlubal API：Quick Start",
+        "url": "https://apidocs.dlubal.com/quick_start.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Dlubal API：Access Control",
+        "url": "https://apidocs.dlubal.com/access_control.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "RFEM：calculate_all",
+        "url": "https://apidocs.dlubal.com/source/rst_methods/rfem/calculate_all.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "RFEM 6：SOAP / XML",
+        "url": "https://www.dlubal.com/en/downloads-and-information/documents/online-manuals/rfem-6-webservice-api/002199",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "RFEM 6：模型修改与计算",
+        "url": "https://www.dlubal.com/en/downloads-and-information/documents/online-manuals/rfem-6-webservice-api/002219",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Dlubal API：Examples",
+        "url": "https://apidocs.dlubal.com/examples.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SOFiSTiK",
+    "profile": {
+      "versionBoundary": "依据 SOFiSTiK / CDB Interfaces 2026；DLL 年份和位数需匹配。",
+      "humanEntry": "在 SSD/Teddy 等环境准备任务、运行模块并检查 CDB 结果。",
+      "coverage": "CDB DLL 与 CADINP 文本任务；数据库读写和求解器授权分开。",
+      "unknowns": [
+        "CDB 记录、长度、位编码和单位须查 CDBase Help",
+        "写数据库不保证结果与模型自动一致",
+        "并发写入和数据库锁机制未核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "CDB DLL 数据访问",
+        "category": "program",
+        "entry": "版本化 interfaces/64bit DLL；Python 例程使用 sof_cdb_init/status/close。",
+        "role": "外部访问结构模型与结果数据库",
+        "direction": "读取/写入受支持 CDB 记录，逐记录范围按参考。",
+        "operations": [
+          "连接 CDB",
+          "检查状态",
+          "读取或写入记录",
+          "关闭连接"
+        ],
+        "dataContract": "二进制记录由键、长度及结构体定义；部分整数按位编码。",
+        "workflow": [
+          "建议：备份数据库并匹配 DLL",
+          "建议：按官方例程连接",
+          "建议：读一个节点记录并检查状态",
+          "建议：关闭后与宿主对照"
+        ],
+        "execution": "例程 init 参数 99 在文件缺失时创建数据库；close(0) 关闭全部 CDB 文件。",
+        "failure": "应核对状态、返回值和记录长度；损坏恢复与完整错误码未核实。",
+        "prerequisites": "匹配版本/位数 DLL；sof_q 需许可，教育授权用 _edu DLL；求解模块另核。",
+        "version": "CDB Interfaces 2026",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.sofistik.com/2026/en/fea/basic/interfaces/cdb_interfaces.html",
+            "https://docs.sofistik.com/2026/en/cdb_interfaces/introduction/about_cdb/required__license_dlls.html",
+            "https://docs.sofistik.com/2026/en/cdb_interfaces/python/examples/python_example1.html"
+          ],
+          "locator": "Required license and DLLs；Python Example 1：init/status/close"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：备份数据库并匹配 DLL → 按官方例程连接 → 读一个节点记录并检查状态 → 关闭后与宿主对照。本次未执行。",
+          "sourceUrl": "https://docs.sofistik.com/2026/en/fea/basic/interfaces/cdb_interfaces.html"
+        }
+      },
+      {
+        "name": "CADINP / sps.exe 文本任务",
+        "category": "program",
+        "entry": "Teddy 的 DAT 文件和安装版 sps.exe；本条不补造命令行开关。",
+        "role": "编排结构计算模块",
+        "direction": "DAT 输入，模块写 CDB 和报告。",
+        "operations": [
+          "准备命令文件",
+          "执行模块",
+          "检查数据库和报告"
+        ],
+        "dataContract": "CADINP 程序块与模块记录；数据依赖和语法按对应程序手册。",
+        "workflow": [
+          "建议：复制官方小型 DAT",
+          "建议：核对模块许可与依赖",
+          "建议：用安装版 sps.exe 执行",
+          "建议：检查报告和 CDB"
+        ],
+        "execution": "程序模块按任务组织执行；完成状态、依赖和并行能力需逐模块核查。",
+        "failure": "建议检查输入语法、缺少记录、模块报告和许可；统一 CLI 退出码未知。",
+        "prerequisites": "SOFiSTiK 与所需求解/设计模块授权；CDB DLL 免许可不代表求解免费。",
+        "version": "2026 CDB 手册；命令依各模块版次",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.sofistik.com/2026/en/cdb_interfaces/introduction/about_manual.html",
+            "https://docs.sofistik.com/2026/en/cdb_interfaces/introduction/about_cdb/required__license_dlls.html"
+          ],
+          "locator": "About manual：Teddy DAT / sps.exe；DLL license"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：复制官方小型 DAT → 核对模块许可与依赖 → 用安装版 sps.exe 执行 → 检查报告和 CDB。本次未执行。",
+          "sourceUrl": "https://docs.sofistik.com/2026/en/cdb_interfaces/introduction/about_manual.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "SOFiSTiK：CDB Interfaces",
+        "url": "https://docs.sofistik.com/2026/en/fea/basic/interfaces/cdb_interfaces.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SOFiSTiK：DAT / sps.exe",
+        "url": "https://docs.sofistik.com/2026/en/cdb_interfaces/introduction/about_manual.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SOFiSTiK：Required license and DLLs",
+        "url": "https://docs.sofistik.com/2026/en/cdb_interfaces/introduction/about_cdb/required__license_dlls.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SOFiSTiK：Python connect to CDB",
+        "url": "https://docs.sofistik.com/2026/en/cdb_interfaces/python/examples/python_example1.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Code_Aster",
+    "profile": {
+      "versionBoundary": "依据 2026 在线手册与 latest 开发指南；run_aster 仅运行其所属安装版。",
+      "humanEntry": "准备网格和命令后执行分析；Salome-Meca/AsterStudy 是可选上层环境。",
+      "coverage": "run_aster 任务与 MED 交换文件；不将命令文件当网络服务。",
+      "unknowns": [
+        "构建的 MPI、Python 和材料模块配置需核对",
+        "latest 不承诺兼容全部历史版",
+        "MED 版次、单元和场覆盖未逐项核实"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "run_aster / Python 命令文件",
+        "category": "program",
+        "entry": "对应安装环境中的 run_aster；正式任务可用 .export 声明文件和参数。",
+        "role": "本地结构求解任务启动",
+        "direction": "读取命令及模型文件，产生结果和日志。",
+        "operations": [
+          "执行 .export",
+          "执行 .py/.comm",
+          "管理已声明文件"
+        ],
+        "dataContract": "EXPORT 参数及文件角色；Python 命令文件调用求解命令，语法依安装版。",
+        "workflow": [
+          "建议：激活安装环境",
+          "建议：复制官方小算例和 .export",
+          "建议：核对文件角色",
+          "建议：执行并检查消息与结果"
+        ],
+        "execution": "仅启动自身安装版本；直接命令文件无 EXPORT 文件管理。run_sbatch 依赖站点部署。",
+        "failure": "需检查求解消息、结果文件和复制状态；进程退出不单独证明工程结果有效。",
+        "prerequisites": "有效 Code_Aster 构建及依赖；并行与批任务取决于构建和站点。",
+        "version": "2026 手册 / latest 开发指南",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u1/u1.04.00/utilisation_variants_run.html",
+            "https://codeaster.readthedocs.io/en/latest/devguide/run_aster/run_aster.html"
+          ],
+          "locator": "run_aster：local use / export / direct command file"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：激活安装环境 → 复制官方小算例和 .export → 核对文件角色 → 执行并检查消息与结果。本次未执行。",
+          "sourceUrl": "https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u1/u1.04.00/utilisation_variants_run.html"
+        }
+      },
+      {
+        "name": "MED 网格与结果文件",
+        "category": "file",
+        "entry": "命令文件配置网格读取及 IMPR_RESU MED 输出；单位号和字段按手册。",
+        "role": "求解器与前后处理器的网格/场交换",
+        "direction": "读取受支持网格，输出选定网格和场；不保证完整状态往返。",
+        "operations": [
+          "读取网格",
+          "选择场与结果阶次",
+          "导出 MED"
+        ],
+        "dataContract": "网格与受支持位移、温度、模态、应力/内部变量；场位置、分量和阶次需核对。",
+        "workflow": [
+          "建议：选小网格与一个阶次",
+          "建议：配置 MED 输出",
+          "建议：在目标工具读取",
+          "建议：核对网格、场位置与单位"
+        ],
+        "execution": "离线文件交换；保存内容由输出请求决定，不自动包含全部内部变量。",
+        "failure": "需检查受支持场、单位号及文件兼容性；完整解析错误约定未知。",
+        "prerequisites": "带 MED 支持的构建和兼容工具；具体版次按安装版。",
+        "version": "2026 在线手册",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u2/u2.02.01/M_canique.html",
+            "https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u4/u4.91.01/But.html"
+          ],
+          "locator": "Mechanical results：MED；IMPR_RESU：RESULTAT stability"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选小网格与一个阶次 → 配置 MED 输出 → 在目标工具读取 → 核对网格、场位置与单位。本次未执行。",
+          "sourceUrl": "https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u2/u2.02.01/M_canique.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Code_Aster：Product",
+        "url": "https://code-aster.org/en/product/main",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Code_Aster：Civil engineering training",
+        "url": "https://code-aster.org/en/learning/ca-formation-module-4-civil-engineering",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Code_Aster：run_aster variants",
+        "url": "https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u1/u1.04.00/utilisation_variants_run.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Code_Aster：run_aster guide",
+        "url": "https://codeaster.readthedocs.io/en/latest/devguide/run_aster/run_aster.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Code_Aster：Mechanical results / MED",
+        "url": "https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u2/u2.02.01/M_canique.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Code_Aster：IMPR_RESU purpose",
+        "url": "https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u4/u4.91.01/But.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CalculiX",
+    "profile": {
+      "versionBoundary": "依据 CCX 2.23 官方手册（2025-10-19）；输入风格类似 Abaqus 不表示全部兼容。",
+      "humanEntry": "准备 INP 模型，运行 CCX 后以 CGX 等检查结果。",
+      "coverage": "CCX 命令行、INP 输入及 DAT/FRD 输出；不编造官方 Python API。",
+      "unknowns": [
+        "支持关键词只是 Abaqus 风格子集",
+        "依赖库、构建与线程配置需核对",
+        "FRD 变量和读取兼容依输出设置"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "CCX 命令行 / INP 输入",
+        "category": "program",
+        "entry": "实际 CCX 可执行文件配合作业名；手册示例程序名为 CalculiX，使用 -i beam。",
+        "role": "有限元批任务求解",
+        "direction": "INP 和引用文件输入，结果与日志输出。",
+        "operations": [
+          "读取作业",
+          "执行分析步",
+          "生成结果"
+        ],
+        "dataContract": "Abaqus 风格关键词；单元、材料和计算功能以 CCX 2.23 为准。",
+        "workflow": [
+          "建议：复制手册小算例",
+          "建议：核对实际程序名和文件根名",
+          "建议：运行作业",
+          "建议：检查消息及结果"
+        ],
+        "execution": "输入和输出根名随作业名；部分分析需前序文件，不推定每个任务独立。",
+        "failure": "手册举缺少所需 .eig 文件时报错停止；统一退出码未逐项核实。",
+        "prerequisites": "匹配平台的 CCX 与编译依赖；开源许可不包含其他商业软件授权。",
+        "version": "CCX 2.23 手册第 7 节",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.calculix.de/",
+            "https://www.dhondt.de/ccx_2.23.pdf"
+          ],
+          "locator": "Input deck / invocation；jobname.inp"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：复制手册小算例 → 核对实际程序名和文件根名 → 运行作业 → 检查消息及结果。本次未执行。",
+          "sourceUrl": "https://www.calculix.de/"
+        }
+      },
+      {
+        "name": "DAT / FRD 结果文件",
+        "category": "file",
+        "entry": "作业完成后读取同根名 DAT/FRD；CGX 读取 FRD。",
+        "role": "有限元结果后处理交换",
+        "direction": "求解器输出、后处理器读取；不声明可完整重建输入。",
+        "operations": [
+          "保存所选结果",
+          "读取结果集",
+          "检查场变量"
+        ],
+        "dataContract": "DAT 文本与 FRD 场结果；内容由输出请求和分析类型决定。",
+        "workflow": [
+          "建议：设置受支持输出请求",
+          "建议：运行小算例",
+          "建议：在 CGX 打开 FRD",
+          "建议：比较 DAT 数值和场分量"
+        ],
+        "execution": "离线结果文件；文件存在不代表正常结束或包含全部状态。",
+        "failure": "需检查截断、缺失变量、结果步和读取器兼容；解析错误码未知。",
+        "prerequisites": "CCX 输出配置与兼容 CGX/读取器。",
+        "version": "CCX 2.23 手册",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.calculix.de/",
+            "https://www.dhondt.de/ccx_2.23.pdf"
+          ],
+          "locator": "jobname.dat / jobname.frd；CGX postprocessing"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：设置受支持输出请求 → 运行小算例 → 在 CGX 打开 FRD → 比较 DAT 数值和场分量。本次未执行。",
+          "sourceUrl": "https://www.calculix.de/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "CalculiX 官网",
+        "url": "https://www.calculix.de/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "CalculiX 求解器作者网站",
+        "url": "https://www.dhondt.de/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "CalculiX CrunchiX 2.23 手册",
+        "url": "https://www.dhondt.de/ccx_2.23.pdf",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Bonsai",
+    "profile": {
+      "versionBoundary": "开发指南页面 0.9.0post1；unstable 故障排查仅用于 IFC/Blend 关系，不泛化为稳定版全部行为。",
+      "humanEntry": "安装 Blender 扩展，创建或打开 IFC 工程编辑 BIM 对象。",
+      "coverage": "Bonsai 是具体 BIM 软件，Blender 是宿主，IfcOpenShell 是数据与操作库，不拆成三款。",
+      "unknowns": [
+        "Blender、Bonsai 和 IfcOpenShell 的版本/Python ABI 需匹配",
+        "IFC schema、实体与几何覆盖需按版次核对",
+        "自定义操作的撤销、事务和缓存一致性需验证"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "原生 IFC 工程文件",
+        "category": "file",
+        "entry": "Bonsai 的 IFC 工程打开/保存入口，在 Blender 宿主中使用。",
+        "role": "BIM 原生存储与交换",
+        "direction": "读取、编辑后保存 IFC；schema 和实体往返需逐项核查。",
+        "operations": [
+          "打开 IFC",
+          "编辑 BIM 对象",
+          "保存 IFC"
+        ],
+        "dataContract": "IFC 实体、关系与属性；不能由格式名称推定所有 schema/几何受支持。",
+        "workflow": [
+          "建议：打开小型 IFC 副本",
+          "建议：修改一个属性并保存",
+          "建议：重新打开 IFC",
+          "建议：在目标软件核对关系、单位和几何"
+        ],
+        "execution": "文件生命周期；保存 .blend 不等于保存当前 IFC 业务数据。",
+        "failure": "需检查 schema、实体支持及文件校验；完整解析错误约定未知。",
+        "prerequisites": "匹配的宿主、扩展和 IFC 库；目标工具支持相同范围。",
+        "version": "0.9.0post1；IFC/Blend 关系参 unstable 页面",
+        "implementation": "文件交换",
+        "standardIds": [
+          "p39"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.bonsaibim.org/studio/guides/development/hello_world.html",
+            "https://docs.bonsaibim.org/quickstart/installation.html",
+            "https://docs.bonsaibim.org/studio-unstable/guides/troubleshooting.html"
+          ],
+          "locator": "native IFC；Troubleshooting：IFC / blend file"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：打开小型 IFC 副本 → 修改一个属性并保存 → 重新打开 IFC → 在目标软件核对关系、单位和几何。本次未执行。",
+          "sourceUrl": "https://docs.bonsaibim.org/studio/guides/development/hello_world.html"
+        }
+      },
+      {
+        "name": "Blender Python 操作器 / IfcOpenShell 后端",
+        "category": "program",
+        "entry": "Bonsai 扩展的 Blender operator、core / tool / data 层和 IfcOpenShell API。",
+        "role": "宿主内 BIM 功能开发",
+        "direction": "界面操作改变对应 BIM 数据与场景；不是独立 REST 服务。",
+        "operations": [
+          "扩展操作器",
+          "调用工具与领域逻辑",
+          "维护 IFC 对象关系"
+        ],
+        "dataContract": "bpy 场景与 IFC 实体映射；库的全部 API 不自动构成 Bonsai 稳定公共接口。",
+        "workflow": [
+          "建议：配置官方开发环境",
+          "建议：阅读 Hello world 的层次",
+          "建议：在副本实现最小操作",
+          "建议：检查 IFC、场景和撤销"
+        ],
+        "execution": "依托 Blender 宿主；IFC 事务、撤销和几何更新需协调，线程保证未核实。",
+        "failure": "需检查 Python 输出、映射和撤销后一致性；统一回滚契约未知。",
+        "prerequisites": "匹配 Python ABI 和 IfcOpenShell 二进制；各层许可与 API 边界需区分。",
+        "version": "Bonsai 0.9.0post1 开发指南",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.bonsaibim.org/studio/guides/development/hello_world.html",
+            "https://docs.bonsaibim.org/guides/development/installation.html"
+          ],
+          "locator": "Hello world：operator / core / tool / data；compiled dependency"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：配置官方开发环境 → 阅读 Hello world 的层次 → 在副本实现最小操作 → 检查 IFC、场景和撤销。本次未执行。",
+          "sourceUrl": "https://docs.bonsaibim.org/studio/guides/development/hello_world.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Bonsai：Hello world / architecture",
+        "url": "https://docs.bonsaibim.org/studio/guides/development/hello_world.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Bonsai：Development installation",
+        "url": "https://docs.bonsaibim.org/guides/development/installation.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Bonsai：Installation",
+        "url": "https://docs.bonsaibim.org/quickstart/installation.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Bonsai unstable：Troubleshooting",
+        "url": "https://docs.bonsaibim.org/studio-unstable/guides/troubleshooting.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Navisworks Manage",
+    "profile": {
+      "versionBoundary": "官方 API 总览未固定主版本；SDK 随 Manage / Simulate 安装，具体程序集需匹配宿主。",
+      "humanEntry": "汇总模型并在 Manage 审查协同问题和施工过程。",
+      "coverage": "区分 .NET 扩展/自动化与 NWCreate 导入开发；Simulate 共用 SDK 不另计。",
+      "unknowns": [
+        "完整对象及 Clash Detective 方法需安装版 SDK",
+        "嵌入 Controls 不等于全部 Manage 功能可免许可分发",
+        "构建和再分发权益需 SDK 条款核对"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Navisworks .NET API",
+        "category": "program",
+        "entry": "安装目录 api SDK 中对应 .NET 路径；注册、程序集与示例按安装版。",
+        "role": "宿主扩展与外部驱动",
+        "direction": "访问模型/文档、驱动宿主并调用插件；逐对象写范围另核。",
+        "operations": [
+          "开发插件",
+          "打开/保存文档",
+          "调用插件",
+          "嵌入查看器"
+        ],
+        "dataContract": "宿主文档和模型对象；公开总览未给完整属性单位与事件模式。",
+        "workflow": [
+          "建议：定位同版 SDK",
+          "建议：选择插件或 Automation",
+          "建议：在副本测试最小读取",
+          "建议：验证保存和宿主释放"
+        ],
+        "execution": "插件、Automation 和 Controls 的运行及生命周期不同，不互相替代。",
+        "failure": "异常、线程亲和和事件顺序需 SDK 核对；不推定可多线程控制宿主。",
+        "prerequisites": "有效安装与相应使用权、兼容 .NET 环境；COM 仅按旧接口需求另核。",
+        "version": "官方 API 总览，主版本未固定",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://aps.autodesk.com/developer/overview/navisworks-api"
+          ],
+          "locator": "Navisworks .NET API：Plug-in / Automation / Controls"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：定位同版 SDK → 选择插件或 Automation → 在副本测试最小读取 → 验证保存和宿主释放。本次未执行。",
+          "sourceUrl": "https://aps.autodesk.com/developer/overview/navisworks-api"
+        }
+      },
+      {
+        "name": "NWCreate C / C++ SDK",
+        "category": "program",
+        "entry": "SDK 的 NWCreate C/C++ 库；函数和编译设置查同版帮助。",
+        "role": "第三方模型导入开发",
+        "direction": "转换第三方数据为 NWC 或自定义读取；不承诺反向还原原模型。",
+        "operations": [
+          "创建 NWC",
+          "开发加载器",
+          "提供几何和属性"
+        ],
+        "dataContract": "官方列几何、属性、文本、视点、选择、材质/纹理与灯光；编码和单位查 SDK。",
+        "workflow": [
+          "建议：取得同版示例",
+          "建议：转换简单几何与属性",
+          "建议：打开 NWC",
+          "建议：核对坐标、单位和属性"
+        ],
+        "execution": "编译/转换生成数据；不是设备实时通信，资源释放按 SDK。",
+        "failure": "需检查转换日志、缺失几何和属性；统一错误码未核实。",
+        "prerequisites": "兼容 C/C++、SDK 和适用安装/再分发授权。",
+        "version": "官方 API 总览；SDK 依安装版",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://aps.autodesk.com/developer/overview/navisworks-api"
+          ],
+          "locator": "NWCreate C / C++：NWC export / custom file loaders"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得同版示例 → 转换简单几何与属性 → 打开 NWC → 核对坐标、单位和属性。本次未执行。",
+          "sourceUrl": "https://aps.autodesk.com/developer/overview/navisworks-api"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Autodesk：Navisworks APIs and SDK",
+        "url": "https://aps.autodesk.com/developer/overview/navisworks-api",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PIPESIM",
+    "profile": {
+      "versionBoundary": "Python toolkit 能力见当前产品页；Excel 细节来自 PIPESIM 2019 技术说明（PDF 封面 January 2020），不沿用其旧 Python 环境要求到当前版。",
+      "humanEntry": "工程师建立井或网络模型，设置流体及边界后计算和分析。",
+      "coverage": "Python SDK 自动化及其 Excel 工作簿入口；旧 OpenLink 不与新 toolkit 混为一体。",
+      "unknowns": [
+        "当前 Python 包名、函数参考和错误类型需客户 SDK 文档",
+        "Excel 集成在当前版的可用性与 Office 位数需核对",
+        "无界面运行已确认，线程、并发和许可占用规则未知"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "PIPESIM Python toolkit",
+        "category": "program",
+        "entry": "PIPESIM 安装对应的 Python toolkit；公开产品说明没有给出当前导入包或函数签名。",
+        "role": "外部脚本驱动稳态生产系统模型",
+        "direction": "模型构建/更新、计算调用与结果提取；逐对象权限依 SDK。",
+        "operations": [
+          "建立与更新模型",
+          "批量运行仿真",
+          "获取结果"
+        ],
+        "dataContract": "井筒、网络及 PT profile / nodal analysis 等任务；字段、单位、枚举和返回结构需安装版参考。",
+        "workflow": [
+          "建议：取得同版 SDK 与官方例程",
+          "建议：复制小型井模型",
+          "建议：修改一个明确参数并运行",
+          "建议：将结果与 GUI 基线对照"
+        ],
+        "execution": "可不打开 UI 执行；连接、保存、关闭和计算完成通知的具体函数未知，不补造会话语义。",
+        "failure": "错误码、异常类型和失败后模型状态未公开核实；建议验证打不开模型和计算失败的日志。",
+        "prerequisites": "PIPESIM 及所需计算模块许可、匹配 Python 环境；toolkit 是否单独授权需供应商确认。",
+        "version": "当前产品页；细节补充为 2019 技术说明",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/pipesim-steady-state-multiphase-flow-simulator/pipesim-extensibility-and-integration",
+            "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/20-is-000057_pipesim_2019_technical_description.pdf"
+          ],
+          "locator": "Extensibility：Python toolkit / SDK；technical description p24"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得同版 SDK 与官方例程 → 复制小型井模型 → 修改一个明确参数并运行 → 将结果与 GUI 基线对照。本次未执行。",
+          "sourceUrl": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/pipesim-steady-state-multiphase-flow-simulator/pipesim-extensibility-and-integration"
+        }
+      },
+      {
+        "name": "Python toolkit Excel 集成",
+        "category": "program",
+        "entry": "相应安装版的 Excel PIPESIM ribbon；此入口属于 Python toolkit 的 Office 集成。",
+        "role": "用工程工作簿编排模拟与报表",
+        "direction": "工作簿提供参数并调用脚本；计算数据回到工作簿的具体绑定按示例核对。",
+        "operations": [
+          "管理嵌入脚本",
+          "配置宏和用户函数",
+          "记录消息",
+          "编排重复计算"
+        ],
+        "dataContract": "工作簿与 Python 脚本/计算模型间的数据映射；单元格和结果字段没有公开统一模式。",
+        "workflow": [
+          "建议：确认当前版仍提供集成",
+          "建议：复制官方工作簿",
+          "建议：核对脚本环境和参数映射",
+          "建议：计算后比对数值和消息"
+        ],
+        "execution": "在 Excel 中编排 toolkit；不表示 Excel 自带 PIPESIM 求解器，后台生命周期及阻塞行为未知。",
+        "failure": "建议检查宏/脚本权限、环境加载与消息记录；Excel 与后台失败传播约定未知。",
+        "prerequisites": "兼容 Excel、toolkit、宿主许可与计算模块；旧文档运行环境不能直接用作现版要求。",
+        "version": "PIPESIM 2019 技术说明封面 January 2020",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/20-is-000057_pipesim_2019_technical_description.pdf"
+          ],
+          "locator": "Technical description p24：Excel ribbon / scripts / UDF / logging"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认当前版仍提供集成 → 复制官方工作簿 → 核对脚本环境和参数映射 → 计算后比对数值和消息。本次未执行。",
+          "sourceUrl": "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/20-is-000057_pipesim_2019_technical_description.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "SLB：PIPESIM extensibility and integration",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/pipesim-steady-state-multiphase-flow-simulator/pipesim-extensibility-and-integration",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SLB：PIPESIM 2019 technical description",
+        "url": "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/20-is-000057_pipesim_2019_technical_description.pdf",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OLGA",
+    "profile": {
+      "versionBoundary": "消息 SDK 的 Python wrapper 见官网 2021 功能栏；HDF5 结果明确为 2026.2，外部数据比较见 2025 功能栏，不能合并成同一首次发布版。",
+      "humanEntry": "准备动态案例，运行模拟并比较趋势、剖面和现场测量。",
+      "coverage": "消息 SDK 包装、结果文件与外部实测数据对比三个路径；不推定 SDK 提供全部运行控制。",
+      "unknowns": [
+        "Python wrapper 函数和消息模式未取得客户 SDK 核实",
+        "HDF5 内部 dataset、单位和版本迁移模式未公开核实",
+        "OPC 的当前子类型和配置未作函数级复核，不关联 OPC UA"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Olga messaging SDK Python wrapper",
+        "category": "program",
+        "entry": "安装版 Olga messaging SDK 的 Python wrapper；包名、加载路径与连接方法需客户文档。",
+        "role": "脚本与仿真软件的消息交互",
+        "direction": "可通过 wrapper 使用消息 SDK；具体可读写变量和控制方向未公开核实。",
+        "operations": [
+          "使用官方 Python 包装接口",
+          "执行 SDK 支持的脚本交互"
+        ],
+        "dataContract": "消息类型、参数与返回对象未在功能公告展开，不补造 JSON 或 RPC 端点。",
+        "workflow": [
+          "建议：取得同版 SDK 参考和样例",
+          "建议：确认一条只读消息",
+          "建议：在小案例核对返回内容",
+          "建议：再验证所需控制权限"
+        ],
+        "execution": "初始化、连接、仿真状态和关闭顺序需 SDK 参考；异步及线程约定未知。",
+        "failure": "异常、消息超时与重试语义未知；建议确认失败是否影响案例运行。",
+        "prerequisites": "OLGA 与相关 SDK 安装、兼容 Python 及实际授权；是否另需权益未公开。",
+        "version": "官网 2021 功能栏；现版函数兼容另核",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/olga/olga-features"
+          ],
+          "locator": "Olga 2021：Improved scripting capabilities"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得同版 SDK 参考和样例 → 确认一条只读消息 → 在小案例核对返回内容 → 再验证所需控制权限。本次未执行。",
+          "sourceUrl": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/olga/olga-features"
+        }
+      },
+      {
+        "name": "HDF5 趋势 / 剖面结果文件",
+        "category": "file",
+        "entry": "2026.2 仿真趋势/剖面输出及配套绘图工具；第三方读取须取得实际 dataset 说明。",
+        "role": "仿真结果保存与后处理",
+        "direction": "求解输出，绘图/分析读取；不声明任意 HDF5 均可导入。",
+        "operations": [
+          "输出趋势数据",
+          "输出剖面数据",
+          "读取并核对结果"
+        ],
+        "dataContract": "HDF5 容器内 Olga 专用数据组织；dataset 路径、变量维度、时标和单位未公开核实。",
+        "workflow": [
+          "建议：运行官方小案例",
+          "建议：保存新格式结果",
+          "建议：用同版绘图工具检查",
+          "建议：取得模式后再验证第三方读取"
+        ],
+        "execution": "离线结果交换；增量写入、文件锁与仿真中读取规则未知。",
+        "failure": "建议检查文件完整性、变量维度和旧绘图工具兼容；解析错误契约未知。",
+        "prerequisites": "Olga 2026.2 或明确支持新格式的工具与有效使用权。",
+        "version": "明确为 2026.2 默认输出",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/olga/olga-features"
+          ],
+          "locator": "Olga 2026：New HDF5-based plot output format"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：运行官方小案例 → 保存新格式结果 → 用同版绘图工具检查 → 取得模式后再验证第三方读取。本次未执行。",
+          "sourceUrl": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/olga/olga-features"
+        }
+      },
+      {
+        "name": "外部测量数据 / CSV 比较",
+        "category": "file",
+        "entry": "Olga 绘图工具中的外部数据粘贴/比较及 CSV 保存、重开路径；菜单名按安装版帮助。",
+        "role": "用现场数据核对动态模拟",
+        "direction": "测量数据输入绘图比较；外部数据集导出/重读 CSV，不表示 CSV 驱动求解器。",
+        "operations": [
+          "加入带时间戳的趋势测量",
+          "加入带位置的剖面数据",
+          "保存和重开 CSV"
+        ],
+        "dataContract": "趋势为数据与时间戳；剖面还含位置。列名、日期格式、单位和缺测规则需实际说明。",
+        "workflow": [
+          "建议：整理一段测量与单位",
+          "建议：在绘图工具加入外部数据",
+          "建议：对齐时间或位置并比较",
+          "建议：保存 CSV 后重开核对"
+        ],
+        "execution": "此入口用于交互式后处理比较；CSV 交换不构成修改物理模型或在线控制的已核实接口。",
+        "failure": "建议检查时间/位置偏移、单位与缺测；导入错误及插值规则未核实。",
+        "prerequisites": "提供此功能的 OLGA 安装及许可；外部数据需同一物理量和明确时间/空间基准。",
+        "version": "官网 2025 功能栏；不据栏目推定首次补丁号",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/olga/olga-features"
+          ],
+          "locator": "Olga 2025：Compare external data with Olga simulations"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：整理一段测量与单位 → 在绘图工具加入外部数据 → 对齐时间或位置并比较 → 保存 CSV 后重开核对。本次未执行。",
+          "sourceUrl": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/olga/olga-features"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "SLB：OLGA",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/olga/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SLB：Olga new features",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/olga/olga-features",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Petroleum Experts IPM",
+    "profile": {
+      "versionBoundary": "依据当前官方套件、OpenServer 和 RESOLVE 产品页，未据无版本页面推定统一数字版。",
+      "humanEntry": "工程师分别配置井、地面网络和油藏模块，用接口或 RESOLVE 编排计算。",
+      "coverage": "OpenServer 数据/计算调用及 RESOLVE Visual Workflows；明确 MBAL 示例不外推全部模块命令。",
+      "unknowns": [
+        "各模块完整 OpenServer 标签表需客户文档",
+        "OpenServer、RESOLVE 与求解模块许可组合需分别核对",
+        "外部程序 wrapper 支持的具体版本、会话和错误语义未知"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "OpenServer API",
+        "category": "program",
+        "entry": "外部 Excel/VBA 等调用 IPM OpenServer；具体 COM 标识、库引用和实例启动语法未公开核实。",
+        "role": "第三方程序将 IPM 模块用作计算引擎",
+        "direction": "设置输入/选项、执行计算、读取结果；模块标签须按各自参考。",
+        "operations": [
+          "DoSet 输入",
+          "DoCmd 计算",
+          "DoGet 结果"
+        ],
+        "dataContract": "模块专用变量标签、输入选项和结果；公告未给统一单位、类型和全量命令表。",
+        "workflow": [
+          "建议：取得所用模块标签表",
+          "建议：从官方 MBAL/Excel 示例副本开始",
+          "建议：设置单个参数并计算",
+          "建议：检查结果与 GUI 一致"
+        ],
+        "execution": "套件模块由外部程序驱动；完成通知、并发实例和关闭顺序需模块参考。",
+        "failure": "公开产品页未给异常与返回码；建议验证无效标签、缺许可及计算失败。",
+        "prerequisites": "OpenServer 和具体 IPM 模块的有效安装与所需权益；不能因属于套件就假定全部已授权。",
+        "version": "当前产品页，数字主版本未公开",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.petex.com/products/integrated-production-modelling-suite/openserver/"
+          ],
+          "locator": "OpenServer Functionality；Batch Runs Example：MBAL OOIP"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：取得所用模块标签表 → 从官方 MBAL/Excel 示例副本开始 → 设置单个参数并计算 → 检查结果与 GUI 一致。本次未执行。",
+          "sourceUrl": "https://www.petex.com/products/integrated-production-modelling-suite/openserver/"
+        }
+      },
+      {
+        "name": "RESOLVE Visual Workflows / Generic OpenServer",
+        "category": "program",
+        "entry": "RESOLVE Visual Workflows；第三方软件通过相应 Generic OpenServer wrapper 集成。",
+        "role": "跨模块工作流与外部计算编排",
+        "direction": "编排设置、计算和取值；可用读写对象由对应应用 wrapper 决定。",
+        "operations": [
+          "建立可视化流程",
+          "编排计算和数据转移",
+          "调用已适配外部程序"
+        ],
+        "dataContract": "工作流节点与对应应用的 OpenServer 命令映射；不是普遍适用于所有求解器的统一模型。",
+        "workflow": [
+          "建议：确认 RESOLVE 和适配器版本",
+          "建议：选单个已支持模块连接",
+          "建议：执行最小流程检查数据映射",
+          "建议：再扩展跨模块计算"
+        ],
+        "execution": "运行于 RESOLVE 流程层；不能据 wrapper 产品例子推定第三方当前全部版本可直接调用。",
+        "failure": "错误传播、失败节点恢复和中断行为未公开核实；建议保留单节点计算结果作对照。",
+        "prerequisites": "RESOLVE、所调用 IPM/第三方软件及 wrapper 的兼容安装与许可。",
+        "version": "当前官方产品页，适配器版本未知",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.petex.com/products/integrated-production-modelling-suite/openserver/",
+            "https://www.petex.com/products/integrated-production-modelling-suite/resolve/"
+          ],
+          "locator": "Generic OpenServer；Advanced Workflows；RESOLVE"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认 RESOLVE 和适配器版本 → 选单个已支持模块连接 → 执行最小流程检查数据映射 → 再扩展跨模块计算。本次未执行。",
+          "sourceUrl": "https://www.petex.com/products/integrated-production-modelling-suite/openserver/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Petex：IPM Suite",
+        "url": "https://www.petex.com/products/integrated-production-modelling-suite/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Petex：OpenServer",
+        "url": "https://www.petex.com/products/integrated-production-modelling-suite/openserver/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Petex：RESOLVE",
+        "url": "https://www.petex.com/products/integrated-production-modelling-suite/resolve/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Petex：PROSPER",
+        "url": "https://www.petex.com/products/integrated-production-modelling-suite/prosper/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Petex：GAP",
+        "url": "https://petex.com/products/integrated-production-modelling-suite/gap/",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ResInsight",
+    "profile": {
+      "versionBoundary": "rips 官方 Python API 页面为 2026.06.2；文件导入能力按当前用户文档，不推定历史版一致。",
+      "humanEntry": "工程师打开油藏模拟案例并检查网格、时序和井结果。",
+      "coverage": "rips gRPC 客户端与 Eclipse 网格/汇总文件导入。",
+      "unknowns": [
+        "文件版次、变量及活动单元对应需依案例核对",
+        "Python server 网络权限和并发调用规则需部署核查",
+        "不是仿真求解 API，不据可视化能力声称可修改源求解器模型"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "rips Python / gRPC API",
+        "category": "program",
+        "entry": "安装 rips 并启用 Python Script Server；Instance.find() 找运行实例，Instance.launch() 启动。",
+        "role": "外部 Python 自动化后处理应用",
+        "direction": "读案例结果并修改应用支持的对象；不等同控制原模拟求解器。",
+        "operations": [
+          "连接或启动实例",
+          "选案例与变量",
+          "读取活动单元属性",
+          "更新支持的对象"
+        ],
+        "dataContract": "active_cell_property 按类型、名称、时间步和孔隙模型返回浮点列表；应先查可用属性及对应活动单元。",
+        "workflow": [
+          "建议：匹配 rips 与宿主并启用服务",
+          "建议：连接小案例",
+          "建议：枚举可用变量后取一个时间步",
+          "建议：核对单元顺序和单位",
+          "建议：按实例归属决定退出"
+        ],
+        "execution": "find 与 launch 代表不同实例来源；退出前核对实例是否由本脚本启动。对象 update 同步本地修改到宿主。",
+        "failure": "文档 update 验证失败会回退本地更改并重新抛出异常；其他 gRPC 错误与并发规则需逐项核对。",
+        "prerequisites": "ResInsight、匹配 rips / grpcio / protobuf 和 Python；须启用脚本服务。",
+        "version": "rips 2026.06.2",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://api.resinsight.org/en/main/Installation.html",
+            "https://api.resinsight.org/en/main/rips.html"
+          ],
+          "locator": "Installation：Script Server；Instance；Case.active_cell_property；update"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：匹配 rips 与宿主并启用服务 → 连接小案例 → 枚举可用变量后取一个时间步 → 核对单元顺序和单位 → 按实例归属决定退出。本次未执行。",
+          "sourceUrl": "https://api.resinsight.org/en/main/Installation.html"
+        }
+      },
+      {
+        "name": "Eclipse 网格 / 汇总文件导入",
+        "category": "file",
+        "entry": "File → Import → Import Grid Models；汇总数据用对应 Summary 导入入口，依用户文档。",
+        "role": "油藏模型与生产历史后处理",
+        "direction": "外部模拟文件输入 ResInsight；本条不声称完整反向写回。",
+        "operations": [
+          "读取网格与配套结果",
+          "读取井/场汇总曲线",
+          "关联案例进行比较"
+        ],
+        "dataContract": "EGRID/GRID 几何、INIT/UNRST 等网格属性，SMSPEC 向量描述及 UNSMRY 数据；配套文件与重启链需一致。",
+        "workflow": [
+          "建议：复制完整案例文件组",
+          "建议：导入网格及配套结果",
+          "建议：另导入汇总数据",
+          "建议：核对单位、时间步和向量名"
+        ],
+        "execution": "离线文件导入；几何、动态结果与汇总曲线不总在单一文件中。",
+        "failure": "建议检查缺少配套文件、重启路径、活动单元和不支持向量；完整解析错误约定未知。",
+        "prerequisites": "完整且兼容的源文件组；原求解器许可不由 ResInsight 开源许可替代。",
+        "version": "当前官方导入文档；具体源文件版次另核",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://resinsight.org/import/eclipsecases/index.html",
+            "https://resinsight.org/import/eclipsesummarydata/index.html"
+          ],
+          "locator": "Eclipse cases：grid/restart；Eclipse summary：SMSPEC / UNSMRY"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：复制完整案例文件组 → 导入网格及配套结果 → 另导入汇总数据 → 核对单位、时间步和向量名。本次未执行。",
+          "sourceUrl": "https://resinsight.org/import/eclipsecases/index.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "ResInsight：About",
+        "url": "https://resinsight.org/about/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "ResInsight：rips installation",
+        "url": "https://api.resinsight.org/en/main/Installation.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "ResInsight：rips main classes",
+        "url": "https://api.resinsight.org/en/main/rips.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "ResInsight：Eclipse cases",
+        "url": "https://resinsight.org/import/eclipsecases/index.html",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "ResInsight：Eclipse summary data",
+        "url": "https://resinsight.org/import/eclipsesummarydata/index.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Oasis montaj",
+    "profile": {
+      "versionBoundary": "用途按当前官网；GX 细节分别依据 2023.2、2024.2 帮助及 GX Developer 指南，不将旧 Python 最低要求套给当前发行版。",
+      "humanEntry": "工程师在项目中导入地学数据、运行处理与绘图，使用 GX 扩展工作流。",
+      "coverage": "GX Developer API 和 GX 宿主/批脚本；宿主软件与开发工具包不拆成多款。",
+      "unknowns": [
+        "当前 Python/.NET 运行环境及 SDK 获取权限需核对",
+        "独立程序可用 API 和商业计算授权需供应商确认",
+        "数据库写入的锁、事务和异常策略需函数级参考"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "GX Developer API",
+        "category": "program",
+        "entry": "GX Developer 工具包及兼容 Python/CLI 语言环境；具体库与入口依安装版文档。",
+        "role": "地学数据处理扩展与应用开发",
+        "direction": "可读写受支持 Geosoft 文件并访问处理功能；不推定每一商业扩展均已授权。",
+        "operations": [
+          "开发 GX 扩展",
+          "读写支持的地学格式",
+          "调用处理函数"
+        ],
+        "dataContract": "项目数据库和受支持文件/处理对象；函数参数、通道结构、坐标与单位查开发参考。",
+        "workflow": [
+          "建议：获取对应 SDK 和例程",
+          "建议：在数据库副本读取一项数据",
+          "建议：运行一个有授权的处理函数",
+          "建议：核对通道、坐标和保存结果"
+        ],
+        "execution": "可为宿主扩展或独立程序；两种模式的上下文初始化和释放需各自示例。",
+        "failure": "建议检查 SDK 上下文、文件锁及未授权函数；完整错误类型未知。",
+        "prerequisites": "匹配 GX Developer / 宿主环境和相应数据处理授权；开发包公开不表示全部商业函数免费。",
+        "version": "GX 指南及 2023.2 帮助；现版环境另核",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://geosoftinc.github.io/gx-developer-guide/",
+            "https://help.seequent.com/Oasismontaj/2023.2/Content/ss/process_data/apply_filters_gxs/r/developing_and_applying_custom_gxs.htm"
+          ],
+          "locator": "GX Developer overview：custom extension / standalone read-write / processing"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：获取对应 SDK 和例程 → 在数据库副本读取一项数据 → 运行一个有授权的处理函数 → 核对通道、坐标和保存结果。本次未执行。",
+          "sourceUrl": "https://geosoftinc.github.io/gx-developer-guide/"
+        }
+      },
+      {
+        "name": "GX 运行与批脚本",
+        "category": "program",
+        "entry": "Oasis montaj 的 Run GX / Project 入口及其支持的 script 命令。",
+        "role": "宿主内重复地学处理编排",
+        "direction": "读取项目数据并执行 GX 支持的处理，结果写入范围按各 GX。",
+        "operations": [
+          "选择并运行 GX",
+          "组织受支持批命令",
+          "检查处理结果"
+        ],
+        "dataContract": "GX 参数/项目数据库上下文；各命令有独立参数格式，不能以文件后缀推定通用脚本契约。",
+        "workflow": [
+          "建议：复制项目和数据库",
+          "建议：确认 GX 与参数文件",
+          "建议：从宿主运行单个 GX",
+          "建议：再组合支持批处理的命令"
+        ],
+        "execution": "部分 GX 需要对话框；批处理支持逐 GX 核查。官方提醒未签名 GX 会显示警告。",
+        "failure": "建议检查宿主输出、参数与签名提示；未核实批脚本统一退出码和中断恢复。",
+        "prerequisites": "Oasis montaj 与对应扩展使用权；来源可信且与安装版兼容的 GX。",
+        "version": "2024.2 About GXs",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.seequent.com/Oasismontaj/2024.2/Content/ss/om_reference/common_reference/interpretations_expressions_scripts/about_gxs.htm"
+          ],
+          "locator": "About GXs：Run GX / scripts / unsigned warning"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：复制项目和数据库 → 确认 GX 与参数文件 → 从宿主运行单个 GX → 再组合支持批处理的命令。本次未执行。",
+          "sourceUrl": "https://help.seequent.com/Oasismontaj/2024.2/Content/ss/om_reference/common_reference/interpretations_expressions_scripts/about_gxs.htm"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Seequent：Oasis montaj",
+        "url": "https://www.seequent.com/products-solutions/oasis-montaj/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Geosoft：GX Developer overview",
+        "url": "https://geosoftinc.github.io/gx-developer-guide/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Oasis montaj 2023.2：Custom GX development",
+        "url": "https://help.seequent.com/Oasismontaj/2023.2/Content/ss/process_data/apply_filters_gxs/r/developing_and_applying_custom_gxs.htm",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Oasis montaj 2024.2：About GXs",
+        "url": "https://help.seequent.com/Oasismontaj/2024.2/Content/ss/om_reference/common_reference/interpretations_expressions_scripts/about_gxs.htm",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "MRST（MATLAB Reservoir Simulation Toolbox）",
+    "profile": {
+      "versionBoundary": "官网列 2026a；API 细节引用官方归档 core 文档，需对照当前模块帮助，发行名不表示同名 MATLAB 版本。",
+      "humanEntry": "在 MATLAB 等兼容环境运行 startup 和模块示例，自行组织网格、物理模型及求解。",
+      "coverage": "MATLAB 工具箱编程接口与 Eclipse 型输入流程；核心和各物理模块合并一条产品。",
+      "unknowns": [
+        "MATLAB/Octave 与具体模块兼容性需分别确认",
+        "Eclipse 关键词覆盖和物理模型不保证与商业求解器完全等价",
+        "第三方线性求解库与数据集有各自依赖和许可"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "MATLAB 工具箱 / mrstModule",
+        "category": "program",
+        "entry": "MATLAB 中运行发行包 startup.m；调用模块及相应函数/官方示例。",
+        "role": "研究型油藏模型开发与计算",
+        "direction": "用户脚本创建数据并执行求解，读取状态和井结果；逐模块对象不同。",
+        "operations": [
+          "激活工具箱",
+          "选择模块",
+          "构建网格与物理模型",
+          "运行求解和后处理"
+        ],
+        "dataContract": "网格、rock、状态和井等 MATLAB 数据结构；函数参数、单位及求解模型依模块帮助。",
+        "workflow": [
+          "建议：匹配 MATLAB 与模块要求",
+          "建议：运行 startup",
+          "建议：从官方小型示例开始",
+          "建议：核对网格、状态和求解收敛"
+        ],
+        "execution": "只对当前 MATLAB/Octave 会话激活，重启需重新 startup；本质是库和示例组合，不是统一远程服务。",
+        "failure": "建议检查 MATLAB 异常、缺模块和求解收敛；各求解器失败/迭代约定不同。",
+        "prerequisites": "MRST 开源包及兼容宿主；MATLAB 许可单独需要，Octave GUI/模块兼容并非完全等价。",
+        "version": "官网 2026a；函数细节按模块与归档 core 参考",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.sintef.no/projectweb/mrst/",
+            "https://www.sintef.no/projectweb/mrst/faq/",
+            "https://www.sintef.no/contentassets/2551f5f85547478590ceca14bc13ad51/core.html"
+          ],
+          "locator": "FAQ：startup / modules / research toolbox；core structures and functions"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：匹配 MATLAB 与模块要求 → 运行 startup → 从官方小型示例开始 → 核对网格、状态和求解收敛。本次未执行。",
+          "sourceUrl": "https://www.sintef.no/projectweb/mrst/"
+        }
+      },
+      {
+        "name": "Eclipse 型关键词输入",
+        "category": "file",
+        "entry": "按所用发行版 ad-blackoil / 输入解析模块的官方示例读取 deck 并构造模型。",
+        "role": "从既有关键词案例构建 MRST 计算",
+        "direction": "关键词文件输入和模型转换；输出重写范围不在本条确认。",
+        "operations": [
+          "读取受支持 deck",
+          "处理网格和物性",
+          "构造相应模型",
+          "执行示例流程"
+        ],
+        "dataContract": "Eclipse 型关键词及关联文件；支持关键词、单位制、调度和模型限制依解析器与求解模块。",
+        "workflow": [
+          "建议：复制发行版 simulateSPE1 示例",
+          "建议：核对输入模块依赖",
+          "建议：列出所需关键词支持",
+          "建议：运行并对照模型和结果"
+        ],
+        "execution": "导入是可编程预处理流程，需选合适求解器；并非将任意 .DATA 直接作为黑箱作业。",
+        "failure": "建议检查未支持关键词、网格处理和单位转换；解析成功不证明结果与原求解器等价。",
+        "prerequisites": "相应解析和 ad-blackoil 模块及依赖，完整输入数据。",
+        "version": "FAQ 的 simulateSPE1；当前版示例位置与兼容矩阵另核",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.sintef.no/en/software/mrst/",
+            "https://www.sintef.no/projectweb/mrst/faq/",
+            "https://www.sintef.no/contentassets/2551f5f85547478590ceca14bc13ad51/core.html"
+          ],
+          "locator": "FAQ：not standalone / simulateSPE1；core：Eclipse input support"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：复制发行版 simulateSPE1 示例 → 核对输入模块依赖 → 列出所需关键词支持 → 运行并对照模型和结果。本次未执行。",
+          "sourceUrl": "https://www.sintef.no/en/software/mrst/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "SINTEF：MRST project / releases",
+        "url": "https://www.sintef.no/projectweb/mrst/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "SINTEF：MRST overview",
+        "url": "https://www.sintef.no/en/software/mrst/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "MRST：FAQ",
+        "url": "https://www.sintef.no/projectweb/mrst/faq/",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "MRST：Archived core reference",
+        "url": "https://www.sintef.no/contentassets/2551f5f85547478590ceca14bc13ad51/core.html",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "DISPATCH（Modular Mining）",
+    "profile": {
+      "versionBoundary": "API 能力据 Komatsu 2024-03-08 官方说明；未公开 DISPATCH 具体软件版、端点和模块支持矩阵。",
+      "humanEntry": "矿山调度人员监控车队状态和运输作业，配置与第三方系统的集成。",
+      "coverage": "仅列已确认的 Modular Mining 集成 API 产品族能力，不拆成五个虚增接口或声称每项均属 DISPATCH。",
+      "unknowns": [
+        "官方页面将 DISPATCH 或 ProVision 合并描述，逐 API 与本产品映射未知",
+        "未公开端点、鉴权、消息 schema、限流或变更契约",
+        "实时/近实时为产品说明，未核实可量化延迟、离线补传或安全控制写权限"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Modular Mining 集成 API",
+        "category": "runtime",
+        "entry": "供应商配置的 Modular Mining API 集成；需取得 DISPATCH 适配矩阵和客户接口文档，不补造 REST 路径。",
+        "role": "车队调度与外部矿山系统的数据交互",
+        "direction": "产品族层面双向：设备位置/状态等只读，location status / road state / crusher telemetry 等可写；不能全部归属 DISPATCH。",
+        "operations": [
+          "读取受支持设备和作业数据",
+          "向已授权业务入口提交数据",
+          "与外部矿山系统交换状态"
+        ],
+        "dataContract": "设备位置、状态、周期状态和业务入口；字段、单位、ID、时间戳、幂等性和传输方式未公开。",
+        "workflow": [
+          "建议：索取 DISPATCH 对应 API 支持矩阵",
+          "建议：确认只读对象与字段权限",
+          "建议：在隔离集成环境验证读取",
+          "建议：再按厂商规范验证获授权写入口"
+        ],
+        "execution": "官方称实时或近实时双向共享；推送/轮询、会话寿命和断线重放尚未核实。",
+        "failure": "错误格式、超时、重复消息、冲突及写入回滚未公开；需要客户规范和验收样例。",
+        "prerequisites": "商业产品与 API 集成权益、已适配版本和第三方系统；具体配置和安全权限由供应商确认。",
+        "version": "2024 官方说明；DISPATCH/API 版本未公开",
+        "implementation": "未核实",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.komatsu.com/en-us/blog/2024/intelligent-mining-leveraging-apis-to-integrate-mining-technologies",
+            "https://www.komatsu.com/en-us/technology/smart-mining/modular"
+          ],
+          "locator": "Official API article：read-only endpoints / write entry points / DISPATCH or ProVision"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：索取 DISPATCH 对应 API 支持矩阵 → 确认只读对象与字段权限 → 在隔离集成环境验证读取 → 再按厂商规范验证获授权写入口。本次未执行。",
+          "sourceUrl": "https://www.komatsu.com/en-us/blog/2024/intelligent-mining-leveraging-apis-to-integrate-mining-technologies"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Komatsu：Mining API integration announcement",
+        "url": "https://www.komatsu.com/en-us/blog/2024/intelligent-mining-leveraging-apis-to-integrate-mining-technologies",
+        "sourceDate": "2026-10-19"
+      },
+      {
+        "title": "Komatsu：Modular smart mining",
+        "url": "https://www.komatsu.com/en-us/technology/smart-mining/modular",
+        "sourceDate": "2026-10-19"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  }
+]

@@ -1,0 +1,1471 @@
+[
+  {
+    "name": "Cantera",
+    "profile": {
+      "versionBoundary": "所读 stable 文档为 3.2.0；实际使用版本应固定。；3.2.0 YAML reference；旧格式转换能力按同版工具。",
+      "humanEntry": "Python 解释器/脚本；相与反应器对象、YAML 机理文件。",
+      "coverage": "条目类型：开源科学计算库/工具集（BSD-3-Clause）；不是独立制造执行系统。接口覆盖：相对象提供热力学、动力学和输运性质，ReactorNet 推进反应器网络。；YAML 定义相、组分和反应；官方提供 Chemkin、CTI/CTML 等格式转换脚本。",
+      "unknowns": [
+        "反应机理的适用条件和速率常数来源须独立核验，文件可加载不表示预测准确。",
+        "本次未核验模型类型的完整线程/并发约束及各转换器对机理特性的保留范围。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python Solution / ReactorNet API",
+        "category": "program",
+        "entry": "cantera Python 包中的 Solution、Reactor 和 ReactorNet 等对象。",
+        "role": "脚本创建并控制本进程中的模型对象。",
+        "direction": "状态/机理/边界→库；性质、反应速率和时间演化→脚本。",
+        "operations": [
+          "创建相并设置热力学状态",
+          "计算性质与反应速率",
+          "推进已配置的反应器网络"
+        ],
+        "dataContract": "须选择相模型、组分与反应机理；普通 Python 接口按其单位约定，不能把摩尔、千摩尔或质量基量混用。",
+        "execution": "对象与脚本同进程；网络积分由 ReactorNet 管理，具体求解容限和输出时刻由调用方设定。",
+        "failure": "文档列 CanteraError、ThermoModelMethodError；建议同时检查模型合法性、积分收敛与物料/能量平衡。",
+        "prerequisites": "需兼容的 Cantera 安装与机理数据；软件为 BSD-3-Clause，外部机理数据来源/许可单独确认。",
+        "version": "所读 stable 文档为 3.2.0；实际使用版本应固定。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://cantera.org/stable/python/index.html",
+            "https://cantera.org/stable/userguide/python-tutorial.html"
+          ],
+          "locator": "Python modules：Solution / ReactorNet / Exceptions；Tutorial：Getting Started"
+        },
+        "workflow": [
+          "建议：加载已知小机理并确认物性单位",
+          "建议：设置状态后读取性质，再建立最小反应器",
+          "建议：检查积分容限和守恒并保存输入/版本"
+        ],
+        "example": {
+          "kind": "官方示例",
+          "text": "import cantera as ct\ngas1 = ct.Solution('gri30.yaml')\n官方短片段，仅说明入口；依赖前置对象/输入，本次未运行。",
+          "sourceUrl": "https://cantera.org/stable/userguide/python-tutorial.html"
+        }
+      },
+      {
+        "name": "YAML 机理文件 / 转换工具",
+        "category": "file",
+        "entry": "YAML 输入文件及 ck2yaml、cti2yaml、ctml2yaml、yaml2ck 等工具。",
+        "role": "机理编写/转换端向 Cantera 提供模型数据。",
+        "direction": "机理文件→Cantera；支持的转换器另可输出 Chemkin。",
+        "operations": [
+          "定义相、物种与反应",
+          "声明输入量纲",
+          "转换受支持的旧机理格式"
+        ],
+        "dataContract": "YAML 包含相的热力学/动力学/输运模型、物种组成和反应参数；各速率形式有专属字段。输出目标格式不保证容纳全部扩展。",
+        "execution": "离线读入与转换；CTI/CTML 是 3.0 以前使用的旧格式，不能当作当前首选原生输入。",
+        "failure": "建议查看转换与解析消息，核对元素平衡、单位和反应数；转换后应以已知状态比较性质和速率。",
+        "prerequisites": "需对应版本的 Cantera 转换工具、完整原始文件和可用数据许可。",
+        "version": "3.2.0 YAML reference；旧格式转换能力按同版工具。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://cantera.org/stable/yaml/index.html"
+          ],
+          "locator": "General Structure / Phases / Species / Reactions / Mechanism Conversion"
+        },
+        "workflow": [
+          "建议：保留原始机理与转换日志",
+          "建议：按同版工具生成 YAML 并检查单位",
+          "建议：用基准状态验证读入结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：保留原始机理与转换日志 → 按同版工具生成 YAML 并检查单位 → 用基准状态验证读入结果",
+          "sourceUrl": "https://cantera.org/stable/yaml/index.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Cantera：社区与 BSD-3-Clause 许可",
+        "url": "https://testing.cantera.org/community.html"
+      },
+      {
+        "title": "Cantera：Python Module Documentation 3.2.0",
+        "url": "https://cantera.org/stable/python/index.html"
+      },
+      {
+        "title": "Cantera：Python Tutorial 3.2.0",
+        "url": "https://cantera.org/stable/userguide/python-tutorial.html"
+      },
+      {
+        "title": "Cantera：YAML Input File Reference 3.2.0",
+        "url": "https://cantera.org/stable/yaml/index.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CP2K",
+    "profile": {
+      "versionBoundary": "trunk 输入参考标 2026.2 Development Version；Python 文档未承诺已在 PyPI 发布。；所引命令教程与输入参考均为 trunk 2026.2 开发文档；安装版命令帮助优先。",
+      "humanEntry": "文本输入、终端或作业调度器；开发版 Python/libcp2k 入口。",
+      "coverage": "条目类型：开源原子尺度模拟软件（GPL）；另有 Python 包装层，不能把包装包当作完整求解器安装。接口覆盖：Python 包通过 ctypes 调用 libcp2k C API，默认在本进程计算，不解析外部可执行程序输出。；可执行程序通过 -i/-o 读取计算输入、写日志，按编译配置使用 MPI/OpenMP。",
+      "unknowns": [
+        "所读 trunk 为 2026.2 开发版；新 Python 包装层的正式发行与当前稳定二进制兼容性未确认。",
+        "具体泛函、基组、赝势、数值容限和硬件构建未选定，尚未检验计算结果。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python / libcp2k 进程内接口",
+        "category": "program",
+        "entry": "源码树 python 包；cp2k-python 是分发名，cp2k 是导入名；共享库另行安装。",
+        "role": "Python 调用方持有 CP2K 模型环境并查询能量/力等量。",
+        "direction": "输入/结构→共享库；能量、力等结果→Python。",
+        "operations": [
+          "加载共享 libcp2k",
+          "建立计算环境",
+          "调用文档所述能量/力接口"
+        ],
+        "dataContract": "默认 CP2K 类与可选 SocketEnvironment 不同；共享库、数值依赖和 MPI 必须相容，不能用静态 .a 文件直接供 ctypes 加载。",
+        "execution": "默认在 Python 进程内；可选 socket 隔离模式另需独立启动服务。对象关闭和 MPI 所有权须遵守实际版参考。",
+        "failure": "官方说明库不相容可导致加载/缺符号错误；建议先验证库和依赖，避免与同名旧 Cython 包并装。",
+        "prerequisites": "需源码匹配的 Python 包、以 BUILD_SHARED_LIBS 构建的 libcp2k、数据目录与数值库；仅 pip 安装包装层不能替代求解器。",
+        "version": "trunk 输入参考标 2026.2 Development Version；Python 文档未承诺已在 PyPI 发布。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://manual.cp2k.org/trunk/technologies/python.html"
+          ],
+          "locator": "Python interface：Installation / in-process versus SocketEnvironment"
+        },
+        "workflow": [
+          "建议：固定源码提交并构建共享库",
+          "建议：确认依赖可在同进程加载",
+          "建议：用官方小案例比较能量/力与独立进程结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：固定源码提交并构建共享库 → 确认依赖可在同进程加载 → 用官方小案例比较能量/力与独立进程结果",
+          "sourceUrl": "https://manual.cp2k.org/trunk/technologies/python.html"
+        }
+      },
+      {
+        "name": "CP2K 命令行 / 分节输入文件",
+        "category": "program",
+        "entry": "cp2k.psmp 等安装版可执行程序；&GLOBAL、&FORCE_EVAL 等分节输入。",
+        "role": "脚本/调度器启动独立计算作业。",
+        "direction": "输入、基组、赝势→进程；日志及任务输出→文件。",
+        "operations": [
+          "指定输入与日志文件",
+          "选择计算任务及模型",
+          "按构建能力并行运行"
+        ],
+        "dataContract": "输入声明模型、结构、基组/赝势及单位；例中 ENERGY 为单点能任务。可执行名取决于构建，不应将教程文件名当成所有系统路径。",
+        "execution": "独立作业；MPI ranks 与 OpenMP threads 配置需和程序构建、调度资源相符。",
+        "failure": "官方要求检查 SCF 收敛；正常结束不保证数值精度。多副本任务可能另有日志，建议同时检查 stderr 与各任务输出。",
+        "prerequisites": "需可用 CP2K 构建、匹配输入/数据文件和计算资源；源码按 GPL，第三方依赖许可分别确认。",
+        "version": "所引命令教程与输入参考均为 trunk 2026.2 开发文档；安装版命令帮助优先。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://manual.cp2k.org/trunk/getting-started/first-calculation.html",
+            "https://manual.cp2k.org/trunk/getting-started/troubleshooting.html",
+            "https://manual.cp2k.org/trunk/CP2K_INPUT.html"
+          ],
+          "locator": "Running CP2K / Checking the Result；Troubleshooting：Input & Output"
+        },
+        "workflow": [
+          "建议：复制同版小输入并记录基组/赝势",
+          "建议：固定线程/MPI 配置后运行",
+          "建议：检查收敛和单位再扩大体系"
+        ],
+        "example": {
+          "kind": "官方示例",
+          "text": "OMP_NUM_THREADS=1 cp2k.psmp -i h2o.inp -o h2o.out\n官方短片段，仅说明入口；依赖前置对象/输入，本次未运行。",
+          "sourceUrl": "https://manual.cp2k.org/trunk/getting-started/first-calculation.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "CP2K：项目用途与 GPL 许可",
+        "url": "https://www.cp2k.org/"
+      },
+      {
+        "title": "CP2K：Python interface，trunk",
+        "url": "https://manual.cp2k.org/trunk/technologies/python.html"
+      },
+      {
+        "title": "CP2K：Run a First Calculation，trunk",
+        "url": "https://manual.cp2k.org/trunk/getting-started/first-calculation.html"
+      },
+      {
+        "title": "CP2K：Troubleshooting，trunk",
+        "url": "https://manual.cp2k.org/trunk/getting-started/troubleshooting.html"
+      },
+      {
+        "title": "CP2K：Input Reference，trunk",
+        "url": "https://manual.cp2k.org/trunk/CP2K_INPUT.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ChemSep",
+    "profile": {
+      "versionBoundary": "所读官方书籍第 3 章未固定软件发行号；当前 COCO 页面确认 ChemSep-LITE 可充当平衡精馏单元。；官方书籍 §6.1 命令表，未核定安装发行号；使用前以本机帮助核对。",
+      "humanEntry": "独立 ChemSep 界面；CAPE-OPEN 流程宿主；已安装程序的命令行。",
+      "coverage": "条目类型：专业分离过程软件/可嵌入单元组件；LITE 为受限免费版，未据此标为开源。接口覆盖：ChemSep 可作为兼容流程软件中的 CAPE-OPEN 单元操作，官方书籍给出 COCO 流程示例。；官方命令表支持无 GUI 检查 .sep、查询结果变量及设置输入变量。",
+      "unknowns": [
+        "本次未取得当前完整版本许可条款、CAPE-OPEN 子接口版本及宿主兼容矩阵。",
+        "命令行读取/写入变量不等于任意求解控制 API；公开书籍未固定所对应的安装发行号。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "CAPE-OPEN 分离单元组件",
+        "category": "model",
+        "entry": "在 CAPE-OPEN 宿主中插入 ChemSep 单元，配置组分、物流连接与分离规格。",
+        "role": "宿主协调流程求解；ChemSep 提供分离单元模型。",
+        "direction": "进料/物性与单元规格→组件；产品物流/计算结果→宿主。",
+        "operations": [
+          "在兼容宿主插入分离单元",
+          "连接物流并设置塔规格",
+          "参与流程校验和求解"
+        ],
+        "dataContract": "需约定组分身份、相和物性包；LITE 与完整版本的模型能力不同，不能把免费平衡级版本视为完整速率模型。",
+        "execution": "组件跟随宿主校验与求解生命周期；并发、初始化/释放和错误传递细则需相应接口/宿主文档。",
+        "failure": "建议先核对组件加载与组分/物性，再检查单元收敛及物料衡算；宿主成功加载不等于计算收敛。",
+        "prerequisites": "需 ChemSep 相应授权及兼容 CAPE-OPEN 宿主；LITE 限制依实际安装版本，不采用旧文献的组分数限值外推。",
+        "version": "所读官方书籍第 3 章未固定软件发行号；当前 COCO 页面确认 ChemSep-LITE 可充当平衡精馏单元。",
+        "implementation": "内置接口",
+        "standardIds": [
+          "p12"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://chemsep.org/book/docs/book2.pdf",
+            "https://www.cocosimulator.org/"
+          ],
+          "locator": "Chapter 3：CAPE-OPEN Flowsheet Simulations；COCO components"
+        },
+        "workflow": [
+          "建议：选择简单组分体系测试宿主与组件",
+          "建议：校验物性、端口和塔规格",
+          "建议：比较独立单元与流程结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择简单组分体系测试宿主与组件 → 校验物性、端口和塔规格 → 比较独立单元与流程结果",
+          "sourceUrl": "https://chemsep.org/book/docs/book2.pdf"
+        }
+      },
+      {
+        "name": "命令行变量访问 / .sep 工程",
+        "category": "program",
+        "entry": "安装版 ChemSep 命令入口与 .sep 文件；命令书列 -CHECK、-getvar、-setvar 等。",
+        "role": "外部脚本处理案例变量和检查输出。",
+        "direction": "案例/变量设置→程序；检查报告与变量值→输出。",
+        "operations": [
+          "检查案例并保存 .chk",
+          "查询结果变量或列举变量名",
+          "设置输入变量并声明值/单位"
+        ],
+        "dataContract": "-getvar 对结果变量，-setvar 对输入变量；名称须由对应案例变量表取得。-value/-units 属命令参数，不能凭 GUI 标签补造变量标识。",
+        "execution": "命令表说明这些操作可不启动 GUI；完整重算、批量调度及进程返回契约未核实。",
+        "failure": "建议保留检查报告、程序日志和导出值；未取得当前版全部退出码及无效变量行为。",
+        "prerequisites": "需包含对应命令能力的 ChemSep 安装和 .sep 案例；完整功能与 LITE 的差异按版本授权。",
+        "version": "官方书籍 §6.1 命令表，未核定安装发行号；使用前以本机帮助核对。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://chemsep.org/book/docs/book2.pdf"
+          ],
+          "locator": "§6.1 Command line options，约纸面第 137–138 页"
+        },
+        "workflow": [
+          "建议：先按同版文档列举案例变量",
+          "建议：在副本中检查并修改一个输入变量",
+          "建议：用 GUI 与检查输出核对，不把取值成功当作重算成功"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先按同版文档列举案例变量 → 在副本中检查并修改一个输入变量 → 用 GUI 与检查输出核对，不把取值成功当作重算成功",
+          "sourceUrl": "https://chemsep.org/book/docs/book2.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "ChemSep：The ChemSep Book，CAPE-OPEN 与命令行",
+        "url": "https://chemsep.org/book/docs/book2.pdf"
+      },
+      {
+        "title": "COCO：ChemSep-LITE 组件说明",
+        "url": "https://www.cocosimulator.org/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Aspen Custom Modeler",
+    "profile": {
+      "versionBoundary": "EAP2311 官方课程未给固定软件发行号；不能据课程概述宣称当前接口二进制兼容。；所读当前产品页及 eLearning 目录未固定发行号；逐模型/宿主版本核对。",
+      "humanEntry": "ACM 模型/流程界面、脚本与 Excel；导出后在受支持 Aspen Plus/HYSYS 环境使用。",
+      "coverage": "条目类型：商业过程建模软件；模型组件可部署，不能把模型语言直接当通用 REST 服务。接口覆盖：官方课程确认 Simulation scripts，并可从 Excel 控制 ACM 和交换数据。；ACM 模型可导出并作为 Aspen Plus/HYSYS 的自定义单元操作使用。",
+      "unknowns": [
+        "完整自动化对象签名、当前 SDK/Office 位数和异常契约需厂商开发文档。",
+        "未确认当前宿主、模型导出包与运行许可的逐版本组合；仅按官方明确列出的目标登记。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "ACM Simulation scripts / Excel Automation",
+        "category": "program",
+        "entry": "ACM 脚本环境与 Excel Automation；具体对象名和连接方式须安装版说明。",
+        "role": "脚本或 Excel 作为调用端，ACM 为模型运行环境。",
+        "direction": "参数/控制→模型；计算信息→脚本或 Excel。",
+        "operations": [
+          "运行 Simulation scripts",
+          "与 Excel 交换数据",
+          "通过自动化控制模拟"
+        ],
+        "dataContract": "应使用 ACM 的变量类型、端口及物性设置；未取得完整类型库，不能借 Aspen Plus/HYSYS 的对象名生成 ACM 调用代码。",
+        "execution": "模型配置、运行和结果读取分别核对；官方课程另有快照/重启内容，但本条未取得其自动化调用契约。",
+        "failure": "建议区分连接失败、模型欠/超定及求解不收敛；公开课程未列统一异常码或超时。",
+        "prerequisites": "需商业 ACM 与对应自动化/Excel 环境；开发、运行与模块授权按厂商许可。",
+        "version": "EAP2311 官方课程未给固定软件发行号；不能据课程概述宣称当前接口二进制兼容。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://esupport.aspentech.com/apex/T_course?id=a3p0B0000004YqGQAU"
+          ],
+          "locator": "Benefits；Scripts and Automation；Convergence troubleshooting"
+        },
+        "workflow": [
+          "建议：先在 ACM 界面验证最小模型",
+          "建议：取得同版自动化示例再连接 Excel",
+          "建议：只改一个变量并对照求解结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先在 ACM 界面验证最小模型 → 取得同版自动化示例再连接 Excel → 只改一个变量并对照求解结果",
+          "sourceUrl": "https://esupport.aspentech.com/apex/T_course?id=a3p0B0000004YqGQAU"
+        }
+      },
+      {
+        "name": "自定义单元模型导出至 Aspen Plus / HYSYS",
+        "category": "model",
+        "entry": "ACM 模型打包/导出与目标流程软件的模型部署入口；当前菜单按安装版。",
+        "role": "ACM 产出模型组件，已获授权的流程宿主调用。",
+        "direction": "方程模型及导出属性→宿主；宿主物流/物性→组件计算。",
+        "operations": [
+          "导出自定义设备模型",
+          "配置目标宿主要求的端口",
+          "部署到所列流程环境并参与计算"
+        ],
+        "dataContract": "官方课程区分可导出模型属性、端口类型及宿主非线性求解器；不推断为 CAPE-OPEN/FMI，也不推断可在任意第三方宿主运行。",
+        "execution": "导出、部署、初始化和宿主求解是不同阶段；模型先在 ACM 可运行再进行最小流程验证。",
+        "failure": "建议核对端口、物性/单位及求解诊断；当前包格式、运行时错误表和版本迁移规则未取得。",
+        "prerequisites": "需相容的 ACM、目标 Aspen Plus/HYSYS 环境及相关模型运行授权；同厂商不代表任意版本直接兼容。",
+        "version": "所读当前产品页及 eLearning 目录未固定发行号；逐模型/宿主版本核对。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.aspentech.com/en/products/engineering/aspen-custom-modeler",
+            "https://solutions.aspentech.com/-/media/aspentech/home/knowledge/elearning/at-04304-aspen_elearning_catalog.pdf?sc_lang=en"
+          ],
+          "locator": "Integrated or Standalone；Exporting and Deploying ACM Models"
+        },
+        "workflow": [
+          "建议：记录目标宿主与模型依赖",
+          "建议：导出一个已收敛的简单模型",
+          "建议：在宿主配置端口并对照独立计算结果"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：记录目标宿主与模型依赖 → 导出一个已收敛的简单模型 → 在宿主配置端口并对照独立计算结果",
+          "sourceUrl": "https://www.aspentech.com/en/products/engineering/aspen-custom-modeler"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "AspenTech：ACM 建模、脚本与 Excel 自动化课程 EAP2311",
+        "url": "https://esupport.aspentech.com/apex/T_course?id=a3p0B0000004YqGQAU"
+      },
+      {
+        "title": "AspenTech：ACM 产品与模型集成",
+        "url": "https://www.aspentech.com/en/products/engineering/aspen-custom-modeler"
+      },
+      {
+        "title": "AspenTech：eLearning，ACM 模型导出/部署",
+        "url": "https://solutions.aspentech.com/-/media/aspentech/home/knowledge/elearning/at-04304-aspen_elearning_catalog.pdf?sc_lang=en"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "GROMACS",
+    "profile": {
+      "versionBoundary": "查询时 current 为 GROMACS 2026.4，gmxapi 概览为 0.5.0a1；实际库/包组合需固定。；所读 current 命令参考为 2026.4；输入和恢复文件的跨版本适用范围须实际核对。",
+      "humanEntry": "命令行、计算作业；Python 中构建并执行模拟工作图。",
+      "coverage": "条目类型：开源分子动力学求解软件套件；gmxapi 是其 Python 工作流入口，不是全部内核方法的等价 Python 包装。接口覆盖：通过 read_tpr、modify_input 和 mdrun 组织模拟；操作先构图，再显式执行。；mdrun 读取运行输入并生成轨迹、能量与检查点等文件；支持按参数恢复运行。",
+      "unknowns": [
+        "力场、质子化、取样长度及模拟结果的科学充分性未评估。",
+        "gmxapi 0.5.0a1 为预发布包文档，不能据此承诺稳定 API；MPI/构建决定可用运行参数。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "gmxapi Python 工作流",
+        "category": "program",
+        "entry": "gmxapi Python 包及相容 GROMACS 库。",
+        "role": "Python 调用端编排模拟操作与数据依赖。",
+        "direction": "TPR/参数→工作图；轨迹、检查点和日志路径→调用方。",
+        "operations": [
+          "读取 TPR 模拟输入",
+          "按支持范围覆盖输入参数",
+          "执行模拟与访问输出"
+        ],
+        "dataContract": "返回操作对象而非立即求解结果；输出可为 Future。运行参数按带连字符的键传递给底层 mdrun，不能将任意 MDP 设置当作支持的可修改参数。",
+        "execution": "调用 mdrun 构建操作，run 触发执行；不同 MPI 配置的资源分配和日志范围有差异。",
+        "failure": "参考列 UsageError 等异常；运行参数错误可能仅在 MD 日志体现。建议同时检查 Python 异常、工作目录和收敛/物理状态。",
+        "prerequisites": "需相容 GROMACS、gmxapi、Python 与 MPI 依赖；GROMACS 为开源软件，力场和外部数据许可另核。",
+        "version": "查询时 current 为 GROMACS 2026.4，gmxapi 概览为 0.5.0a1；实际库/包组合需固定。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://manual.gromacs.org/current/gmxapi/userguide/usage.html",
+            "https://manual.gromacs.org/current/gmxapi/userguide/pythonreference.html",
+            "https://manual.gromacs.org/current/gmxapi/index.html"
+          ],
+          "locator": "Running simple simulations；Preparing/Running simulations；Exceptions"
+        },
+        "workflow": [
+          "建议：固定引擎/包装包并用既有 TPR 试读",
+          "建议：先构图再执行短模拟",
+          "建议：核对输出路径、检查点和日志"
+        ],
+        "example": {
+          "kind": "官方示例",
+          "text": "import gmxapi as gmx\nsimulation_input = gmx.read_tpr(tpr_filename)\nmd = gmx.mdrun(simulation_input)\nmd.run()\n官方短片段，仅说明入口；依赖前置对象/输入，本次未运行。",
+          "sourceUrl": "https://manual.gromacs.org/current/gmxapi/userguide/usage.html"
+        }
+      },
+      {
+        "name": "gmx mdrun / TPR 与轨迹文件",
+        "category": "program",
+        "entry": "gmx mdrun；输入/输出选项按安装版命令帮助。",
+        "role": "调度器或脚本启动分子动力学求解进程。",
+        "direction": "TPR/检查点→求解器；轨迹、能量、日志和新检查点→文件。",
+        "operations": [
+          "执行 TPR 对应模拟",
+          "指定轨迹和日志输出",
+          "通过检查点恢复受支持任务"
+        ],
+        "dataContract": "TPR 是预处理生成的运行输入，非通用分子坐标文件。轨迹、能量和检查点承担不同用途；追加输出需匹配既有文件。",
+        "execution": "独立进程运行；并行、GPU 与续算行为依构建和运行参数，不能把一次命令完成视为采样完成。",
+        "failure": "官方续算检查输出文件一致性；建议保留原检查点并检查终止原因、数值不稳定和轨迹完整性。",
+        "prerequisites": "需可用 GROMACS 构建、完整 TPR 及所需续算文件；GPU/MPI 支持依安装。",
+        "version": "所读 current 命令参考为 2026.4；输入和恢复文件的跨版本适用范围须实际核对。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://manual.gromacs.org/current/onlinehelp/gmx-mdrun.html"
+          ],
+          "locator": "Synopsis / Description / continuation and checkpoint options"
+        },
+        "workflow": [
+          "建议：确认预处理输入与力场版本",
+          "建议：在独立目录运行短作业",
+          "建议：验证检查点恢复与轨迹/能量输出"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认预处理输入与力场版本 → 在独立目录运行短作业 → 验证检查点恢复与轨迹/能量输出",
+          "sourceUrl": "https://manual.gromacs.org/current/onlinehelp/gmx-mdrun.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "GROMACS：项目性质与已发布版本",
+        "url": "https://www.gromacs.org/"
+      },
+      {
+        "title": "GROMACS：gmxapi Python 使用指南",
+        "url": "https://manual.gromacs.org/current/gmxapi/userguide/usage.html"
+      },
+      {
+        "title": "GROMACS：gmxapi API 与异常参考",
+        "url": "https://manual.gromacs.org/current/gmxapi/userguide/pythonreference.html"
+      },
+      {
+        "title": "GROMACS：gmxapi 版本概览",
+        "url": "https://manual.gromacs.org/current/gmxapi/index.html"
+      },
+      {
+        "title": "GROMACS：gmx mdrun 命令参考",
+        "url": "https://manual.gromacs.org/current/onlinehelp/gmx-mdrun.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OpenMM",
+    "profile": {
+      "versionBoundary": "latest API 为 8.6.0.dev-c6173db；不以此承诺实际安装版行为。；用户指南标 8.6；API 页另带开发版标记，文件兼容按实际发行版。",
+      "humanEntry": "Python 脚本；System、Integrator、Topology、Context 和 Simulation 对象。",
+      "coverage": "条目类型：开源模拟库与应用层（项目含 MIT/LGPL 许可部分）；不是完整药物发现或生产放行系统。接口覆盖：Simulation 关联拓扑、体系、积分器和 Context，可推进步数、能量最小化并配置结果 reporter。；XML State 可移植保存公开状态；二进制 checkpoint 保存更多内部状态但有严格兼容条件。",
+      "unknowns": [
+        "平台插件、硬件与随机数决定后续轨迹是否可重复；本次未实测。",
+        "所读 latest API 标为 8.6.0.dev；需固定实际发行版，不能把开发文档当已发布兼容承诺。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python Simulation / Context API",
+        "category": "program",
+        "entry": "openmm.app.Simulation 和相关 OpenMM Python 对象。",
+        "role": "脚本构建并控制本地模拟 Context。",
+        "direction": "模型/积分参数→库；状态、结构和 reporter 输出→调用方。",
+        "operations": [
+          "建立 Simulation/Context",
+          "推进指定时间步数",
+          "执行局部能量最小化",
+          "配置周期结果 reporter"
+        ],
+        "dataContract": "拓扑与 System 分开，积分器和平台须适配；API 带物理单位。参数 maxIterations=0 有不设迭代上限的特定含义，不能笼统理解为不计算。",
+        "execution": "step 按步数推进，runForClockTime 按墙钟时间运行；平台状态和 reporter 共同决定输出生命周期。",
+        "failure": "建议记录平台和输入、检查势能/力、积分稳定性及异常；本次未取得各平台完整错误分类或线程共享保证。",
+        "prerequisites": "需 OpenMM 和可用计算平台；软件部分为 MIT、部分为 LGPL，附加力场/插件依各自许可。",
+        "version": "latest API 为 8.6.0.dev-c6173db；不以此承诺实际安装版行为。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.openmm.org/latest/api-python/generated/openmm.app.simulation.Simulation.html"
+          ],
+          "locator": "Simulation：constructor / step / minimizeEnergy / runForClockTime"
+        },
+        "workflow": [
+          "建议：先核对拓扑、参数与单位",
+          "建议：小规模最小化后执行短步数",
+          "建议：记录平台与状态输出再延长模拟"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先核对拓扑、参数与单位 → 小规模最小化后执行短步数 → 记录平台与状态输出再延长模拟",
+          "sourceUrl": "https://docs.openmm.org/latest/api-python/generated/openmm.app.simulation.Simulation.html"
+        }
+      },
+      {
+        "name": "XML State / binary checkpoint",
+        "category": "file",
+        "entry": "Simulation 的 saveState/loadState、saveCheckpoint/loadCheckpoint 与 CheckpointReporter。",
+        "role": "模拟环境导出状态，恢复环境读取对应文件。",
+        "direction": "运行状态↔XML 或 checkpoint；不等于独立打包所有模型依赖。",
+        "operations": [
+          "保存/读取 XML State",
+          "保存/读取二进制 checkpoint",
+          "周期写入检查点"
+        ],
+        "dataContract": "XML 不含全部内部随机数状态，恢复后轨迹不保证相同。checkpoint 要求相同 System、Platform、OpenMM 版本及硬件，不能作为任意机器通用交换格式。",
+        "execution": "可在运行中保存，后续在适配环境恢复；保存与恢复应和模型/积分器及依赖共同留档。",
+        "failure": "建议做一次实际恢复验证并记录文件来源；XML 的可移植性不能推断为模型、精度或逐步轨迹一致。",
+        "prerequisites": "需与来源相符的模拟配置；checkpoint 还需匹配平台/硬件/版本；备份应保留完整模型与参数。",
+        "version": "用户指南标 8.6；API 页另带开发版标记，文件兼容按实际发行版。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.openmm.org/latest/userguide/application/02_running_sims.html"
+          ],
+          "locator": "Saving Simulation Progress and Results / saveState versus checkpoint"
+        },
+        "workflow": [
+          "建议：记录模型、版本及平台后保存状态",
+          "建议：在副本环境回读并比较初始状态",
+          "建议：确认所需为可移植状态还是精确续算"
+        ],
+        "example": {
+          "kind": "官方示例",
+          "text": "simulation.saveState('output.xml')\nsimulation.loadState('output.xml')\n官方短片段，仅说明入口；依赖前置对象/输入，本次未运行。",
+          "sourceUrl": "https://docs.openmm.org/latest/userguide/application/02_running_sims.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "OpenMM：项目与许可概览",
+        "url": "https://openmm.org/"
+      },
+      {
+        "title": "OpenMM：Simulation Python API",
+        "url": "https://docs.openmm.org/latest/api-python/generated/openmm.app.simulation.Simulation.html"
+      },
+      {
+        "title": "OpenMM：运行、保存 XML 状态与二进制检查点",
+        "url": "https://docs.openmm.org/latest/userguide/application/02_running_sims.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "RDKit",
+    "profile": {
+      "versionBoundary": "所读 docs 为 2026.09.1；需固定实际包版本和化学处理选项。；2026.09.1 rdmolfiles 与 Python 入门；跨版本规范化结果应另做回归核对。",
+      "humanEntry": "Python rdkit.Chem 等包；分子对象、SMARTS 查询和文件 Supplier/Writer。",
+      "coverage": "条目类型：开源化学信息学工具库（BSD），以 C++ 核心和 Python 等包装提供能力；不是独立 LIMS/MES。接口覆盖：可从结构表示建立 Mol 对象，并对分子进行子结构检索等处理。；Supplier 读取分子集合，Writer 输出受支持结构格式与属性。",
+      "unknowns": [
+        "化学清洗、芳香性和立体化学规则会影响结果，未对目标数据集评估。",
+        "Python 并行、不同算法的线程和返回语义须逐函数核对，不能把库概述作为全部 API 保证。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python 分子对象 / 子结构 API",
+        "category": "program",
+        "entry": "rdkit.Chem 的 MolFromSmiles、MolFromSmarts 与 Mol 对象方法。",
+        "role": "宿主 Python 程序调用本地化学信息算法。",
+        "direction": "SMILES/SMARTS/参数→库；分子对象与匹配结果→程序。",
+        "operations": [
+          "建立分子与查询对象",
+          "进行子结构匹配",
+          "访问原子/键及分子属性"
+        ],
+        "dataContract": "SMILES 是分子表示，SMARTS 是查询语义，不可互换；匹配中是否使用立体化学需显式确认。",
+        "execution": "通常为进程内函数/对象调用；没有由此自动获得服务端、任务队列或数据库事务。",
+        "failure": "入门文档说明部分构造函数失败返回 None 并输出价态或 kekulize 消息；调用方须先检查对象再用，其他函数可能抛异常。",
+        "prerequisites": "需兼容的 RDKit 构建与 Python 环境；BSD 许可，所用数据、模型与第三方组件分别确认。",
+        "version": "所读 docs 为 2026.09.1；需固定实际包版本和化学处理选项。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.rdkit.org/docs/GettingStartedInPython.html"
+          ],
+          "locator": "Reading single molecules；Substructure Searching；Stereochemistry"
+        },
+        "workflow": [
+          "建议：用已知结构验证解析和立体化学",
+          "建议：检查 None 后进行最小检索",
+          "建议：保留原始结构、清洗选项和结果"
+        ],
+        "example": {
+          "kind": "官方示例",
+          "text": "m = Chem.MolFromSmiles('c1ccccc1O')\npatt = Chem.MolFromSmarts('ccO')\nm.HasSubstructMatch(patt)\n官方短片段，仅说明入口；依赖前置对象/输入，本次未运行。",
+          "sourceUrl": "https://www.rdkit.org/docs/GettingStartedInPython.html"
+        }
+      },
+      {
+        "name": "SMILES / MOL / SDF 文件交换",
+        "category": "file",
+        "entry": "Chem 的分子文件读取器及 SDMolSupplier、SmilesMolSupplier、相应 Writer。",
+        "role": "RDKit 为结构文件读写端。",
+        "direction": "文件↔分子对象；字段保留依格式和选项。",
+        "operations": [
+          "读取 MOL/SDF 或 SMILES 集合",
+          "逐记录检查解析结果",
+          "写出结构及所选属性"
+        ],
+        "dataContract": "SDF、MOL、SMILES 的坐标/属性表达能力不同；Supplier 还分随机访问与前向读取，不能把输出 SMILES 当作保留全部三维和业务属性。",
+        "execution": "离线记录读写；应关闭 Writer/文件并记录是否完成全部条目。大文件读取器与顺序可能依具体类而变。",
+        "failure": "官方示例检查逐条 None；建议核对失败记录、条目数、立体化学和属性，避免静默丢弃后只比较成功数。",
+        "prerequisites": "需有效源文件及匹配的 RDKit 格式模块；CSV 业务字段映射不由分子格式自动定义。",
+        "version": "2026.09.1 rdmolfiles 与 Python 入门；跨版本规范化结果应另做回归核对。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.rdkit.org/docs/source/rdkit.Chem.rdmolfiles.html",
+            "https://www.rdkit.org/docs/GettingStartedInPython.html"
+          ],
+          "locator": "SDMolSupplier / SmilesMolSupplier / SDWriter；reading sets and writing molecules"
+        },
+        "workflow": [
+          "建议：先确认格式、编码和属性清单",
+          "建议：逐记录验证并记录失败输入",
+          "建议：写出后回读比较结构/坐标/属性"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先确认格式、编码和属性清单 → 逐记录验证并记录失败输入 → 写出后回读比较结构/坐标/属性",
+          "sourceUrl": "https://www.rdkit.org/docs/source/rdkit.Chem.rdmolfiles.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "RDKit：工具库性质与 BSD 许可",
+        "url": "https://www.rdkit.org/docs/Overview.html"
+      },
+      {
+        "title": "RDKit：读取/写入分子集合示例",
+        "url": "https://www.rdkit.org/docs/GettingStartedInPython.html"
+      },
+      {
+        "title": "RDKit：rdmolfiles 分子格式 API",
+        "url": "https://www.rdkit.org/docs/source/rdkit.Chem.rdmolfiles.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "FEBio",
+    "profile": {
+      "versionBoundary": "所读 Developer 文档路径为 febio4.8；不推定当前任意版本插件 ABI 通用。；教程 2024-11-05 更新，注明 Studio 2 与 febio4；当前运行包命令帮助优先。",
+      "humanEntry": "FEBio Studio 建模/运行或导出 .feb；C++ 开发材料插件。",
+      "coverage": "条目类型：有限元求解软件；FEBio 源码为 MIT，官网发布二进制采用自定义许可；FEBio Studio 是相关建模界面而非同一接口。接口覆盖：通过继承材料基类、注册类并实现应力与切线等方法扩展求解器。；Studio 可导出 FE model 为 .feb，再由 febio4 -i 独立运行并检查终止消息。",
+      "unknowns": [
+        "当前二进制许可、第三方求解库和插件发行要求需按具体下载包确认，不能由源码 MIT 推定二进制相同。",
+        "未核实目标器械/组织模型的验证充分性，也不把仿真结果当作器械认证。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "C++ 材料插件 / FECore",
+        "category": "program",
+        "entry": "FEBio 插件的 PluginInitialize、FECore 类与材料注册机制。",
+        "role": "插件提供材料实现，FEBio 内核调用。",
+        "direction": "模型参数/材料点状态→插件；应力与切线等→求解器。",
+        "operations": [
+          "继承适用的材料基类",
+          "在插件初始化注册材料",
+          "定义参数并实现本构方法",
+          "使用 tangent diagnostic 核查切线"
+        ],
+        "dataContract": "注册名称成为 XML material type 标识；参数、材料点数据、应力与切线需一致，不能仅有类名而缺少可用本构实现。",
+        "execution": "插件由求解器加载并初始化，框架在材料点计算时调用；二进制接口须匹配 FEBio/编译环境。",
+        "failure": "开发文档给出可选 Init/Validate 与 tangent diagnostic；建议分别检查加载/参数校验和数值切线，不以编译通过作为本构正确的证据。",
+        "prerequisites": "需匹配的 FEBio 开发环境和相容 C++ 工具链；源码/二进制/第三方库许可分别核对。",
+        "version": "所读 Developer 文档路径为 febio4.8；不推定当前任意版本插件 ABI 通用。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://help.febio.org/doxygen/febio4.8/material.html"
+          ],
+          "locator": "Material Plugins：Basic Procedure / Registering / Tangent Diagnostic"
+        },
+        "workflow": [
+          "建议：从同版官方简单材料类开始",
+          "建议：注册材料并跑最小单元案例",
+          "建议：检查参数、应力和有限差分切线"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从同版官方简单材料类开始 → 注册材料并跑最小单元案例 → 检查参数、应力和有限差分切线",
+          "sourceUrl": "https://help.febio.org/doxygen/febio4.8/material.html"
+        }
+      },
+      {
+        "name": "FEBio 命令行 / XML .feb 输入",
+        "category": "program",
+        "entry": "Studio File > Export FE model；终端中的 febio4 可执行程序。",
+        "role": "前处理端生成输入，脚本/用户启动求解器。",
+        "direction": "模型 .feb→求解；终端消息、日志与结果文件→后处理。",
+        "operations": [
+          "导出 FE 模型输入",
+          "从命令行运行 .feb",
+          "读取运行消息并打开结果"
+        ],
+        "dataContract": "输入与 Studio 原生项目不是同一文件；几何、材料、边界和参数须完整，结果应与所运行输入同一修订。",
+        "execution": "教程 Prepared for FEBio Studio 2，后续步骤调用 febio4；独立进程与 GUI 作业入口分开。",
+        "failure": "教程以 Normal Termination 作为正常终止提示；建议进一步检查收敛、响应量和模型适用性，不把该提示当作科学验证。",
+        "prerequisites": "需对应 FEBio 安装和有效 .feb；官网二进制为自定义许可，外部求解库可能有独立条件。",
+        "version": "教程 2024-11-05 更新，注明 Studio 2 与 febio4；当前运行包命令帮助优先。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://febio.org/knowledgebase/tutorials/intro-to-fe/running-your-first-simulation-in-febio-studio/"
+          ],
+          "locator": "Running an FEBio Simulation in the Terminal"
+        },
+        "workflow": [
+          "建议：在 Studio 导出一个测试 FE 模型",
+          "建议：在独立目录运行并保留完整日志",
+          "建议：核对终止、收敛和结果量"
+        ],
+        "example": {
+          "kind": "官方示例",
+          "text": "febio4 -i fileName.feb\n官方短片段，仅说明入口；依赖前置对象/输入，本次未运行。",
+          "sourceUrl": "https://febio.org/knowledgebase/tutorials/intro-to-fe/running-your-first-simulation-in-febio-studio/"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "FEBio：项目与生物力学用途",
+        "url": "https://febio.org/"
+      },
+      {
+        "title": "FEBio：知识库及源码/二进制许可区别",
+        "url": "https://febio.org/knowledgebase/"
+      },
+      {
+        "title": "FEBio：Material Plugins 开发说明 4.8",
+        "url": "https://help.febio.org/doxygen/febio4.8/material.html"
+      },
+      {
+        "title": "FEBio：从 FEBio Studio 导出并命令行运行",
+        "url": "https://febio.org/knowledgebase/tutorials/intro-to-fe/running-your-first-simulation-in-febio-studio/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "3D Slicer",
+    "profile": {
+      "versionBoundary": "所读 latest 文档未固定完整发行号；Python Console 名称自 5.2.0 更改，实际 API 依安装版。；所读 latest 格式文档；未验证不同版本/扩展节点的完整往返兼容。",
+      "humanEntry": "图形工作区、Python Console、以 --python-script 启动的 Slicer 应用。",
+      "coverage": "条目类型：科研影像应用/可扩展平台，采用 BSD-style 的 Slicer 专用开源许可；分发应用定位研究用途，非已批准临床应用。接口覆盖：Python Console 可访问应用、MRML 场景和模块；可同步或后台运行 CLI 模块并检查状态。；MRML 保存场景元数据及外部引用；MRB 打包场景数据与元数据。",
+      "unknowns": [
+        "目标扩展的算法、许可及影像到模型的验证未评估；扩展不自动继承核心平台的全部能力。",
+        "场景可保存不保证外部插件状态或自定义节点在另一安装中可恢复。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "应用内 Python / CLI 模块调度",
+        "category": "program",
+        "entry": "Slicer Python Console；--python-script / --no-main-window 的应用上下文。",
+        "role": "脚本操作当前 MRML 数据并调用处理模块。",
+        "direction": "节点/参数→模块；输出节点与 CLI 状态→脚本。",
+        "operations": [
+          "访问 slicer.mrmlScene 与加载模块",
+          "运行 CLI 模块",
+          "读取模块状态和错误文本"
+        ],
+        "dataContract": "应用内上下文与 PythonSlicer 解释器不同；后者不包含正在运行的 app、MRML 场景和模块，不能当作无界面 Slicer 的同义词。",
+        "execution": "runSync 同步；run 在后台执行并返回可监视的 cliNode。节点在任务完成后的清理和结果接管由调用方处理。",
+        "failure": "官方示例检查 ErrorsMask 并读取 GetErrorText；建议区分模块失败、节点缺失与异步未完成。",
+        "prerequisites": "需相应 Slicer 安装、模块和输入节点；Slicer 专用 BSD-style 许可，扩展及依赖另核。",
+        "version": "所读 latest 文档未固定完整发行号；Python Console 名称自 5.2.0 更改，实际 API 依安装版。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://slicer.readthedocs.io/en/latest/developer_guide/python_faq.html"
+          ],
+          "locator": "Python Console versus PythonSlicer；runSync / background CLI"
+        },
+        "workflow": [
+          "建议：在应用中加载小样本并确认节点类型",
+          "建议：先同步运行一个模块并检查错误",
+          "建议：后台流程再核对状态回调和节点清理"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：在应用中加载小样本并确认节点类型 → 先同步运行一个模块并检查错误 → 后台流程再核对状态回调和节点清理",
+          "sourceUrl": "https://slicer.readthedocs.io/en/latest/developer_guide/python_faq.html"
+        }
+      },
+      {
+        "name": "MRML / MRB 场景交换",
+        "category": "file",
+        "entry": "Save 对话框的场景/打包保存入口及文件加载功能。",
+        "role": "Slicer 保存/读取工作区；接收方需相容节点和模块。",
+        "direction": "场景↔MRML+数据文件或 MRB 包。",
+        "operations": [
+          "保存 MRML 场景及引用数据",
+          "保存自包含 MRB 包",
+          "加载并核对场景节点"
+        ],
+        "dataContract": "MRML 为 XML 并指向外部文件；MRB 内部为 ZIP、自包含数据树含 .mrml。场景坐标系为 RAS，不能与各图像/标记文件的 LPS 默认为同一坐标约定。",
+        "execution": "MRB 写新副本再打包，和只保存修改文件的增量保存不同；更大场景需考虑耗时和完整性。",
+        "failure": "建议在另一测试目录加载，检查丢失引用、坐标和节点；单独交付 .mrml 可能缺少外部数据。",
+        "prerequisites": "需相容 Slicer/扩展与足够存储；外部影像与模型数据使用权限单独确认。",
+        "version": "所读 latest 格式文档；未验证不同版本/扩展节点的完整往返兼容。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://slicer.readthedocs.io/en/latest/user_guide/data_loading_and_saving.html"
+          ],
+          "locator": "Save data；Supported data formats：Scenes"
+        },
+        "workflow": [
+          "建议：确认场景坐标和全部外部数据",
+          "建议：选择 MRML 引用或 MRB 打包并保存",
+          "建议：从新目录重开核对节点和几何"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认场景坐标和全部外部数据 → 选择 MRML 引用或 MRB 打包并保存 → 从新目录重开核对节点和几何",
+          "sourceUrl": "https://slicer.readthedocs.io/en/latest/user_guide/data_loading_and_saving.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "3D Slicer：应用用途与专用许可说明",
+        "url": "https://slicer.readthedocs.io/en/latest/user_guide/about.html"
+      },
+      {
+        "title": "3D Slicer：Python FAQ",
+        "url": "https://slicer.readthedocs.io/en/latest/developer_guide/python_faq.html"
+      },
+      {
+        "title": "3D Slicer：数据加载保存及 MRML/MRB 格式",
+        "url": "https://slicer.readthedocs.io/en/latest/user_guide/data_loading_and_saving.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "LabKey Server",
+    "profile": {
+      "versionBoundary": "查询时客户端 README 要求 Python 3.11+ 并声明 Server 15.1+；这不是每个模块/新方法对旧服务器可用的保证，具体端点另核。；官方在线文档未固定发行号；以实例结构和所用导入方式为准。",
+      "humanEntry": "Web 数据网格/Assay/Study；Python 客户端；按目标结构导入文件。",
+      "coverage": "条目类型：科研数据管理服务器；核心 platform 与 Python 客户端有 Apache-2.0 源码，另有 Premium 产品/模块，不能视作全产品免费。接口覆盖：官方客户端可查询、插入和更新 LabKey Server 数据；Web 界面能导出查询用 Python 起始脚本。；标准 Assay 等数据结构可映射实验表格；文本导入按 UTF-8 解析。",
+      "unknowns": [
+        "目标实例的模块、权限、审核及业务字段未核验；API 数据写入不代表实验审核或批放行。",
+        "核心开源许可不能替代 Premium 功能授权；不同数据结构的文件导入约束不同。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python Client API / 服务查询与写入",
+        "category": "program",
+        "entry": "labkey.api_wrapper.APIWrapper 与实例的服务；服务器、container path、schema/table 由实际实例确定。",
+        "role": "Python 客户端调用授权服务器。",
+        "direction": "查询/行数据→服务；结果行与计数→调用方。",
+        "operations": [
+          "查询指定容器的 schema/table",
+          "按资源权限插入/更新数据",
+          "从数据网格导出 Python 查询脚本"
+        ],
+        "dataContract": "container、schema 和 table 是数据定位条件；行键、字段类型与权限受目标表限制，不能直接写服务器底层数据库代替 API。",
+        "execution": "客户端向服务器请求；认证配置与会话由客户端/服务控制。大型导入、事务和各方法同步性应查部署版参考。",
+        "failure": "官方查询例检查结果是否为 None；建议同时记录 HTTP/业务响应并核对权限、字段和行键，不盲目重试写入。",
+        "prerequisites": "需 LabKey 实例及授权账户、可达服务和 Python 客户端；客户端 Apache-2.0，Premium 功能按服务器许可。",
+        "version": "查询时客户端 README 要求 Python 3.11+ 并声明 Server 15.1+；这不是每个模块/新方法对旧服务器可用的保证，具体端点另核。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.labkey.org/Documentation/wiki-page.view?name=python",
+            "https://github.com/LabKey/labkey-api-python"
+          ],
+          "locator": "Python API；README：Credentials / Examples / Supported Versions"
+        },
+        "workflow": [
+          "建议：从目标网格导出 Python 查询脚本",
+          "建议：只读确认容器、表和权限",
+          "建议：在测试表验证写入及重复提交处理"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从目标网格导出 Python 查询脚本 → 只读确认容器、表和权限 → 在测试表验证写入及重复提交处理",
+          "sourceUrl": "https://www.labkey.org/Documentation/wiki-page.view?name=python"
+        }
+      },
+      {
+        "name": "Assay / 表格 TSV、CSV、Excel 导入",
+        "category": "file",
+        "entry": "先设计目标 List、Dataset 或 Assay，再使用该结构的导入入口。",
+        "role": "实验数据文件提供方与 LabKey 数据结构交换。",
+        "direction": "表格文件→目标结构；本条不据此推定所有结构都同样支持每种格式。",
+        "operations": [
+          "定义字段类型和列映射",
+          "导入实验结果表",
+          "检查未识别字段与导入结果"
+        ],
+        "dataContract": "Assay 支持 Excel、TSV/CSV 等；一般文本导入用 UTF-8。目标结构可有唯一性等约束，列别名/类型须配置；未识别字段会被忽略，不能只凭上传完成认定完整入库。",
+        "execution": "文件导入经目标数据结构验证；File Watcher 是另有版本/许可限制的自动化路径，本条不把它当作基础文件导入。",
+        "failure": "官方提示 CSV/TSV 反斜线按转义处理；建议核对引号、字段、记录数和丢弃列。失败恢复及覆盖/追加规则按目标结构确认。",
+        "prerequisites": "需目标数据结构、导入权限与可用的文件格式；商业模块和自动导入服务授权另核。",
+        "version": "官方在线文档未固定发行号；以实例结构和所用导入方式为准。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.labkey.org/Documentation/wiki-page.view?name=importData",
+            "https://www.labkey.org/Documentation/wiki-page.view?name=dataImport",
+            "https://www.labkey.org/Documentation/wiki-page.view?name=instrumentData"
+          ],
+          "locator": "Import Data：UTF-8；Preparing Data：types / unrecognized fields / backslash；Assay Data"
+        },
+        "workflow": [
+          "建议：先固定字段、键和单位再导入小样本",
+          "建议：检查丢弃字段和转义字符",
+          "建议：核对记录/结果并记录导入模式"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先固定字段、键和单位再导入小样本 → 检查丢弃字段和转义字符 → 核对记录/结果并记录导入模式",
+          "sourceUrl": "https://www.labkey.org/Documentation/wiki-page.view?name=importData"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "LabKey：platform 核心模块及 Apache-2.0 许可",
+        "url": "https://github.com/LabKey/platform"
+      },
+      {
+        "title": "LabKey：Python API",
+        "url": "https://www.labkey.org/Documentation/wiki-page.view?name=python"
+      },
+      {
+        "title": "LabKey：官方 Python 客户端与版本/认证说明",
+        "url": "https://github.com/LabKey/labkey-api-python"
+      },
+      {
+        "title": "LabKey：Import Data",
+        "url": "https://www.labkey.org/Documentation/wiki-page.view?name=importData"
+      },
+      {
+        "title": "LabKey：Preparing Data for Import",
+        "url": "https://www.labkey.org/Documentation/wiki-page.view?name=dataImport"
+      },
+      {
+        "title": "LabKey：Assay Data",
+        "url": "https://www.labkey.org/Documentation/wiki-page.view?name=instrumentData"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Valentina",
+    "profile": {
+      "versionBoundary": "CLI 依据 2020-12-23 Edition 1.5 预览手册 Appendix A；不是当前 1.x 所有参数的兼容承诺。；历史手册列格式；查询时官方 1.1.0 发行说明标为 edge release 并列 AAMA/ASTM 改进，不称稳定版。",
+      "humanEntry": "图形设计、Tape 测量、Puzzle 排料；valentina 命令行。",
+      "coverage": "条目类型：GPL 开源纸样应用套件；Valentina 设计、Tape 测量、Puzzle 手工排料是不同程序。与 Seamly2D 为分叉后独立维护的项目，非同一软件的两个版本。接口覆盖：命令行可指定纸样、替代测量文件、输出目录与导出格式，生成排料输出。；Valentina 可导出 SVG、DXF 等；后续官方发行说明另列 DXF AAMA/ASTM 兼容改进。",
+      "unknowns": [
+        "新版功能与历史 CLI 数字格式映射未逐项对照，不直接把旧版格式编号写成当前通用常量。",
+        "Valentina 与 Seamly2D 的工具和文件 schema 已分化；未验证两者当前版本的原生工程互读范围。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Valentina 命令行批量导出",
+        "category": "program",
+        "entry": "valentina [options] file name；--basename 启用导出模式，--destination、--mfile 等选择输入/输出。",
+        "role": "脚本启动纸样应用并按尺寸/测量生成文件。",
+        "direction": "纸样/测量/导出参数→应用；排料文件→目录。",
+        "operations": [
+          "显示本机帮助/版本",
+          "指定测量文件覆盖原引用路径",
+          "选择输出名称、目录和格式"
+        ],
+        "dataContract": "纸样与测量是不同输入；格式编号按安装版帮助，不能把同一数字在 Valentina/Seamly2D 间直接通用。",
+        "execution": "程序式导出模式；是否依赖显示环境和批量并发安全未从手册核实。",
+        "failure": "建议保存命令输出并检查目标文件、单位和比例；当前发行版完整退出码、超时和覆盖规则未取得。",
+        "prerequisites": "需同版 Valentina、可解析的纸样/测量和写入目录；GPL 许可，依赖组件许可分别核对。",
+        "version": "CLI 依据 2020-12-23 Edition 1.5 预览手册 Appendix A；不是当前 1.x 所有参数的兼容承诺。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://media.smart-pattern.com.ua/images/products/2021/03/Valentina._User_manual._Preview_version.pdf"
+          ],
+          "locator": "Appendix A.1：Valentina application command line keys"
+        },
+        "workflow": [
+          "建议：先运行安装版 --help 与 --version",
+          "建议：选定测试纸样、测量和导出目录",
+          "建议：核对生成图的尺寸和片数再批量化"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：运行 valentina --help，核对安装版格式编号和参数；再对测试纸样指定测量文件及导出目录。手册确认启动格式和 --help，本次未实际执行。",
+          "sourceUrl": "https://media.smart-pattern.com.ua/images/products/2021/03/Valentina._User_manual._Preview_version.pdf"
+        }
+      },
+      {
+        "name": "SVG / DXF AAMA、ASTM 纸样导出",
+        "category": "file",
+        "entry": "图形界面的排料/裁片导出与所选格式；Puzzle 的输出属于套件内另一程序。",
+        "role": "纸样设计端向绘图、裁剪或其他 CAD 工具交付几何。",
+        "direction": "Valentina/Puzzle 设计→导出文件；本条不确认逆向重建参数化纸样。",
+        "operations": [
+          "导出二维 SVG 或 DXF",
+          "选择支持的 AAMA/ASTM 变体",
+          "按选项输出裁片或排料"
+        ],
+        "dataContract": "曲线、刀口、标签、缝份和单位需目标 CAD 核对；几何文件并不必然保留原始公式、测量关系或工具历史。",
+        "execution": "离线设计交付；不同版本对零缝份、镜像和曲线有修正，不宜仅凭扩展名判断一致。",
+        "failure": "建议以已知长度和镜像/缝份样片回读检验；当前全部对象/格式的无损保留范围未公开确认。",
+        "prerequisites": "需包含对应导出能力的 Valentina/Puzzle 版本；GPL 源码可用不等于任何第三方 CAD 无损兼容。",
+        "version": "历史手册列格式；查询时官方 1.1.0 发行说明标为 edge release 并列 AAMA/ASTM 改进，不称稳定版。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://gitlab.com/smart-pattern/valentina/-/releases",
+            "https://media.smart-pattern.com.ua/images/products/2021/03/Valentina._User_manual._Preview_version.pdf",
+            "https://media.smart-pattern.com.ua/images/products/2022/09/Valentina_0.7._Quick_guide._Preview_version.pdf"
+          ],
+          "locator": "Release notes：DXF AAMA/ASTM / seam allowance fixes；Manual Appendix A"
+        },
+        "workflow": [
+          "建议：按接收方确认格式和单位",
+          "建议：导出含曲线、刀口、缝份的测试片",
+          "建议：回读测量并保留原生纸样与测量依赖"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：按接收方确认格式和单位 → 导出含曲线、刀口、缝份的测试片 → 回读测量并保留原生纸样与测量依赖",
+          "sourceUrl": "https://gitlab.com/smart-pattern/valentina/-/releases"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Seamly 维护者：项目分叉及后续支持范围",
+        "url": "https://forum.seamly.io/t/is-a-nameless-point-possible/2445/2"
+      },
+      {
+        "title": "Valentina：用户手册 Edition 1.5，2020-12-23，Appendix A",
+        "url": "https://media.smart-pattern.com.ua/images/products/2021/03/Valentina._User_manual._Preview_version.pdf"
+      },
+      {
+        "title": "Valentina：官方发行说明",
+        "url": "https://gitlab.com/smart-pattern/valentina/-/releases"
+      },
+      {
+        "title": "Valentina 0.7：Quick Guide，项目组成及开源说明",
+        "url": "https://media.smart-pattern.com.ua/images/products/2022/09/Valentina_0.7._Quick_guide._Preview_version.pdf"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Seamly2D",
+    "profile": {
+      "versionBoundary": "所读官方 Doxygen 源码页未固定发行号，辅以 2017 维护者 CLI 文档；当前程序 --help 优先。；所读官方源码文档未声明发行号；与所用构建/tag 比对后确定格式支持。",
+      "humanEntry": "Seamly2D 图形界面、SeamlyMe 测量及命令行导出。",
+      "coverage": "条目类型：GPLv3+ 开源纸样应用；SeamlyMe 管理测量数据。与 Valentina 源于项目分叉、各自维护，不按版本分拆计数。接口覆盖：命令解析器支持纸样、测量、输出目录与格式等导出参数；通过本机 --help 查询实际选项。；官方导出实现列 SVG 及多种 DXF Flat/AAMA/ASTM 格式，并提供文字转路径、二进制 DXF 等选项。",
+      "unknowns": [
+        "官方仓库明示 Wiki 手册需要更新；本条优先开发源码文档，仍未锁定其对应发行包。",
+        "未把 Valentina 的新格式/参数移植性或当前原生工程 schema 互读写成已验证能力。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Seamly2D CLI / console export",
+        "category": "program",
+        "entry": "seamly2d 可执行程序；VCommandLine 的 console export 模式。",
+        "role": "外部脚本向纸样程序提供参数并获取输出。",
+        "direction": "纸样/测量/参数→程序；排料/图形→目录。",
+        "operations": [
+          "查询帮助与版本",
+          "指定导出基本名与目标目录",
+          "选择测量文件和输出格式"
+        ],
+        "dataContract": "源码显示格式帮助由格式列表生成；输出编号不应从旧 Wiki 或 Valentina 命令表复制。已定义 console export 不代表所有 GUI 操作都有 CLI。",
+        "execution": "--basename 类选项启用控制台导出；显示环境、并发及退出约定仍需所用发行版实测。",
+        "failure": "建议保存帮助、命令输出与生成文件；官方历史讨论存在 Wiki 参数未进安装包的情况，本条不登记未经源码确认的 CSV 参数。",
+        "prerequisites": "需匹配的 Seamly2D、纸样及测量文件；GPLv3+，第三方库许可另列于项目。",
+        "version": "所读官方 Doxygen 源码页未固定发行号，辅以 2017 维护者 CLI 文档；当前程序 --help 优先。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://fashionfreedom.github.io/Seamly2D/df/d9b/vcmdexport_8cpp_source.html",
+            "https://forum.seamly.io/t/how-to-command-line-interface/2155"
+          ],
+          "locator": "VCommandLine constructor / InitOptions；维护者 --help 示例"
+        },
+        "workflow": [
+          "建议：记录版本并导出本机帮助",
+          "建议：用小纸样验证 console export",
+          "建议：确认比例、片数与格式后再批处理"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：记录版本并导出本机帮助 → 用小纸样验证 console export → 确认比例、片数与格式后再批处理",
+          "sourceUrl": "https://fashionfreedom.github.io/Seamly2D/df/d9b/vcmdexport_8cpp_source.html"
+        }
+      },
+      {
+        "name": "SVG / DXF AAMA、ASTM 布局导出",
+        "category": "file",
+        "entry": "ExportLayoutDialog 对应的裁片/布局导出界面。",
+        "role": "Seamly2D 为版型几何输出端。",
+        "direction": "纸样布局→SVG/DXF；不据导出能力推定 DXF 可反向导入为参数化工程。",
+        "operations": [
+          "选择 SVG 或相应 DXF 格式",
+          "设置目标目录",
+          "按支持格式选择文字/二进制选项"
+        ],
+        "dataContract": "格式枚举区分普通 DXF 与 AAMA/ASTM；纸样尺寸、曲线、标签和单位需接收端核验。图形交换不自动保留公式和量体规则。",
+        "execution": "离线导出；不同格式支持的选项不同，需保留实际配置。",
+        "failure": "源码对不可访问的目标目录抛 VException；建议再核对文件比例、标签和片数，不能用“有文件”判断完整。",
+        "prerequisites": "需对应 Seamly2D 版本和合法输出目录；纸样与测量保留原件，接收 CAD 的兼容性另核。",
+        "version": "所读官方源码文档未声明发行号；与所用构建/tag 比对后确定格式支持。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://fashionfreedom.github.io/Seamly2D/dd/d54/export__layout__dialog_8cpp_source.html"
+          ],
+          "locator": "setDestinationPath；exportFormatSuffix；LayoutExportFormat 分支"
+        },
+        "workflow": [
+          "建议：选择接收方明确支持的变体",
+          "建议：导出含曲线/标签/刀口的测试纸样",
+          "建议：在目标工具测量回读，不覆盖原生工程"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：选择接收方明确支持的变体 → 导出含曲线/标签/刀口的测试纸样 → 在目标工具测量回读，不覆盖原生工程",
+          "sourceUrl": "https://fashionfreedom.github.io/Seamly2D/dd/d54/export__layout__dialog_8cpp_source.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Seamly：官方仓库与 GPLv3+ 许可",
+        "url": "https://github.com/fashionfreedom/seamly2d"
+      },
+      {
+        "title": "Seamly 维护者：项目分叉及后续支持范围",
+        "url": "https://forum.seamly.io/t/is-a-nameless-point-possible/2445/2"
+      },
+      {
+        "title": "Seamly：VCommandLine 源码文档",
+        "url": "https://fashionfreedom.github.io/Seamly2D/df/d9b/vcmdexport_8cpp_source.html"
+      },
+      {
+        "title": "Seamly：维护者命令行说明",
+        "url": "https://forum.seamly.io/t/how-to-command-line-interface/2155"
+      },
+      {
+        "title": "Seamly：ExportLayoutDialog 源码文档",
+        "url": "https://fashionfreedom.github.io/Seamly2D/dd/d54/export__layout__dialog_8cpp_source.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Opcenter APS",
+    "profile": {
+      "versionBoundary": "18.2（2020）Planner API 和课程版本18；当前部署应固定模块/SDK 版本，不作最新版本声明。；18.1（2020）官方 Fact Sheet；后续18.6发布说明继续列 unattended import/export，当前版限制另核。",
+      "humanEntry": "Planner、Scheduling/Sequencer 及自定义动作；独立批处理控制台。",
+      "coverage": "条目类型：商业计划与排程软件家族，原名 Preactor APS；不是 Opcenter Execution 的同名模块，也不是现场设备控制器。接口覆盖：SDK 支持对象访问、自定义动作和排程规则；18.2 增加 Planner .NET 方法及自定义窗口。；独立控制台可运行配置内导入/导出脚本、材料规则及排程规则，不必交互打开排程界面。",
+      "unknowns": [
+        "规划、排程、SDK 和控制台依产品档位/版本授权；当前完整许可矩阵未核实。",
+        "历史版本文档不能证明任意 Opcenter/MES 同厂商产品自动兼容；业务集成须核对配置与字段。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "APS SDK / Planner .NET API",
+        "category": "program",
+        "entry": "Opcenter APS SDK 的 IPreactor/Planning Board 对象与 Planner .NET 扩展。",
+        "role": "客户扩展在计划/排程应用内操作数据和规则。",
+        "direction": "业务数据/规则→APS；计划结果/对象数据→扩展。",
+        "operations": [
+          "操作受支持数据对象",
+          "增加自定义动作/窗口",
+          "建立事件或算法驱动的排程规则",
+          "调用所支持 Planner 计算"
+        ],
+        "dataContract": "Planner 与 Scheduling 对象分开；底层业务表、资源约束及扩展参数依配置，不是通用 ISA-95/B2MML 自动映射。",
+        "execution": "扩展在对应应用/模块上下文运行；规则触发和计算生命周期应按同版 SDK，未取得全部回调顺序。",
+        "failure": "课程列调试、日志与错误处理主题，但公开页未给统一异常契约；建议检查资源可行性、未排订单原因和扩展日志。",
+        "prerequisites": "需对应商业 APS 模块、SDK 权限与匹配 .NET 环境；不是全部档位均可任意定制。",
+        "version": "18.2（2020）Planner API 和课程版本18；当前部署应固定模块/SDK 版本，不作最新版本声明。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://blogs.sw.siemens.com/opcenter/available-now-opcenter-aps-18-2/",
+            "https://www.plm.automation.siemens.com/media/global/en/Siemens%20SW%20Opcenter%20APS%20v18.2%20Fact%20Sheet_tcm27-82112.pdf",
+            "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=ILTLG080017___OPS__18.00__B1020"
+          ],
+          "locator": "18.2：Planner extensibility；课程：API Objects / custom rules"
+        },
+        "workflow": [
+          "建议：先在界面确认最小资源/订单约束",
+          "建议：用同版 SDK 增加一个只读动作",
+          "建议：再验证规则及计划结果并记录日志"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先在界面确认最小资源/订单约束 → 用同版 SDK 增加一个只读动作 → 再验证规则及计划结果并记录日志",
+          "sourceUrl": "https://blogs.sw.siemens.com/opcenter/available-now-opcenter-aps-18-2/"
+        }
+      },
+      {
+        "name": "Import/Export 与 Sequencer 控制台",
+        "category": "program",
+        "entry": "ConsoleImportExport.exe、ConsoleSequencer.exe 等，指定 .prcdf 配置及脚本/规则。",
+        "role": "调度脚本启动 APS 批处理；外部系统提供/接收数据。",
+        "direction": "外部数据库/文件→APS；排程结果→数据库/文件。",
+        "operations": [
+          "执行配置中预定义的导入/导出脚本",
+          "生成或修改排程",
+          "按配置执行标准材料控制规则"
+        ],
+        "dataContract": "-c 指定配置，脚本名/数据集/方向等须存在于该配置；导入导出格式和业务键由配置定义，不能补造统一 CSV 表头或 REST 端点。",
+        "execution": "18.1 文档明确桌面应用同时打开会产生冲突、修改可能不能正确保存；不能在应用打开时通过控制台导入。",
+        "failure": "建议在封闭测试配置核对保存、导入行数和排程可行性；完整退出码与断点恢复未取得。",
+        "prerequisites": "需包含所用控制台/规则的 APS 授权和配置，批处理期间遵守同版应用并发限制。",
+        "version": "18.1（2020）官方 Fact Sheet；后续18.6发布说明继续列 unattended import/export，当前版限制另核。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.plm.automation.siemens.com/media/global/en/Siemens%20SW%20Whats%20new%20in%20Siemens%20Opcenter%20APS%2018-1%20Fact%20Sheet_tcm27-71164.pdf",
+            "https://blogs.sw.siemens.com/opcenter/available-now-siemens-opcenter-aps-18-1/"
+          ],
+          "locator": "Import/export console；Sequencer console；concurrent application restriction"
+        },
+        "workflow": [
+          "建议：复制配置并关闭该配置的桌面应用",
+          "建议：运行预定义导入/排程/导出任务",
+          "建议：重新打开核对保存结果与订单/资源约束"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：复制配置并关闭该配置的桌面应用 → 运行预定义导入/排程/导出任务 → 重新打开核对保存结果与订单/资源约束",
+          "sourceUrl": "https://www.plm.automation.siemens.com/media/global/en/Siemens%20SW%20Whats%20new%20in%20Siemens%20Opcenter%20APS%2018-1%20Fact%20Sheet_tcm27-71164.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Siemens Academy：Preactor APS 更名说明",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=APS5002_______SIT__18.0___B3"
+      },
+      {
+        "title": "Siemens：Opcenter APS 18.6 unattended consoles",
+        "url": "https://blogs.sw.siemens.com/opcenter/whats-new-in-opcenter-aps-18-6/"
+      },
+      {
+        "title": "Siemens：Opcenter APS 18.2 Planner .NET API",
+        "url": "https://blogs.sw.siemens.com/opcenter/available-now-opcenter-aps-18-2/"
+      },
+      {
+        "title": "Siemens：Opcenter APS 18.2 Fact Sheet",
+        "url": "https://www.plm.automation.siemens.com/media/global/en/Siemens%20SW%20Opcenter%20APS%20v18.2%20Fact%20Sheet_tcm27-82112.pdf"
+      },
+      {
+        "title": "Siemens Academy：Opcenter APS API Objects 与开发流程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=ILTLG080017___OPS__18.00__B1020"
+      },
+      {
+        "title": "Siemens：Opcenter APS 18.1 控制台与集成说明",
+        "url": "https://www.plm.automation.siemens.com/media/global/en/Siemens%20SW%20Whats%20new%20in%20Siemens%20Opcenter%20APS%2018-1%20Fact%20Sheet_tcm27-71164.pdf"
+      },
+      {
+        "title": "Siemens：Opcenter APS 18.1 发布说明",
+        "url": "https://blogs.sw.siemens.com/opcenter/available-now-siemens-opcenter-aps-18-1/"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Packmage（包装魔术师）",
+    "profile": {
+      "versionBoundary": "在线产品页未固定发行号；桌面导出依据2012官方说明，与当前云设计说明交叉确认能力，不保证菜单一致。",
+      "humanEntry": "桌面 CAD 或获授权的云设计网页；参数化盒型与文件导出。",
+      "coverage": "条目类型：国产商业包装设计产品家族，含桌面 CAD、云设计等；部分免费使用宣传不作为开源许可证证据。接口覆盖：云设计明确提供 DXF/PDF 输出；桌面 CAD 官方说明也确认展开图可导出供后续设计与刀模流程使用。",
+      "unknowns": [
+        "官网另展示“云设计·接口”和业务助手的用户/订单接口，但本次未取得端点、鉴权、Schema 或错误契约，因此不单列可编程 API。",
+        "桌面 CAD、云设计、云报价和业务助手为不同产品/授权；当前版本菜单与导出选项未实测。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "DXF / PDF 包装展开图交付",
+        "category": "file",
+        "entry": "云设计或桌面 CAD 的展开图导出功能；具体菜单按实际产品版本。",
+        "role": "包装结构设计端产出几何/文档，接收设计或刀模工具继续处理。",
+        "direction": "盒型结构→DXF/PDF；未确认从接收工具反向恢复完整参数模型。",
+        "operations": [
+          "按盒型参数生成展开图",
+          "选择 DXF 或 PDF 输出",
+          "把展开图交给后续图稿/刀模流程"
+        ],
+        "dataContract": "应同时传递内/外尺寸含义、纸厚、刀线/压线和单位；官网列毫米/英寸切换，但未给 DXF schema、线型编码或第三方对象映射。",
+        "execution": "离线文件交付；云端保存、3D 分享与制造文件输出是不同操作，不据产品页推定无人值守导出。",
+        "failure": "建议按已知尺寸检验刀线/压线、比例与拼版边界；完整错误码、批量自动化和数据丢失规则未公开确认。",
+        "prerequisites": "需对应桌面/云设计授权和导出权限；云设计需要网络服务，免费或付费档位功能按实际合同。",
+        "version": "在线产品页未固定发行号；桌面导出依据2012官方说明，与当前云设计说明交叉确认能力，不保证菜单一致。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.packmage.cn/Ass/Online",
+            "https://www.packmage.cn/about/article/253-A"
+          ],
+          "locator": "云设计：输出格式/毫米与英寸；CAD：展开图 PDF/DXF 与拼大版"
+        },
+        "workflow": [
+          "建议：确认所用桌面或云产品和尺寸/材质约定",
+          "建议：导出已知盒型的测试展开图",
+          "建议：在接收工具检查单位、刀线/压线和试样"
+        ],
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：确认所用桌面或云产品和尺寸/材质约定 → 导出已知盒型的测试展开图 → 在接收工具检查单位、刀线/压线和试样",
+          "sourceUrl": "https://www.packmage.cn/Ass/Online"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "包装魔术师：CAD 产品范围",
+        "url": "https://www.packmage.cn/Cad/Index"
+      },
+      {
+        "title": "包装魔术师：云设计·接口产品说明，技术契约未公开取得",
+        "url": "https://www.packmage.cn/Ass/OnlineApi"
+      },
+      {
+        "title": "包装魔术师：业务助手的用户/订单接口声明",
+        "url": "https://www.packmage.cn/Ass/Index"
+      },
+      {
+        "title": "包装魔术师：云设计输出格式与单位",
+        "url": "https://www.packmage.cn/Ass/Online"
+      },
+      {
+        "title": "包装魔术师：CAD 展开图和刀模/印版交付说明",
+        "url": "https://www.packmage.cn/about/article/253-A"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  }
+]

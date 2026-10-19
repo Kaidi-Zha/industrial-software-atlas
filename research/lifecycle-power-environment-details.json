@@ -1,0 +1,1130 @@
+[
+  {
+    "name": "MATPOWER",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "MATLAB/Octave 命令环境、函数和 case 文件。",
+      "coverage": "开源电力系统计算工具包；本条核查传统 runpf 与 case 契约，不将其他扩展包或新模型的支持范围一并推定。",
+      "versionBoundary": "依据 MATPOWER 8.1 参考手册中的 legacy 函数；MP-Core 新接口、第三方扩展和求解器需分别匹配版本。",
+      "unknowns": [
+        "目标算例的收敛性、可行性及具体最优潮流求解器许可。",
+        "旧算例迁移到扩展模型时保留的字段和结果范围。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "MATLAB / Octave 函数",
+        "category": "program",
+        "entry": "runpf(casedata, mpopt, fname, solvedcase)",
+        "role": "调用方组织算例与选项，MATPOWER 求解并返回结果。",
+        "direction": "case 结构与选项 → 计算 → RESULTS、SUCCESS",
+        "operations": [
+          "运行潮流",
+          "设置算法和容差",
+          "取得结果结构与成功标志"
+        ],
+        "dataContract": "输入为算例名或结构体；结果含 bus/gen/branch、success、耗时 et 和内部/外部编号映射 order。母线编号、基准功率和单位须一致。",
+        "workflow": [
+          "建议：在版本固定的环境装载官方小算例",
+          "建议：设置 mpoption 后运行 runpf",
+          "建议：先检查 SUCCESS，再核对功率平衡和约束"
+        ],
+        "execution": "常规函数调用返回计算结果；fname 可追加文本报告，solvedcase 可另存算例。",
+        "failure": "SUCCESS=0 表示失败；成功标志只表示该求解流程成功，不能替代工程假设核查。",
+        "prerequisites": "匹配的 MATLAB 或 Octave 及 MATPOWER 路径；可选求解器单独核实。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://matpower.org/documentation/ref-manual/legacy/functions/runpf.html"
+          ],
+          "locator": "runpf(casedata, mpopt, fname, solvedcase)"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "在 MATLAB/Octave 中查看 help runpf，装载随版本发布的 case，再读取返回的 success 与母线结果。",
+          "sourceUrl": "https://matpower.org/documentation/ref-manual/legacy/functions/runpf.html"
+        },
+        "version": "依据 MATPOWER 8.1 参考手册中的 legacy 函数；MP-Core 新接口、第三方扩展和求解器需分别匹配版本。"
+      },
+      {
+        "name": "MATPOWER case / M 与 MAT 文件",
+        "category": "file",
+        "entry": "caseformat、loadcase / savecase",
+        "role": "算例生产者与计算工具交换网络矩阵。",
+        "direction": "M/MAT 算例 ↔ MATPOWER",
+        "operations": [
+          "交换网络拓扑和参数",
+          "保存求解后算例"
+        ],
+        "dataContract": "version 字段为字符串 '2' 的结构包含 baseMVA、bus、gen、branch，可选 gencost；列位置具有确定含义。MW、MVAr、标幺值和角度单位不能混用。",
+        "workflow": [
+          "建议：固定 case 版本与列定义",
+          "建议：核对编号和单位",
+          "建议：重新装载并比较关键矩阵"
+        ],
+        "execution": "M 文件是可执行 MATLAB 函数，MAT 文件保存变量；不能按任意 CSV 矩阵替换。",
+        "failure": "缺列、错误编号和不一致的 baseMVA 会改变计算含义；旧版 case 的转换需经 loadcase/savecase 验证。",
+        "prerequisites": "MATPOWER 及可信文件来源；执行 M 文件前审阅内容。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://matpower.org/documentation/ref-manual/legacy/functions/caseformat.html"
+          ],
+          "locator": "caseformat、loadcase / savecase"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "打开 caseformat，按字段与列号检查 bus/gen/branch，再用 loadcase 读入副本。",
+          "sourceUrl": "https://matpower.org/documentation/ref-manual/legacy/functions/caseformat.html"
+        },
+        "version": "依据 MATPOWER 8.1 参考手册中的 legacy 函数；MP-Core 新接口、第三方扩展和求解器需分别匹配版本。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "MATPOWER 8.1：runpf",
+        "url": "https://matpower.org/documentation/ref-manual/legacy/functions/runpf.html"
+      },
+      {
+        "title": "MATPOWER 8.1：caseformat",
+        "url": "https://matpower.org/documentation/ref-manual/legacy/functions/caseformat.html"
+      },
+      {
+        "title": "MATPOWER：官方代码与许可",
+        "url": "https://github.com/MATPOWER/matpower"
+      }
+    ]
+  },
+  {
+    "name": "PyPSA",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "Python 的 Network 对象、优化访问器与网络文件。",
+      "coverage": "开源能源系统建模库；规划优化与电磁暂态属于不同问题，本条不把优化输出解释为设备动态响应。",
+      "versionBoundary": "依据 latest 滚动文档；Network.optimize 使用 Linopy。固定 PyPSA、Linopy、求解器及网络文件版本后再复现。",
+      "unknowns": [
+        "目标模型的求解规模、最优性间隙与商业求解器条件。",
+        "自定义属性和第三方模型转换的完整往返保留范围。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Network / Linopy 优化 API",
+        "category": "program",
+        "entry": "Network.optimize 与 create_model / solve_model",
+        "role": "调用方定义网络和约束，优化器求解。",
+        "direction": "网络、快照、成本和约束 → 优化 → 状态与容量/调度结果",
+        "operations": [
+          "构建和求解优化模型",
+          "增加约束",
+          "读取状态和终止条件"
+        ],
+        "dataContract": "组件索引、snapshots、时间权重、容量与成本单位需一致；自定义回调发生在建模后、求解前。返回 status 与 condition 两项。",
+        "workflow": [
+          "建议：固定快照与组件数据",
+          "建议：明确目标函数和求解器",
+          "建议：同时检查 status、condition 及约束残差"
+        ],
+        "execution": "由 Linopy 建模并调用已配置求解器；优化和后续非线性潮流检查是分别执行的步骤。",
+        "failure": "不可行或非最优终止不能当作有效方案；IIS 分析等诊断能力取决于求解器。",
+        "prerequisites": "Python、PyPSA、Linopy 及适用求解器；商业求解器许可另计。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.pypsa.org/latest/api/networks/optimize/"
+          ],
+          "locator": "Network.optimize 与 create_model / solve_model"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "在已建模的 Network 上调用 optimize，读取返回的 status、condition，再检查优化后组件字段。",
+          "sourceUrl": "https://docs.pypsa.org/latest/api/networks/optimize/"
+        },
+        "version": "依据 latest 滚动文档；Network.optimize 使用 Linopy。固定 PyPSA、Linopy、求解器及网络文件版本后再复现。"
+      },
+      {
+        "name": "NetCDF / CSV 网络交换",
+        "category": "file",
+        "entry": "export_to_netcdf / import_from_netcdf 与 CSV folder",
+        "role": "模型生产者和后处理程序交换网络数据。",
+        "direction": "Network ↔ NetCDF 或规范化 CSV 文件夹",
+        "operations": [
+          "保存网络与时序属性",
+          "重载算例",
+          "向后处理程序交付数据"
+        ],
+        "dataContract": "静态与时序属性分开组织；默认值可能不显式写出。NetCDF 不支持任意 Network 布尔属性，自定义数据须单独核对。",
+        "workflow": [
+          "建议：保存软件版本和快照定义",
+          "建议：导出后在独立对象重载",
+          "建议：对比组件数量、属性及时间索引"
+        ],
+        "execution": "NetCDF 可返回 xarray.Dataset；提供路径时写文件，已有文件可能被覆盖。CSV 使用每组件及每时序属性的规定结构。",
+        "failure": "文件能打开不代表自定义属性完整；版本默认值、精度转换和时间索引变化需要逐项比较。",
+        "prerequisites": "匹配的 Python 数据栈和文件权限；转换其他工具网络前核查明确的未支持组件。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.pypsa.org/latest/api/networks/io/"
+          ],
+          "locator": "export_to_netcdf / import_from_netcdf 与 CSV folder"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "调用 export_to_netcdf 保存副本，再用 import_from_netcdf 读入新 Network，比对 snapshots 和组件。",
+          "sourceUrl": "https://docs.pypsa.org/latest/api/networks/io/"
+        },
+        "version": "依据 latest 滚动文档；Network.optimize 使用 Linopy。固定 PyPSA、Linopy、求解器及网络文件版本后再复现。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "PyPSA：优化 API",
+        "url": "https://docs.pypsa.org/latest/api/networks/optimize/"
+      },
+      {
+        "title": "PyPSA：网络导入导出",
+        "url": "https://docs.pypsa.org/latest/api/networks/io/"
+      }
+    ]
+  },
+  {
+    "name": "GridLAB-D",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "GLM 文本模型与命令行；Tape 模块交换时序数据。",
+      "coverage": "开源配电与负荷仿真软件；本条采用 gridlab-d/gridlab-d 与其文档体系，不混用 HiPAS 等分支专有接口。",
+      "versionBoundary": "依据项目仓库和滚动教程；GLM 类属性、模块和安装发行版须一致，不将实验性 Python 包写成默认稳定接口。",
+      "unknowns": [
+        "目标发行版的模块组合、平台支持和具体求解配置。",
+        "不同分支之间模型与接口的兼容范围。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "GLM 模型 / 命令行运行",
+        "category": "program",
+        "entry": "GridLAB-D 模型文件与安装版命令行",
+        "role": "批处理程序提交对象模型，仿真引擎推进时间。",
+        "direction": "GLM、模块和参数 → 引擎 → 日志及记录文件",
+        "operations": [
+          "装载模块与对象",
+          "设置仿真时钟",
+          "批量运行算例"
+        ],
+        "dataContract": "GLM 对象的 class、name、parent 和属性按模块定义；clock 指定起止与时区。仿真步进和输出记录间隔不是同一概念。",
+        "workflow": [
+          "建议：固定分支与发行版",
+          "建议：运行该版本的基础配电模型",
+          "建议：核对时钟、对象属性和输出时间范围"
+        ],
+        "execution": "使用已安装引擎装载 GLM；模块可包含各自的计算和同步逻辑。",
+        "failure": "模块缺失、未知属性或求解错误须查日志；结束时间到达不代表所有电气指标满足要求。",
+        "prerequisites": "同一项目发行版、所需模块、输入和输出路径。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://gridlab-d.readthedocs.io/en/docs/docs/3.0%20-%20Modeling%20Reference/Other%20Features/Simulation%20Options/"
+          ],
+          "locator": "GridLAB-D 模型文件与安装版命令行"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "从对应版本示例开始，使用该发行版命令行帮助核对选项，再提交 GLM 副本。",
+          "sourceUrl": "https://gridlab-d.readthedocs.io/en/docs/docs/3.0%20-%20Modeling%20Reference/Other%20Features/Simulation%20Options/"
+        },
+        "version": "依据项目仓库和滚动教程；GLM 类属性、模块和安装发行版须一致，不将实验性 Python 包写成默认稳定接口。"
+      },
+      {
+        "name": "Tape recorder / player CSV",
+        "category": "file",
+        "entry": "Tape 模块 recorder、group_recorder 与 player",
+        "role": "播放器将时序输入对象属性，记录器按间隔输出属性。",
+        "direction": "CSV 时序 → player → 对象；对象 → recorder → CSV",
+        "operations": [
+          "输入负荷或设定值序列",
+          "记录电压、电流和功率",
+          "按对象组汇总输出"
+        ],
+        "dataContract": "需记录对象/属性名、时间戳、间隔和单位。内部使用 UTC，显示时区和夏令时会影响 CSV；复数电压可能使用实虚部或幅角字符串。",
+        "workflow": [
+          "建议：用短时间窗检查播放器映射",
+          "建议：固定记录属性和时区",
+          "建议：比较输出行数、末时刻及复数解析"
+        ],
+        "execution": "recorder 读取指定父对象属性，player 通过输入文件驱动指定属性；group_recorder 可覆盖多个对象。",
+        "failure": "不能把含复数的列直接当浮点数；需检查缺失时刻、输出截断和记录器限制。",
+        "prerequisites": "Tape 模块和可读写文件路径；输入时间与模型时钟匹配。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://gridlab-d.readthedocs.io/en/latest/docs/2.0%20-%20New%20Users/Tutorial/2.2.6%20-%20Recorders%20and%20Players/"
+          ],
+          "locator": "Tape 模块 recorder、group_recorder 与 player"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "在 GLM 中配置 recorder 的 parent、file、interval、property，运行后检查 CSV 时间戳与单位。",
+          "sourceUrl": "https://gridlab-d.readthedocs.io/en/latest/docs/2.0%20-%20New%20Users/Tutorial/2.2.6%20-%20Recorders%20and%20Players/"
+        },
+        "version": "依据项目仓库和滚动教程；GLM 类属性、模块和安装发行版须一致，不将实验性 Python 包写成默认稳定接口。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "GridLAB-D：官方仓库",
+        "url": "https://github.com/gridlab-d/gridlab-d"
+      },
+      {
+        "title": "GridLAB-D：运行模型",
+        "url": "https://gridlab-d.readthedocs.io/en/docs/docs/3.0%20-%20Modeling%20Reference/Other%20Features/Simulation%20Options/"
+      },
+      {
+        "title": "GridLAB-D：记录器与播放器",
+        "url": "https://gridlab-d.readthedocs.io/en/latest/docs/2.0%20-%20New%20Users/Tutorial/2.2.6%20-%20Recorders%20and%20Players/"
+      }
+    ]
+  },
+  {
+    "name": "OpenEMS（能源管理系统）",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "OpenEMS UI、Edge 组件配置，以及外部 REST 或 Modbus 客户端。",
+      "coverage": "开源能源管理平台；与本页电磁仿真软件 openEMS 是不同项目。Edge、Backend 和 UI 属于同一平台，不拆成多个软件计数。",
+      "versionBoundary": "依据 latest 组件文档；需固定 OpenEMS 提交、OSGi Factory-PID、设备驱动和配置。通道可写性随组件与权限变化。",
+      "unknowns": [
+        "实际设备型号、固件与驱动支持范围。",
+        "部署系统的控制优先级、超时后行为及并发写入协调。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Edge REST / JSON-RPC",
+        "category": "program",
+        "entry": "Controller.Api.Rest.ReadWrite 与通道/JSON-RPC 端点",
+        "role": "OpenEMS Edge 为 HTTP 服务端，外部应用为客户端。",
+        "direction": "客户端请求 ↔ Edge 通道与组件配置",
+        "operations": [
+          "读取通道值和元数据",
+          "在允许模式下写通道",
+          "查询组件配置"
+        ],
+        "dataContract": "通道按 componentId/channelId 标识，元数据含类型、单位和访问模式；JSON-RPC 操作和直接通道读写的请求体不同。示例端口 8084 是可配置值。",
+        "workflow": [
+          "建议：启用所需控制器并设置鉴权",
+          "建议：读取 getEdgeConfig 核对通道单位与权限",
+          "建议：先只读联调，再在测试设备验证允许的写入"
+        ],
+        "execution": "GET 读取，POST 写入或执行组件方法；写操作受控制器模式、权限及 apiTimeout 约束。",
+        "failure": "文档列出 400、401、403、404、408、500 等错误；HTTP 成功仍需核对通道反馈和设备状态。",
+        "prerequisites": "Edge 实例、相应 OSGi 控制器、网络和用户密码；实际设备写权限。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://openems.github.io/openems.io/openems/latest/edge/controller.d/io.openems.edge.controller.api.rest.html"
+          ],
+          "locator": "Controller.Api.Rest.ReadWrite 与通道/JSON-RPC 端点"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "按 REST 文档的 Read channel 路径读取一个已存在通道，再对照组件元数据解释返回值。",
+          "sourceUrl": "https://openems.github.io/openems.io/openems/latest/edge/controller.d/io.openems.edge.controller.api.rest.html"
+        },
+        "version": "依据 latest 组件文档；需固定 OpenEMS 提交、OSGi Factory-PID、设备驱动和配置。通道可写性随组件与权限变化。"
+      },
+      {
+        "name": "Edge Modbus TCP / RTU 服务端",
+        "category": "field",
+        "entry": "API Modbus 的只读或读写控制器",
+        "role": "Edge 暴露 Modbus 从站/服务端；外部 SCADA、PLC 或 HMI 为客户端。",
+        "direction": "外部客户端 ↔ Edge 映射寄存器与通道",
+        "operations": [
+          "读取选定组件的通道",
+          "按读写配置提交控制值",
+          "导出寄存器映射"
+        ],
+        "dataContract": "寄存器表由已选择组件生成；必须核对组件块、地址、数值类型、缩放、字序和访问权限，不能套用其他部署的点表。",
+        "workflow": [
+          "建议：选择 TCP 或 RTU 控制器与组件",
+          "建议：导出并确认本实例寄存器表",
+          "建议：先验证读值，再测试写入超时与反馈"
+        ],
+        "execution": "读写控制器提供写入超时机制；传输、组件选择及读写模式由实例配置决定。",
+        "failure": "错误地址、只读寄存器或超时必须分别处理；协议写确认不能单独证明设备动作完成。",
+        "prerequisites": "Modbus 控制器、网络或串口配置，以及匹配的点表。",
+        "implementation": "内置接口",
+        "standardIds": [
+          "p04"
+        ],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://openems.github.io/openems.io/openems/latest/edge/controller.d/io.openems.edge.controller.api.modbus.html"
+          ],
+          "locator": "API Modbus 的只读或读写控制器"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "在 UI 中打开对应 API Modbus 组件，生成寄存器表后配置外部客户端。",
+          "sourceUrl": "https://openems.github.io/openems.io/openems/latest/edge/controller.d/io.openems.edge.controller.api.modbus.html"
+        },
+        "version": "依据 latest 组件文档；需固定 OpenEMS 提交、OSGi Factory-PID、设备驱动和配置。通道可写性随组件与权限变化。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "OpenEMS：REST 控制器",
+        "url": "https://openems.github.io/openems.io/openems/latest/edge/controller.d/io.openems.edge.controller.api.rest.html"
+      },
+      {
+        "title": "OpenEMS：Modbus 控制器",
+        "url": "https://openems.github.io/openems.io/openems/latest/edge/controller.d/io.openems.edge.controller.api.modbus.html"
+      },
+      {
+        "title": "OpenEMS：官方代码",
+        "url": "https://github.com/OpenEMS/openems"
+      }
+    ]
+  },
+  {
+    "name": "EcoStruxure Power Operation",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "Power Operation Studio、运行画面与 Cicode 工程。",
+      "coverage": "商业电力 SCADA 应用；本条将工程内 Cicode 与 OPC DA 运行数据接口分别说明，不将其等同于其他 EcoStruxure 产品。",
+      "versionBoundary": "依据 Power Operation 2024 官方帮助，页面于 2026 年更新；对应安装版、驱动、许可和帮助文件须匹配。",
+      "unknowns": [
+        "目标驱动的具体读写、质量码和冗余切换保证。",
+        "未核实 OPC UA 接口，不从 OPC DA 资料推定 UA 支持。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Cicode 工程脚本",
+        "category": "program",
+        "entry": "工程 Cicode 模块与随安装版提供的 Programming Reference",
+        "role": "脚本在产品工程中访问实时变量、告警、趋势和报表。",
+        "direction": "工程变量与事件 ↔ Cicode 逻辑",
+        "operations": [
+          "访问变量标签、告警与趋势",
+          "定制工程行为"
+        ],
+        "dataContract": "函数名、参数、数据类型和运行上下文以安装版参考手册为准。官方明确不要在趋势标签的 Expression 字段中使用 Cicode。",
+        "workflow": [
+          "建议：从安装版帮助核对函数",
+          "建议：在工程副本编写与编译",
+          "建议：验证运行行为及异常路径后保存工程"
+        ],
+        "execution": "作为工程脚本运行；可访问系统和通信端口，不能据此当作一个无状态远程 Web API。",
+        "failure": "编译与运行问题需分别检查；完整任务调度、并发与回滚契约未由本次公开页面核实。",
+        "prerequisites": "匹配安装版、工程权限与许可；工程培训及测试环境。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/pwrscada/custmzprojusingcicode.htm"
+          ],
+          "locator": "工程 Cicode 模块与随安装版提供的 Programming Reference"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "打开安装目录 Help/SCADA Help 中的 Cicode Programming Reference，核对函数后在工程副本中编译。",
+          "sourceUrl": "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/pwrscada/custmzprojusingcicode.htm"
+        },
+        "version": "依据 Power Operation 2024 官方帮助，页面于 2026 年更新；对应安装版、驱动、许可和帮助文件须匹配。"
+      },
+      {
+        "name": "OPC DA 服务端 / 客户端",
+        "category": "runtime",
+        "entry": "Studio > Topology > Edit > OPC DA Servers；或配置 OPC I/O Device",
+        "role": "作为服务端向外部客户端供数；作为客户端从外部 OPC 服务端采集。",
+        "direction": "运行工程变量 ↔ 外部 OPC DA 数据项",
+        "operations": [
+          "向客户端提供项目标签",
+          "配置外部 OPC 数据源",
+          "按更新周期采集变量"
+        ],
+        "dataContract": "外部服务名、数据项名、Power Operation 标签与数据类型需逐项映射；客户端驱动的地址字段涉及更新间隔。OPC DA 与 OPC UA 的部署和安全机制不同。",
+        "workflow": [
+          "建议：先确定服务端或客户端角色",
+          "建议：配置对象和标签映射",
+          "建议：编译并运行工程后核对值、刷新和断线行为"
+        ],
+        "execution": "服务端模式需工程运行；客户端模式需配置 cluster、I/O server、board、port 和 I/O device。",
+        "failure": "发现不到远端服务、标签名错误和驱动连接失败分别排查；质量码与具体写能力按驱动手册进一步核查。",
+        "prerequisites": "相应 OPC 组件、Windows 连接条件、工程和数据访问权限。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/8_reference/cnfgrpsoasopcdasrvr.htm"
+          ],
+          "locator": "Studio > Topology > Edit > OPC DA Servers；或配置 OPC I/O Device"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "按官方服务端步骤创建 OPC DA Server、编译并运行项目，再由外部客户端连接和选择标签。",
+          "sourceUrl": "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/8_reference/cnfgrpsoasopcdasrvr.htm"
+        },
+        "version": "依据 Power Operation 2024 官方帮助，页面于 2026 年更新；对应安装版、驱动、许可和帮助文件须匹配。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Power Operation：Cicode",
+        "url": "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/pwrscada/custmzprojusingcicode.htm"
+      },
+      {
+        "title": "Power Operation：OPC DA 服务端",
+        "url": "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/8_reference/cnfgrpsoasopcdasrvr.htm"
+      },
+      {
+        "title": "Power Operation：OPC DA 客户端",
+        "url": "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/8_reference/cnfgrpsoasopcdaclient.htm"
+      }
+    ]
+  },
+  {
+    "name": "AVEVA PI System",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "PI System Explorer、PI Server 管理工具，以及 Web API 或 AF SDK 客户端。",
+      "coverage": "商业工业数据平台；PI Data Archive、Asset Framework 和 PI Web API 为关联组件，本条合计为一套平台。官方 AF 示例包含电表能源分析场景。",
+      "versionBoundary": "PI Web API Python 示例版本为 1.0.34；AF 入门示例针对 AF 2.10，不是当前所有 SDK 的兼容保证。安装组件、SDK 和 .NET 运行时需分别核对。",
+      "unknowns": [
+        "目标 PI Server/Web API/AF SDK 的兼容与授权组合。",
+        "大批量写入的事务性、保留策略及断线恢复保证。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "PI Web API / HTTP",
+        "category": "program",
+        "entry": "已部署 PI Web API 服务与官方 common-actions 示例",
+        "role": "外部客户端经 Web API 访问 Data Archive 和 AF。",
+        "direction": "HTTP 请求 ↔ 时序数据、资产元数据和事件",
+        "operations": [
+          "查找对象和读历史值",
+          "按权限写值",
+          "创建样例资产层级"
+        ],
+        "dataContract": "需区分 PI Point、AF 元素与属性及其 WebId；时序值必须保留时间戳及返回的状态信息。批请求中各子操作结果需单独判断。",
+        "workflow": [
+          "建议：固定服务地址与鉴权方式",
+          "建议：先查询已有对象和少量历史值",
+          "建议：在独立测试资产中验证写入及批操作"
+        ],
+        "execution": "官方样例支持 Kerberos 等配置，并要求服务端允许对应读写；浏览器 CORS 配置与 Python 客户端是不同条件。",
+        "failure": "缺少前置样例资产可能返回 404；鉴权失败、缺对象、禁止写与子操作失败需区分。",
+        "prerequisites": "已安装并授权的 PI Server、AF 和 Web API；账户权限。示例 Apache 许可不代表服务器免费。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://github.com/AVEVA/sample-pi_web_api-common_actions-python"
+          ],
+          "locator": "已部署 PI Web API 服务与官方 common-actions 示例"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "阅读官方样例 appsettings 字段，配置测试服务后先执行读取操作；创建/删除样例仅在测试资产中验证。",
+          "sourceUrl": "https://github.com/AVEVA/sample-pi_web_api-common_actions-python"
+        },
+        "version": "PI Web API Python 示例版本为 1.0.34；AF 入门示例针对 AF 2.10，不是当前所有 SDK 的兼容保证。安装组件、SDK 和 .NET 运行时需分别核对。"
+      },
+      {
+        "name": "Asset Framework SDK / .NET",
+        "category": "program",
+        "entry": "官方 AF SDK Getting Started Guide 与 AF 客户端库",
+        "role": ".NET 应用连接 AF 服务器并使用资产对象。",
+        "direction": ".NET 对象调用 ↔ AF 数据库、属性与事件框架",
+        "operations": [
+          "访问资产层级和属性",
+          "按模板组织事件框架",
+          "读取能源分析相关数据"
+        ],
+        "dataContract": "服务器、数据库、元素路径、属性及事件框架模板需一致；样例的 Green Power Company 数据库是教学数据，不能当作已有生产资产。",
+        "workflow": [
+          "建议：确认 SDK 与运行时版本",
+          "建议：在测试 AF 数据库导入官方样例",
+          "建议：按练习分别核对连接、对象查询和结果"
+        ],
+        "execution": "官方入门仓库包含独立练习及集成测试；本条不把旧版示例依赖推广到新版 .NET 包。",
+        "failure": "连接权限、数据库/模板缺失和对象持久化失败需分别检查；完整事务及回滚语义按目标 SDK 方法文档核对。",
+        "prerequisites": "匹配的 AF SDK、.NET 环境、服务器和权限；教程所需 PI Points/分析组件。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://github.com/AVEVA/AF-SDK-Getting-Started-Guide"
+          ],
+          "locator": "官方 AF SDK Getting Started Guide 与 AF 客户端库"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "用 PI System Explorer 建立教学数据库并导入仓库提供的 XML，再阅读对应练习的完整实现。",
+          "sourceUrl": "https://github.com/AVEVA/AF-SDK-Getting-Started-Guide"
+        },
+        "version": "PI Web API Python 示例版本为 1.0.34；AF 入门示例针对 AF 2.10，不是当前所有 SDK 的兼容保证。安装组件、SDK 和 .NET 运行时需分别核对。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "AVEVA：开发技术",
+        "url": "https://www.aveva.com/en/products/aveva-pi-system-developer-technologies/"
+      },
+      {
+        "title": "AVEVA：PI Web API Python 示例",
+        "url": "https://github.com/AVEVA/sample-pi_web_api-common_actions-python"
+      },
+      {
+        "title": "AVEVA：AF SDK 入门示例",
+        "url": "https://github.com/AVEVA/AF-SDK-Getting-Started-Guide"
+      }
+    ]
+  },
+  {
+    "name": "QGIS",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "QGIS Desktop、Python 控制台、插件或独立 PyQGIS 程序。",
+      "coverage": "开源 GIS 桌面及开发环境；空间分析与专业水动力求解不同。Provider 和插件的安装范围决定可用数据源与算法。",
+      "versionBoundary": "本条固定 QGIS 3.44 文档；不将 3.x 插件与 Python/PyQt 依赖自动视为 QGIS 4 兼容。",
+      "unknowns": [
+        "目标数据源驱动、插件许可和算法可用性。",
+        "复杂工程迁移时渲染、图层样式和插件数据的完整保留。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "PyQGIS Python / 插件",
+        "category": "program",
+        "entry": "应用内 Python、插件或独立 QgsApplication",
+        "role": "脚本或插件使用 QGIS 对象；独立程序负责初始化资源与 provider。",
+        "direction": "图层和项目对象 ↔ Python 操作与空间结果",
+        "operations": [
+          "加载和操作图层",
+          "使用空间处理算法",
+          "扩展应用交互"
+        ],
+        "dataContract": "必须明确图层 CRS、几何类型、字段和单位。独立脚本要设置安装路径并调用 initQgis，结束时 exitQgis；GUI 插件与无界面脚本宿主不同。",
+        "workflow": [
+          "建议：固定 QGIS 与 Python 环境",
+          "建议：加载小样本并检查有效性及 CRS",
+          "建议：验证处理结果后保存到独立目标"
+        ],
+        "execution": "Python 是原生库绑定；仅安装普通 Python 并不自动获得 QGIS provider 和动态库。",
+        "failure": "模块导入失败、资源路径错误和无效图层分别排查；保存成功还需核查字段、坐标和几何。",
+        "prerequisites": "对应 QGIS 安装、动态库及 provider；脚本不能命名为 qgis.py 以免遮蔽模块。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.qgis.org/3.44/en/docs/pyqgis_developer_cookbook/intro.html"
+          ],
+          "locator": "应用内 Python、插件或独立 QgsApplication"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "按 cookbook 初始化 QgsApplication 和 provider，读取图层并检查 CRS，结束后释放 QGIS 资源。",
+          "sourceUrl": "https://docs.qgis.org/3.44/en/docs/pyqgis_developer_cookbook/intro.html"
+        },
+        "version": "本条固定 QGIS 3.44 文档；不将 3.x 插件与 Python/PyQt 依赖自动视为 QGIS 4 兼容。"
+      },
+      {
+        "name": "qgis_process / Processing CLI",
+        "category": "program",
+        "entry": "qgis_process list / help / run",
+        "role": "批处理调用者执行已安装 Processing provider 的算法。",
+        "direction": "算法 ID 与参数 → Processing → 输出文件/JSON",
+        "operations": [
+          "列出算法",
+          "运行算法或模型",
+          "读取 JSON 输出"
+        ],
+        "dataContract": "算法 ID 与参数以本机 help 为准；标准输入 JSON 至少含 inputs。距离单位、椭球和 project_path 会影响空间运算含义。",
+        "workflow": [
+          "建议：list 确认算法存在",
+          "建议：help 核对参数和单位",
+          "建议：以 JSON 输出运行并核对生成数据"
+        ],
+        "execution": "可在不启动 Desktop 窗口的情况下执行；无窗口环境可能需要 Qt offscreen。插件须声明 hasProcessingProvider=yes。",
+        "failure": "算法不存在、provider 未加载和参数错误需区分；取消执行后检查输出是否完整，不假定自动撤销。",
+        "prerequisites": "QGIS Processing Executor、所需 provider/插件和文件权限。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.qgis.org/3.44/en/docs/user_manual/processing/standalone.html"
+          ],
+          "locator": "qgis_process list / help / run"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "先运行 qgis_process list，再查看目标算法 help，以独立输出路径执行 run。",
+          "sourceUrl": "https://docs.qgis.org/3.44/en/docs/user_manual/processing/standalone.html"
+        },
+        "version": "本条固定 QGIS 3.44 文档；不将 3.x 插件与 Python/PyQt 依赖自动视为 QGIS 4 兼容。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "QGIS 3.44：PyQGIS 入口",
+        "url": "https://docs.qgis.org/3.44/en/docs/pyqgis_developer_cookbook/intro.html"
+      },
+      {
+        "title": "QGIS 3.44：Processing 命令行",
+        "url": "https://docs.qgis.org/3.44/en/docs/user_manual/processing/standalone.html"
+      }
+    ]
+  },
+  {
+    "name": "ArcGIS Pro",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "ArcGIS Pro 交互界面、Python 窗口、Notebook 和独立 ArcPy 脚本。",
+      "coverage": "商业桌面 GIS；ArcPy 是本地地理处理入口，与面向门户和在线服务的 ArcGIS API for Python 分开。",
+      "versionBoundary": "依据 Pro latest 滚动帮助；ArcPy 必须匹配 Pro 安装和 Python 环境，扩展工具另核对授权。",
+      "unknowns": [
+        "目标 Pro 许可级别、扩展工具授权及无人值守运行条件。",
+        "本条未逐项核实 Pro SDK 或在线服务 API，不从 ArcPy 推定其能力。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "ArcPy 地理处理 / Python",
+        "category": "program",
+        "entry": "ArcGIS Pro 的 ArcPy 包与地理处理工具",
+        "role": "应用内或外部 Python 调用 Pro 地理处理能力。",
+        "direction": "空间数据与工具参数 → ArcPy → Result 和输出数据",
+        "operations": [
+          "批处理地理处理工具",
+          "管理空间数据",
+          "读取工具消息与错误"
+        ],
+        "dataContract": "工具参数、输入数据集、坐标系、环境设置和输出工作空间须明确；Result 对象及地理处理消息与普通 Python 异常不同。",
+        "workflow": [
+          "建议：克隆匹配的 arcgispro-py3 环境",
+          "建议：核对工具授权与环境设置",
+          "建议：保存工具消息并复核输出坐标和属性"
+        ],
+        "execution": "ArcPy 属于 Pro Python 发行环境；单独安装包仍要求已安装 Pro。执行范围受具体工具和许可约束。",
+        "failure": "区分 arcpy.ExecuteError 与普通 Python 异常；通过 GetMessages 读取地理处理错误，再检查输出是否部分生成。",
+        "prerequisites": "Pro 安装、许可及匹配的 conda 环境；所用扩展和数据源权限。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/error-handling-with-python.html"
+          ],
+          "locator": "ArcGIS Pro 的 ArcPy 包与地理处理工具"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "在 Pro 中先运行一个小数据工具并查看消息，再把同一参数整理为 ArcPy 脚本。",
+          "sourceUrl": "https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/error-handling-with-python.html"
+        },
+        "version": "依据 Pro latest 滚动帮助；ArcPy 必须匹配 Pro 安装和 Python 环境，扩展工具另核对授权。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "ArcGIS Pro：ArcPy",
+        "url": "https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/what-is-arcpy-.html"
+      },
+      {
+        "title": "ArcGIS Pro：安装 ArcPy",
+        "url": "https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/installing-arcpy.html"
+      },
+      {
+        "title": "ArcGIS Pro：Python 错误处理",
+        "url": "https://doc.esri.com/en/arcgis-pro/latest/arcpy/get-started/error-handling-with-python.html"
+      }
+    ]
+  },
+  {
+    "name": "WEAP",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "WEAP 图形场景模型、表达式、脚本编辑器和外部 COM 调用。",
+      "coverage": "水资源规划应用；外部自动化与内置脚本共享 WEAP 对象 API，不重复计算为两套独立能力。许可资格以官方当前条款为准。",
+      "versionBoundary": "依据在线帮助与官方 API 示例；公开页面未统一固定产品版本，部署前核对安装版、Windows 脚本组件和对象模型。",
+      "unknowns": [
+        "目标版本与 Windows 脚本宿主的兼容性。",
+        "具体优化/耦合模块授权与大批量情景任务的恢复保证。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "COM Automation / WEAP 对象 API",
+        "category": "program",
+        "entry": "WEAP.WEAPApplication；内置脚本也可访问 API",
+        "role": "外部应用控制 WEAP 自动化服务器，选择 Area、Scenario 和 Branch。",
+        "direction": "对象参数与情景 → WEAP 计算 → 结果导出",
+        "operations": [
+          "改变表达式与输入假设",
+          "运行情景计算",
+          "导出分析结果"
+        ],
+        "dataContract": "Area、Scenario、分支路径、Variable 与表达式需明确；官方示例配置 Verbose 和 Logfile，检查 Status 并调用 ExportResults。",
+        "workflow": [
+          "建议：复制 Area 并记录初始情景",
+          "建议：改一个假设运行小规模敏感性分析",
+          "建议：检查 Status、日志和导出结果后决定是否保存"
+        ],
+        "execution": "COM 可由 VBA 或其他语言调用；内置 ActiveScript 与外部 Python 依赖不同，不假定当前系统自带旧脚本运行时。",
+        "failure": "用户取消、表达式错误和分支缺失需分别处理；示例结束后不自动保存 Area，不能据此假定所有工作流自动持久化。",
+        "prerequisites": "已安装并可运行的 WEAP、COM/脚本环境和相应许可。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://planningwww.weap21.org/WebHelp/APIExample.htm"
+          ],
+          "locator": "WEAP.WEAPApplication；内置脚本也可访问 API"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "阅读 APIExample 的 CreateObject、ActiveArea、ActiveScenario、Status 与 ExportResults，先在教学 Area 副本复现。",
+          "sourceUrl": "https://planningwww.weap21.org/WebHelp/APIExample.htm"
+        },
+        "version": "依据在线帮助与官方 API 示例；公开页面未统一固定产品版本，部署前核对安装版、Windows 脚本组件和对象模型。"
+      },
+      {
+        "name": "ReadFromFile / CSV 时序",
+        "category": "file",
+        "entry": "表达式 ReadFromFile 与结果表 CSV 导出",
+        "role": "时序提供者输入数据，WEAP 按变量和时间步读取。",
+        "direction": "CSV/分隔文本 → 模型变量；结果表 → ReadFromFile 格式",
+        "operations": [
+          "导入流量、气候和需求时序",
+          "指定列名及单位",
+          "按兼容格式导出结果"
+        ],
+        "dataContract": "文件含时间列和数据列，按时间排序；$Columns 可描述列名与单位，$ListSeparator 明确分隔符。年份偏移、重采样、循环与缺失值策略会改变输入含义。",
+        "workflow": [
+          "建议：先检查时间范围和单位",
+          "建议：用向导核对列与缺失值策略",
+          "建议：对比若干时刻的模型输入与原始数据"
+        ],
+        "execution": "表达式按模型时间步取值；不是持续在线传感器连接。",
+        "failure": "缺失值可填充、标记或报错；不要让默认补值掩盖缺测。跨地区分隔符和列名变化需核查。",
+        "prerequisites": "WEAP 可访问文件、正确表达式及时间步设置。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://weap.weap21.org/WebHelp/ReadFromFile.htm"
+          ],
+          "locator": "表达式 ReadFromFile 与结果表 CSV 导出"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "用 ReadFromFile 向导读取带 $Columns 的 CSV，明确缺失值处理后在模型变量中检查样本值。",
+          "sourceUrl": "https://weap.weap21.org/WebHelp/ReadFromFile.htm"
+        },
+        "version": "依据在线帮助与官方 API 示例；公开页面未统一固定产品版本，部署前核对安装版、Windows 脚本组件和对象模型。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "WEAP：Automation API",
+        "url": "https://www.weap21.org/webhelp/api.htm"
+      },
+      {
+        "title": "WEAP：官方自动化例子",
+        "url": "https://planningwww.weap21.org/WebHelp/APIExample.htm"
+      },
+      {
+        "title": "WEAP：ReadFromFile",
+        "url": "https://weap.weap21.org/WebHelp/ReadFromFile.htm"
+      }
+    ]
+  },
+  {
+    "name": "WNTR",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "Python WaterNetworkModel、模拟器和分析库。",
+      "coverage": "开源供水网络分析工具包；EPANET 是其可用求解后端之一，WNTR 的场景与分析层作为独立项目收录。",
+      "versionBoundary": "依据滚动 API 文档；WNTRSimulator 仅进行水力模拟，EpanetSimulator 的水质和版本选项须按其文档核对。",
+      "unknowns": [
+        "目标 INP 的全部控制规则及 EPANET 扩展兼容性。",
+        "目标情景的校准精度与韧性指标适用性。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python 网络 / 模拟器 API",
+        "category": "program",
+        "entry": "WaterNetworkModel 与 WNTRSimulator.run_sim",
+        "role": "Python 应用组织网络与场景，模拟器返回时序结果。",
+        "direction": "管网、控制和求解选项 → 模拟器 → 节点/管段结果",
+        "operations": [
+          "建立和修改管网",
+          "运行扩展周期水力分析",
+          "检查收敛和结果"
+        ],
+        "dataContract": "节点/管段 ID、时间选项、需水模式和单位须一致；WNTRSimulator 与 EpanetSimulator 不是功能完全相同的替代入口。",
+        "workflow": [
+          "建议：固定管网和需水模型",
+          "建议：显式选择模拟器与收敛错误处理",
+          "建议：核对结果时间覆盖、节点压力和管段流量"
+        ],
+        "execution": "run_sim 可配置主/备用求解器；WNTRSimulator 仅水力。收敛错误处理选项决定抛出异常还是返回部分结果及警告。",
+        "failure": "不能将非空结果视为全时段收敛；须检查日志、结果状态和时间覆盖。",
+        "prerequisites": "WNTR、Python 科学计算依赖；使用 EPANET 后端时另核对对应库。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://usepa.github.io/WNTR/apidoc/wntr.sim.core.WNTRSimulator.html"
+          ],
+          "locator": "WaterNetworkModel 与 WNTRSimulator.run_sim"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "构建 WaterNetworkModel 后选择 WNTRSimulator，明确 convergence_error，再检查返回结果及警告。",
+          "sourceUrl": "https://usepa.github.io/WNTR/apidoc/wntr.sim.core.WNTRSimulator.html"
+        },
+        "version": "依据滚动 API 文档；WNTRSimulator 仅进行水力模拟，EpanetSimulator 的水质和版本选项须按其文档核对。"
+      },
+      {
+        "name": "EPANET INP / 网络 IO",
+        "category": "file",
+        "entry": "WaterNetworkModel(inp_file_name) 与 network.io 的 read/write_inpfile",
+        "role": "管网工具以 EPANET 模型文件交付输入；WNTR 读取和保存。",
+        "direction": "INP ↔ WaterNetworkModel",
+        "operations": [
+          "读取现有管网",
+          "写出模型文件",
+          "为其他分析流程准备网络"
+        ],
+        "dataContract": "INP 中长度、管径、流量单位和控制规则须按选定 EPANET 格式解释；Python 对象扩展不保证全部可写进 INP。",
+        "workflow": [
+          "建议：备份原始 INP 与版本",
+          "建议：读取并核对节点、管段和选项",
+          "建议：写到新文件后重新装载并比较"
+        ],
+        "execution": "文件转换与模拟运行是两个步骤；对象可从 INP 初始化，IO 模块提供显式读写函数。",
+        "failure": "解析、未支持字段和单位错误需检查；往返后对象数相同仍不足以证明全部控制语义保留。",
+        "prerequisites": "匹配的 WNTR 和 INP 格式版本，文件读写权限。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://usepa.github.io/WNTR/apidoc/wntr.network.io.html"
+          ],
+          "locator": "WaterNetworkModel(inp_file_name) 与 network.io 的 read/write_inpfile"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "用 network.io.write_inpfile 将修改后的模型保存到新路径，再读取并对比关键选项。",
+          "sourceUrl": "https://usepa.github.io/WNTR/apidoc/wntr.network.io.html"
+        },
+        "version": "依据滚动 API 文档；WNTRSimulator 仅进行水力模拟，EpanetSimulator 的水质和版本选项须按其文档核对。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "WNTR：网络对象",
+        "url": "https://usepa.github.io/WNTR/apidoc/wntr.network.model.WaterNetworkModel.html"
+      },
+      {
+        "title": "WNTR：水力模拟器",
+        "url": "https://usepa.github.io/WNTR/apidoc/wntr.sim.core.WNTRSimulator.html"
+      },
+      {
+        "title": "WNTR：EPANET 模拟器",
+        "url": "https://usepa.github.io/WNTR/apidoc/wntr.sim.epanet.EpanetSimulator.html"
+      },
+      {
+        "title": "WNTR：文件 IO",
+        "url": "https://usepa.github.io/WNTR/apidoc/wntr.network.io.html"
+      }
+    ]
+  },
+  {
+    "name": "CMAQ",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "Linux 构建配置、C-Shell 运行脚本、预处理与结果文件。",
+      "coverage": "开源空气质量模型系统；CCTM、PREP、POST 属于同一系统。CMAQ 与 AERMOD 的模型尺度及机制不同，不能仅按输入格式互换。",
+      "versionBoundary": "依据官方 main 分支用户指南；应固定 CMAQ 提交、化学机制、编译器、MPI、I/O API 与 netCDF 库，不将滚动文档等同于任意安装版。",
+      "unknowns": [
+        "目标排放清单、化学机制和气象数据的适配程度。",
+        "特定区域/时段的模型误差与政策评估适用范围。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "CCTM 构建与运行脚本",
+        "category": "program",
+        "entry": "config_cmaq.csh、bldit_cctm.csh 与 run_cctm.csh",
+        "role": "批处理或作业调度器组织已编译 CCTM 的模拟任务。",
+        "direction": "构建/运行配置及输入 → CCTM → 日志和模拟文件",
+        "operations": [
+          "选择编译和科学模块配置",
+          "设定运行选项",
+          "按日期运行模拟"
+        ],
+        "dataContract": "编译期科学选项与运行期环境变量分开；机制、网格、层数、日期和输入文件需一致。并行分解须与构建及 MPI 环境匹配。",
+        "workflow": [
+          "建议：固定代码与依赖并运行基准算例",
+          "建议：核对构建选项和输入时空范围",
+          "建议：保存完整配置与日志再评估结果"
+        ],
+        "execution": "官方脚本组织编译和运行，可单处理器或并行；源代码与官方基准数据分开获取。",
+        "failure": "库路径、缺输入、配置不匹配和数值中止应按日志定位；进程完成不等于结果经过观测验证。",
+        "prerequisites": "适用 Linux/编译环境、Fortran/C、I/O API、netCDF，按配置提供 MPI 和足够存储。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://raw.githubusercontent.com/USEPA/CMAQ/main/DOCS/Users_Guide/CMAQ_UG_ch05_running_a_simulation.md"
+          ],
+          "locator": "config_cmaq.csh、bldit_cctm.csh 与 run_cctm.csh"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "按用户指南初始化环境，在独立项目配置并构建 CCTM，先用官方基准输入核对运行。",
+          "sourceUrl": "https://raw.githubusercontent.com/USEPA/CMAQ/main/DOCS/Users_Guide/CMAQ_UG_ch05_running_a_simulation.md"
+        },
+        "version": "依据官方 main 分支用户指南；应固定 CMAQ 提交、化学机制、编译器、MPI、I/O API 与 netCDF 库，不将滚动文档等同于任意安装版。"
+      },
+      {
+        "name": "I/O API / netCDF 模型数据",
+        "category": "file",
+        "entry": "GRIDDESC、逻辑文件名与 I/O API netCDF 输入输出",
+        "role": "气象/排放预处理程序和 CCTM 交换网格时空字段。",
+        "direction": "气象、排放、初始/边界条件 → CCTM → 浓度与沉降结果",
+        "operations": [
+          "读取多类模型输入",
+          "按逻辑名绑定实际文件",
+          "交付网格结果供后处理"
+        ],
+        "dataContract": "需满足变量名、化学物种、单位、投影、网格、垂直层和时间维度。netCDF 容器相同不表示满足 CMAQ 的 I/O API 语义；逻辑名通过环境变量映射。",
+        "workflow": [
+          "建议：按输入表核对必需文件",
+          "建议：比较网格、时间和物种元数据",
+          "建议：对样本字段及输出范围进行检查"
+        ],
+        "execution": "ICON、BCON、MCIP 等流程分别准备输入；输出由模型配置决定，不是任意 netCDF 均可直接使用。",
+        "failure": "维度、日期或物种不匹配可能中止或产生错误含义；应在长时间作业前检查头信息及样本。",
+        "prerequisites": "匹配机制的预处理数据和 I/O 库；来源数据权限另核查。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://raw.githubusercontent.com/USEPA/CMAQ/main/DOCS/Users_Guide/CMAQ_UG_ch04_model_inputs.md"
+          ],
+          "locator": "GRIDDESC、逻辑文件名与 I/O API netCDF 输入输出"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "对照用户指南输入表确认逻辑文件名，核对 GRIDDESC、时间维和物种列表，再启动短时段验证。",
+          "sourceUrl": "https://raw.githubusercontent.com/USEPA/CMAQ/main/DOCS/Users_Guide/CMAQ_UG_ch04_model_inputs.md"
+        },
+        "version": "依据官方 main 分支用户指南；应固定 CMAQ 提交、化学机制、编译器、MPI、I/O API 与 netCDF 库，不将滚动文档等同于任意安装版。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "CMAQ：运行指南",
+        "url": "https://raw.githubusercontent.com/USEPA/CMAQ/main/DOCS/Users_Guide/CMAQ_UG_ch05_running_a_simulation.md"
+      },
+      {
+        "title": "CMAQ：输入与文件契约",
+        "url": "https://raw.githubusercontent.com/USEPA/CMAQ/main/DOCS/Users_Guide/CMAQ_UG_ch04_model_inputs.md"
+      },
+      {
+        "title": "US EPA：CMAQ 文档",
+        "url": "https://www.epa.gov/cmaq/cmaq-documentation"
+      }
+    ]
+  },
+  {
+    "name": "TELEMAC-MASCARET",
+    "sourceDate": "2026-10-19",
+    "profile": {
+      "humanEntry": "模块参数文件、网格、边界和求解结果；前后处理工具依项目配置选择。",
+      "coverage": "水动力软件系统，包含不同求解模块；本次可直接核实的文件契约来自 TELEMAC-2D 历史官方手册，不推广到全部模块或当前版本。",
+      "versionBoundary": "已读取的官方文件手册为 TELEMAC-2D v6.0（2010）；仅作该版契约说明。当前发行版的 CLI、Python API 和格式兼容尚未完成核实。",
+      "unknowns": [
+        "当前发行版下载、CLI/Python API 与本条历史契约的兼容范围。",
+        "目标模块、网格工具及并行环境的实际部署组合。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Steering / SERAFIN 模型与结果文件",
+        "category": "file",
+        "entry": "TELEMAC-2D v6.0 手册 §3.2：steering、dictionary 与结果文件",
+        "role": "前处理者准备参数/网格/边界，求解器读取并输出空间时序结果。",
+        "direction": "参数、几何与边界文件 → TELEMAC-2D → 结果文件",
+        "operations": [
+          "指定模型关键字与参数",
+          "交付几何及边界条件",
+          "保存供后处理读取的结果"
+        ],
+        "dataContract": "steering 关键字由模块 dictionary 定义并由 DAMOCLES 读取；数值、数组和文件名有语法要求。SERAFIN 与 SERAFIND 区分浮点精度，不能只改扩展名完成转换。",
+        "workflow": [
+          "建议：先核对实际安装版的同名手册",
+          "建议：确认网格、边界、参数与精度选项",
+          "建议：以官方小算例检查结果字段和时间范围"
+        ],
+        "execution": "模型启动时读取参数；部分缺省值来自 dictionary 或模块实现。读文件路径与求解完成是分别需要检查的阶段。",
+        "failure": "无合法缺省值的缺项可导致报错；文件版本、精度、网格与变量不匹配需在导入后检查。",
+        "prerequisites": "与文件说明一致的求解版本及前后处理工具；本条不提供未核实的当前版启动命令。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.opentelemac.com/downloads/Archive/v6p0/telemac2d_user_manual_v6p0.pdf"
+          ],
+          "locator": "TELEMAC-2D v6.0 手册 §3.2：steering、dictionary 与结果文件"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "参照实际版本用户手册检查 steering、geometry、boundary 与 result 文件，并用同版本官方案例做往返核对。",
+          "sourceUrl": "https://www.opentelemac.com/downloads/Archive/v6p0/telemac2d_user_manual_v6p0.pdf"
+        },
+        "version": "已读取的官方文件手册为 TELEMAC-2D v6.0（2010）；仅作该版契约说明。当前发行版的 CLI、Python API 和格式兼容尚未完成核实。"
+      }
+    ],
+    "sources": [
+      {
+        "title": "TELEMAC-2D v6.0：官方用户手册 §3.2 与文件说明",
+        "url": "https://www.opentelemac.com/downloads/Archive/v6p0/telemac2d_user_manual_v6p0.pdf"
+      }
+    ]
+  }
+]

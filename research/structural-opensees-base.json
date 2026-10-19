@@ -1,0 +1,92 @@
+[
+  {
+    "name": "OpenSees / OpenSeesPy",
+    "vendor": "UC Berkeley / PEER；OpenSeesPy：Minjie Zhu及开发团队",
+    "sector": "civil",
+    "stage": "工艺仿真",
+    "purpose": "建立结构与岩土有限元模型，开展地震作用下的非线性静力、动力和时程分析；通过Tcl或官方Python解释器组织建模、求解和结果记录。",
+    "interfaces": [
+      {
+        "name": "Tcl 解释器 / 批处理",
+        "type": "脚本/CLI",
+        "detail": "OpenSees inputFile.tcl执行脚本；解释器内source加载脚本，以analyze推进结构或岩土模型分析。"
+      },
+      {
+        "name": "官方 OpenSeesPy Python 接口",
+        "type": "API/SDK",
+        "detail": "import openseespy.opensees as ops直接使用OpenSees建模与求解命令；不是第三方前后处理包装器。"
+      },
+      {
+        "name": "Path 时程 / 地震激励文件",
+        "type": "文件格式",
+        "detail": "Path TimeSeries从数值文件和dt或独立时间文件构造时程，可通过UniformExcitation施加指定方向地震加速度。"
+      },
+      {
+        "name": "Node Recorder 文本 / XML 输出",
+        "type": "文件格式",
+        "detail": "在收敛步记录指定节点和自由度响应；-file输出文本、-xml输出XML，-time可添加分析时间首列。"
+      }
+    ],
+    "constraints": "核心官网当前3.8.0；OpenSeesPy横幅3.8.0.0且要求Python3.12，文档标题仍3.5.1.3。核心允许规定范围的非商业和内部使用，商业产品集成需许可；OpenSeesPy另明确商业再分发应用及云服务需UC Berkeley许可。不同构建的单元、材料和求解器能力应核对。",
+    "sources": [
+      {
+        "title": "OpenSees官网：结构与岩土抗震仿真、3.8.0",
+        "url": "https://opensees.berkeley.edu/"
+      },
+      {
+        "title": "OpenSees User：Tcl与官方Python文档入口",
+        "url": "https://opensees.berkeley.edu/wiki/index.php/OpenSees_User"
+      },
+      {
+        "title": "OpenSees：Tcl交互、source与批处理运行",
+        "url": "https://opensees.berkeley.edu/wiki/index.php?title=Getting_Started_with_OpenSees_--_Run_OpenSees"
+      },
+      {
+        "title": "OpenSees：analyze命令",
+        "url": "https://opensees.github.io/OpenSeesDocumentation/user/manual/analysis/analyze.html"
+      },
+      {
+        "title": "OpenSeesPy：官方首页、版本与商业再分发条件",
+        "url": "https://openseespydoc.readthedocs.io/en/latest/"
+      },
+      {
+        "title": "OpenSeesPy：analyze命令",
+        "url": "https://openseespydoc.readthedocs.io/en/latest/src/analyze.html"
+      },
+      {
+        "title": "OpenSeesPy：wipe生命周期",
+        "url": "https://openseespydoc.readthedocs.io/en/latest/src/wipe.html"
+      },
+      {
+        "title": "OpenSeesPy：Path TimeSeries",
+        "url": "https://openseespydoc.readthedocs.io/en/latest/src/pathTs.html"
+      },
+      {
+        "title": "OpenSees：Path TimeSeries",
+        "url": "https://opensees.github.io/OpenSeesDocumentation/user/manual/model/timeseries/pathTimeSeries.html"
+      },
+      {
+        "title": "OpenSees：Uniform Excitation及相对响应",
+        "url": "https://opensees.github.io/OpenSeesDocumentation/user/manual/model/pattern/uniformExcitationPattern.html"
+      },
+      {
+        "title": "OpenSees：Node Recorder及输出示例",
+        "url": "https://opensees.github.io/OpenSeesDocumentation/user/manual/output/NodeRecorder.html"
+      },
+      {
+        "title": "OpenSeesPy：Node recorder",
+        "url": "https://openseespydoc.readthedocs.io/en/latest/src/nodeRecorder.html"
+      },
+      {
+        "title": "OpenSees：核心版权与使用许可",
+        "url": "https://opensees.berkeley.edu/OpenSees/copyright.php"
+      },
+      {
+        "title": "OpenSees：Copyright and License",
+        "url": "https://opensees.github.io/OpenSeesDocumentation/developer/license.html"
+      }
+    ],
+    "evidence": "Berkeley官网明确抗震结构／岩土用途，并直接链接官方OpenSeesPy文档；analyze、Path、UniformExcitation和Node Recorder参考提供具体接口、状态及数据说明。",
+    "sourceDate": "2026-10-19"
+  }
+]

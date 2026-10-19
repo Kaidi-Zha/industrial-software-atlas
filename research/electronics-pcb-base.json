@@ -1,0 +1,118 @@
+[
+  {
+    "name": "Siemens PADS（Standard / Professional）",
+    "vendor": "Siemens EDA",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "PCB 原理图、布局布线与制造准备的产品家族；经典 Standard/Standard Plus 与 Xpedition 技术的 Professional 分支合并计为一条，能力逐路径限定。",
+    "interfaces": [
+      {
+        "name": "PADS Layout Basic / VB 自动化（Standard Plus 路径）",
+        "type": "脚本/CLI",
+        "detail": "经典 PADS 的 Basic 引擎与自动化可访问设计数据；Standard Plus 集成手册给出 .bas 脚本加载入口。"
+      },
+      {
+        "name": "PADS Professional：ODB++ / Gerber / BOM 制造输出",
+        "type": "文件格式",
+        "detail": "Professional 可配置并批量生成制造输出；ODB++ 输出可预览并写入项目输出目录。"
+      }
+    ],
+    "constraints": "Standard/Standard Plus 与 Professional 不是同一套脚本/工程接口的不同档位。具体功能依分支、发行版和授权；本次未安装或实测。",
+    "sources": [
+      {
+        "title": "Siemens：PADS 产品分支与 Xpedition 升级路径",
+        "url": "https://www.siemens.com/en-us/products/pcb/pads/"
+      },
+      {
+        "title": "Siemens：PADS Standard and Standard Plus",
+        "url": "https://www.siemens.com/en-us/products/pcb/pads/standard-plus/"
+      },
+      {
+        "title": "Siemens Academy：PADS Standard Plus 的 PADS Layout 集成流程",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=269347-US_____EDA__VX.2.8_1199"
+      },
+      {
+        "title": "Siemens：Xpedition 产品家族",
+        "url": "https://www.siemens.com/en-us/products/pcb/xpedition/"
+      },
+      {
+        "title": "Siemens：Xpedition 2510 产品层次",
+        "url": "https://blogs.sw.siemens.com/electronic-systems-design/2025/10/27/whats-new-in-xpedition-2510/"
+      },
+      {
+        "title": "Siemens：PADS 自定义脚本、Basic 引擎与 ASCII 数据库访问",
+        "url": "https://blogs.sw.siemens.com/electronic-systems-design/2013/10/14/custom-scripts-to-increase-productivity/"
+      },
+      {
+        "title": "XPLM / SAP：PADS Standard Plus integration 安装管理手册 1.1.7.0",
+        "url": "https://help.sap.com/http.svc/rc/aafd700e37a2457a853d491045610985/1.1/en-US/SAPECTR-PADSStandardPlus_InstallAdminGuide_en.pdf"
+      },
+      {
+        "title": "Siemens 托管的 Mentor：PADS Professional Evaluation Quick Start Guide，2019-10",
+        "url": "https://solidedge.siemens.com/wp-content/uploads/2020/11/PADS_Professional_QuickStart_Guide.pdf"
+      },
+      {
+        "title": "Siemens：PADS Professional Premium / Premium DFM",
+        "url": "https://www.siemens.com/en-gb/products/pcb/pads/pads-professional-premium-dfm/"
+      }
+    ],
+    "evidence": "官方技术资料、官方教程及产品说明；逐路径范围见交互详情。",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Cadence OrCAD / OrCAD X",
+    "vendor": "Cadence",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "从原理图到电路仿真、PCB 布局及制造数据准备的产品家族；Capture、PSpice 与布局编辑器承担不同任务，合并为一个家族条目。",
+    "interfaces": [
+      {
+        "name": "OrCAD X Capture Tcl/Tk 命令与数据库访问",
+        "type": "脚本/CLI",
+        "detail": "通过 Command Window 执行用户操作和数据库命令；可查找数据库类的方法并处理对象与属性。"
+      },
+      {
+        "name": "OrCAD X：Gerber / NC drill / BOM 制造文件",
+        "type": "文件格式",
+        "detail": "在 Manufacturing > Export to Manufacturing 配置 Gerber films 并导出；制造交付还包含 NC 钻孔与 BOM。"
+      }
+    ],
+    "constraints": "传统 OrCAD 与 OrCAD X 的许可和应用组合不同。Allegro X 是相关的另一产品线，PSpice 是可集成的电路仿真产品/引擎；不得把全部 Allegro 或 PSpice 功能视为每个 OrCAD 套餐内置。本次未安装或运行。",
+    "sources": [
+      {
+        "title": "Cadence：OrCAD X 平台发布及与 Allegro X 的技术关系",
+        "url": "https://www.cadence.com/en_US/home/company/newsroom/press-releases/pr/2023/cadence-unveils-next-generation-ai-driven-orcad-x-delivering-up.html"
+      },
+      {
+        "title": "Cadence：OrCAD X 24.1 FAQ，应用及许可关系",
+        "url": "https://resources.academic.cadence.com/pcb-design-and-analysis-resources/what-s-new-in-orcad-x-24-1-faq"
+      },
+      {
+        "title": "Cadence：OrCAD X 与 Allegro X 25.1 发布说明",
+        "url": "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/cadence-orcad-x-and-allegro-x-25-1-is-now-available"
+      },
+      {
+        "title": "Cadence：OrCAD X Tcl Scripts，官方文章入口",
+        "url": "https://resources.pcb.cadence.com/blog/2024-orcad-x-tcl-scripts-automate-to-accelerate-turnarounds"
+      },
+      {
+        "title": "Cadence：OrCAD X Tcl Scripts，官方嵌入正文，2024-08-20",
+        "url": "https://read.uberflip.com/blog/2024-orcad-x-tcl-scripts-automate-to-accelerate-turnarounds?embedded=1&hideBanner=1&hideFooter=1&hideHeader=1&hidePriNav=1&hideSecNav=1&hub_id=85433"
+      },
+      {
+        "title": "Cadence：How to Generate Gerber Files in OrCAD X，官方入口",
+        "url": "https://resources.pcb.cadence.com/blog/2024-how-to-generate-gerber-files-in-orcad-x-cadence"
+      },
+      {
+        "title": "Cadence：OrCAD X Gerber 生成教程，官方嵌入正文，2025-04-30",
+        "url": "https://read.uberflip.com/blog/2024-how-to-generate-gerber-files-in-orcad-x-cadence?embedded=1&hideBanner=1&hideFooter=1&hideHeader=1&hidePriNav=1&hideSecNav=1&hub_id=85433"
+      },
+      {
+        "title": "Cadence：OrCAD X Quick Start Tutorial，2025-04-30",
+        "url": "https://resources.academic.cadence.com/pcb-design-and-analysis-resources/2025-orcad-x-quick-start-tutorial"
+      }
+    ],
+    "evidence": "官方技术资料、官方教程及产品说明；逐路径范围见交互详情。",
+    "sourceDate": "2026-10-19"
+  }
+]

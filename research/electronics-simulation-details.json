@@ -1,0 +1,479 @@
+[
+  {
+    "name": "ngspice",
+    "profile": {
+      "versionBoundary": "官方文档入口将47列为发布版，另有持续更新手册；下列细节固定依据47版，避免章节号混用。",
+      "humanEntry": "终端、交互命令环境；调用共享库的宿主应用。",
+      "coverage": "电路网表、仿真输出文件以及嵌入式命令／数据回调。",
+      "unknowns": [
+        "模型厂商许可、方言支持和某些可选器件模型的构建要求需逐项核对。",
+        "批处理系统退出状态未在本次选读内容完整核实。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "网表批处理 CLI / rawfile",
+        "category": "program",
+        "entry": "终端中 ngspice -b，指定 .cir 输入和 -r／-o 输出。",
+        "role": "将电路仿真接入可重复的文件作业。",
+        "direction": "网表和模型文件 → ngspice → rawfile／日志",
+        "operations": [
+          "执行网表内 .ac、.tran 等分析",
+          "按 .save 选择输出向量",
+          "写出数据和诊断日志"
+        ],
+        "dataContract": "输入是 SPICE 电路描述及点指令；rawfile 存储仿真向量。-b 与 -r 同用时 .print／.plot 被忽略，且 .meas 不能按通常方式使用。",
+        "workflow": [
+          "建议：用交互模式先检查最小网表与模型",
+          "建议：为纯批处理选择分析、保存向量及输出文件",
+          "建议：检查日志后回读 rawfile 核对量纲与结果"
+        ],
+        "execution": "-b 自动运行输入分析；含 .control 段的电路应使用手册的 control mode，不按纯批处理处理。",
+        "failure": "建议区分解析错误、模型缺失与不收敛；保留 -o 日志，系统退出码未完整核实。",
+        "prerequisites": "ngspice 可执行程序、有效网表与模型、可写输出目录。",
+        "version": "ngspice47：第11章、§11.4.2、§11.6及§12.4.1。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://ngspice.sourceforge.io/docs/ngspice-47-manual.pdf"
+          ],
+          "locator": "47版第11章与§12.4.1：batch、rawfile、日志；§11.4.2/.meas限制。"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "ngspice -b -r adder.raw -o adder.log adder-mos.cir",
+          "sourceUrl": "https://ngspice.sourceforge.io/docs/ngspice-47-manual.pdf"
+        }
+      },
+      {
+        "name": "共享库 C API / 回调",
+        "category": "program",
+        "entry": "编译为 .so／.dll 后由宿主加载；头文件 src/include/ngspice/sharedspice.h。",
+        "role": "让应用控制仿真并消费状态与数据。",
+        "direction": "宿主命令／网表 → 共享库；向量／状态／错误 → 宿主",
+        "operations": [
+          "初始化回调并加载逐行网表",
+          "执行命令及查询输出向量",
+          "按回调接收数据和退出通知"
+        ],
+        "dataContract": "ngSpice_Circ 接收末项为NULL的 char**；SendData返回向量结构；ngGet_Vec_Info返回库内向量指针，新仿真会重新建立相应结构，不应跨重置复用旧指针。",
+        "workflow": [
+          "建议：从匹配 sharedspice.h 定义回调，包含必需的 ControlledExit",
+          "建议：初始化后装入最小电路并执行仿真",
+          "建议：检查状态和向量；若重置库则重新初始化"
+        ],
+        "execution": "可使用后台线程，回调亦在该线程执行；宿主需保证线程安全。ngSpice_Reset释放内部数据和初始化状态，重启需再初始化。",
+        "failure": "ngSpice_Command和ngSpice_Circ：错误返回1、正常返回0；ngSpice_Init的int返回值不使用。还需处理文本与ControlledExit回调。",
+        "prerequisites": "共享库构建、匹配C头文件和宿主回调；运行期间保护向量读取与回调访问。",
+        "version": "ngspice47 §15.3–15.4；官网共享库概览的章节号可能随文档版本变化。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://ngspice.sourceforge.io/docs/ngspice-47-manual.pdf",
+            "https://ngspice.sourceforge.io/shared.html"
+          ],
+          "locator": "47版§15.3.1–15.3.3：结构、函数、错误返回与回调线程；官网说明和C示例下载。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：从匹配 sharedspice.h 定义回调，包含必需的 ControlledExit → 建议：初始化后装入最小电路并执行仿真 → 建议：检查状态和向量；若重置库则重新初始化",
+          "sourceUrl": "https://ngspice.sourceforge.io/docs/ngspice-47-manual.pdf"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "ngspice 47 用户手册",
+        "url": "https://ngspice.sourceforge.io/docs/ngspice-47-manual.pdf"
+      },
+      {
+        "title": "ngspice 共享库说明",
+        "url": "https://ngspice.sourceforge.io/shared.html"
+      },
+      {
+        "title": "ngspice 文档版本入口",
+        "url": "https://ngspice.sourceforge.io/docs.html"
+      },
+      {
+        "title": "ngspice 代码许可说明",
+        "url": "https://ngspice.sourceforge.io/devel.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "openEMS",
+    "profile": {
+      "versionBoundary": "latest文档当前标注0.37.0；命令行选项可能随版本变化，应检查安装版帮助。",
+      "humanEntry": "Python或Octave/MATLAB脚本；AppCSXCAD检查几何模型。",
+      "coverage": "几何和网格、FDTD配置、求解启动及输出目录。",
+      "unknowns": [
+        "Python Run的统一返回值与异常类型未在所读参考中完整定义。",
+        "求解器数据与后处理函数的版本兼容性需结合实际输出核查。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Python openEMS / CSXCAD API",
+        "category": "program",
+        "entry": "Python中 CSXCAD.ContinuousStructure、openEMS.openEMS 和 SetCSX。",
+        "role": "用Python定义并运行电磁仿真。",
+        "direction": "几何／网格／求解设置 → FDTD；求解数据 → 仿真目录",
+        "operations": [
+          "关联CSX几何",
+          "配置激励和边界",
+          "运行求解或仅完成设置"
+        ],
+        "dataContract": "Run(sim_path, cleanup=False, setup_only=False, verbose=None)指定输出目录；setup_only仅设置不求解；cleanup会删除目录中已知输出文件，需明确目录用途。",
+        "workflow": [
+          "建议：激活匹配Python环境并导入两个模块",
+          "建议：建立最小几何、网格、边界和激励",
+          "建议：先检查设置，再在独立目录运行并核对求解输出"
+        ],
+        "execution": "Run驱动底层FDTD；可设numThreads。ReadFromXML读取前先reset；对象与求解输出的完整释放约定未核实。",
+        "failure": "建议检查模块加载、几何网格、源与边界以及求解日志；本页未给统一异常表，不以产生文件判定收敛。",
+        "prerequisites": "openEMS与CSXCAD底层库、匹配Python扩展及依赖；从源码目录运行可能导入未编译文件，应使用中立工作目录。",
+        "version": "在线0.37.0；具体Run关键字是否支持需核对本机openEMS --help。",
+        "implementation": "官方客户端/库",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.openems.de/en/latest/python/openEMS/openEMS.html",
+            "https://docs.openems.de/en/latest/install/check.html"
+          ],
+          "locator": "Python reference：SetCSX、Run、ReadFromXML；安装检查的Python工作目录说明。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：激活匹配Python环境并导入两个模块 → 建议：建立最小几何、网格、边界和激励 → 建议：先检查设置，再在独立目录运行并核对求解输出",
+          "sourceUrl": "https://docs.openems.de/en/latest/python/openEMS/openEMS.html"
+        }
+      },
+      {
+        "name": "Octave / MATLAB 脚本接口",
+        "category": "program",
+        "entry": "配置openEMS与CSXCAD的Octave/MATLAB搜索路径后调用脚本函数。",
+        "role": "以脚本生成求解输入并组织计算。",
+        "direction": "FDTD／CSX结构 → XML → 求解器／结果目录",
+        "operations": [
+          "写入FDTD与CSX描述",
+          "从指定目录运行XML输入",
+          "设置日志及求解器选项"
+        ],
+        "dataContract": "WriteOpenEMS(filename,FDTD,CSX)写XML；RunOpenEMS(Sim_Path,Sim_File,opts,Settings)要求仿真目录已存在，Sim_File是该XML。Settings可指定LogFile。",
+        "workflow": [
+          "建议：检查InitFDTD及RunOpenEMS可被找到",
+          "建议：以有效几何和网格生成XML并检查",
+          "建议：在已存在的独立目录运行，保存日志并后处理"
+        ],
+        "execution": "RunOpenEMS启动求解器；可传--no-simulation仅预处理。并行函数为独立入口且文档限制Linux，不推定单机接口自动并行。",
+        "failure": "安装检查官方用不存在XML验证启动入口，此时File-Loading failed是预期错误；正式计算仍应验证输入和结果。",
+        "prerequisites": "Octave或获授权MATLAB、脚本路径、openEMS可执行程序和已存在的仿真目录。",
+        "version": "在线0.37.0；远程与并行入口有额外平台限制。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://docs.openems.de/en/latest/octave/autogenerated/openEMS/simulation.html",
+            "https://docs.openems.de/en/latest/install/check.html"
+          ],
+          "locator": "WriteOpenEMS、RunOpenEMS签名／参数／示例；安装检查解释文件加载失败。"
+        },
+        "example": {
+          "kind": "官方示例",
+          "text": "WriteOpenEMS('/tmp/path_to_run_in/myfile.xml', FDTD, CSX)\nRunOpenEMS('/tmp/path_to_run_in','myfile.xml','-v')",
+          "sourceUrl": "https://docs.openems.de/en/latest/octave/autogenerated/openEMS/simulation.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "openEMS Python 主控制类",
+        "url": "https://docs.openems.de/en/latest/python/openEMS/openEMS.html"
+      },
+      {
+        "title": "openEMS Octave/MATLAB 仿真函数",
+        "url": "https://docs.openems.de/en/latest/octave/autogenerated/openEMS/simulation.html"
+      },
+      {
+        "title": "openEMS 安装检查",
+        "url": "https://docs.openems.de/en/latest/install/check.html"
+      },
+      {
+        "title": "openEMS 介绍与许可",
+        "url": "https://docs.openems.de/en/latest/intro.html"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "LTspice",
+    "profile": {
+      "versionBoundary": "查询时下载页为Windows x64 26.1.1、macOS及Windows ARM64 26.0.2；CLI速查表标注LTspice26（2026-02），模型导入文为2025-09。",
+      "humanEntry": "原理图、SPICE指令、波形查看器；Windows可执行程序命令行。",
+      "coverage": "原理图批处理、网表生成及.MODEL/.SUBCKT模型文件装配。",
+      "unknowns": [
+        "未核实公开的通用Python／COM控制API；本记录仅描述官方确认的CLI和模型文件路径。",
+        "完整当前EULA需安装后阅读；具体商业使用和模型再分发范围未在此判断。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Windows 批处理 CLI",
+        "category": "program",
+        "entry": "Windows shell调用LTspice.exe；原理图路径、-b和-run，或选择-netlist命令。",
+        "role": "把原理图运行和网表生成接入外部作业。",
+        "direction": "原理图／模型／参数 → LTspice → 仿真数据或网表",
+        "operations": [
+          "批处理运行原理图",
+          "将原理图转换为网表",
+          "选择ASCII raw输出"
+        ],
+        "dataContract": "-I<path>扩展符号和文件搜索路径，-ini指定配置；-ascii将.raw设为ASCII并降低性能。具体raw字段与解析ABI未在速查表定义。",
+        "workflow": [
+          "建议：先在GUI确认原理图具有一个有效分析指令",
+          "建议：按LTspice26速查表构造Windows命令及搜索路径",
+          "建议：核对SPICE日志和输出波形，区分网表生成与实际求解"
+        ],
+        "execution": "-b用于-run、-netlist或-sync的批处理；本次未核实统一退出码、取消和多实例约定。",
+        "failure": "建议检查文件路径、模型加载、分析指令及不收敛日志；生成raw文件不等于设计指标通过。",
+        "prerequisites": "LTspice26 Windows版、完整原理图及模型依赖和可写目录；本条未验证macOS相同入口。",
+        "version": "LTspice26速查表，LTspice-2/26(A)。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.analog.com/media/en/news-marketing-collateral/solutions-bulletins-brochures/ltspice-keyboard-shortcuts.pdf"
+          ],
+          "locator": "第2页COMMAND LINE FLAGS、Syntax与SPICE分析指令。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先在GUI确认原理图具有一个有效分析指令 → 建议：按LTspice26速查表构造Windows命令及搜索路径 → 建议：核对SPICE日志和输出波形，区分网表生成与实际求解",
+          "sourceUrl": "https://www.analog.com/media/en/news-marketing-collateral/solutions-bulletins-brochures/ltspice-keyboard-shortcuts.pdf"
+        }
+      },
+      {
+        "name": ".MODEL / .SUBCKT / .LIB 模型文件",
+        "category": "file",
+        "entry": "Edit > SPICE Directive；组件属性；必要时从.SUBCKT名称创建符号。",
+        "role": "将厂商器件模型连接到仿真原理图。",
+        "direction": "模型文本／库文件 → 原理图符号 → 求解器",
+        "operations": [
+          "内嵌.MODEL或.SUBCKT定义",
+          "以.LIB引用外部文件",
+          "匹配模型名称、符号前缀和引脚表"
+        ],
+        "dataContract": "模型名称与文件名可不同；.MODEL用于相应内建器件，.SUBCKT使用X前缀。端口顺序须与符号Pin Table一致；共享工程需带.asc、.asy及被引用模型。",
+        "workflow": [
+          "建议：判断模型是.MODEL还是.SUBCKT并检查授权",
+          "建议：在同一工程目录引用文件并匹配符号名称和端口",
+          "建议：运行厂商测试条件后与参考结果比较"
+        ],
+        "execution": "模型在原理图网表化及求解时参与；加密模型的导入与可检查程度由供应商支持条件决定。",
+        "failure": "建议检查找不到库、错误模型名、X前缀与引脚顺序；语法相似不保证模型方言兼容。",
+        "prerequisites": "有效且获授权模型、兼容的LTspice语法和符号；需随工程提供所有引用依赖。",
+        "version": "官方教程2025-09-09；按当前安装版帮助核对.MODEL参数。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "开发文档",
+          "sourceUrls": [
+            "https://www.analog.com/en/resources/technical-articles/ltspice-how-to-import-third-party-models.html"
+          ],
+          "locator": "Importing a .MODEL、.LIB；Using a .SUBCKT、Prefix X、Pin Table及共享文件。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：判断模型是.MODEL还是.SUBCKT并检查授权 → 建议：在同一工程目录引用文件并匹配符号名称和端口 → 建议：运行厂商测试条件后与参考结果比较",
+          "sourceUrl": "https://www.analog.com/en/resources/technical-articles/ltspice-how-to-import-third-party-models.html"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Analog Devices：LTspice26快捷键与命令速查",
+        "url": "https://www.analog.com/media/en/news-marketing-collateral/solutions-bulletins-brochures/ltspice-keyboard-shortcuts.pdf"
+      },
+      {
+        "title": "Analog Devices：第三方模型导入教程",
+        "url": "https://www.analog.com/en/resources/technical-articles/ltspice-how-to-import-third-party-models.html"
+      },
+      {
+        "title": "Analog Devices：LTspice下载与免费说明",
+        "url": "https://www.analog.com/en/resources/design-tools-and-calculators/ltspice-simulator.html"
+      },
+      {
+        "title": "Analog Devices：LTspice EULA查阅位置",
+        "url": "https://support.analog.com/en-US/knowledgebase/article/ka-16982"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PSpice（含 PSpice for TI）",
+    "profile": {
+      "versionBoundary": "Cadence数据表对应Allegro PSpice System Designer，未给出构建号；当前OrCAD X FAQ另区分基础和Professional Plus功能。TI模型导入教程为2025-02，入门手册为SLYP725。",
+      "humanEntry": "Cadence原理图／模型开发与系统联算环境；TI版的Capture工程、Tools > Generate Part及Probe波形窗口。",
+      "coverage": "Cadence模型扩展及Simulink联算；TI版的第三方模型文件导入。",
+      "unknowns": [
+        "DMI当前工具链、头文件及编译API合同未在公开资料核实。",
+        "SLPS支持的MATLAB/Simulink版本、求解器步长和端口映射须查所购版本文档。",
+        "TI定制版的Tcl、COM、DMI或SLPS可用性未取得官方依据，不从Cadence基础产品推定。"
+      ]
+    },
+    "interactions": [
+      {
+        "name": "Device Model Interface（Cadence 产品）",
+        "category": "model",
+        "entry": "Allegro PSpice System Designer的DMI模型开发／代码生成环境；具体安装入口按所购版本文档。",
+        "role": "在电路求解中使用自定义器件或系统模型。",
+        "direction": "自定义模型及其端口 ⇄ PSpice电路仿真",
+        "operations": [
+          "定义和生成自定义模型",
+          "将模型连接到原理图符号",
+          "让模型参与电路仿真"
+        ],
+        "dataContract": "数据表列C/C++、SystemC及Verilog A-ADMS等模型路径；C头文件、回调、参数结构和返回约定需开发包确认。",
+        "workflow": [
+          "建议：核对DMI授权和所支持工具链",
+          "建议：从对应版示例开始",
+          "建议：检查符号引脚和模型输出"
+        ],
+        "execution": "模型参与求解过程；初始化、步进、终止与并发约定未在所读公开材料定义。",
+        "failure": "建议区分编译／链接失败、模型加载和求解错误；具体状态码与错误回调未核实。",
+        "prerequisites": "适用的Cadence PSpice产品、DMI开发组件及匹配编译工具；不能由此证明TI定制版可用。",
+        "version": "官方数据表未标构建号；2016年DMI案例只佐证机制，不代表当前二进制兼容性。",
+        "implementation": "内置接口",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/pcb-design-analysis/allegro-pspice-system-designer-ds.pdf",
+            "https://resources.pcb.cadence.com/home/pspice-simulated-with-arduino-driven-sensors"
+          ],
+          "locator": "数据表第1、3页Device Model Interface；官方DMI自定义C/SystemC/C++模型案例。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对DMI授权和所支持工具链 → 建议：从对应版示例开始 → 建议：检查符号引脚和模型输出",
+          "sourceUrl": "https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/pcb-design-analysis/allegro-pspice-system-designer-ds.pdf"
+        }
+      },
+      {
+        "name": "MATLAB / Simulink SLPS（Cadence 产品）",
+        "category": "model",
+        "entry": "已安装且获授权的PSpice Systems Option／Simulink-PSpice Interface（SLPS）。",
+        "role": "联结电路求解与多域系统模型。",
+        "direction": "PSpice电路信号 ⇄ Simulink系统模型",
+        "operations": [
+          "把电路模型接入系统仿真",
+          "交换联算信号",
+          "在系统环境查看波形"
+        ],
+        "dataContract": "官方确认电路／系统联算；具体端口类型、单位、采样和时间同步合同未在数据表给出。",
+        "workflow": [
+          "建议：核对Cadence套餐和MATLAB/Simulink兼容性",
+          "建议：依据匹配版SLPS帮助复现官方RC示例",
+          "建议：逐端口检查方向、单位、步长和波形"
+        ],
+        "execution": "联算需两套仿真环境及集成组件；当前FAQ将系统级分析列入Professional Plus，不能由基础仿真许可推定。",
+        "failure": "建议分别检查两侧模型、联算组件、端口映射及收敛日志；恢复、异常和超时约定未核实。",
+        "prerequisites": "匹配的Cadence PSpice及系统联算授权、MATLAB和Simulink；TI版是否支持未核实。",
+        "version": "数据表与当前OrCAD X FAQ分别作为接口和套餐依据；没有统一公开兼容矩阵。",
+        "implementation": "官方附加组件",
+        "standardIds": [],
+        "evidence": {
+          "level": "产品说明",
+          "sourceUrls": [
+            "https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/pcb-design-analysis/allegro-pspice-system-designer-ds.pdf",
+            "https://www.cadence.com/en_US/home/tools/pcb-design-and-analysis/orcad/faqs.html",
+            "https://video.pcb.cadence.com/watch/jdBBEhUGRg4wk5EAu45zJY?chapter=1"
+          ],
+          "locator": "数据表第3–4页PSpice system simulation；FAQ：PSpice Basic/System Level Analysis；RC Filter Demo。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：核对Cadence套餐和MATLAB/Simulink兼容性 → 建议：依据匹配版SLPS帮助复现官方RC示例 → 建议：逐端口检查方向、单位、步长和波形",
+          "sourceUrl": "https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/pcb-design-analysis/allegro-pspice-system-designer-ds.pdf"
+        }
+      },
+      {
+        "name": ".LIB / .OLB 模型导入（PSpice for TI）",
+        "category": "file",
+        "entry": "选中.opj工程，Tools > Generate Part；Model Import Wizard与项目库配置。",
+        "role": "把厂商SPICE模型装配为可放置、可求解的原理图器件。",
+        "direction": "模型.LIB → 符号.OLB／项目模型库 → 电路仿真",
+        "operations": [
+          "从LIB生成或关联符号",
+          "定义模型到符号端口映射",
+          "把新库加入项目并选择探测信号"
+        ],
+        "dataContract": "LIB提供模型网表，OLB为图形符号库；引脚映射与模型定义必须相符。官方教程说明使用任一第三方模型时一次最多绘制3个预先指定信号。",
+        "workflow": [
+          "建议：先检查模型文件、端口及许可",
+          "建议：用Generate Part创建／关联符号并配置项目库",
+          "建议：在限制内选定信号，运行并核对模型参考条件"
+        ],
+        "execution": "TI版支持离线工作，但模型库可在启动时更新；模型导入和项目库配置为独立步骤，后者遗漏会出现DRC提示。",
+        "failure": "建议检查库未配置、引脚映射、模型兼容性和探测限制；教程的DRC提示不是通用解析错误码。",
+        "prerequisites": "获授权的PSpice for TI、可用模型文件；第三方模型的许可和方言另核对。",
+        "version": "TI官方视频2025-02-27及SLYP725手册；未给出固定软件构建号，3信号限制按这些资料记录。",
+        "implementation": "文件交换",
+        "standardIds": [],
+        "evidence": {
+          "level": "官方示例",
+          "sourceUrls": [
+            "https://www.ti.com/zh-tw/video/6162754989001",
+            "https://www.ti.com/lit/pdf/slyp725",
+            "https://www.ti.com/tool/PSPICE-FOR-TI"
+          ],
+          "locator": "TI视频Model Import Wizard／terminal mapping／3 signals；SLYP725第18页Tools > Generate Part。"
+        },
+        "example": {
+          "kind": "操作路径",
+          "text": "建议：先检查模型文件、端口及许可 → 建议：用Generate Part创建／关联符号并配置项目库 → 建议：在限制内选定信号，运行并核对模型参考条件",
+          "sourceUrl": "https://www.ti.com/zh-tw/video/6162754989001"
+        }
+      }
+    ],
+    "sources": [
+      {
+        "title": "Cadence：Allegro PSpice System Designer数据表",
+        "url": "https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/pcb-design-analysis/allegro-pspice-system-designer-ds.pdf"
+      },
+      {
+        "title": "Cadence：OrCAD X与PSpice套餐及授权FAQ",
+        "url": "https://www.cadence.com/en_US/home/tools/pcb-design-and-analysis/orcad/faqs.html"
+      },
+      {
+        "title": "TI：第三方模型导入官方教程",
+        "url": "https://www.ti.com/zh-tw/video/6162754989001"
+      },
+      {
+        "title": "TI：PSpice for TI入门手册SLYP725",
+        "url": "https://www.ti.com/lit/pdf/slyp725"
+      },
+      {
+        "title": "TI：PSpice for TI免费说明与获取入口",
+        "url": "https://www.ti.com/tool/PSPICE-FOR-TI"
+      },
+      {
+        "title": "Cadence：DMI自定义模型官方案例",
+        "url": "https://resources.pcb.cadence.com/home/pspice-simulated-with-arduino-driven-sensors"
+      },
+      {
+        "title": "Cadence：Systems Option RC Filter官方示例",
+        "url": "https://video.pcb.cadence.com/watch/jdBBEhUGRg4wk5EAu45zJY?chapter=1"
+      }
+    ],
+    "sourceDate": "2026-10-19"
+  }
+]

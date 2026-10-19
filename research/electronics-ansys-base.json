@@ -1,0 +1,177 @@
+[
+  {
+    "name": "Ansys Circuit",
+    "vendor": "Ansys",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "AEDT 中基于 Nexxim 的原理图/网表电路仿真，支持电子电路激励、分析设置及网络数据后处理。",
+    "interfaces": [
+      {
+        "name": "PyAEDT Circuit 建模与求解",
+        "type": "API/SDK",
+        "detail": "Circuit 类连接 AEDT 项目/设计，create_source 创建 Circuit 激励，analyze 运行选定或全部分析设置。"
+      },
+      {
+        "name": "HSPICE 网表导入原理图",
+        "type": "文件格式",
+        "detail": "Circuit.create_schematic_from_netlist 从 HSpice 网表创建 Circuit 原理图；官方列出支持的元件子集。"
+      },
+      {
+        "name": "Touchstone 网络结果导出",
+        "type": "文件格式",
+        "detail": "Circuit.export_touchstone 导出已求解 setup/sweep 的网络数据，可选参数变体和阻抗重归一化。"
+      }
+    ],
+    "constraints": "接口限 AEDT Circuit/Nexxim；PyAEDT stable 文档未固定包版本，安装页的最低 AEDT 要求不等于全部方法在所有旧版可用。Circuit 求解许可及 HPC 权益依合同；本次未实测。",
+    "sources": [
+      {
+        "title": "Ansys：AEDT platform overview",
+        "url": "https://ansys.synopsys.com/Products/Electronics"
+      },
+      {
+        "title": "AEDT 2025 R2：design types and Circuit/Nexxim",
+        "url": "https://ansyshelp.ansys.com/public/views/secured/electronics/v252/en/subsystems/icepak/content/GettingStarted/GettingStartedwithANSYSElectronicsDesktop.htm"
+      },
+      {
+        "title": "PyAEDT：installation / requirements / Circuit basic support",
+        "url": "https://aedt.docs.pyansys.com/version/stable/Getting_started/Installation.html"
+      },
+      {
+        "title": "PyAEDT：Circuit class",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.html"
+      },
+      {
+        "title": "PyAEDT：Circuit.create_source",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.create_source.html"
+      },
+      {
+        "title": "PyAEDT：Circuit.analyze",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.analyze.html"
+      },
+      {
+        "title": "PyAEDT：Circuit.create_schematic_from_netlist",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.create_schematic_from_netlist.html"
+      },
+      {
+        "title": "PyAEDT：Circuit.export_touchstone",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.circuit.Circuit.export_touchstone.html"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Ansys Icepak",
+    "vendor": "Ansys",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "电子器件、封装、PCB 与整机的气流、传热及温升分析；本条程序接口聚焦 AEDT Icepak 的热源定义与电磁损耗到热模型的映射。",
+    "interfaces": [
+      {
+        "name": "PyAEDT Icepak 热源边界",
+        "type": "API/SDK",
+        "detail": "Icepak.assign_source 将面 ID、对象名或其列表映射为总功率、面热量或温度边界，支持带单位值和指定的变化条件。"
+      },
+      {
+        "name": "AEDT 电磁损耗映射（PyAEDT）",
+        "type": "API/SDK",
+        "detail": "assign_em_losses 将源设计的 setup/sweep 电磁损耗映射到 Icepak 对象，可指定频率、变量映射和源结果保留策略。"
+      },
+      {
+        "name": "Classic Icepak .tzr → AEDT 转换",
+        "type": "文件格式",
+        "detail": "在 Classic 中生成 .tzr 后可转换为 AEDT Icepak 设计，支持稳态及瞬态项目，但存在官方明确的不支持项。"
+      }
+    ],
+    "constraints": "PyAEDT 路径仅覆盖 AEDT Icepak，不能视为 Icepak Classic standalone 的相同 API。Classic .tzr 到 AEDT 的转换有不支持项，须重新核对网格、材料、名称及求解设置。求解器、源电磁工具与 HPC 授权另核；未实测。",
+    "sources": [
+      {
+        "title": "Ansys：AEDT platform overview",
+        "url": "https://ansys.synopsys.com/Products/Electronics"
+      },
+      {
+        "title": "AEDT 2025 R2：Icepak design type",
+        "url": "https://ansyshelp.ansys.com/public/views/secured/electronics/v252/en/subsystems/icepak/content/GettingStarted/GettingStartedwithANSYSElectronicsDesktop.htm"
+      },
+      {
+        "title": "Ansys：Icepak electronic cooling",
+        "url": "https://www.ansys.com/content/ansysincprogram/en-us/home/products/electronics/ansys-icepak.html"
+      },
+      {
+        "title": "PyAEDT：installation / requirements",
+        "url": "https://aedt.docs.pyansys.com/version/stable/Getting_started/Installation.html"
+      },
+      {
+        "title": "PyAEDT：Icepak class",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.icepak.Icepak.html"
+      },
+      {
+        "title": "PyAEDT：Icepak.assign_source",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.icepak.Icepak.assign_source.html"
+      },
+      {
+        "title": "PyAEDT：Icepak.assign_em_losses",
+        "url": "https://aedt.docs.pyansys.com/version/stable/API/_autosummary/ansys.aedt.core.icepak.Icepak.assign_em_losses.html"
+      },
+      {
+        "title": "AEDT 2025 R1：Opening Icepak Classic Projects",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v251/en/Subsystems/Icepak/Content/Variables/OpeningIcepakClassicProjects.htm"
+      },
+      {
+        "title": "AEDT 2025 R1：Classic conversion limitations",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v251/en/Subsystems/Icepak/Content/Variables/IcepakClassicProjectConversionLimitations.htm"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Ansys siwave",
+    "vendor": "Ansys",
+    "sector": "electronics",
+    "stage": "研发设计",
+    "purpose": "PCB 与封装的信号完整性、电源完整性、直流压降及电磁分析，支持与 Circuit 和 Icepak 的明确集成工作流。",
+    "interfaces": [
+      {
+        "name": "PyEDB Siwave COM 自动化",
+        "type": "API/SDK",
+        "detail": "官方 pyedb.siwave.Siwave 通过 Windows COM 的 Siwave.Application 访问独立 siwave 会话，支持工程管理、DC 仿真和结果导出。"
+      },
+      {
+        "name": "PyEDB SiwaveSolve 无界面批处理",
+        "type": "API/SDK",
+        "detail": "SiwaveSolve 提交已有 .aedb/.siw/.siwz 模型运行指定 siwave 分析；文档明确只支持 non-graphical batch mode。"
+      },
+      {
+        "name": "SIwizard → AEDT Circuit / Nexxim",
+        "type": "API/SDK",
+        "detail": "官方向导将所选网络、端口与缓冲模型组织为网表或 S 参数动态链接 N-port，由 siwave 抽取后交给 AEDT Circuit/Nexxim 做时域分析。"
+      }
+    ],
+    "constraints": "siwave 的 COM/批处理是独立应用入口，不能直接套用 PyAEDT Circuit/Icepak 类的方法和进程假设。COM 证据为官方 main 源码，批处理证据为 stable 文档；具体 SDK、安装版、求解许可与线程约束需核查，本次未实测。",
+    "sources": [
+      {
+        "title": "Ansys：AEDT platform overview",
+        "url": "https://ansys.synopsys.com/Products/Electronics"
+      },
+      {
+        "title": "SIwave 2026 R1：Running Simulations and integration modes",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v261/en/Subsystems/SIwave/Content/RunningSimulations.htm"
+      },
+      {
+        "title": "SIwave 2026 R1：Cosimulation Using SI Wizard",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v261/en/Subsystems/SIwave/Content/CosimulationusingSIwizard.htm"
+      },
+      {
+        "title": "Official PyEDB：Siwave COM wrapper source",
+        "url": "https://github.com/ansys/pyedb/blob/main/src/pyedb/siwave.py"
+      },
+      {
+        "title": "PyEDB：SiwaveSolve",
+        "url": "https://edb.docs.pyansys.com/version/stable/autoapi/pyedb/generic/process/SiwaveSolve.html"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  }
+]

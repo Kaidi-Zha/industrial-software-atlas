@@ -1,0 +1,545 @@
+[
+  {
+    "name": "盈建科 YJK",
+    "vendor": "北京盈建科软件股份有限公司",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "建筑结构建模、计算、设计与施工图工作流。",
+    "interfaces": [
+      {
+        "name": "YJK 结构软件 SDK",
+        "type": "API/SDK",
+        "detail": "V5.3.0 公告列 C++、C#、Python，可自动建模、修改荷载、执行计算并提取结果。"
+      }
+    ],
+    "constraints": "旧公告仅证明 V5.3.0 当时能力；当前 SDK 文档需账号。宿主授权、开发资格及应用发布规则分别核对；本次未实测。",
+    "sources": [
+      {
+        "title": "YJK 开放平台",
+        "url": "https://open.yjk.cn/"
+      },
+      {
+        "title": "YJK：V5.3.0 SDK 介绍",
+        "url": "https://dl-cdn.yjk.cn/article/1792/"
+      },
+      {
+        "title": "YJK 开发者协议",
+        "url": "https://open.yjk.cn/developerAgreement.html"
+      },
+      {
+        "title": "YJK 文档中心（需登录）",
+        "url": "https://open.yjk.cn/center.html?type=4"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Dlubal RFEM 6 / RSTAB 9",
+    "vendor": "Dlubal Software",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "RFEM 用于建筑土木结构有限元分析，RSTAB 用于杆系、框架和桁架；同厂产品合并列示。",
+    "interfaces": [
+      {
+        "name": "Dlubal gRPC Python API",
+        "type": "API/SDK",
+        "detail": "dlubal.api 提供产品客户端；RFEM calculate_all 返回 OperationResult。"
+      },
+      {
+        "name": "RFEM 6 WebService SOAP",
+        "type": "API/SDK",
+        "detail": "旧 XML/SOAP 服务提供模型操作；修改必须以 begin_modification / finish_modification 包围。"
+      }
+    ],
+    "constraints": "新 API 文档首页为 2.16.2（2026-10-12）；新 gRPC 与旧 RFEM 6 SOAP 分列。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "Dlubal API 文档",
+        "url": "https://apidocs.dlubal.com/"
+      },
+      {
+        "title": "Dlubal API：Quick Start",
+        "url": "https://apidocs.dlubal.com/quick_start.html"
+      },
+      {
+        "title": "Dlubal API：Access Control",
+        "url": "https://apidocs.dlubal.com/access_control.html"
+      },
+      {
+        "title": "RFEM：calculate_all",
+        "url": "https://apidocs.dlubal.com/source/rst_methods/rfem/calculate_all.html"
+      },
+      {
+        "title": "RFEM 6：SOAP / XML",
+        "url": "https://www.dlubal.com/en/downloads-and-information/documents/online-manuals/rfem-6-webservice-api/002199"
+      },
+      {
+        "title": "RFEM 6：模型修改与计算",
+        "url": "https://www.dlubal.com/en/downloads-and-information/documents/online-manuals/rfem-6-webservice-api/002219"
+      },
+      {
+        "title": "Dlubal API：Examples",
+        "url": "https://apidocs.dlubal.com/examples.html"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "SOFiSTiK",
+    "vendor": "SOFiSTiK AG",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "建筑和桥梁结构有限元计算与设计，通过 CDB 联通分析模块和结果处理。",
+    "interfaces": [
+      {
+        "name": "CDB DLL 数据访问",
+        "type": "API/SDK",
+        "detail": "可从 Python ctypes 等访问 CDB；2026 的 sof_cdb_w DLL 读写不需许可，sof_q DLL 需许可。"
+      },
+      {
+        "name": "CADINP / sps.exe 文本任务",
+        "type": "脚本/CLI",
+        "detail": "Teddy 编辑 .dat，sps.exe 按数据文件执行 SOFiSTiK 程序模块。"
+      }
+    ],
+    "constraints": "2026 文档：sof_cdb_w DLL 读写无需许可，sof_q DLL 需许可，求解模块另有权益；DLL 位数、教育版和记录结构需匹配；未实测。",
+    "sources": [
+      {
+        "title": "SOFiSTiK：CDB Interfaces",
+        "url": "https://docs.sofistik.com/2026/en/fea/basic/interfaces/cdb_interfaces.html"
+      },
+      {
+        "title": "SOFiSTiK：DAT / sps.exe",
+        "url": "https://docs.sofistik.com/2026/en/cdb_interfaces/introduction/about_manual.html"
+      },
+      {
+        "title": "SOFiSTiK：Required license and DLLs",
+        "url": "https://docs.sofistik.com/2026/en/cdb_interfaces/introduction/about_cdb/required__license_dlls.html"
+      },
+      {
+        "title": "SOFiSTiK：Python connect to CDB",
+        "url": "https://docs.sofistik.com/2026/en/cdb_interfaces/python/examples/python_example1.html"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Code_Aster",
+    "vendor": "EDF R&D / Code_Aster 开源项目",
+    "sector": "civil",
+    "stage": "工艺仿真",
+    "purpose": "结构与固体力学有限元分析，官方土木课程覆盖混凝土、预应力、收缩徐变和损伤。",
+    "interfaces": [
+      {
+        "name": "run_aster / Python 命令文件",
+        "type": "脚本/CLI",
+        "detail": "接受 .export 或 Python/命令文件；直接 .py/.comm 执行时不代管输入和结果文件。"
+      },
+      {
+        "name": "MED 网格与结果文件",
+        "type": "文件格式",
+        "detail": "IMPR_RESU 可用 MED 输出网格和场；RESULTAT 文本格式不作为稳定交换契约。"
+      }
+    ],
+    "constraints": "依据 2026 在线手册与 latest 开发指南；run_aster 仅运行其所属安装版。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "Code_Aster：Product",
+        "url": "https://code-aster.org/en/product/main"
+      },
+      {
+        "title": "Code_Aster：Civil engineering training",
+        "url": "https://code-aster.org/en/learning/ca-formation-module-4-civil-engineering"
+      },
+      {
+        "title": "Code_Aster：run_aster variants",
+        "url": "https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u1/u1.04.00/utilisation_variants_run.html"
+      },
+      {
+        "title": "Code_Aster：run_aster guide",
+        "url": "https://codeaster.readthedocs.io/en/latest/devguide/run_aster/run_aster.html"
+      },
+      {
+        "title": "Code_Aster：Mechanical results / MED",
+        "url": "https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u2/u2.02.01/M_canique.html"
+      },
+      {
+        "title": "Code_Aster：IMPR_RESU purpose",
+        "url": "https://codeaster.gitlab.io/doc/docaster/manuals/man_u/u4/u4.91.01/But.html"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "CalculiX",
+    "vendor": "Guido Dhondt / Klaus Wittig / CalculiX 开源项目",
+    "sector": "civil",
+    "stage": "工艺仿真",
+    "purpose": "有限元静力、动力和热分析，手册含混凝土结构案例；CCX 求解器与 CGX 前后处理器同项目合并。",
+    "interfaces": [
+      {
+        "name": "CCX 命令行 / INP 输入",
+        "type": "脚本/CLI",
+        "detail": "按作业名读取 .inp，关键词定义网格、材料、边界、分析步与输出。"
+      },
+      {
+        "name": "DAT / FRD 结果文件",
+        "type": "文件格式",
+        "detail": "CCX 写出请求的 DAT/FRD 结果，FRD 可交 CGX 后处理。"
+      }
+    ],
+    "constraints": "依据 CCX 2.23 官方手册（2025-10-19）；输入风格类似 Abaqus 不表示全部兼容。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "CalculiX 官网",
+        "url": "https://www.calculix.de/"
+      },
+      {
+        "title": "CalculiX 求解器作者网站",
+        "url": "https://www.dhondt.de/"
+      },
+      {
+        "title": "CalculiX CrunchiX 2.23 手册",
+        "url": "https://www.dhondt.de/ccx_2.23.pdf"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Bonsai",
+    "vendor": "Bonsai / IfcOpenShell 开源项目",
+    "sector": "civil",
+    "stage": "研发设计",
+    "purpose": "基于 Blender 的原生 IFC 建筑信息建模软件。",
+    "interfaces": [
+      {
+        "name": "原生 IFC 工程文件",
+        "type": "文件格式",
+        "detail": "以 IFC 保存原生 BIM 数据；.blend 不是 IFC 工程信息的替代权威文件。"
+      },
+      {
+        "name": "Blender Python 操作器 / IfcOpenShell 后端",
+        "type": "API/SDK",
+        "detail": "Python 操作器将 Blender 事件连接到 Bonsai 领域逻辑和工具，IfcOpenShell 提供 IFC 操作后端。"
+      }
+    ],
+    "constraints": "开发指南页面 0.9.0post1；unstable 故障排查仅用于 IFC/Blend 关系，不泛化为稳定版全部行为。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "Bonsai：Hello world / architecture",
+        "url": "https://docs.bonsaibim.org/studio/guides/development/hello_world.html"
+      },
+      {
+        "title": "Bonsai：Development installation",
+        "url": "https://docs.bonsaibim.org/guides/development/installation.html"
+      },
+      {
+        "title": "Bonsai：Installation",
+        "url": "https://docs.bonsaibim.org/quickstart/installation.html"
+      },
+      {
+        "title": "Bonsai unstable：Troubleshooting",
+        "url": "https://docs.bonsaibim.org/studio-unstable/guides/troubleshooting.html"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Navisworks Manage",
+    "vendor": "Autodesk",
+    "sector": "civil",
+    "stage": "质量检测",
+    "purpose": "多专业模型汇总、协调审查与施工规划。",
+    "interfaces": [
+      {
+        "name": "Navisworks .NET API",
+        "type": "API/SDK",
+        "detail": "官方列 Plug-in、外部 Automation、Controls；自动化可打开/保存和调用插件。"
+      },
+      {
+        "name": "NWCreate C / C++ SDK",
+        "type": "API/SDK",
+        "detail": "可从第三方应用创建 NWC 或开发自定义加载器。"
+      }
+    ],
+    "constraints": "官方 API 总览未固定主版本；SDK 随 Manage / Simulate 安装，具体程序集需匹配宿主。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "Autodesk：Navisworks APIs and SDK",
+        "url": "https://aps.autodesk.com/developer/overview/navisworks-api"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "PIPESIM",
+    "vendor": "SLB",
+    "sector": "mining",
+    "stage": "工艺仿真",
+    "purpose": "油气井筒、管线和地面网络的稳态多相流模拟，用于生产系统设计、流动保障和优化。",
+    "interfaces": [
+      {
+        "name": "PIPESIM Python toolkit",
+        "type": "API/SDK",
+        "detail": "官方确认通过 Python SDK 自动建模、更新、运行和提取结果，可不打开图形界面。"
+      },
+      {
+        "name": "Python toolkit Excel 集成",
+        "type": "API/SDK",
+        "detail": "2019 技术说明给出专用 Excel ribbon，可在工作簿管理 Python 脚本、宏和自定义函数并记录消息。"
+      }
+    ],
+    "constraints": "Python toolkit 能力见当前产品页；Excel 细节来自 PIPESIM 2019 技术说明（PDF 封面 January 2020），不沿用其旧 Python 环境要求到当前版。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "SLB：PIPESIM extensibility and integration",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/pipesim-steady-state-multiphase-flow-simulator/pipesim-extensibility-and-integration"
+      },
+      {
+        "title": "SLB：PIPESIM 2019 technical description",
+        "url": "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/20-is-000057_pipesim_2019_technical_description.pdf"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "OLGA",
+    "vendor": "SLB",
+    "sector": "mining",
+    "stage": "工艺仿真",
+    "purpose": "油气生产系统动态多相流模拟，分析井筒和管线的压力、温度、持液及瞬态流动保障。",
+    "interfaces": [
+      {
+        "name": "Olga messaging SDK Python wrapper",
+        "type": "API/SDK",
+        "detail": "官网确认 2021 功能加入消息 SDK 的 Python API wrapper；公开页面不提供函数级契约。"
+      },
+      {
+        "name": "HDF5 趋势 / 剖面结果文件",
+        "type": "文件格式",
+        "detail": "Olga 2026.2 默认以 HDF5 .h5 保存趋势和剖面绘图数据，替代旧 .tpl/.ppl。"
+      },
+      {
+        "name": "外部测量数据 / CSV 比较",
+        "type": "文件格式",
+        "detail": "2025 功能栏可在趋势/剖面图加入外部测量数据，外部数据集可保存为 CSV 并重新打开编辑。"
+      }
+    ],
+    "constraints": "消息 SDK 的 Python wrapper 见官网 2021 功能栏；HDF5 结果明确为 2026.2，外部数据比较见 2025 功能栏，不能合并成同一首次发布版。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "SLB：OLGA",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/olga/"
+      },
+      {
+        "title": "SLB：Olga new features",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/olga/olga-features"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Petroleum Experts IPM",
+    "vendor": "Petroleum Experts（Petex）",
+    "sector": "mining",
+    "stage": "工艺仿真",
+    "purpose": "油气一体化生产建模套件，合并 PROSPER 井模型、GAP 网络、MBAL 等模块；按实际购买模块开展生产预测和优化。",
+    "interfaces": [
+      {
+        "name": "OpenServer API",
+        "type": "API/SDK",
+        "detail": "官方以 DoSet 设置、DoCmd 计算、DoGet 取结果；明确示例为 Excel 批量驱动 MBAL 的 OOIP 预测。"
+      },
+      {
+        "name": "RESOLVE Visual Workflows / Generic OpenServer",
+        "type": "API/SDK",
+        "detail": "RESOLVE 的可视化工作流层可编排集成；Generic OpenServer 可包装第三方程序供 RESOLVE 控制。"
+      }
+    ],
+    "constraints": "依据当前官方套件、OpenServer 和 RESOLVE 产品页，未据无版本页面推定统一数字版。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "Petex：IPM Suite",
+        "url": "https://www.petex.com/products/integrated-production-modelling-suite/"
+      },
+      {
+        "title": "Petex：OpenServer",
+        "url": "https://www.petex.com/products/integrated-production-modelling-suite/openserver/"
+      },
+      {
+        "title": "Petex：RESOLVE",
+        "url": "https://www.petex.com/products/integrated-production-modelling-suite/resolve/"
+      },
+      {
+        "title": "Petex：PROSPER",
+        "url": "https://www.petex.com/products/integrated-production-modelling-suite/prosper/"
+      },
+      {
+        "title": "Petex：GAP",
+        "url": "https://petex.com/products/integrated-production-modelling-suite/gap/"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "ResInsight",
+    "vendor": "ResInsight 开源项目",
+    "sector": "mining",
+    "stage": "运行运维",
+    "purpose": "油藏模拟网格、井和动态结果的三维可视化、分析及比较；是后处理应用，不是油藏流动求解器。",
+    "interfaces": [
+      {
+        "name": "rips Python / gRPC API",
+        "type": "API/SDK",
+        "detail": "rips 连接运行中的应用或启动实例，可操作案例、提取单元结果与更新对象。"
+      },
+      {
+        "name": "Eclipse 网格 / 汇总文件导入",
+        "type": "文件格式",
+        "detail": "可导入 EGRID/GRID 配套 INIT/重启结果，以及 SMSPEC/UNSMRY 汇总数据。"
+      }
+    ],
+    "constraints": "rips 官方 Python API 页面为 2026.06.2；文件导入能力按当前用户文档，不推定历史版一致。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "ResInsight：About",
+        "url": "https://resinsight.org/about/"
+      },
+      {
+        "title": "ResInsight：rips installation",
+        "url": "https://api.resinsight.org/en/main/Installation.html"
+      },
+      {
+        "title": "ResInsight：rips main classes",
+        "url": "https://api.resinsight.org/en/main/rips.html"
+      },
+      {
+        "title": "ResInsight：Eclipse cases",
+        "url": "https://resinsight.org/import/eclipsecases/index.html"
+      },
+      {
+        "title": "ResInsight：Eclipse summary data",
+        "url": "https://resinsight.org/import/eclipsesummarydata/index.html"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "Oasis montaj",
+    "vendor": "Seequent（Bentley Systems）",
+    "sector": "mining",
+    "stage": "研发设计",
+    "purpose": "地球物理与勘探地学数据处理、成图和分析，用于资源调查与地下解释。",
+    "interfaces": [
+      {
+        "name": "GX Developer API",
+        "type": "API/SDK",
+        "detail": "官方开发指南允许 Python 等扩展平台，或写独立程序访问受支持文件格式和处理函数。"
+      },
+      {
+        "name": "GX 运行与批脚本",
+        "type": "脚本/CLI",
+        "detail": "Project 菜单或工具按钮可运行 GX，许多 GX 命令可纳入批脚本；不是所有 GX 都保证无界面。"
+      }
+    ],
+    "constraints": "用途按当前官网；GX 细节分别依据 2023.2、2024.2 帮助及 GX Developer 指南，不将旧 Python 最低要求套给当前发行版。；接口许可、安装环境及兼容性依实际安装版核对，本次未实测。",
+    "sources": [
+      {
+        "title": "Seequent：Oasis montaj",
+        "url": "https://www.seequent.com/products-solutions/oasis-montaj/"
+      },
+      {
+        "title": "Geosoft：GX Developer overview",
+        "url": "https://geosoftinc.github.io/gx-developer-guide/"
+      },
+      {
+        "title": "Oasis montaj 2023.2：Custom GX development",
+        "url": "https://help.seequent.com/Oasismontaj/2023.2/Content/ss/process_data/apply_filters_gxs/r/developing_and_applying_custom_gxs.htm"
+      },
+      {
+        "title": "Oasis montaj 2024.2：About GXs",
+        "url": "https://help.seequent.com/Oasismontaj/2024.2/Content/ss/om_reference/common_reference/interpretations_expressions_scripts/about_gxs.htm"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "MRST（MATLAB Reservoir Simulation Toolbox）",
+    "vendor": "SINTEF",
+    "sector": "mining",
+    "stage": "工艺仿真",
+    "purpose": "可编程油藏和多孔介质流动研究工具箱，包含网格、物性、求解器及可视化；不是独立黑箱油藏模拟软件。",
+    "interfaces": [
+      {
+        "name": "MATLAB 工具箱 / mrstModule",
+        "type": "API/SDK",
+        "detail": "startup 在当前会话激活 MRST，mrstModule 选择模块，函数和结构体构建网格、模型并执行求解。"
+      },
+      {
+        "name": "Eclipse 型关键词输入",
+        "type": "文件格式",
+        "detail": "官方 FAQ 用 ad-blackoil 的 simulateSPE1 示例说明 Eclipse 型输入；不是对全部 Eclipse 模型的兼容承诺。"
+      }
+    ],
+    "constraints": "MRST 是研究工具箱，不是独立黑箱求解器；MATLAB 授权、Octave 兼容和第三方依赖分别核对。当前 2026a 与归档函数文档须按模块比对；未实测。",
+    "sources": [
+      {
+        "title": "SINTEF：MRST project / releases",
+        "url": "https://www.sintef.no/projectweb/mrst/"
+      },
+      {
+        "title": "SINTEF：MRST overview",
+        "url": "https://www.sintef.no/en/software/mrst/"
+      },
+      {
+        "title": "MRST：FAQ",
+        "url": "https://www.sintef.no/projectweb/mrst/faq/"
+      },
+      {
+        "title": "MRST：Archived core reference",
+        "url": "https://www.sintef.no/contentassets/2551f5f85547478590ceca14bc13ad51/core.html"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  },
+  {
+    "name": "DISPATCH（Modular Mining）",
+    "vendor": "Komatsu / Modular Mining",
+    "sector": "mining",
+    "stage": "生产执行",
+    "purpose": "矿山车队生产调度及设备作业协同；补充采装运输执行层，与勘探/仿真产品区分。",
+    "interfaces": [
+      {
+        "name": "Modular Mining 集成 API",
+        "type": "API/SDK",
+        "detail": "官方确认 DISPATCH 或 ProVision 与第三方系统双向集成，包含位置/状态读取及部分业务入口写入；逐模块映射未公开。"
+      }
+    ],
+    "constraints": "公开 API 信息仅到产品族能力；不得把 ProVision 机器导引等全部归于 DISPATCH。端点、传输标准、权限及版本须客户文档确认；未实测，不据行业关联 OPC UA。",
+    "sources": [
+      {
+        "title": "Komatsu：Mining API integration announcement",
+        "url": "https://www.komatsu.com/en-us/blog/2024/intelligent-mining-leveraging-apis-to-integrate-mining-technologies"
+      },
+      {
+        "title": "Komatsu：Modular smart mining",
+        "url": "https://www.komatsu.com/en-us/technology/smart-mining/modular"
+      }
+    ],
+    "evidence": "官方技术文档或官方产品说明",
+    "sourceDate": "2026-10-19"
+  }
+]
