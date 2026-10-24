@@ -27,6 +27,8 @@ let exported;
 const context=vm.createContext({document,Blob,URL:{createObjectURL(blob){exported=blob;return 'blob:test';},revokeObjectURL(){}},setTimeout(){return 1;},clearTimeout(){}});
 vm.runInContext(code,context);
 const run=expression=>vm.runInContext(expression,context);
+const reviews=JSON.parse(fs.readFileSync(path.join(root,'research/industry-reviews.json'),'utf8'));
+const reviewById=new Map(reviews.map(r=>[r.softwareId,r]));
 const catalog=fs.readFileSync(path.join(root,'research/industry-catalog.tsv'),'utf8').trim().split('\n').slice(1).map(line=>line.split('\t'));
 assert.equal(data.software.length,211+catalog.length);assert.equal(data.protocols.length,50);
 assert.equal(data.sectors.length,10+JSON.parse(fs.readFileSync(path.join(root,'research/industry-sectors.json'),'utf8')).length);assert.equal(data.categories.length,6);
@@ -69,7 +71,7 @@ for(const x of data.software){
     assert(!/<(?:dd|h[345])>undefined<\//.test(detail));
   }
 }
-assert.equal(routeCount,258+supplements.reduce((n,x)=>n+x.interactions.length,0));assert(relationCount>=18);
+assert.equal(routeCount,258+supplements.reduce((n,x)=>n+x.interactions.length,0)+reviews.reduce((n,x)=>n+x.interactions.length,0));assert(relationCount>=18);
 assert(data.software.find(x=>x.name==='OpenEMS（能源管理系统）').interactions.some(i=>i.standardIds.includes('p04')));
 assert(!data.software.find(x=>x.name==='EcoStruxure Power Operation').interactions.some(i=>i.standardIds.includes('p01')),'OPC DA must not be inferred as OPC UA');
 assert.equal(data.software.filter(x=>x.name==='openEMS').length,1);
@@ -138,11 +140,11 @@ assert(!/<script[^>]+src=|<link[^>]+(?:stylesheet|href="http)/.test(html),'Exter
 assert(!html.includes('__ATLAS_'),'Unresolved template marker');
 assert(!/本轮|上轮|首轮|目录扩充|仅看本轮新增|addedBatch|addedOnly|expansion-note|added-filter|data-new-software/.test(html),'Editorial update history leaked into deliverable');
 // Every existing software has an independent model-document audit, including negative findings.
-assert.equal(data.theorySummary.reviewed,211);
+assert.equal(data.theorySummary.reviewed,data.software.length);
 assert.equal(Object.values(data.theorySummary.statuses).reduce((a,b)=>a+b,0),data.software.length);
 assert.equal(data.theorySummary.topics,data.software.reduce((n,x)=>n+x.theory.topics.length,0));
 assert.equal(data.theorySummary.documents,new Set(data.software.flatMap(x=>x.theory.documents.map(d=>d.url))).size);
-assert.equal(data.interfaceCheckedDate,'2026-10-19');assert.equal(data.theorySummary.checkedDate,'2026-10-21');
+assert.equal(data.interfaceCheckedDate,'2026-10-24');assert.equal(data.theorySummary.checkedDate,'2026-10-24');
 const priorRechecks=['process','eda','cad','resources'].flatMap(group=>JSON.parse(fs.readFileSync(path.join(root,'research',`recheck-${group}-docs.json`),'utf8')));
 assert.equal(priorRechecks.length,41);assert.equal(new Set(priorRechecks.map(r=>r.softwareId)).size,41);
 const remainingRechecks=['gproms','optitex','slb'].flatMap(group=>{const r=JSON.parse(fs.readFileSync(path.join(root,'research',`recheck-final-${group}.json`),'utf8'));return Array.isArray(r)?r:[r];});
@@ -150,8 +152,8 @@ assert.equal(remainingRechecks.length,4);
 assert.deepEqual(new Set(remainingRechecks.map(r=>r.softwareId)),new Set(['sw067','sw084','sw129','sw130']));
 const rechecks=[...new Map([...priorRechecks,...remainingRechecks].map(r=>[r.softwareId,r])).values()];
 assert.equal(rechecks.length,44);
-assert.equal(data.theorySummary.functionDocumentationReviewed,44);
-assert.equal(data.theorySummary.functionDocumentationConfirmed,rechecks.filter(r=>r.functionDocumentation.status==='confirmed').length);
+assert.equal(data.theorySummary.functionDocumentationReviewed,44+reviews.length);
+assert.equal(data.theorySummary.functionDocumentationConfirmed,rechecks.filter(r=>r.functionDocumentation.status==='confirmed').length+reviews.filter(r=>r.theory.functionDocumentation.status==='confirmed').length);
 for(const r of rechecks){
   const x=data.software.find(x=>x.id===r.softwareId),f=x.theory.functionDocumentation;
   assert.equal(x.name,r.name);assert.equal(f.summary,r.functionDocumentation.summary);
@@ -171,7 +173,7 @@ for(const x of data.software){
     const detail=run(`softwareDetail(software.find(x=>x.id===${JSON.stringify(x.id)}))`);assert(detail.includes('主要功能')&&detail.includes('未专项核查')&&!detail.includes('undefined'));
     continue;
   }
-  assert.equal(t.checkedDate,'2026-10-21');
+  assert.equal(t.checkedDate,reviewById.get(x.id)?.checkedDate||'2026-10-21');
   if(['documented','limited'].includes(t.status))assert(t.topics.length,`${x.name}: positive finding without topic`);
   for(const d of t.documents){
     for(const k of ['title','url','version','access','evidence'])assert(d[k],`${x.name}: missing document ${k}`);
@@ -213,18 +215,25 @@ run("state.theoryStatus='documented';state.theoryKind='数值算法';exportCSV()
 run("reset();state.view='software';exportCSV()");csv=await exported.text();assert(csv.includes('机理资料状态')&&csv.includes('模型文档'));
 run("state.selected.add('sw155');state.selected.add('sw156');showCompare()");assert(nodes.get('compare-body').innerHTML.includes('机理与模型'));
 run("state.view='method';render()");assert(nodes.get('content').innerHTML.includes('机理与模型文档的核查范围'));
-// Product-only records must be discoverable without becoming invented API evidence.
-assert.equal(data.catalogSummary.functionOnly,catalog.length);
+// Every catalog entry has reviewed interactions, mechanism evidence and explicit protocol boundaries.
+assert.equal(reviews.length,catalog.length);assert.equal(reviewById.size,catalog.length);
+assert.equal(data.catalogSummary.functionOnly,0);
 for(const row of catalog){
-  const x=data.software.find(x=>x.name===row[1]);assert(x&&x.coverageDepth==='function');
-  assert.equal(x.sources[0].url,row[7]);assert.equal(x.constraints,row[8]);
-  assert.equal(x.interfaces.length,0);assert.equal(x.theory.topics.length,0);
+  const x=data.software.find(x=>x.name===row[1]),r=reviewById.get(x?.id);
+  assert(x&&r&&x.coverageDepth==='interface');assert.equal(x.name,r.name);
+  assert.equal(x.sources[0].url,row[7]);assert.equal(x.constraints,r.constraints);
+  assert(x.interfaces.length&&x.theory.topics.length&&x.theory.documents.length);
+  assert.deepEqual(x.interactions,r.interactions);assert.deepEqual(x.theory,r.theory);
+  for(const i of x.interactions){
+    assert(i.protocolNotes&&i.role&&i.dataContract);
+    const detail=run(`interactionDetail(software.find(x=>x.id===${JSON.stringify(x.id)}),software.find(x=>x.id===${JSON.stringify(x.id)}).interactions.find(i=>i.id===${JSON.stringify(i.id)}))`);
+    assert(detail.includes(run(`esc(${JSON.stringify(i.protocolNotes)})`)));
+  }
   const card=run(`softwareCard(software.find(x=>x.id===${JSON.stringify(x.id)}))`);
-  assert(card.includes('用途与功能资料')&&!card.includes('undefined')&&!card.includes('0 种交互路径'));
+  assert(!card.includes('用途与功能资料')&&!card.includes('undefined'));
 }
-run("reset();state.coverage='function';render()");assert.equal(run('filteredSoftware().length'),catalog.length);
-run("state.category='program';render()");assert.equal(run('filteredSoftware().length'),0);
-run("reset();state.coverage='interface';render()");assert.equal(run('filteredSoftware().length'),211);
+run("reset();state.coverage='function';render()");assert.equal(run('filteredSoftware().length'),0);
+run("reset();state.coverage='interface';render()");assert.equal(run('filteredSoftware().length'),data.software.length);
 for(const [query,name] of [['制鞋','Romans CAD'],['陶瓷','NETZSCH Kinetics Neo'],['水产','aquaManager'],['奶牛','DairyComp'],['国产EDA','NanoSpice'],['核工程','OpenMC'],['PCB布线','KiCad']]){
   run(`reset();state.query=${JSON.stringify(query)};render()`);
   assert(run(`filteredSoftware().some(x=>x.name===${JSON.stringify(name)})`),query);
@@ -234,12 +243,12 @@ run("reset();state.sector='mobility';state.query='SUMO';render()");assert.equal(
 run("reset();state.sector='environment';state.query='SUMO';render()");assert(run("filteredSoftware().some(x=>x.name==='SUMO')"));assert(!run("filteredSoftware().some(x=>x.name==='Eclipse SUMO')"));
 run("reset();state.view='software';exportCSV()");csv=await exported.text();
 for(const row of catalog)assert(csv.includes(row[1].replaceAll('"','""')),`Export omitted ${row[1]}`);
-assert(csv.includes('软件官方来源')&&csv.includes('用途与功能资料')&&!csv.includes('\"undefined\"'));
-run("state.selected.clear();state.selected.add('sw001');state.selected.add('sw212');showCompare()");assert(nodes.get('compare-body').innerHTML.includes('接口未专项核查'));
-run("reset();state.view='theory';state.theoryStatus='not-reviewed';exportCSV()");csv=await exported.text();assert(csv.includes('CarMaker')&&!csv.includes('Aspen Plus'));
+assert(csv.includes('软件官方来源')&&csv.includes('协议与格式边界')&&!csv.includes('\"undefined\"'));
+run("state.selected.clear();state.selected.add('sw001');state.selected.add('sw212');showCompare()");assert(nodes.get('compare-body').innerHTML.includes('CarMaker')&&!nodes.get('compare-body').innerHTML.includes('接口未专项核查'));
+run("reset();state.view='theory';state.theoryStatus='not-reviewed';exportCSV()");csv=await exported.text();assert(!csv.includes('CarMaker')&&!csv.includes('Aspen Plus'));
 const result={checkedDate:'2026-10-24',software:data.software.length,sectors:data.sectors.length,catalog:data.catalogSummary,protocols:50,detailedInteractions:routeCount,documentedStandardRelations:relationCount,uniqueSources:data.sources.length,theory:data.theorySummary,
-  checks:['用途资料无虚构接口、模型、日期或标准关系','全部功能条目在 CSV 中保留且来源可追溯','核查深度筛选与交互证据交集','中文行业任务关键词检索','交通 SUMO 与污水 SUMO 分开','领域导航与六类交互分类',`${routeCount} 条交互字段与来源完整性`,'40 组工作任务入口与行业归属','54 个补充条目全部合并','原 157 个软件 ID 保持稳定','能源管理 OpenEMS 与电磁 openEMS 分开','OPC DA 不推定为 UA，历史手册保留年份','结构与抗震六工具入口和土木跨领域关联','电子设计工作对象及专题筛选','平台关系和软件计数分离','产品层级与许可字段导出','无更新批次、条目标记或新增筛选','AutoCAD 五类交互','原 63 款保留与名称/ID 去重','全部交互详情渲染','50 项标准详情与双向支持关系','首/中/末页分页','行业与技术形式交集筛选','分类与标准关系筛选','不从 HL7 或 UA 推断标准实现','无结果状态','协议关键词查询','完整字段 CSV 导出','CSV 引号转义','软件对比内容','矩阵与来源说明渲染','DOM 静态节点引用','单文件离线依赖'],
-  modelChecks:['211 个软件全部有独立机理核查记录','44 项功能正文与机理状态分别记录','原41项及剩余4项覆盖叠加、来源与获取路径验证','功能文档、获取方式与版本逐条渲染和 CSV 导出','状态、主题数与去重文档数一致','全部模型说明及文档版本/访问条件渲染','主题来源属于对应软件与全局来源','正面结论至少一项模型说明','模型行业/类别/状态交集筛选','土木跨领域关联保留且选择行业维持模型视图','模型关键词搜索与空状态','模型 CSV 保留无正文条目及全部主题','接口 CSV 与对比包含机理依据','界面无更新批次且接口与模型核查日期分开'],
+  checks:['所有条目交互与模型证据覆盖，未知契约明确标注','全部功能条目在 CSV 中保留且来源可追溯','核查深度筛选与交互证据交集','中文行业任务关键词检索','交通 SUMO 与污水 SUMO 分开','领域导航与六类交互分类',`${routeCount} 条交互字段与来源完整性`,'40 组工作任务入口与行业归属','54 个补充条目全部合并','原 157 个软件 ID 保持稳定','能源管理 OpenEMS 与电磁 openEMS 分开','OPC DA 不推定为 UA，历史手册保留年份','结构与抗震六工具入口和土木跨领域关联','电子设计工作对象及专题筛选','平台关系和软件计数分离','产品层级与许可字段导出','无更新批次、条目标记或新增筛选','AutoCAD 五类交互','原 63 款保留与名称/ID 去重','全部交互详情渲染','50 项标准详情与双向支持关系','首/中/末页分页','行业与技术形式交集筛选','分类与标准关系筛选','不从 HL7 或 UA 推断标准实现','无结果状态','协议关键词查询','完整字段 CSV 导出','CSV 引号转义','软件对比内容','矩阵与来源说明渲染','DOM 静态节点引用','单文件离线依赖'],
+  modelChecks:[`${data.software.length} 个软件有机理资料记录`,`${data.theorySummary.functionDocumentationReviewed} 项功能文档与机理状态分别记录`,'原41项及剩余4项覆盖叠加、来源与获取路径验证','功能文档、获取方式与版本逐条渲染和 CSV 导出','状态、主题数与去重文档数一致','全部模型说明及文档版本/访问条件渲染','主题来源属于对应软件与全局来源','正面结论至少一项模型说明','模型行业/类别/状态交集筛选','土木跨领域关联保留且选择行业维持模型视图','模型关键词搜索与空状态','模型 CSV 保留无正文条目及全部主题','接口 CSV 与对比包含机理依据','界面无更新批次且接口与模型核查日期分开'],
   scope:'Node 中验证页面逻辑与生成数据；不替代浏览器排版检查、模型复现或工业软件接口测试'};
 fs.writeFileSync(path.join(root,'research/validation.json'),JSON.stringify(result,null,2)+'\n');
 console.log(JSON.stringify(result,null,2));

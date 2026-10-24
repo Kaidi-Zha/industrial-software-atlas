@@ -313,6 +313,33 @@ for name,keywords in relations['keywords'].items():
     by_name[name]['keywords']=list(dict.fromkeys([*by_name[name].get('keywords',[]),*keywords]))
 for item in software:
     item.setdefault('coverageDepth','interface')
+reviews=json.loads((ROOT/'research/industry-reviews.json').read_text())
+review_by_id={r['softwareId']:r for r in reviews}
+assert len(review_by_id)==len(reviews)==len(catalog),'Incomplete or duplicate industry reviews'
+assert set(review_by_id)=={f'sw{i:03}' for i in range(212,212+len(catalog))}
+for item in software:
+    if item['id'] not in review_by_id:
+        continue
+    review=review_by_id[item['id']]
+    assert review['name']==item['name'],item['id']
+    for key in ['profile','constraints','interfaces','interactions','theory']:
+        item[key]=review[key]
+    item['sourceDate']=review['checkedDate']
+    item['coverageDepth']='interface'
+    item['evidence']='官方接口与模型资料核查；未运行软件'
+    item['sources']=list({s['url']:s for s in [*item['sources'],*review['sources']]}.values())
+    source_urls={s['url'] for s in item['sources']}
+    assert item['interactions'] and item['theory']['topics'] and item['theory']['documents']
+    assert {i['name'] for i in item['interfaces']}=={i['name'] for i in item['interactions']}
+    for route in item['interactions']:
+        assert route['category'] in {c['id'] for c in categories}
+        assert all(route.get(k) for k in ['entry','role','direction','operations','dataContract','protocolNotes','version','workflow','execution','failure','prerequisites','evidence','example'])
+        assert set(route['evidence']['sourceUrls'])<=source_urls
+        assert route['example']['sourceUrl'] in source_urls
+        assert set(route['standardIds'])<={p['id'] for p in protocols}
+    for topic in item['theory']['topics']:
+        assert topic['kind'] in theory_kinds,item['name']
+        assert set(topic['sourceUrls'])<={d['url'] for d in item['theory']['documents']}
 for group in electronics_context['areas']:
     if group['id']=='circuit':
         group['softwareNames'].extend(['NanoSpice','Empyrean ALPS'])
@@ -321,15 +348,21 @@ for group in electronics_context['access']:
     if group['id']=='domestic':
         group['name']='国产设计与仿真'
         group['softwareNames'].extend(['NanoSpice','Empyrean ALPS'])
-theory_summary['statuses']={key:sum(x['theory']['status']==key for x in software) for key in theory_statuses}
-catalog_summary=dict(checkedDate='2026-10-24',functionOnly=len(catalog),interfaceAudited=len(software)-len(catalog),
+theory_summary=dict(checkedDate=max(x['theory']['checkedDate'] for x in software),
+    reviewed=sum(x['theory']['status']!='not-reviewed' for x in software),
+    statuses={key:sum(x['theory']['status']==key for x in software) for key in theory_statuses},
+    topics=sum(len(x['theory']['topics']) for x in software),
+    documents=len({d['url'] for x in software for d in x['theory']['documents']}),
+    functionDocumentationReviewed=sum('functionDocumentation' in x['theory'] for x in software),
+    functionDocumentationConfirmed=sum(x['theory'].get('functionDocumentation',{}).get('status')=='confirmed' for x in software))
+catalog_summary=dict(checkedDate='2026-10-24',functionOnly=sum(not x['interactions'] for x in software),interfaceAudited=sum(bool(x['interactions']) for x in software),
     scope='工业生产、工程设计与相关运营；含研究求解器和专业库，不包含全部行业、地区及历史产品。')
 sources={}
 for item in [*software,*protocols,*electronics_context['relationships']]:
     for source in item['sources']:
         record=sources.setdefault(source['url'],dict(**source,items=[]))
         if item['name'] not in record['items']:record['items'].append(item['name'])
-data=dict(checkedDate='2026-10-24',interfaceCheckedDate='2026-10-19',catalogSummary=catalog_summary,theorySummary=theory_summary,theoryKinds=theory_kinds,theoryStatuses=theory_statuses,electronicsContext=electronics_context,structuralContext=structural_context,categories=categories,sectors=sectors,software=software,protocols=protocols,sources=list(sources.values()))
+data=dict(checkedDate='2026-10-24',interfaceCheckedDate=max(x['sourceDate'] for x in software),catalogSummary=catalog_summary,theorySummary=theory_summary,theoryKinds=theory_kinds,theoryStatuses=theory_statuses,electronicsContext=electronics_context,structuralContext=structural_context,categories=categories,sectors=sectors,software=software,protocols=protocols,sources=list(sources.values()))
 payload=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('</','<\/')
 template=(ROOT/'layout.html').read_text()
 template=template.replace('__ATLAS_STYLES__',(ROOT/'atlas.css').read_text())
