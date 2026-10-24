@@ -1,0 +1,206 @@
+[
+  {
+    "softwareId": "sw129",
+    "name": "ECLIPSE",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "公开官方资料可读，涵盖黑油、组分、热与化学驱模拟；技术文进一步区分CO₂储存选项，历史PDF给出模型作用关系。",
+      "documents": [
+        {
+          "title": "SLB：Reservoir simulation for CO2 storage studies",
+          "url": "https://www.slb.com/resource-library/blogs/di/reservoir-simulation-for-co2-storage-studies",
+          "version": "官方技术文章，2020-10-06；未指定单一发行版",
+          "access": "公开正文",
+          "evidence": "Eclipse Compositional simulator 段说明 CO2STORE、GASWAT、CO2SOL 的相组成、相平衡与溶解假设。"
+        },
+        {
+          "title": "ECLIPSE — Industry-reference reservoir simulator",
+          "url": "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/eclipse_reservoir_simulator.pdf",
+          "version": "版权2013，文件编号13-IS-0265；未标软件版本",
+          "access": "公开正文",
+          "evidence": "实际下载官方4页PDF并提取正文；第2页 Chemical enhanced oil recovery 解释增黏、吸附、泡沫与碱示踪模型。"
+        },
+        {
+          "title": "SLB：ECLIPSE 2022.3 release information",
+          "url": "https://www.software.slb.com/software-news/support-news/eclipse/eclipse-2022-3",
+          "version": "2022.3",
+          "access": "公开正文",
+          "evidence": "公开发布说明提及 Technical Description，页尾有 Login to read more；未取得完整手册，不由该按钮推断全部历史文档均受限。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "按具体模型名检索并打开官方技术文章",
+          "url": "https://www.slb.com/resource-library/blogs/di/reservoir-simulation-for-co2-storage-studies",
+          "result": "取得完整公开正文，实际读取CO2STORE、GASWAT和CO2SOL段落，无需账户。"
+        },
+        {
+          "method": "下载官方静态PDF并提取正文",
+          "url": "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/eclipse_reservoir_simulator.pdf",
+          "result": "web读取器返回错误；curl --fail --location成功下载，pdftotext取得4页可读正文，封底版权2013。"
+        },
+        {
+          "method": "核查完整手册线索与登录范围",
+          "url": "https://www.software.slb.com/software-news/support-news/eclipse/eclipse-2022-3",
+          "result": "公开页提及Technical Description；Login to read more 指向带当前发布页returnUrl的登录路径，未取得手册正文或手册专用权限说明。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw129",
+      "name": "ECLIPSE",
+      "status": "limited",
+      "summary": "官方公开技术文章解释 CO₂ 储存模型的相组成与平衡，官方历史PDF说明化学驱建模；完整 Technical Description 仍未取得。",
+      "topics": [
+        {
+          "title": "CO₂ 储存的相组成与平衡假设",
+          "kind": "物理与机理",
+          "explanation": "CO2STORE 以富 CO₂ 气相、富水相和固相描述盐水层储存，用逸度平衡处理 CO₂/水互溶并修正盐水密度。GASWAT 以修正 Peng–Robinson 状态方程描述气/水两相平衡。",
+          "assumptions": "证据为2020年技术文章中的指定选项。CO2SOL 另允许油气水中存在 CO₂，但不处理水向烃相溶解；各选项不能混作同一相模型。未取得完整方程和求解器。",
+          "locator": "Eclipse Compositional simulator：CO2STORE / GASWAT / CO2SOL",
+          "sourceUrls": [
+            "https://www.slb.com/resource-library/blogs/di/reservoir-simulation-for-co2-storage-studies"
+          ]
+        },
+        {
+          "title": "化学驱中黏度、吸附与流度的处理",
+          "kind": "物理与机理",
+          "explanation": "聚合物模型计入溶液增黏及岩石吸附引起的渗透率降低；泡沫按浓度等参数降低气体流度；碱作为示踪组分，其浓度影响界面张力及聚合物/表面活性剂吸附。",
+          "assumptions": "依据2013年官方概述，仅解释模型作用关系，未提供完整本构式、参数关联或默认值；实际模块与许可需按所用版本核对。",
+          "locator": "官方PDF第2页 Chemical enhanced oil recovery",
+          "sourceUrls": [
+            "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/eclipse_reservoir_simulator.pdf"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "SLB：Reservoir simulation for CO2 storage studies",
+          "url": "https://www.slb.com/resource-library/blogs/di/reservoir-simulation-for-co2-storage-studies",
+          "version": "官方技术文章，2020-10-06；未指定单一发行版",
+          "access": "公开正文",
+          "evidence": "Eclipse Compositional simulator 段说明 CO2STORE、GASWAT、CO2SOL 的相组成、相平衡与溶解假设。"
+        },
+        {
+          "title": "ECLIPSE — Industry-reference reservoir simulator",
+          "url": "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/eclipse_reservoir_simulator.pdf",
+          "version": "版权2013，文件编号13-IS-0265；未标软件版本",
+          "access": "公开正文",
+          "evidence": "实际下载官方4页PDF并提取正文；第2页 Chemical enhanced oil recovery 解释增黏、吸附、泡沫与碱示踪模型。"
+        },
+        {
+          "title": "SLB：ECLIPSE 2022.3 release information",
+          "url": "https://www.software.slb.com/software-news/support-news/eclipse/eclipse-2022-3",
+          "version": "2022.3",
+          "access": "公开正文",
+          "evidence": "公开发布说明提及 Technical Description，页尾有 Login to read more；未取得完整手册，不由该按钮推断全部历史文档均受限。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "公开技术文与历史PDF提供局部模型解释。完整Technical Description未取得；发布页的登录按钮不能证明所有模型说明或全部版本手册均受限。"
+    },
+    "reason": "原记录只围绕Technical Description登录线索判断整款软件状态，遗漏公开模型文章与静态产品技术PDF；现按实际可读的局部证据分类，并缩小对登录限制的判断。"
+  },
+  {
+    "softwareId": "sw130",
+    "name": "INTERSECT",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已读2017.1官方发布说明与公开场管理功能页，确认模拟方案、规则配置及适用条件；现行完整理论手册和Rock Modelling章节另列未取得。",
+      "documents": [
+        {
+          "title": "INTERSECT 2017.1 Release Notes",
+          "url": "https://www.software.slb.com/-/media/software-media-items/support/product-documents/intersect/2017/intersect_2017_1_releasenotes.pdf?hash=3490DEE043B8659CFA4DE8B6A3037B14D3F6AC7C&la=en",
+          "version": "Version2017.1，版权2017",
+          "access": "公开正文",
+          "evidence": "实际取得官方PDF全文；§5.10–5.11，印刷页14–15说明滞后曲线处理、隐式方案及IMPSAT适用限制。"
+        },
+        {
+          "title": "SLB：Intersect field management",
+          "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/intersect-reservoir-simulator/intersect/intersect-field-management",
+          "version": "滚动官网，未标具体软件版本",
+          "access": "公开正文",
+          "evidence": "Applications / Benefits / Features：操作逻辑独立于网格，按井或区域状态触发规则，较高层约束需与井及储层当前状态平衡。"
+        },
+        {
+          "title": "SLB：INTERSECT 2025.1 release information",
+          "url": "https://www.software.slb.com/software-news/software-top-news/intersect/intersect-2025-1",
+          "version": "2025.1",
+          "access": "公开正文",
+          "evidence": "公开页说明Technical Description的Rock Modelling章节重组并有Login to read more；未取得该章节正文，不把页尾登录按钮当作所有文档均受限的证据。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "追踪官方历史发布说明的静态PDF",
+          "url": "https://www.software.slb.com/-/media/software-media-items/support/product-documents/intersect/2017/intersect_2017_1_releasenotes.pdf?hash=3490DEE043B8659CFA4DE8B6A3037B14D3F6AC7C&la=en",
+          "result": "web直接打开失败；curl --fail --location成功下载并用pdftotext读取§5.10–5.11，确认2017.1版本。"
+        },
+        {
+          "method": "读取官方独立功能模块页面",
+          "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/intersect-reservoir-simulator/intersect/intersect-field-management",
+          "result": "公开正文包含网格独立的逻辑规则和约束平衡说明，不需登录。"
+        },
+        {
+          "method": "检查现行理论手册入口",
+          "url": "https://www.software.slb.com/software-news/software-top-news/intersect/intersect-2025-1",
+          "result": "2025.1发布页公开说明章节重组，更多资料链接要求登录；未取得完整手册，不推断所有公开历史资料的访问条件。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw130",
+      "name": "INTERSECT",
+      "status": "limited",
+      "summary": "官方历史发布说明可公开下载，包含时间离散的条件与滞后规则；公开场管理页面解释触发式操作逻辑。完整理论手册仍未取得。",
+      "topics": [
+        {
+          "title": "隐式方案选择与局部数值处理条件",
+          "kind": "数值算法",
+          "explanation": "2017.1说明支持全隐式、IMPES、IMPSAT及自适应隐式方案；IMPSAT仅用于超过两个烃组分的组分模拟，否则警告并转换为IMPES。Killough扫描曲线过陡时，可选择改查主排驱曲线。",
+          "assumptions": "所读为2017.1的选择规则与限制，未给完整离散方程或自适应判据。不能当作当前版本默认值；时间步限制及相渗滞后需按指定节点和模型核对。",
+          "locator": "§5.10 Rock physics；§5.11 Solution of the equations，印刷页14–15",
+          "sourceUrls": [
+            "https://www.software.slb.com/-/media/software-media-items/support/product-documents/intersect/2017/intersect_2017_1_releasenotes.pdf?hash=3490DEE043B8659CFA4DE8B6A3037B14D3F6AC7C&la=en"
+          ]
+        },
+        {
+          "title": "与网格分离的场管理触发规则",
+          "kind": "业务与控制模型",
+          "explanation": "场管理按井、区域及设施约束表达操作逻辑，与具体网格单元分开；可按井气油比或区域压力触发关井、调整注水，并平衡高层约束与井及储层的当前状态。",
+          "assumptions": "页面给出规则框架与操作示例，未公开调度优化目标或约束平衡求解器。示例阈值不是工程设定建议，改变网格也不保证物理计算结果不变。",
+          "locator": "Applications / Benefits / Features",
+          "sourceUrls": [
+            "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/intersect-reservoir-simulator/intersect/intersect-field-management"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "INTERSECT 2017.1 Release Notes",
+          "url": "https://www.software.slb.com/-/media/software-media-items/support/product-documents/intersect/2017/intersect_2017_1_releasenotes.pdf?hash=3490DEE043B8659CFA4DE8B6A3037B14D3F6AC7C&la=en",
+          "version": "Version2017.1，版权2017",
+          "access": "公开正文",
+          "evidence": "实际取得官方PDF全文；§5.10–5.11，印刷页14–15说明滞后曲线处理、隐式方案及IMPSAT适用限制。"
+        },
+        {
+          "title": "SLB：Intersect field management",
+          "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/intersect-reservoir-simulator/intersect/intersect-field-management",
+          "version": "滚动官网，未标具体软件版本",
+          "access": "公开正文",
+          "evidence": "Applications / Benefits / Features：操作逻辑独立于网格，按井或区域状态触发规则，较高层约束需与井及储层当前状态平衡。"
+        },
+        {
+          "title": "SLB：INTERSECT 2025.1 release information",
+          "url": "https://www.software.slb.com/software-news/software-top-news/intersect/intersect-2025-1",
+          "version": "2025.1",
+          "access": "公开正文",
+          "evidence": "公开页说明Technical Description的Rock Modelling章节重组并有Login to read more；未取得该章节正文，不把页尾登录按钮当作所有文档均受限的证据。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "公开历史PDF和功能页支持所列局部解释，不能替代当前版Technical Description。完整Rock Modelling章节未取得，其分发与账户条件需从官方支持入口另核。"
+    },
+    "reason": "原记录把现行Technical Description的登录线索推广到整款软件；公开历史发布说明和场管理正文已取得，应保留完整手册缺口，同时记录可读模型证据。"
+  }
+]

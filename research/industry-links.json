@@ -1,0 +1,203 @@
+{
+  "crossSectors": {
+    "CLO": [
+      "textile"
+    ],
+    "Optitex PDS / Marker": [
+      "textile"
+    ],
+    "Lectra Modaris": [
+      "textile"
+    ],
+    "Gerber AccuMark": [
+      "textile"
+    ],
+    "Valentina": [
+      "textile"
+    ],
+    "Seamly2D": [
+      "textile"
+    ],
+    "Esko ArtiosCAD": [
+      "paper"
+    ],
+    "Packmage（包装魔术师）": [
+      "paper"
+    ],
+    "Esko Automation Engine / WebCenter 集成": [
+      "paper"
+    ],
+    "QGIS": [
+      "geospatial"
+    ],
+    "ArcGIS Pro": [
+      "geospatial"
+    ],
+    "EPANET": [
+      "fluid"
+    ],
+    "WNTR": [
+      "fluid"
+    ],
+    "EnergyPlus": [
+      "hvac"
+    ],
+    "Ansys HFSS": [
+      "telecom"
+    ],
+    "openEMS": [
+      "telecom"
+    ],
+    "Keysight PathWave ADS": [
+      "telecom"
+    ],
+    "CODESYS Development System": [
+      "plant"
+    ],
+    "TIA Portal（STEP 7／WinCC工程平台）": [
+      "plant"
+    ],
+    "SIMATIC PCS 7 / OpenPCS 7": [
+      "plant"
+    ],
+    "HOMER Pro": [
+      "battery"
+    ],
+    "SIMATIC BRAUMAT": [
+      "management"
+    ],
+    "BESTMIX Recipe Management": [
+      "agriculture"
+    ],
+    "Format Solutions 配方与饲料管理软件": [
+      "agriculture"
+    ],
+    "PyBaMM": [
+      "power"
+    ],
+    "Batemo Cell Model / Cell Explorer": [
+      "power"
+    ],
+    "Ansys Motor-CAD": [
+      "automotive",
+      "transmission"
+    ],
+    "AVL FIRE M": [
+      "battery",
+      "power",
+      "marine"
+    ],
+    "CarMaker": [
+      "equipment"
+    ],
+    "AutoForm Forming": [
+      "automotive"
+    ],
+    "JMatPro": [
+      "materials"
+    ],
+    "MAGMASOFT": [
+      "materials"
+    ],
+    "ProCAST": [
+      "materials"
+    ],
+    "Moldex3D": [
+      "electronics"
+    ],
+    "USIM PAC": [
+      "materials"
+    ],
+    "HSC Chemistry": [
+      "metals"
+    ],
+    "REFPROP": [
+      "materials"
+    ],
+    "Carrier HAP": [
+      "civil"
+    ],
+    "Trane TRACE 3D Plus": [
+      "civil"
+    ],
+    "AVEVA E3D Design": [
+      "materials",
+      "marine",
+      "power"
+    ],
+    "Aspen Exchanger Design and Rating（EDR）": [
+      "materials",
+      "hvac"
+    ],
+    "Eplan Electric P8 / Pro Panel": [
+      "equipment"
+    ],
+    "PHREEQC": [
+      "mining"
+    ]
+  },
+  "keywords": {
+    "OpenSees / OpenSeesPy": [
+      "结构",
+      "抗震",
+      "地震工程"
+    ],
+    "PKPM 结构设计软件（含 SATWE）": [
+      "结构",
+      "抗震",
+      "建筑"
+    ],
+    "COMSOL Multiphysics": [
+      "有限元",
+      "多物理场",
+      "固体传热",
+      "PDE"
+    ],
+    "SUMO": [
+      "污水处理",
+      "生物处理",
+      "Dynamita"
+    ],
+    "OpenEMS（能源管理系统）": [
+      "能源管理",
+      "储能控制"
+    ],
+    "openEMS": [
+      "电磁",
+      "FDTD",
+      "射频"
+    ],
+    "嘉立创EDA（标准版 / 专业版）": [
+      "立创EDA",
+      "LCEDA",
+      "EasyEDA",
+      "国产EDA",
+      "PCB布线"
+    ],
+    "KiCad": [
+      "PCB",
+      "电路板",
+      "PCB布线"
+    ],
+    "Altium Designer": [
+      "PCB",
+      "电路板",
+      "PCB布线"
+    ],
+    "Cadence Allegro X PCB Editor": [
+      "PCB",
+      "电路板",
+      "PCB布线"
+    ],
+    "Siemens PADS（Standard / Professional）": [
+      "PCB",
+      "电路板",
+      "PCB布线"
+    ],
+    "Siemens Xpedition": [
+      "PCB",
+      "电路板",
+      "PCB布线"
+    ]
+  }
+}

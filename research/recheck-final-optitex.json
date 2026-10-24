@@ -1,0 +1,156 @@
+{
+  "softwareId": "sw084",
+  "name": "Optitex PDS / Marker",
+  "functionDocumentation": {
+    "status": "confirmed",
+    "summary": "官方公开发布说明和操作技巧正文覆盖 PDS 测量与放码表联动、裁片几何编辑、Marker 布疵处理与排料效率监控；专用帮助手册仍需账户访问。",
+    "documents": [
+      {
+        "title": "Optitex O/25 — Product Development and Production Optimization",
+        "url": "https://optitex.com/optitex-o-25-advancing-smarter-faster-and-more-sustainable-digital-product-development-and-production-optimization/",
+        "version": "O/25；2025",
+        "access": "公开正文",
+        "evidence": "直接读取官方 HTML 正文，定位 Real-Time Nesting Efficiency Tracking 与 Flaw Batch Command 小节；明确效率监控、人工停止及布疵相交裁片的移除规则。"
+      },
+      {
+        "title": "Optitex O/26 Release — Digital Patternmaking and Connected Production Workflows",
+        "url": "https://optitex.com/optitex-o26-release/",
+        "version": "O/26；2026",
+        "access": "公开正文",
+        "evidence": "直接读取官方 HTML 正文，定位 Dynamic Measurement Chart and Grading Automation Enhancements；说明 Excel 测量数据导入以及测量选项与放码表的对应同步。"
+      },
+      {
+        "title": "Optitex — Did you know…",
+        "url": "https://optitex.com/did-you-know/",
+        "version": "未标明软件版本；历史操作技巧，核查时仍公开",
+        "access": "公开正文",
+        "evidence": "直接读取官方操作说明：Save/Restore Placement 保存并恢复裁片位置与方向；以两端点选择段、经 Segment Editor 旋转，再以目标点粘贴到其他裁片。"
+      },
+      {
+        "title": "Optitex — Marker",
+        "url": "https://optitex.com/products/marker/",
+        "version": "未标明版本",
+        "access": "公开正文",
+        "evidence": "直接读取产品功能正文，确认款式、材料、尺码数量、裁片旋转翻转、顺序和朝向约束；只用于确认功能范围，不据此推断排料算法。"
+      }
+    ],
+    "retrieval": [
+      {
+        "method": "官方帮助入口直接访问",
+        "url": "https://help.optitex.com/1382687/Content/Optitex_2D/Using_the_Set_Grading_Tool.htm",
+        "result": "web 实际跟随跳转至 https://my.optitex.com/login/?redirect_to=https://my.optitex.com/help/docs/，显示登录表单；未读取受限正文。"
+      },
+      {
+        "method": "官方已索引 PDF 直接访问",
+        "url": "https://help.optitex.com/1382687/Content/PDFs/Report_Writer_User_Guide.pdf",
+        "result": "搜索索引仍展示旧 PDF 文本，但打开原地址跳转 My Optitex 登录；未将搜索缓存片段当作已取得手册正文。"
+      },
+      {
+        "method": "官方版本发布说明直接读取",
+        "url": "https://optitex.com/optitex-o-25-advancing-smarter-faster-and-more-sustainable-digital-product-development-and-production-optimization/",
+        "result": "取得完整 HTML 正文；核对 Flaw Batch Command、Real-Time Nesting Efficiency Tracking 两小节。"
+      },
+      {
+        "method": "官方版本发布说明直接读取",
+        "url": "https://optitex.com/optitex-o26-release/",
+        "result": "取得完整 HTML 正文；核对 DMC、放码表、Production Diagram、Marker 批处理章节。"
+      },
+      {
+        "method": "官方公开操作技巧直接读取",
+        "url": "https://optitex.com/did-you-know/",
+        "result": "取得完整 HTML 正文；核对位置保存恢复、分段复制旋转粘贴步骤。"
+      },
+      {
+        "method": "官方英语与西班牙语产品正文交叉检查",
+        "url": "https://optitex.com/es/products/marker/",
+        "result": "两种语言均有公开功能正文；西班牙语确认相同的排料顺序与朝向约束，并未增加内部求解算法细节。"
+      },
+      {
+        "method": "从官网导航检查官方 eLearning",
+        "url": "https://learn.optitex.com/index/",
+        "result": "可读课程门户与 O/26 更新概览，课程内容需要登录；未取得独立的放码算法课程正文。"
+      }
+    ]
+  },
+  "theoryPatch": {
+    "softwareId": "sw084",
+    "name": "Optitex PDS / Marker",
+    "status": "limited",
+    "summary": "官方公开发布说明给出布疵相交裁片的移除规则、排料效率监控与人工停止、测量数据和放码表同步；操作技巧另说明裁片位置恢复与曲线段复用。完整放码、排料和布料仿真的内部算法仍未取得。",
+    "topics": [
+      {
+        "title": "布疵与裁片相交的移除规则",
+        "kind": "几何与数据模型",
+        "explanation": "O/25 的 Flaw Batch Command 检查排料台上裁片与布疵的相交关系，并自动移除相交裁片；官方说明该命令可与硬件布疵检测系统集成。这里披露的是按几何关系处理裁片的规则。",
+        "assumptions": "仅限此命令的处理逻辑；官方未在该文给出相交检测算法、几何容差、布疵识别方法及移除后的重排策略，不能据此确认排料优化器内部实现。",
+        "locator": "O/25 发布说明 → Flaw Batch Command",
+        "sourceUrls": [
+          "https://optitex.com/optitex-o-25-advancing-smarter-faster-and-more-sustainable-digital-product-development-and-production-optimization/"
+        ]
+      },
+      {
+        "title": "排料效率监控与停止决策",
+        "kind": "业务与控制模型",
+        "explanation": "O/25 在排料过程中展示实时效率，使操作者依据当前结果决定停止时点；Marker 文件可在不同阶段保存并重新取用。停止决策在这份说明中由操作者作出。",
+        "assumptions": "未公布效率计算公式、最优性界或自动停止阈值；不能将人工停止机制写成求得全局最优或特定收敛准则。",
+        "locator": "O/25 发布说明 → Real-Time Nesting Efficiency Tracking",
+        "sourceUrls": [
+          "https://optitex.com/optitex-o-25-advancing-smarter-faster-and-more-sustainable-digital-product-development-and-production-optimization/"
+        ]
+      },
+      {
+        "title": "测量数据与放码表的对应同步",
+        "kind": "几何与数据模型",
+        "explanation": "O/26 的 Dynamic Measurement Chart 可从 Excel 导入测量数据，用于自动创建纸样和 PDS 文件；选中的测量项目与 grading table 对话框内相应表格同步，并可一次生成全部测量项目。",
+        "assumptions": "这说明输入数据和表格间的对应关系，未给出从人体尺寸推导裁片轮廓的方程、逐点放码增量公式或插值方法。",
+        "locator": "O/26 发布说明 → Dynamic Measurement Chart and Grading Automation Enhancements",
+        "sourceUrls": [
+          "https://optitex.com/optitex-o26-release/"
+        ]
+      },
+      {
+        "title": "裁片位置恢复与曲线段复用",
+        "kind": "几何与数据模型",
+        "explanation": "Save Placement 保存裁片在工作区的位置和方向，Restore Placement 可在移动、旋转或翻转后恢复。曲线段可按首尾点选择并复制，在 Segment Editor 中按需旋转，再指定目标裁片上的点完成粘贴。",
+        "assumptions": "公开教程描述几何对象的操作和状态保存，不披露曲线表示、坐标变换矩阵、粘贴后的连接连续性或曲线拟合算法；原文未标明软件版本。",
+        "locator": "Did you know… → save then restore the placement and orientation；copy segments and paste them to other pieces",
+        "sourceUrls": [
+          "https://optitex.com/did-you-know/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Optitex O/25 — Product Development and Production Optimization",
+        "url": "https://optitex.com/optitex-o-25-advancing-smarter-faster-and-more-sustainable-digital-product-development-and-production-optimization/",
+        "version": "O/25；2025",
+        "access": "公开正文",
+        "evidence": "直接读取官方 HTML 正文，定位 Real-Time Nesting Efficiency Tracking 与 Flaw Batch Command 小节；明确效率监控、人工停止及布疵相交裁片的移除规则。"
+      },
+      {
+        "title": "Optitex O/26 Release — Digital Patternmaking and Connected Production Workflows",
+        "url": "https://optitex.com/optitex-o26-release/",
+        "version": "O/26；2026",
+        "access": "公开正文",
+        "evidence": "直接读取官方 HTML 正文，定位 Dynamic Measurement Chart and Grading Automation Enhancements；说明 Excel 测量数据导入以及测量选项与放码表的对应同步。"
+      },
+      {
+        "title": "Optitex — Did you know…",
+        "url": "https://optitex.com/did-you-know/",
+        "version": "未标明软件版本；历史操作技巧，核查时仍公开",
+        "access": "公开正文",
+        "evidence": "直接读取官方操作说明：Save/Restore Placement 保存并恢复裁片位置与方向；以两端点选择段、经 Segment Editor 旋转，再以目标点粘贴到其他裁片。"
+      },
+      {
+        "title": "Optitex — Using the Set Grading Tool",
+        "url": "https://help.optitex.com/1382687/Content/Optitex_2D/Using_the_Set_Grading_Tool.htm",
+        "version": "未标明版本",
+        "access": "登录/许可受限",
+        "evidence": "实际访问跳转 My Optitex 登录页；未取得工具手册正文。该入口限制不代表所有公开功能资料均受限。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "以官方公开发布说明和操作教程中的明确规则为依据。所列主题属于局部几何、数据和工作流机制，不代表完整的放码或排料理论手册；专用帮助仍需登录，未将搜索缓存、第三方转载或营销性能描述作为内部算法证据。"
+  },
+  "reason": "专用帮助手册确实需要登录，但官方公开的 O/25、O/26 发布说明与操作技巧含可核查的局部几何和数据处理规则，因此软件总体证据状态可记为 limited，并保留完整帮助的访问限制。"
+}

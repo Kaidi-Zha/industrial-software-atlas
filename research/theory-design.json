@@ -1,0 +1,1757 @@
+[
+  {
+    "softwareId": "sw019",
+    "name": "KLayout",
+    "status": "documented",
+    "summary": "官方资料已核实多边形布尔运算与层级语义，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "多边形布尔运算与层级语义",
+        "kind": "几何与数据模型",
+        "explanation": "手册定义交、差、对称差和合并如何作用于版图区域，并区分平铺、顶层单元和逐单元运算。正文说明布尔处理采用边表示，通过迭代处理网格吸附效应，也解释接触顶点处最大与最小连通性的差异。",
+        "assumptions": "所读页面描述该布尔处理实现；平铺大版图可能消耗大量资源，不能把历史页面的性能说法视为当前版本基准。",
+        "locator": "Layer Boolean Operations：operations / hierarchical modes / boolean implementation",
+        "sourceUrls": [
+          "https://www.klayout.de/doc/manual/layer_boolean.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "KLayout User Manual：Layer Boolean Operations",
+        "url": "https://www.klayout.de/doc/manual/layer_boolean.html",
+        "version": "滚动文档，未标明产品版本",
+        "access": "公开正文",
+        "evidence": "Layer Boolean Operations：operations / hierarchical modes / boolean implementation"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw020",
+    "name": "OpenROAD",
+    "status": "documented",
+    "summary": "官方资料已核实静电类比全局布局与拥塞反馈，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "静电类比全局布局与拥塞反馈",
+        "kind": "数值算法",
+        "explanation": "全局布局模块基于 RePlAce，将单元布局作为解析非线性问题，通过 Nesterov 方法求解静电力方程。时序驱动模式对低裕量网络增加权重；可布线性模式用 RUDY 估计拥塞并膨胀拥塞区域中的单元面积，再迭代比较拥塞指标。",
+        "assumptions": "说明对应 gpl 模块；目标密度、线网 RC 和终止条件影响结果，不能据此推断所有布线阶段采用同一算法。",
+        "locator": "Features；Global Placement：timing-driven / routability-driven",
+        "sourceUrls": [
+          "https://openroad.readthedocs.io/en/latest/main/src/gpl/README.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "OpenROAD：Global Placement",
+        "url": "https://openroad.readthedocs.io/en/latest/main/src/gpl/README.html",
+        "version": "latest 滚动文档",
+        "access": "公开正文",
+        "evidence": "Features；Global Placement：timing-driven / routability-driven"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw023",
+    "name": "Ansys HFSS",
+    "status": "documented",
+    "summary": "官方资料已核实电磁场的有限元离散，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "电磁场的有限元离散",
+        "kind": "数值算法",
+        "explanation": "官方帮助说明，HFSS 为获得电磁场解，将计算空间分成许多较小单元，在每个子区域用局部函数表示场量。几何模型自动划分为四面体网格，后续章节分别讨论场量表示、直边与曲边单元、基函数以及网格尺寸和精度的关系。",
+        "assumptions": "此处核实的是 HFSS 有限元场求解说明，不代表平台内所有设计类型或混合求解器均采用相同离散。",
+        "locator": "The Finite Element Method，第 7–16 行主题及子章节入口",
+        "sourceUrls": [
+          "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v252/en/Subsystems/HFSS/Content/HFSS/TheFiniteElementMethod.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "HFSS Help：The Finite Element Method",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v252/en/Subsystems/HFSS/Content/HFSS/TheFiniteElementMethod.htm",
+        "version": "2025 R2",
+        "access": "公开正文",
+        "evidence": "The Finite Element Method，第 7–16 行主题及子章节入口"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw146",
+    "name": "ngspice",
+    "status": "documented",
+    "summary": "官方资料已核实模拟电路求解与器件模型，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "模拟电路求解与器件模型",
+        "kind": "数学模型",
+        "explanation": "模拟电路在各时间步联立求解基尔霍夫方程，并以数值积分处理储能元件；手册区分直流工作点、交流小信号和瞬态分析。矩阵求解器包括 Sparse 与可选 KLU；器件章节定义具体模型，例如双极晶体管的积分电荷 Gummel–Poon 模型及其参数退化情形。",
+        "assumptions": "只适用于手册 47 所说明的实现；具体器件模型有各自参数、等级和适用条件，不能仅凭同为 SPICE 保证跨工具数值一致。",
+        "locator": "1.1 Simulation Algorithms；1.2 Supported Analyses；1.4 Convergence；器件模型章节",
+        "sourceUrls": [
+          "https://ngspice.sourceforge.io/docs/ngspice-47-manual.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "ngspice User's Manual",
+        "url": "https://ngspice.sourceforge.io/docs/ngspice-47-manual.pdf",
+        "version": "47，2026-08-11",
+        "access": "公开正文",
+        "evidence": "1.1 Simulation Algorithms；1.2 Supported Analyses；1.4 Convergence；器件模型章节"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw147",
+    "name": "openEMS",
+    "status": "documented",
+    "summary": "官方资料已核实EC-FDTD 时域电磁离散，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "EC-FDTD 时域电磁离散",
+        "kind": "数值算法",
+        "explanation": "正文解释在 Yee 网格上对 Maxwell 旋度方程进行时空有限差分，以邻近单元显式更新实现时间推进。openEMS 将相同离散改写为网格边与面的积分电压、电流及等效电路方程；宽带脉冲响应经傅里叶变换得到频域结果。",
+        "assumptions": "EC-FDTD 是同一物理离散的等价表述；仍受网格阶梯误差、数值色散和显式时间步稳定性限制，并非独立的新物理模型。",
+        "locator": "FDTD in a Nutshell；The Equivalent-Circuit (EC) Formulation；Why FDTD? Pros and Cons",
+        "sourceUrls": [
+          "https://docs.openems.de/en/latest/concepts/numerical_method.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "openEMS：Numerical Method",
+        "url": "https://docs.openems.de/en/latest/concepts/numerical_method.html",
+        "version": "0.37.0 文档，latest",
+        "access": "公开正文",
+        "evidence": "FDTD in a Nutshell；The Equivalent-Circuit (EC) Formulation；Why FDTD? Pros and Cons"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw148",
+    "name": "LTspice",
+    "status": "documented",
+    "summary": "官方资料已核实Newton 迭代、稀疏矩阵与隐式积分，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "Newton 迭代、稀疏矩阵与隐式积分",
+        "kind": "数值算法",
+        "explanation": "作者解释先用器件电流电压关系的局部线性化形成联立方程，迭代求解非线性电路；再利用实际电路连接稀疏性减少矩阵存储。瞬态部分比较梯形与 Gear 积分的数值振铃和阻尼效应，并给出 LTspice 示例电路。",
+        "assumptions": "来源为厂商历史技术文章，文中优劣比较属于作者主张；本文不据其历史默认设置推断 LTspice 26 默认积分方法或当前性能。",
+        "locator": "Newton Iteration；Sparse Matrix Methods；Implicit Integration，PDF 第 1–8 页",
+        "sourceUrls": [
+          "https://www.analog.com/media/en/technical-documentation/technical-articles/x49_en-spice.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Analog Devices：SPICE Differentiation",
+        "url": "https://www.analog.com/media/en/technical-documentation/technical-articles/x49_en-spice.pdf",
+        "version": "历史技术文章，未作为当前版本手册",
+        "access": "公开正文",
+        "evidence": "Newton Iteration；Sparse Matrix Methods；Implicit Integration，PDF 第 1–8 页"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw153",
+    "name": "Ansys Icepak",
+    "status": "documented",
+    "summary": "官方资料已核实灰漫表面与离散坐标辐射模型，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "灰漫表面与离散坐标辐射模型",
+        "kind": "物理与机理",
+        "explanation": "理论说明以红外热辐射为对象，解释电子散热中常见的表面对表面交换和灰漫表面假设。离散坐标模型把辐射传递方程分配到有限个立体角方向求解；对控制角与网格面的交叠，用像素划分区分进入与离开面的能量。",
+        "assumptions": "灰漫模型假定辐射特性与波长和方向的关系被简化；角度离散、像素数与介质吸收散射条件会影响适用性和计算代价。",
+        "locator": "Gray-Diffuse Radiation；The Discrete Ordinates (DO) Radiation Model；Angular Discretization and Pixelation",
+        "sourceUrls": [
+          "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v252/en/Subsystems/Icepak/Content/Icepak/IcepakRadiationTheory.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Icepak Help：Radiation",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v252/en/Subsystems/Icepak/Content/Icepak/IcepakRadiationTheory.htm",
+        "version": "2025 R2",
+        "access": "公开正文",
+        "evidence": "Gray-Diffuse Radiation；The Discrete Ordinates (DO) Radiation Model；Angular Discretization and Pixelation"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw154",
+    "name": "Ansys siwave",
+    "status": "documented",
+    "summary": "官方资料已核实PSI 低频稳定化与扫频，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "PSI 低频稳定化与扫频",
+        "kind": "数值算法",
+        "explanation": "文档解释低频时电场与磁场解耦会使矢量 Helmholtz 方程求解困难，PSI 在边单元上采用树与余树分裂改善这一问题。对开路阻抗在低频的非单调表现，页面说明使用显式直流点和因果性约束，并讨论插值扫频的计算取舍。",
+        "assumptions": "核查的是 PSI 求解器的局部技术说明；文中给出的频率范围和精度描述不能替代具体板层、端口与网格的收敛验证。",
+        "locator": "SIwave-PSI Best Practices: Frequency Sweep，第 6–8 行说明",
+        "sourceUrls": [
+          "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v252/en/Subsystems/SIwave/Content/TNFrequencySweep.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "SIwave Help：SIwave-PSI Best Practices: Frequency Sweep",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v252/en/Subsystems/SIwave/Content/TNFrequencySweep.htm",
+        "version": "2025 R2",
+        "access": "公开正文",
+        "evidence": "SIwave-PSI Best Practices: Frequency Sweep，第 6–8 行说明"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw036",
+    "name": "Ansys STK",
+    "status": "documented",
+    "summary": "官方资料已核实二体、J2 与 J4 解析轨道传播，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "二体、J2 与 J4 解析轨道传播",
+        "kind": "物理与机理",
+        "explanation": "正文区分仅考虑中心天体点质量的二体解，以及加入非球形引力主要项的 J2、J4 近似。J2/J4 传播基于平均 Kepler 轨道根数，只保留相应长期漂移；文档同时说明轨道倾角、偏心率等周期振荡与保留的漂移不是同一部分。",
+        "assumptions": "这三类传播器不计大气阻力、太阳辐射压和第三体引力；不能把解析二体解的精确性理解成对真实轨道环境的完整描述。",
+        "locator": "Two-Body, J2 Perturbation & J4 Perturbation Propagators，第 2–6 行",
+        "sourceUrls": [
+          "https://help.agi.com/stk/12.7.1/Content/stk/vehSat_orbitProp_2bodyJ2J4.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "STK：Two-Body, J2 Perturbation & J4 Perturbation Propagators",
+        "url": "https://help.agi.com/stk/12.7.1/Content/stk/vehSat_orbitProp_2bodyJ2J4.htm",
+        "version": "12.7.1，帮助更新 2023-12",
+        "access": "公开正文",
+        "evidence": "Two-Body, J2 Perturbation & J4 Perturbation Propagators，第 2–6 行"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw104",
+    "name": "MATLAB / Simulink",
+    "status": "documented",
+    "summary": "官方资料已核实连续、离散与变步长状态推进，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "连续、离散与变步长状态推进",
+        "kind": "数值算法",
+        "explanation": "帮助从系统状态随时间推进解释求解器，区分连续状态的数值积分和离散模块自身的状态更新。定步长按固定间隔执行，变步长根据动力学与误差容限调整步长；多速率示例展示两类方法如何选择执行时刻和控制计算量。",
+        "assumptions": "有连续状态时须选择连续求解器；实时生成代码的时钟约束与离线变步长仿真不同，具体算法仍需按刚性与事件行为选择。",
+        "locator": "Fixed-Step Versus Variable-Step Solvers；Continuous Versus Discrete Solvers",
+        "sourceUrls": [
+          "https://www.mathworks.com/help/simulink/ug/compare-solvers.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "MathWorks：Compare Solvers",
+        "url": "https://www.mathworks.com/help/simulink/ug/compare-solvers.html",
+        "version": "R2026b",
+        "access": "公开正文",
+        "evidence": "Fixed-Step Versus Variable-Step Solvers；Continuous Versus Discrete Solvers"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw106",
+    "name": "Ansys Fluent",
+    "status": "documented",
+    "summary": "官方资料已核实有限体积守恒离散与压力密度求解，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "有限体积守恒离散与压力密度求解",
+        "kind": "数值算法",
+        "explanation": "理论指南说明两类求解器都在控制体上积分质量、动量以及按需要启用的能量和标量守恒式，形成代数方程再线性化求解。密度基方法由连续方程求密度并结合状态方程求压力；压力基方法通过连续与动量方程构造压力或压力修正方程。",
+        "assumptions": "该章节给出共同框架；流动模型、物性和边界条件必须另选，不能把算法可用性等同于任意流况下的精度保证。",
+        "locator": "23.1 Overview of Flow Solvers，第 15–30 行",
+        "sourceUrls": [
+          "https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/flu_th/flu_th_SolveOverview.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Fluent Theory Guide：Overview of Flow Solvers",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/flu_th/flu_th_SolveOverview.html",
+        "version": "2025 R2",
+        "access": "公开正文",
+        "evidence": "23.1 Overview of Flow Solvers，第 15–30 行"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw184",
+    "name": "OpenModelica",
+    "status": "documented",
+    "summary": "官方资料已核实Modelica 模型变换与时间积分，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "Modelica 模型变换与时间积分",
+        "kind": "数值算法",
+        "explanation": "指南说明默认将 Modelica 模型变换为常微分方程表示，再选择时间积分器。正文比较 DASSL、IDA、CVODE、GBODE 的隐式或显式形式、刚性适应性、阶数、稀疏求解与步长控制，并解释 BDF、多步迭代和双速率积分的差异。",
+        "assumptions": "所读为开发版滚动文档，不保证所有选项存在于旧安装版；模型刚性、Jacobian 稀疏结构和事件处理会影响求解器选择。",
+        "locator": "Integration Methods；DASSL；IDA；CVODE；GBODE",
+        "sourceUrls": [
+          "https://openmodelica.org/doc/OpenModelicaUsersGuide/latest/solving.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "OpenModelica User's Guide：Solving Modelica Models",
+        "url": "https://openmodelica.org/doc/OpenModelicaUsersGuide/latest/solving.html",
+        "version": "latest，页面显示 v1.28.0 开发版",
+        "access": "公开正文",
+        "evidence": "Integration Methods；DASSL；IDA；CVODE；GBODE"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw179",
+    "name": "CoppeliaSim",
+    "status": "documented",
+    "summary": "官方资料已核实Jacobian 逆运动学，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "Jacobian 逆运动学",
+        "kind": "数学模型",
+        "explanation": "文档将逆运动学定义为从末端位姿求关节变量，把任务空间映射到关节空间，并与正运动学作区分。求解基于 Jacobian，支持伪逆、阻尼最小二乘伪逆和零空间投影；IK groups 与 IK elements 组织任务，并在独立 IK 环境中计算。",
+        "assumptions": "这里核实运动学求解机制，不表示动力学接触或所选物理引擎具有相同模型；奇异位形与任务约束仍需结合具体配置处理。",
+        "locator": "Kinematics，第 1–5 行",
+        "sourceUrls": [
+          "https://manual.coppeliarobotics.com/en/kinematics.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "CoppeliaSim Manual：Kinematics",
+        "url": "https://manual.coppeliarobotics.com/en/kinematics.htm",
+        "version": "滚动文档，未标明版本",
+        "access": "公开正文",
+        "evidence": "Kinematics，第 1–5 行"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw101",
+    "name": "CODESYS Development System",
+    "status": "documented",
+    "summary": "官方资料已核实PLC 任务调度与事件触发模型，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "PLC 任务调度与事件触发模型",
+        "kind": "业务与控制模型",
+        "explanation": "帮助说明优先级、CPU 核绑定和周期、上升沿事件、状态、自由循环等任务模式。单核上高优先级任务可打断低优先级任务；同优先级按时间片执行。看门狗按运行时间及灵敏度检测超时，并说明状态触发与短脉冲事件可能漏检的区别。",
+        "assumptions": "行为依赖运行时、操作系统和目标设备；多核任务可能并行，不能把单核顺序直接推广到所有部署，现场总线任务还要求固定周期。",
+        "locator": "Priority；Type；Watchdog",
+        "sourceUrls": [
+          "https://content.helpme-codesys.com/en/CODESYS%20Development%20System/_cds_f_reference_task.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "CODESYS Help：Object: Task",
+        "url": "https://content.helpme-codesys.com/en/CODESYS%20Development%20System/_cds_f_reference_task.html",
+        "version": "滚动文档，包含 V3.5 SP18 行为说明",
+        "access": "公开正文",
+        "evidence": "Priority；Type；Watchdog"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw033",
+    "name": "Ignition",
+    "status": "documented",
+    "summary": "官方资料已核实标签组的采集与执行调度，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "标签组的采集与执行调度",
+        "kind": "业务与控制模型",
+        "explanation": "文档说明标签组控制标签执行、表达式计算及查询速率。Direct 采用固定周期，Driven 按表达式比较在两种速率间切换，One Shot 由假到真的条件跃迁执行一次；Leased 则仅对正在客户端视图中显示的标签采用较快周期。",
+        "assumptions": "这里描述调度语义，不是确定性实时承诺；慢速率为零可能导致未触发期间不产生新的历史记录，采集和历史记录周期须联合配置。",
+        "locator": "What Is a Tag Group?；Tag Groups Modes：Direct / Driven / Leased",
+        "sourceUrls": [
+          "https://www.docs.inductiveautomation.com/docs/8.3/platform/tags/tag-groups"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Ignition User Manual：Tag Groups",
+        "url": "https://www.docs.inductiveautomation.com/docs/8.3/platform/tags/tag-groups",
+        "version": "8.3",
+        "access": "公开正文",
+        "evidence": "What Is a Tag Group?；Tag Groups Modes：Direct / Driven / Leased"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw098",
+    "name": "PTC Windchill",
+    "status": "documented",
+    "summary": "官方资料已核实业务对象的生命周期与状态转换，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "业务对象的生命周期与状态转换",
+        "kind": "业务与控制模型",
+        "explanation": "帮助说明业务对象在生命周期阶段与关卡之间迁移，每一阶段关联系统定义的生命周期状态。相同状态的企业语义可以跨生命周期使用，状态可参与访问控制；管理员定义对象允许经过的转换，以及处于某状态时的行为。",
+        "assumptions": "所列 In Work、Under Review、Released 为默认示例；企业模板、角色与临时访问规则可以改变实际行为，不能当作所有安装的固定流程。",
+        "locator": "Life Cycle States，第 4–10 行",
+        "sourceUrls": [
+          "https://support.ptc.com/help/windchill/r13.1.2.0/en/Windchill_Help_Center/lifecycle_chp/LCChp_LifeCycleStates.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Windchill Help：Life Cycle States",
+        "url": "https://support.ptc.com/help/windchill/r13.1.2.0/en/Windchill_Help_Center/lifecycle_chp/LCChp_LifeCycleStates.html",
+        "version": "13.1.2.0",
+        "access": "公开正文",
+        "evidence": "Life Cycle States，第 4–10 行"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw099",
+    "name": "Autodesk Inventor",
+    "status": "limited",
+    "summary": "官方资料已核实装配约束与刚体自由度，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "装配约束与刚体自由度",
+        "kind": "几何与数据模型",
+        "explanation": "帮助用零件的平移与转动自由度解释装配关系：未约束构件有三个平移与三个转动自由度，每增加适当约束会消除一个或多个自由度。平面贴合、圆柱同轴和球面相切构成相对位置关系，并在装配更新时重新执行。",
+        "assumptions": "这是装配建模语义说明，没有公开求解器全部数值实现；几何自由度约束不等同于考虑惯性、摩擦和弹性的动力学仿真。",
+        "locator": "Assembly Constraints；Degrees of freedom",
+        "sourceUrls": [
+          "https://help.autodesk.com/cloudhelp/2021/ENU/Inventor-Help/files/GUID-CF4462AF-CEC6-4B8B-8F86-72D9AC9A3574.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Inventor Help：Assembly Constraints",
+        "url": "https://help.autodesk.com/cloudhelp/2021/ENU/Inventor-Help/files/GUID-CF4462AF-CEC6-4B8B-8F86-72D9AC9A3574.htm",
+        "version": "2021",
+        "access": "公开正文",
+        "evidence": "Assembly Constraints；Degrees of freedom"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw100",
+    "name": "Autodesk Fusion",
+    "status": "limited",
+    "summary": "官方资料已核实草图几何约束与曲率连续，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "草图几何约束与曲率连续",
+        "kind": "几何与数据模型",
+        "explanation": "帮助逐项定义重合、相切、等长、平行、垂直、同心和对称关系如何限制几何位置与尺寸。等长关系使关联对象随尺寸变化联动；固定约束锁定位置和大小；曲率约束用于样条与另一曲线之间的 G2 连续。",
+        "assumptions": "已核实的是约束定义和几何含义，未取得内部约束方程组、迭代策略或失败恢复算法的完整说明。",
+        "locator": "Constraints in sketches；Equal；Fix/UnFix；Curvature",
+        "sourceUrls": [
+          "https://help.autodesk.com/cloudhelp/ENU/Fusion-Sketch/files/SKT-CONSTRAINTS.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Fusion Help：Constraints in sketches",
+        "url": "https://help.autodesk.com/cloudhelp/ENU/Fusion-Sketch/files/SKT-CONSTRAINTS.htm",
+        "version": "滚动文档，未标明版本",
+        "access": "公开正文",
+        "evidence": "Constraints in sketches；Equal；Fix/UnFix；Curvature"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw177",
+    "name": "Onshape",
+    "status": "limited",
+    "summary": "官方资料已核实局部坐标系、配合与装配自由度，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "局部坐标系、配合与装配自由度",
+        "kind": "几何与数据模型",
+        "explanation": "文档以 Mate connector 的局部坐标系建立构件之间的相对位姿，配合类型决定保留哪些运动自由度。固定配合约束全部六个自由度，滑动配合保留指定轴向运动；偏置和上下限进一步限制位置，系统同时求解全部配合而不依赖列表顺序。",
+        "assumptions": "这些说明覆盖装配几何关系；动画只驱动选定自由度，不应据此视为包含载荷、惯性或接触本构的动力学计算。",
+        "locator": "Mates；Mate dialog；Reordering Mate features；Animating movement",
+        "sourceUrls": [
+          "https://cad.onshape.com/help/Content/Assembly/mates.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Onshape Help：Mates",
+        "url": "https://cad.onshape.com/help/Content/Assembly/mates.htm",
+        "version": "滚动文档，未标明版本",
+        "access": "公开正文",
+        "evidence": "Mates；Mate dialog；Reordering Mate features；Animating movement"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw097",
+    "name": "PTC Creo Parametric",
+    "status": "limited",
+    "summary": "官方资料已核实样条曲面与控制点变形，覆盖范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "样条曲面与控制点变形",
+        "kind": "几何与数据模型",
+        "explanation": "帮助区分样条、Bézier 与 B 样条曲面的次数和分段参数，解释在 U、V 两个参数方向控制曲面。控制点移动可沿原始或更新后的法向、切平面或控制网格方向；邻域位移可等量、按距离线性递减或用二次函数平滑递减。",
+        "assumptions": "内容限于 Restyle 局部编辑的几何含义，未覆盖 Creo 整体几何内核或曲面拟合、约束求解器的完整实现。",
+        "locator": "Mathematical properties；Control point motion commands；Filter",
+        "sourceUrls": [
+          "https://support.ptc.com/help/creo/creo_pma/r13/usascii/surfacing/restyle/About_the_Modify_Shape_User_Interface.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Creo Parametric Help：About the Modify Shape User Interface",
+        "url": "https://support.ptc.com/help/creo/creo_pma/r13/usascii/surfacing/restyle/About_the_Modify_Shape_User_Interface.html",
+        "version": "13",
+        "access": "公开正文",
+        "evidence": "Mathematical properties；Control point motion commands；Filter"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方文档的所列章节；只记录已经读到的模型与实现说明，不代表已审阅全部文档，也不代表其他模型不存在。"
+  },
+  {
+    "softwareId": "sw021",
+    "name": "KiCad",
+    "status": "limited",
+    "summary": "已核实引脚类型与电气规则检查；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "引脚类型与电气规则检查",
+        "kind": "几何与数据模型",
+        "explanation": "手册说明 ERC 根据引脚电气类型及 Pin Conflicts Map 判断连接是否合法，用户可将冲突设为错误、警告或忽略。例如两个输出脚相连通常产生错误，电源输入应有适当来源；引脚图形样式与电气类型是不同属性，不决定检查结果。",
+        "assumptions": "该机制是符号与连通规则检查，不求解电压电流；模型或引脚类型定义不正确时，检查通过也不能证明电路功能正确。",
+        "locator": "ERC violation severity and pin conflicts map；Pin Electrical Types",
+        "sourceUrls": [
+          "https://docs.kicad.org/9.0/en/eeschema/eeschema.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "KiCad Schematic Editor Reference Manual",
+        "url": "https://docs.kicad.org/9.0/en/eeschema/eeschema.html",
+        "version": "9.0.9，文档修订 152cd19e",
+        "access": "公开正文",
+        "evidence": "ERC violation severity and pin conflicts map；Pin Electrical Types"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw022",
+    "name": "Altium Designer",
+    "status": "limited",
+    "summary": "已核实PCB 约束对象层级与规则优先级；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "PCB 约束对象层级与规则优先级",
+        "kind": "几何与数据模型",
+        "explanation": "文档区分网络、差分对、xNet 及其类上的物理和电气约束，通过对象层级决定规则优先级：全部对象最低、类其次、具体对象最高。特定层优先于层组；高级查询规则另有优先级。约束集复用参数，修改会传播到引用它的对象。",
+        "assumptions": "说明规则的适用范围与冲突消解，不公开布线优化器全部算法；阻抗约束值不等同于已经进行完整电磁场求解。",
+        "locator": "Constraint Types；Working with Physical and Electrical Constraints；Configuring Clearances per Layer；Working with All Rules",
+        "sourceUrls": [
+          "https://www.altium.com/documentation/altium-designer/sch-pcb/constraint-manager"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Altium Designer：Defining Design Requirements Using the Constraint Manager",
+        "url": "https://www.altium.com/documentation/altium-designer/sch-pcb/constraint-manager",
+        "version": "滚动文档，未标明统一版本",
+        "access": "公开正文",
+        "evidence": "Constraint Types；Working with Physical and Electrical Constraints；Configuring Clearances per Layer；Working with All Rules"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw094",
+    "name": "Keysight PathWave ADS",
+    "status": "documented",
+    "summary": "已核实谐波平衡与 Newton/Krylov 求解；范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "谐波平衡与 Newton/Krylov 求解",
+        "kind": "数值算法",
+        "explanation": "手册描述周期或准周期电路的谐波平衡设置，并解释 Newton 非线性迭代中的线性子问题。直接方法和 Krylov 迭代在 Jacobian 存储、内存和近似方向上不同；不收敛时可结合弧长延续或源步进，容差与预条件设置影响收敛过程。",
+        "assumptions": "明确为 ADS 2011.01，不能推断当前 PathWave ADS 的默认值或全部实现；谐波数、初始值和非线性程度会影响结果。",
+        "locator": "HB Simulation Solver Parameters，PDF 第 29–31 页；Convergence，PDF 第 44–47 页",
+        "sourceUrls": [
+          "https://edadownload.software.keysight.com/eedl/ads/2011_01/pdf/cktsimhb.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "ADS：Harmonic Balance Simulation",
+        "url": "https://edadownload.software.keysight.com/eedl/ads/2011_01/pdf/cktsimhb.pdf",
+        "version": "2011.01 历史手册",
+        "access": "公开正文",
+        "evidence": "HB Simulation Solver Parameters，PDF 第 29–31 页；Convergence，PDF 第 44–47 页"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw095",
+    "name": "AMD Vivado",
+    "status": "limited",
+    "summary": "已核实寄存器重定时与逻辑层级平衡；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "寄存器重定时与逻辑层级平衡",
+        "kind": "数值算法",
+        "explanation": "文档解释综合重定时通过移动低逻辑层级路径上的寄存器，使较深与较浅的组合逻辑路径重新平衡。示例用关键路径的 LUT 层数和时钟目标判断调整前后，并说明可只对指定层级、寄存器或路径启用，以控制面积和运行时间代价。",
+        "assumptions": "这里只核实重定时的操作机制与示例；未取得所有物理综合启发式或最优化目标的完整理论，2022.1 的支持边界须保留。",
+        "locator": "Improving Logic Levels：retiming explanation / critical path example / block-level strategy",
+        "sourceUrls": [
+          "https://docs.amd.com/r/2022.1-English/ug949-vivado-design-methodology/Improving-Logic-Levels"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "AMD UG949：Improving Logic Levels",
+        "url": "https://docs.amd.com/r/2022.1-English/ug949-vivado-design-methodology/Improving-Logic-Levels",
+        "version": "2022.1，2022-06-08",
+        "access": "公开正文",
+        "evidence": "Improving Logic Levels：retiming explanation / critical path example / block-level strategy"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw145",
+    "name": "嘉立创EDA（标准版 / 专业版）",
+    "status": "limited",
+    "summary": "已核实器件方程、模型参数与行为宏模型；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "器件方程、模型参数与行为宏模型",
+        "kind": "数学模型",
+        "explanation": "正文解释器件电气特性由方程和参数描述，不同工艺、模型精度与抽象方式会产生不同仿真行为。运放行为宏模型可表示摆幅、输入偏置和失调、共模范围以及电源抑制等；某些模型省略供电电流、噪声或温度依赖，不能直接代表全部器件行为。",
+        "assumptions": "所读是标准版模型说明，未确认专业版相同实现；原页对 .model 与 .subckt 的部分表述不严谨，本条不照录，也不推断求解内核版本。",
+        "locator": "Spice模型介绍；一个器件有多个模型？；Spice模型与实际器件",
+        "sourceUrls": [
+          "https://docs.lceda.cn/cn/Simulation/Chapter2-Simulation-Model/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "嘉立创EDA标准版：仿真模型及仿真库",
+        "url": "https://docs.lceda.cn/cn/Simulation/Chapter2-Simulation-Model/",
+        "version": "标准版滚动文档，未标明产品版本",
+        "access": "公开正文",
+        "evidence": "Spice模型介绍；一个器件有多个模型？；Spice模型与实际器件"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw152",
+    "name": "Ansys Circuit",
+    "status": "documented",
+    "summary": "已核实谐波平衡、包络与线性网络模型；范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "谐波平衡、包络与线性网络模型",
+        "kind": "数学模型",
+        "explanation": "帮助说明谐波平衡把时域方程改写为 Fourier 级数，在频域求周期或准周期稳态响应。包络分析在慢时间步上推进非周期信号，并在每一步对快速周期信号执行谐波平衡；线性网络分析则将非线性器件在偏置点附近线性化，计算频变网络参数。",
+        "assumptions": "谐波平衡本身不覆盖任意非周期输入；包络方法要求可区分快慢时间尺度，小信号网络结果只描述所选工作点附近行为。",
+        "locator": "Harmonic Balance Analysis；Envelope Analysis；Linear Network Analysis",
+        "sourceUrls": [
+          "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v252/en/Subsystems/Circuit/Content/Circuit/CircuitFrequencyDomainAnalyses.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Circuit Help：Circuit Frequency Domain Analyses",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/Electronics/v252/en/Subsystems/Circuit/Content/Circuit/CircuitFrequencyDomainAnalyses.htm",
+        "version": "2025 R2",
+        "access": "公开正文",
+        "evidence": "Harmonic Balance Analysis；Envelope Analysis；Linear Network Analysis"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw031",
+    "name": "RobotStudio",
+    "status": "documented",
+    "summary": "已核实多虚拟控制器的时间片同步；范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "多虚拟控制器的时间片同步",
+        "kind": "业务与控制模型",
+        "explanation": "文档区分自由运行与时间片仿真。时间片模式把仿真时间划成小段，所有控制器完成当前时间片后才允许开始下一段，从而协调控制器间信号和事件。SmartComponent 根据是否消耗虚拟时间参与每一步，纯逻辑门的输出可以立即变化。",
+        "assumptions": "自由运行共享计算资源时信号事件时序可能偏离独立控制器；时间片同步可较慢，不能据此宣称真实硬件的动力学和时序完全复现。",
+        "locator": "Time handling during simulation；Virtual Time set as Time Slice；Implementing a SmartComponent",
+        "sourceUrls": [
+          "https://developercenter.robotstudio.com/api/robotstudio/articles/Concepts/Simulation.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "RobotStudio SDK：Simulation",
+        "url": "https://developercenter.robotstudio.com/api/robotstudio/articles/Concepts/Simulation.html",
+        "version": "滚动 SDK 文档，未标明产品版本",
+        "access": "公开正文",
+        "evidence": "Time handling during simulation；Virtual Time set as Time Slice；Implementing a SmartComponent"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw032",
+    "name": "TwinCAT 3",
+    "status": "documented",
+    "summary": "已核实双节拍与按优先级实时调度；范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "双节拍与按优先级实时调度",
+        "kind": "业务与控制模型",
+        "explanation": "正文说明 TwinCAT 用双节拍中断切换实时与非实时执行，进入实时模式时启动调度。任务按周期和优先级安排，各实时核在同步基本节拍下独立计算调度；自动优先级管理按任务周期分配优先级，也允许手动调整。",
+        "assumptions": "共享核须为宿主系统保留时间，隔离核策略不同；用户程序互锁仍可能产生核间依赖，实时保证需符合实际负载和配置条件。",
+        "locator": "Real-time capable scheduling",
+        "sourceUrls": [
+          "https://infosys.beckhoff.com/content/1033/te1010_tc3_realtime_monitor/6828869003.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "TwinCAT 3 Realtime Monitor：Real-Time",
+        "url": "https://infosys.beckhoff.com/content/1033/te1010_tc3_realtime_monitor/6828869003.html",
+        "version": "TwinCAT 3.1，滚动文档",
+        "access": "公开正文",
+        "evidence": "Real-time capable scheduling"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw102",
+    "name": "Studio 5000 Logix Designer",
+    "status": "documented",
+    "summary": "已核实控制器任务、程序与抢占调度；范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "控制器任务、程序与抢占调度",
+        "kind": "业务与控制模型",
+        "explanation": "编程手册按连续、周期和事件任务解释程序执行。连续任务使用其他处理之外的剩余时间，周期任务到期后可打断较低优先级任务，完成后返回先前位置；任务内部一次执行一个程序，并通过优先级、超时和重叠检查管理执行负载。",
+        "assumptions": "这是手册所列 Logix 控制器的执行模型，不能推断为 Studio 5000 桌面程序本身的调度；目标控制器和固件支持范围需另核。",
+        "locator": "Chapter 1 Manage Tasks：Select Controller Tasks / Prioritize Periodic and Event tasks，第 8–13 页",
+        "sourceUrls": [
+          "https://literature.rockwellautomation.com/idc/groups/literature/documents/pm/1756-pm005_-en-p.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Logix 5000 Controllers Tasks, Programs, and Routines",
+        "url": "https://literature.rockwellautomation.com/idc/groups/literature/documents/pm/1756-pm005_-en-p.pdf",
+        "version": "1756-PM005M-EN-P，2025-09",
+        "access": "公开正文",
+        "evidence": "Chapter 1 Manage Tasks：Select Controller Tasks / Prioritize Periodic and Event tasks，第 8–13 页"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw172",
+    "name": "FreeCAD",
+    "status": "limited",
+    "summary": "已核实草图约束系统与诊断对象；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "草图约束系统与诊断对象",
+        "kind": "几何与数据模型",
+        "explanation": "源码参考把未知参数、驱动参数、几何约束和子系统作为独立对象，提供自由度计数、冲突与冗余约束诊断以及解状态。System 的求解与初始化接口默认算法参数指向 DogLeg；命名空间另列 BFGS、Levenberg–Marquardt 和稠密、稀疏 QR 选项。",
+        "assumptions": "这是源码对象与算法选项说明，并未审阅求解器完整实现或证明每种设置的行为；文档生成版本不能当成当前安装版默认值。",
+        "locator": "GCS::System：declareUnknowns / diagnose / dofsNumber / getConflicting / getRedundant / solve",
+        "sourceUrls": [
+          "https://freecad.github.io/SourceDoc/db/d28/classGCS_1_1System.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "FreeCAD SourceDoc：GCS Namespace and System",
+        "url": "https://freecad.github.io/SourceDoc/db/d28/classGCS_1_1System.html",
+        "version": "源码生成文档，未标明产品版本",
+        "access": "公开正文",
+        "evidence": "GCS::System：declareUnknowns / diagnose / dofsNumber / getConflicting / getRedundant / solve"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw173",
+    "name": "LibreCAD",
+    "status": "limited",
+    "summary": "已核实图块实例共享与几何变换；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "图块实例共享与几何变换",
+        "kind": "几何与数据模型",
+        "explanation": "手册解释图块由线、圆弧、文字和标注组成，插入时可以施加平移、旋转、缩放和阵列。来自当前图块列表的同一图块实例相互关联，编辑可传播到全部实例；重复从库浏览器导入则会创建彼此独立的新定义，阵列的变换顺序也单独说明。",
+        "assumptions": "内容是二维文档与实例模型，不能外推为参数化实体建模或约束求解器；latest 手册注明与软件构建可能存在差距。",
+        "locator": "Working with Blocks；Inserting Blocks；array transformation order",
+        "sourceUrls": [
+          "https://docs.librecad.org/en/latest/guides/blocks.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "LibreCAD User Manual：Blocks",
+        "url": "https://docs.librecad.org/en/latest/guides/blocks.html",
+        "version": "latest 预发布构建手册",
+        "access": "公开正文",
+        "evidence": "Working with Blocks；Inserting Blocks；array transformation order"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw176",
+    "name": "Solid Edge",
+    "status": "limited",
+    "summary": "已核实二维几何关系与关键点自由度；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "二维几何关系与关键点自由度",
+        "kind": "几何与数据模型",
+        "explanation": "参考文档定义二维关系对象，区分共线、同心、等长、平行、垂直、曲线等方向及等曲率等约束。关键点固定关系会消除该关键点的两个自由度；圆角关系连接圆弧及其相交对象，从而把绘图对象组织为相互关联的几何模型。",
+        "assumptions": "已核实关系的语义和自由度说明，未核实完整数值约束求解算法；历史 ST7 SDK 不代表当前 Solid Edge 全部建模实现。",
+        "locator": "Relations2d Collection Members：AddKeypointFix / AddEqualDirectionEqualCurvature / AddFillet",
+        "sourceUrls": [
+          "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/SolidEdgeFrameworkSupport~Relations2d_members.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Solid Edge ST7：Relations2d Collection Members",
+        "url": "https://support.industrysoftware.automation.siemens.com/trainings/se/107/api/SolidEdgeFrameworkSupport~Relations2d_members.html",
+        "version": "ST7 历史 SDK",
+        "access": "公开正文",
+        "evidence": "Relations2d Collection Members：AddKeypointFix / AddEqualDirectionEqualCurvature / AddFillet"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw178",
+    "name": "RoboDK",
+    "status": "limited",
+    "summary": "已核实机器人目标、参考坐标系与路径约束；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "机器人目标、参考坐标系与路径约束",
+        "kind": "几何与数据模型",
+        "explanation": "文档说明运动指令引用目标，目标变化会联动轨迹；笛卡尔目标相对于当前参考坐标系和工具 TCP 解释。直线运动对奇异位形和轴限位敏感；圆弧运动由当前位置、经过点与终点确定，完整圆需要拆成多段，并可分别设置关节与笛卡尔速度。",
+        "assumptions": "这里说明离线程序的运动学语义和边界；未公开逆解、碰撞检测或控制器插补全部算法，也不能替代实机标定。",
+        "locator": "Joint Move；Linear Move；Set Reference Frame；Set Tool Frame；Circular Move",
+        "sourceUrls": [
+          "https://robodk.com/doc/en/Robot-Programs.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "RoboDK Documentation：Robot Programs",
+        "url": "https://robodk.com/doc/en/Robot-Programs.html",
+        "version": "滚动文档，未标明版本",
+        "access": "公开正文",
+        "evidence": "Joint Move；Linear Move；Set Reference Frame；Set Tool Frame；Circular Move"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw181",
+    "name": "KEPServerEX",
+    "status": "documented",
+    "summary": "已核实订阅扫描、按需轮询与初始缓存；范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "订阅扫描、按需轮询与初始缓存",
+        "kind": "业务与控制模型",
+        "explanation": "帮助把设备标签更新分成遵从客户端速率、限制最快扫描、强制固定速率、只按需轮询及遵从标签速率等模式。订阅速率策略不控制显式同步或异步读写；初始缓存只在地址、速率、类型、访问权限与缩放属性相同的引用间复用。",
+        "assumptions": "条目对应 Kepware 通用驱动的扫描语义；不同驱动可有差异，缓存值不是新设备测量，采集策略也不构成硬实时保证。",
+        "locator": "Scan Mode；Initial Updates from Cache",
+        "sourceUrls": [
+          "https://support.ptc.com/help/kepware/drivers/en/kepware/drivers/device-properties-scan-mode_3.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Kepware Help：Device Properties — Scan Mode",
+        "url": "https://support.ptc.com/help/kepware/drivers/en/kepware/drivers/device-properties-scan-mode_3.html",
+        "version": "滚动 Drivers 帮助，未标明产品版本",
+        "access": "公开正文",
+        "evidence": "Scan Mode；Initial Updates from Cache"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw035",
+    "name": "Abaqus",
+    "status": "limited",
+    "summary": "已核实非线性增量迭代与通用接触；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "非线性增量迭代与通用接触",
+        "kind": "数值算法",
+        "explanation": "官方技术说明解释 Abaqus/Standard 按载荷增量执行 Newton–Raphson 迭代，每次迭代求解线性方程组。通用接触使用表面对表面离散、罚约束与有限滑移追踪，并补充边面、边边和顶点面接触；约束不足或屈曲释放能量可引发收敛困难。",
+        "assumptions": "已读的是公开技术文章，完整 Theory Guide 正文尚未通过官方入口取得；不能把收敛等同于物理正确，也不能将 Standard 方法外推到 Explicit。",
+        "locator": "How does Abaqus/Standard solve a nonlinear finite-element model?；Latest and greatest contact",
+        "sourceUrls": [
+          "https://blog.3ds.com/brands/simulia/contact-convergence-abaqus-standard/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "SIMULIA 技术说明：Contact and Convergence in Abaqus/Standard",
+        "url": "https://blog.3ds.com/brands/simulia/contact-convergence-abaqus-standard/",
+        "version": "2021 年技术文章，未绑定具体版本",
+        "access": "公开正文",
+        "evidence": "How does Abaqus/Standard solve a nonlinear finite-element model?；Latest and greatest contact"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw037",
+    "name": "OpenVSP",
+    "status": "limited",
+    "summary": "已核实混合厚薄表面与伴随尾迹耦合；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "混合厚薄表面与伴随尾迹耦合",
+        "kind": "数值算法",
+        "explanation": "官方版本说明解释 VSPAERO 不再把 VLM 与面元模式作为全局二选一，而允许各部件按厚或薄处理；计算网格转为多边形。伴随计算采用手工实现并使用多极加速，隐式尾迹模式把涡强与尾迹位置耦合，失速也进入隐式解。",
+        "assumptions": "这是版本技术变更说明，未审阅完整空气动力学理论手册；3.44 与 3.45 的模型结构存在变化，不能将旧版方法选择直接套用。",
+        "locator": "VLM and Panel mode；NGon mesh；hand-coded adjoint；implicit wake / stall",
+        "sourceUrls": [
+          "https://openvsp.org/blogs/announcements/2025/07/19/openvsp-3-45-0-released"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "OpenVSP：3.45.0 Release Explanation",
+        "url": "https://openvsp.org/blogs/announcements/2025/07/19/openvsp-3-45-0-released",
+        "version": "3.45.0，2025-07-19",
+        "access": "公开正文",
+        "evidence": "VLM and Panel mode；NGon mesh；hand-coded adjoint；implicit wake / stall"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw038",
+    "name": "Simpack（含 Rail 模块）",
+    "status": "limited",
+    "summary": "已核实轮轨接触与磨耗模型边界；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "轮轨接触与磨耗模型边界",
+        "kind": "物理与机理",
+        "explanation": "官方模块说明指出 Kalker CONTACT 接口利用局部轮轨几何、法向靠近量和切向蠕滑，求解非椭圆接触区、黏着滑移分区及压力和摩擦应力，采用变分方法。磨耗模块另提供 Krause/Poll 与 Archard 定律，并允许用户自定义。",
+        "assumptions": "公开页面仅解释局部模块机制，未提供完整本构或求解器理论；CONTACT 是单独接口与外部库，适用集中接触和均匀弹性材料，不能视为基础许可内置。",
+        "locator": "Simpack Rail Wear；Simpack Interface to Kalker Contact",
+        "sourceUrls": [
+          "https://akamai.3ds.com/products/simulia/simpack/rail"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "SIMULIA：Simpack Rail Modules",
+        "url": "https://akamai.3ds.com/products/simulia/simpack/rail",
+        "version": "未标明版本",
+        "access": "公开正文",
+        "evidence": "Simpack Rail Wear；Simpack Interface to Kalker Contact"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw105",
+    "name": "Ansys Mechanical",
+    "status": "documented",
+    "summary": "已核实模态反应谱与峰值组合；范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "模态反应谱与峰值组合",
+        "kind": "数学模型",
+        "explanation": "帮助说明反应谱分析先计算模态，再根据位移、速度或加速度反应谱求各模态的最大响应，最后用 SRSS、CQC 或 Rosenblueth 双和方法组合。输出是相应响应的最大值，模态应力或应变结果需在前置模态计算中准备。",
+        "assumptions": "此分析位于线性动力学范围，不允许非线性材料；非线性连接按线性处理并使用初始接触刚度，不提供完整响应时程。",
+        "locator": "Introduction；Points to Remember；Define Engineering Data；Define Connections",
+        "sourceUrls": [
+          "https://ansyshelp.ansys.com/public/Views/Secured/corp/v261/en/wb_sim/ds_response_spectrum_analysis_type.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Mechanical User's Guide：Response Spectrum Analysis",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v261/en/wb_sim/ds_response_spectrum_analysis_type.html",
+        "version": "2026 R1",
+        "access": "公开正文",
+        "evidence": "Introduction；Points to Remember；Define Engineering Data；Define Connections"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw107",
+    "name": "Simcenter STAR-CCM+",
+    "status": "limited",
+    "summary": "已核实SIMPLEC 压力修正与时间步内收敛；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "SIMPLEC 压力修正与时间步内收敛",
+        "kind": "数值算法",
+        "explanation": "官方技术文章解释分离流动求解器中的 SIMPLEC 是非定常隐式方案，通过修改压力修正方程去掉该方程的欠松弛，将压力松弛系数设为一。其目的在同一时间步内用较少内迭代达到指定残差收敛；文章分别给出几类算例而非通用速度保证。",
+        "assumptions": "已读局部算法说明，未读取完整 Theory Guide；速度系数能否取一与具体问题有关，文中性能结果不能推广到所有模型。",
+        "locator": "Go faster – CFD speedup with SIMPLEC，第 32–35 行",
+        "sourceUrls": [
+          "https://blogs.sw.siemens.com/simcenter/cfd-speedup-with-simplec/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Siemens 技术说明：CFD speedup with SIMPLEC",
+        "url": "https://blogs.sw.siemens.com/simcenter/cfd-speedup-with-simplec/",
+        "version": "STAR-CCM+ 2302，2023-02-08",
+        "access": "公开正文",
+        "evidence": "Go faster – CFD speedup with SIMPLEC，第 32–35 行"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw110",
+    "name": "Altair HyperMesh",
+    "status": "documented",
+    "summary": "已核实单元质量与几何映射指标；范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "单元质量与几何映射指标",
+        "kind": "几何与数据模型",
+        "explanation": "帮助给出长宽比、弦偏差、内角、翘曲和 Jacobian 质量的计算定义。Jacobian 在积分点或角点求行列式，以最小值与最大值之比衡量映射变化；三维单元的部分指标逐面计算并取最差值，不同求解器配置可能采用不同定义。",
+        "assumptions": "网格质量指标不是误差估计或结果正确性证明；所读为 2021 版，阈值需按单元类型、求解器和分析任务设置。",
+        "locator": "How Element Quality is Calculated：2D and 3D Element Checks / Jacobian / solver-specific sections",
+        "sourceUrls": [
+          "https://2021.help.altair.com/2021/hwdesktop/hm/topics/pre_processing/meshing/element_quality_how_its_calculated_c.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "HyperMesh Help：How Element Quality is Calculated",
+        "url": "https://2021.help.altair.com/2021/hwdesktop/hm/topics/pre_processing/meshing/element_quality_how_its_calculated_c.htm",
+        "version": "2021",
+        "access": "公开正文",
+        "evidence": "How Element Quality is Calculated：2D and 3D Element Checks / Jacobian / solver-specific sections"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw111",
+    "name": "NI LabVIEW",
+    "status": "documented",
+    "summary": "已核实数据流依赖与并行执行模型；范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "数据流依赖与并行执行模型",
+        "kind": "业务与控制模型",
+        "explanation": "NI 说明 LabVIEW 的节点在所需输入数据齐备后执行，输出再沿连线传递给后续节点，因此执行次序由数据依赖决定。没有相互依赖的循环可分别进入不同线程执行；界面事件处理和设备采集可表示为独立任务，减少手动管理线程的需求。",
+        "assumptions": "这是语言运行语义与任务并行说明，未承诺所有节点并行或所有目标均硬实时；共享资源和人工依赖仍会限制并行性。",
+        "locator": "Dataflow Programming Overview；Example of Creating a Parallel Task in LabVIEW",
+        "sourceUrls": [
+          "https://www.ni.com/en/support/documentation/supplemental/07/why-dataflow-programming-languages-are-ideal-for-programming-par.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "NI 技术文档：Why Dataflow Programming Languages are Ideal for Programming Parallel Hardware",
+        "url": "https://www.ni.com/en/support/documentation/supplemental/07/why-dataflow-programming-languages-are-ideal-for-programming-par.html",
+        "version": "技术说明更新 2025-10-30",
+        "access": "公开正文",
+        "evidence": "Dataflow Programming Overview；Example of Creating a Parallel Task in LabVIEW"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw182",
+    "name": "Ansys LS-DYNA",
+    "status": "documented",
+    "summary": "已核实显式中央差分与运动方程稳定性；范围以所列章节为限。",
+    "topics": [
+      {
+        "title": "显式中央差分与运动方程稳定性",
+        "kind": "数值算法",
+        "explanation": "理论手册从半离散运动方程解释显式推进：利用对角质量矩阵及外力、内力和沙漏阻力求加速度，再在交错时刻更新速度与位移，最后更新几何。稳定性章节把线性系统分解为模态方程，用以分析中央差分时间步的稳定条件。",
+        "assumptions": "核实为 R16 手册第 28 章，目录另有 R17 但未据其更新内容；显式方法仍须满足稳定时间步与能量检查，不能把能推进当成结果准确。",
+        "locator": "28.2 The Central Difference Method；28.3 Stability of Central Difference Method，印刷页 28-2–28-3（PDF 第 632–633 页）",
+        "sourceUrls": [
+          "https://lsdyna.ansys.com/wp-content/uploads/2025/04/LS-DYNA_Manual_Theory_R16.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Ansys LS-DYNA Theory Manual",
+        "url": "https://lsdyna.ansys.com/wp-content/uploads/2025/04/LS-DYNA_Manual_Theory_R16.pdf",
+        "version": "R16@e545952c7，2025-03-21",
+        "access": "公开正文",
+        "evidence": "28.2 The Central Difference Method；28.3 Stability of Central Difference Method，印刷页 28-2–28-3（PDF 第 632–633 页）"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "官方 PDF 超过 web 解析大小限制，已从原链接实际下载并用 pypdf 阅读正文；未转载手册。"
+  },
+  {
+    "softwareId": "sw183",
+    "name": "Dymola",
+    "status": "limited",
+    "summary": "已核实混合 DAE 的 IDA/BDF 求解；资料提供局部模型说明，不能视为完整理论手册。",
+    "topics": [
+      {
+        "title": "混合 DAE 的 IDA/BDF 求解",
+        "kind": "数值算法",
+        "explanation": "发布说明解释 IDA 是可变步长、可变阶数的混合微分代数方程求解器，核心采用 BDF 积分；不同于纯 ODE 求解器，它可在 DAE 模式中处理较大代数环。Dymola 实现还支持稀疏线性求解及不改变动力学的次要事件处理。",
+        "assumptions": "已读的是该版本的求解器技术说明而非完整 Dymola 用户手册；须区分 DAE/ODE 模式、稀疏开关和所导出 FMU 的算法选择。",
+        "locator": "3.3.1 Support for the Ida solver from SUNDIALS，第 21–22 页",
+        "sourceUrls": [
+          "https://www.3ds.com/assets/invest/2024-05/dymola-2024x-r1-release-notes.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Dymola 2024x Refresh 1 Release Notes",
+        "url": "https://www.3ds.com/assets/invest/2024-05/dymola-2024x-r1-release-notes.pdf",
+        "version": "2024x Refresh 1，文档版本 1",
+        "access": "公开正文",
+        "evidence": "3.3.1 Support for the Ida solver from SUNDIALS，第 21–22 页"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方帮助、技术说明或源码参考；只记录已读内容，未把接口调用或产品能力列表视为完整理论。"
+  },
+  {
+    "softwareId": "sw024",
+    "name": "Victory TCAD / DeckBuild",
+    "status": "not-located",
+    "summary": "官方检索结果可定位漂移扩散与能量平衡示例，但正文抓取未完成，尚未汇总为已核实模型。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Silvaco：Victory Device ASU_ex13 示例",
+        "url": "https://silvaco.com/examples/examples-tcad/examples-tcad-educational/examples-tcad-educational-asudeviceexamples/asu-ex13/",
+        "version": "页面索引日期 2026-10-07；未核实软件版本",
+        "access": "仅目录/摘要",
+        "evidence": "ASU_ex13：Velocity Overshoot vs Velocity Saturation in FD SOI Devices，检索索引可见模型比较；open 返回 cache miss。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查了官方 Victory Device 示例线索，另一次 Fin_GAA_ex04 正文访问超时。需要重试官方示例或查看随安装版提供的模型手册。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw025",
+    "name": "Cadence Virtuoso Studio",
+    "status": "not-located",
+    "summary": "已读数据表介绍 PCell、连接驱动与约束驱动布局，但未读到布局或仿真算法的理论正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Cadence：Virtuoso Layout Suite Datasheet",
+        "url": "https://www.cadence.com/en_US/home/resources/datasheets/virtuoso-layout-suite-ds.html",
+        "version": "滚动产品数据表，未标明版本",
+        "access": "仅目录/摘要",
+        "evidence": "Overview / Virtuoso Layout Suite Benefits 为能力与工作流说明，未给出求解模型。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查官方数据表和产品文档线索；模型与仿真理论需要继续在具体求解器或客户帮助中核查。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw026",
+    "name": "Synopsys Sentaurus TCAD",
+    "status": "not-located",
+    "summary": "公开页列出量子、隧穿、电热等能力，未取得相应物理方程、参数及求解假设的用户指南正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Synopsys：Sentaurus Device",
+        "url": "https://www.synopsys.com/manufacturing/tcad/device-simulation/sentaurus-device.html",
+        "version": "滚动产品页，未标明版本",
+        "access": "仅目录/摘要",
+        "evidence": "Features 为能力表，另有 SolvNetPlus 文档入口；本次入口未返回可读正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查官方 Sentaurus Device 页及 SolvNetPlus 入口；尚不能由空白网页确认是否必须登录，故不标为许可受限。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw027",
+    "name": "Opcenter Execution Semiconductor",
+    "status": "not-located",
+    "summary": "尚未定位到可读的工艺路线、批次拆并、返工或状态转换模型正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Siemens：Opcenter Execution Semiconductor",
+        "url": "https://www.siemens.com/en-gb/products/opcenter/execution/semiconductor/",
+        "version": "未核实产品版本",
+        "access": "仅目录/摘要",
+        "evidence": "官方产品入口本次抓取超时，现有材料主要是产品和发布说明。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "复核现有官方产品入口与资料类型，未从功能列表补写 MES 内部业务状态机。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw088",
+    "name": "Cadence Allegro X PCB Editor",
+    "status": "not-located",
+    "summary": "已读页面说明如何通过 API 添加外部 DRC 标记，未说明 Allegro 的几何检查、规则求值或布线算法。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Cadence：Creating DRC Markers in the PCB Editor with SKILL",
+        "url": "https://resources.pcb.cadence.com/allegro-pcb-editor-videos-page/col/allegro-pcb-editor-videos/creating-drc-markers-in-the-pcb-editor-with-skill",
+        "version": "未标明版本",
+        "access": "仅目录/摘要",
+        "evidence": "页面正文仅定义 axlDBCreateExternalDRC 的用途，视频无可读理论正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方 SKILL 示例入口及其内容；外部标记创建不证明读取了原生 DRC 求解机制。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw089",
+    "name": "Cadence Innovus",
+    "status": "not-located",
+    "summary": "现有官方入口面向数据库访问，本次未取得 Innovus 布局、时序优化或布线机制正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Cadence：Stylus Common UI Database Access",
+        "url": "https://support1.cadence.com/public/docs/content/20482737.html",
+        "version": "未核实文档版本",
+        "access": "仅目录/摘要",
+        "evidence": "官方支持页面返回 HTTP 403；未据此确定登录或许可门槛。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查现有官方帮助入口和产品文档线索；403 仅记录为本次工具访问限制，不标为确定的权限限制。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw090",
+    "name": "Synopsys Fusion Compiler",
+    "status": "not-located",
+    "summary": "已读数据表描述共享逻辑与物理信息的数据模型和综合实现流程，未提供优化目标、约束方程或详细算法。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Synopsys：Fusion Compiler Datasheet",
+        "url": "https://www.synopsys.com/content/dam/synopsys/implementation%26signoff/datasheets/fusion-compiler-ds.pdf",
+        "version": "数据表未标明产品版本",
+        "access": "仅目录/摘要",
+        "evidence": "Fusion Data Model / Unified physical synthesis 为架构与能力概述。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方三页数据表；保留后续查阅实施手册的方向，不把性能宣传转写为可验证理论。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw091",
+    "name": "Synopsys VCS",
+    "status": "not-located",
+    "summary": "公开资料介绍并行仿真和约束求解能力，未读到事件调度、逻辑语义或约束求解器的详细原理。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Synopsys：VCS Functional Verification Solution",
+        "url": "https://www.synopsys.com/verification/simulation/vcs.html",
+        "version": "滚动产品页，未标明版本",
+        "access": "仅目录/摘要",
+        "evidence": "Overview / Features 为功能概述；SolvNetPlus 入口本次未返回可读用户文档。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查官方产品页与文档入口，不能从 Fine-Grained Parallelism 的名称推断内部任务分解算法。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw092",
+    "name": "Siemens Calibre",
+    "status": "not-located",
+    "summary": "课程目录明确涵盖布尔拓扑、边检查、器件识别和网表比较，但未取得这些内容的讲义或手册正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Siemens Academy：Calibre Writing DRC/LVS Rules",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=239707-US_____EDA__2021.2_1199",
+        "version": "当前课程页显示 Calibre 2023.2",
+        "access": "仅目录/摘要",
+        "evidence": "Primary Course Topics / Hands-On Labs，仅课程主题和材料清单；页面说明该课程已不再常规提供。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "实际阅读官方课程介绍，未把课程主题清单当成已经阅读 SVRF 或 LVS 原理手册。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw093",
+    "name": "Siemens Xpedition",
+    "status": "not-located",
+    "summary": "已读资料说明约束驱动、设计复用和协同能力，未核实约束传播、路由或分析模型的正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Siemens：Xpedition Enterprise",
+        "url": "https://www.siemens.com/en-us/products/pcb/xpedition/enterprise/",
+        "version": "滚动产品页，未标明版本",
+        "access": "仅目录/摘要",
+        "evidence": "PCB design best practices 为功能与实践入口。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查官方公开产品与最佳实践入口；完整设计帮助的机制章节未在本次找到。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw149",
+    "name": "PSpice（含 PSpice for TI）",
+    "status": "not-located",
+    "summary": "数据表列出器件模型和模拟数字分析方式，但未取得 PSpice Reference Guide 中的模型方程与收敛算法正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Cadence：Allegro PSpice System Designer Datasheet",
+        "url": "https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/pcb-design-analysis/allegro-pspice-system-designer-ds.pdf",
+        "version": "数据表未标明产品版本",
+        "access": "仅目录/摘要",
+        "evidence": "Mixed analog/digital simulation / Models 说明五种数字逻辑级和可选模型名称，未给出完整理论契约。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方五页数据表并检索参考指南；不把 LTspice/ngspice 文档当成 PSpice 或 PSpice for TI 的实现说明。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。 补检 TI 官方社区附件中的 Cadence PSpice Reference Guide（2000 第二在线版），已见器件方程正文，但未能确认附件由 TI 员工官方发布，因此未用作所列软件已核实机理来源，也未将历史 OrCAD 手册当成当前 PSpice for TI 的实现。"
+  },
+  {
+    "softwareId": "sw150",
+    "name": "Siemens PADS（Standard / Professional）",
+    "status": "not-located",
+    "summary": "公开页确认 PCB 分析使用 HyperLynx 技术，但未取得 PADS 布局规则或相应分析模型的原理正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Siemens：PADS Standard and Standard Plus",
+        "url": "https://www.siemens.com/en-us/products/pcb/pads/standard-plus/",
+        "version": "滚动产品页，未标明版本",
+        "access": "仅目录/摘要",
+        "evidence": "PCB Schematic Design / PCB Layout / PCB Analysis 为产品能力描述。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "复核 PADS 官方分支页面；未把同厂 HyperLynx 或 Xpedition 的一般能力自动归到当前 PADS 许可。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw151",
+    "name": "Cadence OrCAD / OrCAD X",
+    "status": "not-located",
+    "summary": "FAQ 解释组件数据库与供应链数据等工作方式，未定位到 OrCAD 的电路或 PCB 算法理论章节。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Cadence：What's New in OrCAD X 24.1 FAQ",
+        "url": "https://resources.academic.cadence.com/pcb-design-and-analysis-resources/what-s-new-in-orcad-x-24-1-faq",
+        "version": "24.1，2024-10-28",
+        "access": "仅目录/摘要",
+        "evidence": "OrCAD X Capture / Live BOM / Licensing 为使用和产品边界问答。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方 FAQ；未将 OrCAD Capture、Presto 与另行使用的 PSpice 求解模型混为同一原理。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw028",
+    "name": "NX / NX CAM",
+    "status": "not-located",
+    "summary": "已读公开资料介绍特征加工、刀路与 G-code 驱动仿真，未核实几何内核、刀路生成或切削模型的文档正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Siemens：NX CAM Software",
+        "url": "https://www.siemens.com/en-us/products/nx-manufacturing/cam-software/",
+        "version": "滚动产品页，未标明版本",
+        "access": "仅目录/摘要",
+        "evidence": "Explore capabilities / Automated programming / Advanced machining strategies 为产品说明。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "复核现有 NX CAM 公开入口与开发资料类型；需继续查具体加工操作的参数说明或理论文档。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw029",
+    "name": "SOLIDWORKS Design",
+    "status": "not-located",
+    "summary": "已定位官方草图几何关系与状态的章节线索，但页面正文未在本次直接读取成功，未将检索片段列为完整核实。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "SOLIDWORKS Help：Description of Sketch Relations",
+        "url": "https://help.solidworks.com/2025/english/solidworks/sldworks/c_Description_of_Sketch_Relations.htm",
+        "version": "URL 为 2025 帮助，抓取返回空白导航框架",
+        "access": "仅目录/摘要",
+        "evidence": "检索索引可见相切、同心、等曲率等定义；直接 open 仅返回帮助导航，且显示 2027 搜索框。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "同时尝试 2021 与 2025 官方帮助，返回导航模板；此为工具可读性限制，不能推断文档不公开或内容不存在。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw030",
+    "name": "Mastercam",
+    "status": "not-located",
+    "summary": "公开页说明 Dynamic Motion 与残料感知加工的用途，未读到啮合控制、刀路计算或材料去除的详细模型文档。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Mastercam：Mill Programming Software Solutions",
+        "url": "https://www.mastercam.com/solutions/products/mill-solutions/",
+        "version": "滚动产品页，未标明版本",
+        "access": "仅目录/摘要",
+        "evidence": "Dynamic Motion Technology / Flexible Toolpath Options 主要为能力和效果说明。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方 Mill 页；未以优化切屑负载的宣传表述补造具体刀路算法。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw103",
+    "name": "中望3D（ZW3D）",
+    "status": "not-located",
+    "summary": "已确认开发指南和参考手册入口，但本次未取得可核实的几何、曲面、刀路或约束算法正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "ZWSOFT：ZW3D Development Support",
+        "url": "https://www.zwsoft.com/support/zw3d-devdoc",
+        "version": "入口列有 2023–2027 开发指南与参考手册",
+        "access": "仅目录/摘要",
+        "evidence": "Development Guide / Reference Manual，已检查目录，未读取下载手册的机制章节。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查官方开发文档目录及版本边界；API 文档存在不等于已找到数学模型说明。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw174",
+    "name": "GstarCAD（浩辰CAD）",
+    "status": "not-located",
+    "summary": "已定位官方用户指南，网页读取工具因文件大小限制未返回正文，尚未核实其中的几何或参数约束模型。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "GstarCAD 2026 User Guide",
+        "url": "https://cdn-sg-gw.gstarcad.net/gstarsoft_pdf/GstarCAD_2026_User_Guide.pdf",
+        "version": "2026",
+        "access": "仅目录/摘要",
+        "evidence": "官方 PDF 约 22 MB，web 返回 Content length is too large。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查该用户指南实际入口；本次未完成文件级全文读取，不能据此判断其模型公开程度。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw175",
+    "name": "ZWCAD（中望CAD）",
+    "status": "not-located",
+    "summary": "公开目录提供 Lisp、VBA、ZRX 和 .NET 开发资料，尚未读到足以解释几何运算或约束求解机理的章节。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "ZWSOFT：ZWCAD Development Support",
+        "url": "https://www.zwsoft.com/support/zwcad-devdoc",
+        "version": "入口列有 2024–2026 开发指南",
+        "access": "仅目录/摘要",
+        "evidence": "Development Guide / Reference Manual / Migration Manual 为多类 SDK 入口。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "阅读官方开发支持目录；未将宏语言解释执行和 API 支持误写为 CAD 建模理论。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw034",
+    "name": "CATIA V5",
+    "status": "not-located",
+    "summary": "已打开官方 V5 文档首页，但分类链接未返回具体几何、约束或分析模型正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "CATIA Version 5-6 Release 2025 Documentation",
+        "url": "https://dshelp-embed.3ds.com/2025/english/CATIA_P3/online/CATIA_P3_default.htm",
+        "version": "V5-6 Release 2025",
+        "access": "仅目录/摘要",
+        "evidence": "文档首页显示 Mechanical Design / Shape Design / Analysis 分类，链接在工具中返回同一首页。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "经 Dassault 官方 User Guides 跳转进入该页；本次受目录导航可读性限制，未据此推定许可要求。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw039",
+    "name": "Simcenter Amesim",
+    "status": "not-located",
+    "summary": "目录列出储箱子模型、加速度、水锤和换热器等主题，未取得子模型方程或假设正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Siemens Academy：Design and Simulate Aircraft Fuel Systems",
+        "url": "https://training.plm.automation.siemens.com/ilt/iltdescription.cfm?pID=ILTLG018017___LMS__2020.2_B1105",
+        "version": "Amesim 2020.2 课程",
+        "access": "仅目录/摘要",
+        "evidence": "Primary Course Topics / Provided Course Materials，仅课程概述与材料名称。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "读取官方课程页；课程提供学生指南，但不能从主题清单确认已经审阅其机理。 本次未定位到可核实正文，不代表软件没有相关理论文档；未把产品宣传或 API 调用说明当成已公开的模型。"
+  },
+  {
+    "softwareId": "sw108",
+    "name": "MSC Nastran",
+    "status": "documented",
+    "summary": "已阅读官方参考指南附录 B，核实模态特征值求解、Sturm 计数与移位块 Lanczos 方法。",
+    "topics": [
+      {
+        "title": "模态特征值提取与移位块 Lanczos",
+        "kind": "数值算法",
+        "explanation": "参考指南从刚度矩阵和质量矩阵的特征值问题解释固有频率与振型求解。Sturm 序列利用移位矩阵分解中的负对角项统计指定频率以下的根；块 Lanczos 通过向量递推构造三对角问题，以 Ritz 值和向量近似原系统，并用移位与计数检查所需频段的模态是否齐全。",
+        "assumptions": "核查范围为 MSC Nastran 2021.4 实特征值理论；不同算法对质量矩阵正定性、稀疏性和所求模态数量有不同条件，不能泛化至全部非线性求解器。",
+        "locator": "Appendix B：Theory of Eigenvalue Extraction / Sturm Sequence Theory、Eigensolution Methods、The Shifted Block Lanczos Method，印刷 pp.594–601（PDF pp.606–613）",
+        "sourceUrls": [
+          "https://documentation-be.hexagon.com/bundle/MSC_Nastran_2021.4_Reference_Guide/raw/resource/enus/MSC_Nastran_2021.4_Reference_Guide.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "MSC Nastran Reference Guide",
+        "url": "https://documentation-be.hexagon.com/bundle/MSC_Nastran_2021.4_Reference_Guide/raw/resource/enus/MSC_Nastran_2021.4_Reference_Guide.pdf",
+        "version": "2021.4",
+        "access": "公开正文",
+        "evidence": "Appendix B：Theory of Eigenvalue Extraction / Sturm Sequence Theory、Eigensolution Methods、The Shifted Block Lanczos Method，印刷 pp.594–601（PDF pp.606–613）"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "完整官方 PDF 已下载并实际读取附录 B；保留 2021.4 版本，不将其视为当前版本所有算法的默认配置。其他材料、接触与非线性模型尚未逐章核查。"
+  },
+  {
+    "softwareId": "sw109",
+    "name": "Adams",
+    "status": "documented",
+    "summary": "已阅读官方求解器手册中 BDF 积分、预测校正与约束方程说明，明确不同积分器的步长及误差边界。",
+    "topics": [
+      {
+        "title": "BDF 预测校正与多体约束积分",
+        "kind": "数值算法",
+        "explanation": "求解器将机械系统的非线性微分代数方程离散为代数方程。GSTIFF 和 WSTIFF 采用 BDF 多步积分，先以历史状态外推，再隐式校正满足运动方程与约束。手册区分刚性与非刚性问题，并说明变阶、变步长及误差控制如何影响位移、速度和加速度的精度。",
+        "assumptions": "核查的是 Adams 2022.4 C++ 求解器；GSTIFF 步长变化可能引入误差，较小步长也可能导致雅可比病态；不同积分器与约束形式不能视为等价。",
+        "locator": "C++ Statements / INTEGRATOR：Extended Definition、Prediction、Correction、GSTIFF、SI2、WSTIFF，印刷 pp.213–222（PDF pp.281–290）",
+        "sourceUrls": [
+          "https://documentation-be.hexagon.com/bundle/Adams_2022.4_Adams_Solver_User_Guide/raw/resource/enus/Adams_2022.4_Adams_Solver_User_Guide.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Adams Solver User Guide",
+        "url": "https://documentation-be.hexagon.com/bundle/Adams_2022.4_Adams_Solver_User_Guide/raw/resource/enus/Adams_2022.4_Adams_Solver_User_Guide.pdf",
+        "version": "2022.4",
+        "access": "公开正文",
+        "evidence": "C++ Statements / INTEGRATOR：Extended Definition、Prediction、Correction、GSTIFF、SI2、WSTIFF，印刷 pp.213–222（PDF pp.281–290）"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "完整官方 PDF 已下载并实际读取所列正文；web 工具文件大小限制不代表登录或许可限制。未审阅全部接触和柔性体模型。"
+  },
+  {
+    "softwareId": "sw185",
+    "name": "NASA GMAT",
+    "status": "not-located",
+    "summary": "官方说明用户指南随安装包提供，包含轨道传播与轨道确定教程；本次未取得传播器和力模型的具体正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "GMAT Wiki：User Documentation",
+        "url": "https://gmat.atlassian.net/wiki/spaces/GW/pages/380273265/User+Documentation",
+        "version": "入口更新 2025-03-17；未核实软件版本",
+        "access": "仅目录/摘要",
+        "evidence": "Where to Get GMAT's User Documentation / GMAT User Guide Organization，说明 docs/help 内 HTML、PDF 和独立 API 文档位置。"
+      },
+      {
+        "title": "General Mission Analysis Tool (GMAT) Architectural Specification. Draft — NTRS",
+        "url": "https://ntrs.nasa.gov/citations/20090004618",
+        "version": "2007-07-12，DRAFT；不是当前发行版说明",
+        "access": "仅目录/摘要",
+        "evidence": "NTRS 元数据确认作者 Hughes / Conway、NASA GSFC 来源、公开分发；完整 PDF 因 web 大小限制与下载 HTTP 403 未能读取。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "阅读官方 Wiki 与 NASA NTRS 20090004618 元数据；官方历史 DRAFT PDF 检索提示存在 Propagator 和 Force Model 章节，但未成功读取正文，不据此描述具体算法。HTTP 403 或文件大小限制不代表该文档要求登录或许可。本次未找到可核实正文，不代表软件没有相关机理文档。"
+  },
+  {
+    "softwareId": "sw096",
+    "name": "Siemens Teamcenter",
+    "status": "limited",
+    "summary": "已核实 SOA 客户端数据模型的对象身份、类型与更新机制；未覆盖完整 PLM 业务状态模型。",
+    "topics": [
+      {
+        "title": "对象身份保持与客户端数据模型",
+        "kind": "几何与数据模型",
+        "explanation": "白皮书解释 Data Model Manager 在每次服务响应后填充客户端对象存储，并保持对象身份：已存在对象被返回时更新属性，不重复创建。客户端提供通用模型与类型安全模型，类型层级来自 Business Modeler/IDE，元模型还支持对象创建、修改和删除事件。",
+        "assumptions": "这是 2010 年 SOA 架构说明，不是当前全部 PLM 数据库结构或工作流理论；只核实对象缓存、类型和事件语义，不推断企业定制业务规则。",
+        "locator": "A technical look at Teamcenter's SOA；Teamcenter's SOA's major components，第 6–7 页",
+        "sourceUrls": [
+          "https://www.plm.automation.siemens.com/en_us/Images/Siemens-PLM-Teamcenter-Service-Oriented-Architecture-wp_tcm1023-24383.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Teamcenter's Service Oriented Architecture White Paper",
+        "url": "https://www.plm.automation.siemens.com/en_us/Images/Siemens-PLM-Teamcenter-Service-Oriented-Architecture-wp_tcm1023-24383.pdf",
+        "version": "2010 年官方白皮书，未绑定当前产品版本",
+        "access": "公开正文",
+        "evidence": "Data Model Manager / Client Data Model，正文第 7 页说明对象身份和两类 CDM。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "阅读官方架构白皮书中数据模型部分；没有将服务调用列表或客户端语言绑定当成业务机理。"
+  },
+  {
+    "softwareId": "sw180",
+    "name": "TIA Portal（STEP 7／WinCC工程平台）",
+    "status": "not-located",
+    "summary": "已读 Openness 工程对象模型及组合关系，但尚未定位到解释 PLC 运行、控制算法或工程编译机制的相关正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "TIA Portal Openness：Working with compositions",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v21/tia-portal-openness-api-for-automation-of-engineering-workflows/tia-portal-openness-api/general-functions/working-with-compositions?contentId=Mrctkoy4H4EXFw0HNkQPLw",
+        "version": "V21，2026-03",
+        "access": "公开正文",
+        "evidence": "Accessing compositions 定义部分与整体的对象关系，Methods 解释非递归检索与导入覆盖；内容是工程 SDK 对象管理。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "沿官方 V21 对象模型目录阅读组合关系正文；该内容不足以解释控制功能的运行机理，未将 SDK 数据访问概念当成 PLC 数学模型。未定位不代表文档不存在。"
+  }
+]

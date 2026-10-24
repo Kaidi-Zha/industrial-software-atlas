@@ -1,3 +1,4 @@
+import csv
 import json
 import re
 from collections import Counter
@@ -211,12 +212,124 @@ for p in protocols:
     assert p['sources'] and p['sectors']
     if p['id']=='p36':
         p['sources']=[{'title':'IEC：60870-5-104:2006+AMD1:2016 摘要','url':'https://webstore.iec.ch/en/publication/25035'}]
+theory_records=[]
+for group in ['process','design','power-civil','resources']:
+    theory_records.extend(json.loads((ROOT/'research'/f'theory-{group}.json').read_text()))
+theory_by_id={t['softwareId']:t for t in theory_records}
+assert len(theory_records)==len(theory_by_id)==len(software),'Theory audit must cover every software exactly once'
+# Keep the earlier survey as evidence history; explicit rechecks replace its interpretation.
+rechecks=[]
+for group in ['process','eda','cad','resources']:
+    rechecks.extend(json.loads((ROOT/'research'/f'recheck-{group}-docs.json').read_text()))
+recheck_by_id={r['softwareId']:r for r in rechecks}
+assert len(rechecks)==len(recheck_by_id)==41
+assert set(recheck_by_id)=={t['softwareId'] for t in theory_records if t['status']=='not-located'}
+remaining_rechecks=[]
+for group in ['gproms','optitex','slb']:
+    records=json.loads((ROOT/'research'/f'recheck-final-{group}.json').read_text())
+    remaining_rechecks.extend(records if isinstance(records,list) else [records])
+assert len(remaining_rechecks)==4
+assert {r['softwareId'] for r in remaining_rechecks}=={'sw067','sw084','sw129','sw130'}
+recheck_by_id.update({r['softwareId']:r for r in remaining_rechecks})
+rechecks=list(recheck_by_id.values())
+assert len(rechecks)==44
+for sid,r in recheck_by_id.items():
+    assert r['name']==theory_by_id[sid]['name'] and r['reason']
+    f=r['functionDocumentation']
+    assert f['status'] in {'confirmed','not-confirmed'} and f['summary'] and f['retrieval']
+    assert f['status']!='confirmed' or f['documents']
+    for d in f['documents']:
+        assert all(d.get(k) for k in ['title','url','version','access','evidence'])
+    for attempt in f['retrieval']:
+        assert all(attempt.get(k) for k in ['method','url','result'])
+    if r['theoryPatch']:
+        assert r['theoryPatch']['softwareId']==sid and r['theoryPatch']['name']==r['name']
+        theory_by_id[sid]=r['theoryPatch']
+theory_records=list(theory_by_id.values())
+theory_kinds=['物理与机理','数学模型','数值算法','几何与数据模型','业务与控制模型']
+theory_statuses={'documented':'有理论或模型正文','limited':'局部机理或模型说明','access-limited':'机理正文访问受限','not-located':'机理正文待核实'}
+for item in software:
+    t=theory_by_id[item['id']]
+    assert t['name']==item['name'],(item['id'],t['name'],item['name'])
+    assert t['status'] in theory_statuses and t['summary'] and t['documents'] and t['searchNote']
+    assert t['checkedDate']=='2026-10-21'
+    assert t['status'] not in {'documented','limited'} or t['topics'],item['name']
+    doc_urls={d['url'] for d in t['documents']}
+    for d in t['documents']:
+        assert all(d.get(k) for k in ['title','url','version','access','evidence']),item['name']
+        assert urlparse(d['url']).scheme in {'http','https'}
+    for topic in t['topics']:
+        assert topic['kind'] in theory_kinds and all(topic.get(k) for k in ['title','explanation','assumptions','locator','sourceUrls']),item['name']
+        assert set(topic['sourceUrls'])<=doc_urls,item['name']
+    item['theory']={k:v for k,v in t.items() if k not in {'softwareId','name'}}
+    if item['id'] in recheck_by_id:
+        item['theory']['functionDocumentation']=recheck_by_id[item['id']]['functionDocumentation']
+        item['theory']['functionDocumentation']['checkedDate']='2026-10-21'
+    item['sources']=list({s['url']:s for s in [*item['sources'],*[{'title':d['title'],'url':d['url']} for d in t['documents']]]}.values())
+    if item['id'] in recheck_by_id:
+        item['sources']=list({s['url']:s for s in [*item['sources'],*[{'title':d['title'],'url':d['url']} for d in item['theory']['functionDocumentation']['documents']]]}.values())
+theory_summary=dict(checkedDate='2026-10-21',reviewed=len(theory_records),
+    statuses={key:sum(t['status']==key for t in theory_records) for key in theory_statuses},
+    topics=sum(len(t['topics']) for t in theory_records),
+    documents=len({d['url'] for t in theory_records for d in t['documents']}),
+    functionDocumentationReviewed=len(rechecks),
+    functionDocumentationConfirmed=sum(r['functionDocumentation']['status']=='confirmed' for r in rechecks))
+# Product discovery and interface/model audits are different evidence levels.
+# Keep the audited records and IDs intact; product pages do not become API contracts.
+industry_sectors=json.loads((ROOT/'research/industry-sectors.json').read_text())
+for sector in industry_sectors:
+    assert sector['id'] not in sector_order
+    sector.update(featured=[],workflows=[])
+    sectors.append(sector)
+    sector_order[sector['id']]=len(sector_order)
+theory_statuses['not-reviewed']='机理尚未专项核查'
+with (ROOT/'research/industry-catalog.tsv').open(newline='') as stream:
+    catalog=list(csv.DictReader(stream,delimiter='\t'))
+for i,entry in enumerate(catalog,len(software)+1):
+    assert all(entry.values()) and len(entry)==9,entry
+    assert entry['sector'] in sector_order and urlparse(entry['url']).scheme=='https'
+    source=dict(title=f"{entry['name']}：官方产品或文档入口",url=entry['url'])
+    software.append(dict(
+        id=f'sw{i:03}',name=entry['name'],vendor=entry['vendor'],sector=entry['sector'],
+        stage=entry['stage'],purpose=entry['purpose'],capabilities=entry['capabilities'].split('；'),
+        keywords=entry['keywords'].split(),interfaces=[],interactions=[],sources=[source],
+        evidence='官方用途与功能检索',sourceDate='2026-10-24',coverageDepth='function',
+        constraints=entry['boundary'],
+        profile=dict(humanEntry='从官方产品或文档入口查阅，安装和操作方式以所用版本为准。',
+            coverage=entry['purpose'],versionBoundary=entry['boundary'],
+            unknowns=['尚未逐项核查 API、CLI、文件交换及通信接口的数据契约。','尚未开展机理手册专项核查或安装运行验证。']),
+        theory=dict(status='not-reviewed',summary='已核实产品用途；尚未开展机理与模型专项核查。',topics=[],documents=[],checkedDate='',
+            searchNote='产品页面与文档入口用于确认名称、用途和功能范围，不能据此推断内部算法。')))
+assert len({x['name'].casefold() for x in software})==len(software),'Duplicate catalog name'
+by_name={x['name']:x for x in software}
+relations=json.loads((ROOT/'research/industry-links.json').read_text())
+for name,related in relations['crossSectors'].items():
+    assert name in by_name,name
+    item=by_name[name]
+    assert all(s in sector_order and s!=item['sector'] for s in related),name
+    item['additionalSectors']=list(dict.fromkeys([*item.get('additionalSectors',[]),*related]))
+for name,keywords in relations['keywords'].items():
+    assert name in by_name,name
+    by_name[name]['keywords']=list(dict.fromkeys([*by_name[name].get('keywords',[]),*keywords]))
+for item in software:
+    item.setdefault('coverageDepth','interface')
+for group in electronics_context['areas']:
+    if group['id']=='circuit':
+        group['softwareNames'].extend(['NanoSpice','Empyrean ALPS'])
+electronics_context['areas'].append(dict(id='packaging',name='封装工艺仿真',softwareNames=['Moldex3D']))
+for group in electronics_context['access']:
+    if group['id']=='domestic':
+        group['name']='国产设计与仿真'
+        group['softwareNames'].extend(['NanoSpice','Empyrean ALPS'])
+theory_summary['statuses']={key:sum(x['theory']['status']==key for x in software) for key in theory_statuses}
+catalog_summary=dict(checkedDate='2026-10-24',functionOnly=len(catalog),interfaceAudited=len(software)-len(catalog),
+    scope='工业生产、工程设计与相关运营；含研究求解器和专业库，不包含全部行业、地区及历史产品。')
 sources={}
 for item in [*software,*protocols,*electronics_context['relationships']]:
     for source in item['sources']:
         record=sources.setdefault(source['url'],dict(**source,items=[]))
         if item['name'] not in record['items']:record['items'].append(item['name'])
-data=dict(checkedDate='2026-10-19',electronicsContext=electronics_context,structuralContext=structural_context,categories=categories,sectors=sectors,software=software,protocols=protocols,sources=list(sources.values()))
+data=dict(checkedDate='2026-10-24',interfaceCheckedDate='2026-10-19',catalogSummary=catalog_summary,theorySummary=theory_summary,theoryKinds=theory_kinds,theoryStatuses=theory_statuses,electronicsContext=electronics_context,structuralContext=structural_context,categories=categories,sectors=sectors,software=software,protocols=protocols,sources=list(sources.values()))
 payload=json.dumps(data,ensure_ascii=False,separators=(',',':')).replace('</','<\/')
 template=(ROOT/'layout.html').read_text()
 template=template.replace('__ATLAS_STYLES__',(ROOT/'atlas.css').read_text())
@@ -228,7 +341,7 @@ output=template.replace('__ATLAS_DATA__',payload)
 scripts=re.findall(r'<script>([\s\S]*?)</script>',output)
 assert len(scripts)==1
 (ROOT/'research/page-runtime.js').write_text(scripts[0])
-summary=dict(software=len(software),protocols=len(protocols),uniqueSources=len(sources),
+summary=dict(software=len(software),sectorCount=len(sectors),catalog=catalog_summary,protocols=len(protocols),uniqueSources=len(sources),theory=theory_summary,
     interfaces=sum(len(x['interfaces']) for x in software),sectors=dict(Counter(x['sector'] for x in software)),
     detailedInteractions=sum(len(x['interactions']) for x in software),
     documentedStandardRelations=sum(len(i['standardIds']) for x in software for i in x['interactions']),

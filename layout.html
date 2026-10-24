@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="十个工业领域的专业软件、已核查接口与相关行业标准，附官方来源和接入条件。">
+<meta name="description" content="按行业和工作任务查找工业软件，查阅功能、接口、标准及模型资料，并区分用途检索与接口和机理专项核查。">
 <title>工业软件与接口目录</title>
 <style>__ATLAS_STYLES__</style>
 </head>
@@ -12,22 +12,22 @@
 <header class="site-header">
   <div class="header-inner">
     <a class="brand" href="#overview" aria-label="工业软件目录首页"><svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 2 29 9.5v13L16 30 3 22.5v-13Z" stroke="currentColor" stroke-width="1.5"/><path d="m9 19 7-12 7 12M12 14h8M9 23h14" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg><span>工业软件目录</span></a>
-    <nav class="header-nav" aria-label="主导航"><a href="#overview" class="overview-link">概览</a><div class="tabs" role="tablist" aria-label="资料视图"><button role="tab" class="tab" data-view="software" aria-selected="true" aria-controls="content">软件目录</button><button role="tab" class="tab" data-view="protocols" aria-selected="false" aria-controls="content">协议与标准</button><button role="tab" class="tab" data-view="matrix" aria-selected="false" aria-controls="content">覆盖矩阵</button><button role="tab" class="tab" data-view="method" aria-selected="false" aria-controls="content">核查说明</button></div></nav>
+    <nav class="header-nav" aria-label="主导航"><a href="#overview" class="overview-link">概览</a><div class="tabs" role="tablist" aria-label="资料视图"><button role="tab" class="tab" data-view="software" aria-selected="true" aria-controls="content">软件目录</button><button role="tab" class="tab" data-view="theory" aria-selected="false" aria-controls="content">机理与模型</button><button role="tab" class="tab" data-view="protocols" aria-selected="false" aria-controls="content">协议与标准</button><button role="tab" class="tab" data-view="matrix" aria-selected="false" aria-controls="content">覆盖矩阵</button><button role="tab" class="tab" data-view="method" aria-selected="false" aria-controls="content">核查说明</button></div></nav>
     <a class="header-action" href="#catalog">浏览资料 <span aria-hidden="true">↗</span></a>
   </div>
 </header>
 <main>
   <section class="hero" id="overview" aria-labelledby="page-title">
-    <div class="hero-date">资料核查 · 2026 年 10 月 19 日</div>
+    <div class="hero-date">软件目录核查 · 2026 年 10 月 24 日</div>
     <h1 id="page-title">工业软件与接口目录</h1>
-    <p class="hero-subtitle">从软件用途，到一条可核查的交互路径。</p>
-    <p class="hero-description">涵盖十个工业领域，按六类交互方式查阅。<br>了解调用入口、数据契约、执行流程和版本条件，追溯软件与标准的支持依据。</p>
-    <div class="hero-actions"><button class="pill primary" data-open-view="software">浏览软件目录 <span aria-hidden="true">→</span></button><button class="pill" data-open-view="protocols">查看协议与标准 <span aria-hidden="true">↗</span></button></div>
+    <p class="hero-subtitle">从行业与任务，找到专业软件。</p>
+    <p class="hero-description">覆盖工程设计、生产制造、检测与运行维护。<br>查用途、接口与模型，沿官方来源核对适用范围。</p>
+    <div class="hero-actions"><button class="pill primary" data-open-view="software">浏览软件目录 <span aria-hidden="true">→</span></button><button class="pill" data-open-view="theory">查阅机理与模型 <span aria-hidden="true">↗</span></button></div>
     <div class="stats" id="stats"></div>
   </section>
   <section class="industry-section page-width" aria-labelledby="industry-title">
     <div class="section-heading"><div><span class="section-label">行业范围</span><h2 id="industry-title">按领域浏览</h2></div><p>选择领域，查看对应软件与相关标准。</p></div>
-    <nav class="industry-grid" id="industry-grid" aria-label="十个工业领域"></nav>
+    <details class="industry-browser" id="industry-browser"><summary>浏览全部 <span id="sector-total"></span> 个领域</summary><nav class="industry-grid" id="industry-grid" aria-label="工业领域"></nav></details>
   </section>
   <section class="catalog-section page-width" id="catalog" aria-labelledby="catalog-heading">
     <div class="catalog-head"><div><span class="section-label" id="catalog-label">软件目录</span><h2 id="catalog-heading">专业软件</h2></div><p id="catalog-description">已核查的接口、版本条件与官方依据。</p></div>
@@ -35,8 +35,11 @@
     <div class="filters" id="filters">
       <label class="search-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg><input id="search" type="search" aria-label="搜索软件、协议或用途" placeholder="搜索名称、厂商、接口或用途" autocomplete="off"></label>
       <select id="sector" aria-label="筛选工业领域"><option value="all">全部行业</option></select>
+      <select id="coverage" aria-label="筛选核查深度"><option value="">全部核查深度</option><option value="interface">有接口详录</option><option value="function">用途与功能资料</option></select>
       <select id="stage" aria-label="筛选生产环节"><option value="">全部环节</option></select>
       <select id="kind" aria-label="筛选技术形式"><option value="">全部技术形式</option></select>
+      <select id="theory-status" aria-label="筛选机理与模型资料状态" hidden><option value="">全部资料状态</option></select>
+      <select id="theory-kind" aria-label="筛选机理与模型类别" hidden><option value="">全部模型类别</option></select>
       <button class="btn export-btn" id="export">导出 CSV <span aria-hidden="true">↓</span></button><button class="btn text" id="reset">重置</button>
     </div>
     <div class="catalog-status"><div id="result-count" class="result-info" role="status" aria-live="polite"></div><span id="reading-note">展开条目查看详情</span></div>
@@ -44,7 +47,7 @@
   </section>
   <section class="closing page-width"><div><h2>接口的适用范围，以具体软件为准。</h2><p>行业标准按应用场景归类。软件支持的接口与版本、模块及许可条件，见各条目详情。</p></div><button class="pill" data-open-view="method">阅读核查说明 <span aria-hidden="true">→</span></button></section>
 </main>
-<footer class="site-footer page-width"><div><span class="footer-brand">工业软件与接口目录</span><p>文档核查：2026-10-19 · Asia/Shanghai<br>未安装软件或进行接口互操作测试。</p></div><p>单文件网页 · 下载后可离线使用<br>访问官方来源需要网络</p><a href="#overview">回到顶部 ↑</a></footer>
+<footer class="site-footer page-width"><div><span class="footer-brand">工业软件与接口目录</span><p>用途资料：2026-10-24 · 接口详录：2026-10-19 · 模型详录：2026-10-21<br>文档核查；未安装软件、复现模型或进行接口互操作测试。</p></div><p>单文件网页 · 下载后可离线使用<br>访问官方来源需要网络</p><a href="#overview">回到顶部 ↑</a></footer>
 <div class="compare-tray" id="compare-tray" hidden><span id="compare-count"></span><button class="btn" id="compare-open">查看对比</button><button class="clear" id="compare-clear">清空</button></div>
 <dialog id="compare-dialog" aria-labelledby="compare-title"><div class="dialog-head"><h2 id="compare-title">软件接口对比</h2><button class="btn" id="compare-close" aria-label="关闭对比">关闭</button></div><div class="dialog-body" id="compare-body"></div></dialog>
 <dialog id="reference-dialog" aria-labelledby="reference-title"><div class="dialog-head"><span class="eyebrow">协议与标准索引</span><button class="btn" id="reference-close" aria-label="关闭标准详情">关闭</button></div><div class="dialog-body" id="reference-body"></div></dialog>

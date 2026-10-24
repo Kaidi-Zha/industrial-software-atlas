@@ -27,8 +27,9 @@ let exported;
 const context=vm.createContext({document,Blob,URL:{createObjectURL(blob){exported=blob;return 'blob:test';},revokeObjectURL(){}},setTimeout(){return 1;},clearTimeout(){}});
 vm.runInContext(code,context);
 const run=expression=>vm.runInContext(expression,context);
-assert.equal(data.software.length,211);assert.equal(data.protocols.length,50);
-assert.equal(data.sectors.length,10);assert.equal(data.categories.length,6);
+const catalog=fs.readFileSync(path.join(root,'research/industry-catalog.tsv'),'utf8').trim().split('\n').slice(1).map(line=>line.split('\t'));
+assert.equal(data.software.length,211+catalog.length);assert.equal(data.protocols.length,50);
+assert.equal(data.sectors.length,10+JSON.parse(fs.readFileSync(path.join(root,'research/industry-sectors.json'),'utf8')).length);assert.equal(data.categories.length,6);
 assert.equal(new Set(data.sources.map(s=>s.url)).size,data.sources.length);
 assert(data.sources.length>=400);
 assert(!data.revision);assert(data.software.every(x=>!x.addedBatch));
@@ -40,16 +41,17 @@ const supplements=['process','design','civil-resources','power-environment'].fla
 assert.equal(supplements.length,54);
 for(const x of supplements)assert(data.software.some(y=>y.name===x.name),`Supplement missing: ${x.name}`);
 for(const s of data.sectors){
-  assert.equal(s.workflows.length,4);
+  if(data.sectors.indexOf(s)<10)assert.equal(s.workflows.length,4);
   for(const g of s.workflows)for(const name of g.softwareNames){
     const x=data.software.find(x=>x.name===name);assert(x,`${s.id}: unresolved task link ${name}`);
     assert(x.sector===s.id||(x.additionalSectors||[]).includes(s.id));
   }
   run(`reset();state.sector=${JSON.stringify(s.id)};render()`);
-  assert(nodes.get('content').innerHTML.includes('按工作任务查阅'));
+  assert(nodes.get('content').innerHTML.includes(run(`esc(${JSON.stringify(s.scope)})`)));
+  if(s.workflows.length)assert(nodes.get('content').innerHTML.includes('按工作任务查阅'));
 }
 run('reset()');
-for(const s of data.sectors){assert(data.software.filter(x=>x.sector===s.id).length>=14);}
+for(const s of data.sectors){assert(data.software.some(x=>x.sector===s.id));}
 for(const file of ['materials-biopharma-food.json','electronics-equipment-aero.json','power-civil.json','mining-environment.json'])for(const x of JSON.parse(fs.readFileSync(path.join(root,'research',file),'utf8')))assert(data.software.some(y=>y.name===x.name),`Baseline missing: ${x.name}`);
 let routeCount=0,relationCount=0;
 for(const x of data.software){
@@ -85,7 +87,7 @@ run(`state.page=${Math.ceil(data.software.length/12)};render()`);assert.equal((n
 run("reset();state.query='AutoCAD';render()");assert(run("filteredSoftware().some(x=>x.name==='AutoCAD')"));
 const autocad=data.software.find(x=>x.name==='AutoCAD');assert.equal(autocad.interactions.length,5);assert(autocad.interactions.some(i=>i.name.includes('ObjectARX')));assert(autocad.interactions.some(i=>i.name.includes('DXF')));
 
-run("reset();state.sector='electronics';render()");assert.equal(run('filteredSoftware().length'),27);
+run("reset();state.sector='electronics';render()");assert.equal(run('filteredSoftware().length'),data.software.filter(x=>x.sector==='electronics'||(x.additionalSectors||[]).includes('electronics')).length);
 assert(nodes.get('content').innerHTML.includes('平台、套件与工具的关系'));
 assert.equal(data.electronicsContext.relationships.length,3);
 assert(!data.software.some(x=>/^Ansys Electronics Desktop/.test(x.name)),'Platform must not be counted as a second solver');
@@ -93,8 +95,8 @@ run("state.electronicsAccess='open';render()");assert.equal(run('filteredSoftwar
 assert(run("filteredSoftware().some(x=>x.name==='KiCad')"));
 run("state.electronicsArea='em';render()");assert.equal(run('filteredSoftware().length'),1);assert.equal(run('filteredSoftware()[0].name'),'openEMS');
 run("state.electronicsArea='';state.electronicsAccess='vendor';render()");assert.equal(run('filteredSoftware().length'),2);
-run("state.electronicsAccess='domestic';render()");assert.equal(run('filteredSoftware().length'),1);assert(run("filteredSoftware()[0].name.includes('嘉立创')"));
-run("reset();state.sector='civil';render()");assert.equal(run('filteredSoftware().length'),28);
+run("state.electronicsAccess='domestic';render()");assert.equal(run('filteredSoftware().length'),3);assert(run("filteredSoftware().some(x=>x.name==='NanoSpice')"));
+run("reset();state.sector='civil';render()");assert.equal(run('filteredSoftware().length'),data.software.filter(x=>x.sector==='civil'||(x.additionalSectors||[]).includes('civil')).length);
 assert(nodes.get('content').innerHTML.includes('结构与抗震分析工具'));
 for(const name of ['PKPM 结构设计软件（含 SATWE）','OpenSees / OpenSeesPy','Abaqus','Ansys Mechanical','Ansys Mechanical APDL（MAPDL）','COMSOL Multiphysics']){
   assert(run(`filteredSoftware().some(x=>x.name===${JSON.stringify(name)})`),`Missing requested structural tool ${name}`);
@@ -135,8 +137,109 @@ run("openProtocol('p01')");assert(nodes.get('reference-body').innerHTML.includes
 assert(!/<script[^>]+src=|<link[^>]+(?:stylesheet|href="http)/.test(html),'External runtime dependency');
 assert(!html.includes('__ATLAS_'),'Unresolved template marker');
 assert(!/本轮|上轮|首轮|目录扩充|仅看本轮新增|addedBatch|addedOnly|expansion-note|added-filter|data-new-software/.test(html),'Editorial update history leaked into deliverable');
-const result={checkedDate:'2026-10-19',software:data.software.length,protocols:50,detailedInteractions:routeCount,documentedStandardRelations:relationCount,uniqueSources:data.sources.length,
-  checks:['十个领域与六类分类',`${routeCount} 条交互字段与来源完整性`,'40 组工作任务入口与行业归属','54 个补充条目全部合并','原 157 个软件 ID 保持稳定','能源管理 OpenEMS 与电磁 openEMS 分开','OPC DA 不推定为 UA，历史手册保留年份','结构与抗震六工具入口和土木跨领域关联','电子设计工作对象及专题筛选','平台关系和软件计数分离','产品层级与许可字段导出','无更新批次、条目标记或新增筛选','AutoCAD 五类交互','原 63 款保留与名称/ID 去重','全部交互详情渲染','50 项标准详情与双向支持关系','首/中/末页分页','行业与技术形式交集筛选','分类与标准关系筛选','不从 HL7 或 UA 推断标准实现','无结果状态','协议关键词查询','完整字段 CSV 导出','CSV 引号转义','软件对比内容','矩阵与来源说明渲染','DOM 静态节点引用','单文件离线依赖'],
-  scope:'Node 中验证页面逻辑与生成数据；不替代浏览器排版检查或工业软件接口测试'};
+// Every existing software has an independent model-document audit, including negative findings.
+assert.equal(data.theorySummary.reviewed,211);
+assert.equal(Object.values(data.theorySummary.statuses).reduce((a,b)=>a+b,0),data.software.length);
+assert.equal(data.theorySummary.topics,data.software.reduce((n,x)=>n+x.theory.topics.length,0));
+assert.equal(data.theorySummary.documents,new Set(data.software.flatMap(x=>x.theory.documents.map(d=>d.url))).size);
+assert.equal(data.interfaceCheckedDate,'2026-10-19');assert.equal(data.theorySummary.checkedDate,'2026-10-21');
+const priorRechecks=['process','eda','cad','resources'].flatMap(group=>JSON.parse(fs.readFileSync(path.join(root,'research',`recheck-${group}-docs.json`),'utf8')));
+assert.equal(priorRechecks.length,41);assert.equal(new Set(priorRechecks.map(r=>r.softwareId)).size,41);
+const remainingRechecks=['gproms','optitex','slb'].flatMap(group=>{const r=JSON.parse(fs.readFileSync(path.join(root,'research',`recheck-final-${group}.json`),'utf8'));return Array.isArray(r)?r:[r];});
+assert.equal(remainingRechecks.length,4);
+assert.deepEqual(new Set(remainingRechecks.map(r=>r.softwareId)),new Set(['sw067','sw084','sw129','sw130']));
+const rechecks=[...new Map([...priorRechecks,...remainingRechecks].map(r=>[r.softwareId,r])).values()];
+assert.equal(rechecks.length,44);
+assert.equal(data.theorySummary.functionDocumentationReviewed,44);
+assert.equal(data.theorySummary.functionDocumentationConfirmed,rechecks.filter(r=>r.functionDocumentation.status==='confirmed').length);
+for(const r of rechecks){
+  const x=data.software.find(x=>x.id===r.softwareId),f=x.theory.functionDocumentation;
+  assert.equal(x.name,r.name);assert.equal(f.summary,r.functionDocumentation.summary);
+  assert(f.retrieval.length&&f.checkedDate==='2026-10-21');
+  if(f.status==='confirmed')assert(f.documents.length);
+  for(const d of f.documents){assert(x.sources.some(s=>s.url===d.url));assert(data.sources.some(s=>s.url===d.url));}
+  const detail=run(`theoryDetail(software.find(x=>x.id===${JSON.stringify(x.id)}))`);
+  assert(detail.includes('功能与操作文档')&&detail.includes('文档获取方式与访问条件'));
+  for(const d of f.documents)assert(detail.includes(run(`esc(${JSON.stringify(d.url)})`)));
+  if(r.theoryPatch)assert.equal(x.theory.status,r.theoryPatch.status);
+}
+assert.equal(data.theoryStatuses['not-located'],'机理正文待核实');
+for(const x of data.software){
+  const t=x.theory;assert(t.status in data.theoryStatuses);assert(t.summary&&t.searchNote&&(t.documents.length||x.coverageDepth==='function'));
+  if(x.coverageDepth==='function'){
+    assert.equal(t.status,'not-reviewed');assert.equal(t.checkedDate,'');assert.equal(t.documents.length,0);assert.equal(x.interactions.length,0);assert(x.capabilities.length&&x.keywords.length);
+    const detail=run(`softwareDetail(software.find(x=>x.id===${JSON.stringify(x.id)}))`);assert(detail.includes('主要功能')&&detail.includes('未专项核查')&&!detail.includes('undefined'));
+    continue;
+  }
+  assert.equal(t.checkedDate,'2026-10-21');
+  if(['documented','limited'].includes(t.status))assert(t.topics.length,`${x.name}: positive finding without topic`);
+  for(const d of t.documents){
+    for(const k of ['title','url','version','access','evidence'])assert(d[k],`${x.name}: missing document ${k}`);
+    assert(x.sources.some(s=>s.url===d.url));assert(data.sources.some(s=>s.url===d.url));
+  }
+  for(const p of t.topics){
+    assert(data.theoryKinds.includes(p.kind));
+    for(const k of ['title','explanation','assumptions','locator'])assert(p[k],`${x.name}: missing model ${k}`);
+    assert(p.sourceUrls.length&&p.sourceUrls.every(url=>t.documents.some(d=>d.url===url)));
+  }
+  const body=run(`theoryDetail(software.find(x=>x.id===${JSON.stringify(x.id)}))`);
+  assert(body.includes('文档清单、版本与核查范围'));
+  for(const d of t.documents)assert(body.includes(run(`esc(${JSON.stringify(d.url)})`)));
+  for(const p of t.topics)assert(body.includes(run(`esc(${JSON.stringify(p.title)})`)));
+  assert(!body.includes('<dd>undefined</dd>'));
+  const card=run(`theoryCard(software.find(x=>x.id===${JSON.stringify(x.id)}))`);
+  assert(card.includes(`data-related-software="${x.id}"`));
+  assert(card.includes(data.theoryStatuses[t.status]));
+}
+run("reset();state.view='theory';render()");assert.equal(run('filteredTheory().length'),data.software.length);
+assert.equal(nodes.get('classification').hidden,true);assert.equal(nodes.get('kind').hidden,true);
+assert.equal(nodes.get('theory-status').hidden,false);assert.equal(nodes.get('theory-kind').hidden,false);
+assert(nodes.get('content').innerHTML.includes('从功能名称，查到模型的适用条件'));
+for(const status of Object.keys(data.theoryStatuses)){
+  run(`state.theoryStatus=${JSON.stringify(status)};render()`);
+  assert.equal(run('filteredTheory().length'),data.theorySummary.statuses[status]);
+}
+run("reset();state.view='theory';setSector('civil')");assert.equal(run('state.view'),'theory');assert.equal(run('filteredTheory().length'),data.software.filter(x=>x.sector==='civil'||(x.additionalSectors||[]).includes('civil')).length);
+run("state.theoryStatus='documented';state.theoryKind='数值算法';render()");
+assert(run("filteredTheory().some(x=>x.name.startsWith('OpenSees'))"));
+assert(run("filteredTheory().every(x=>x.theory.status==='documented'&&x.theory.topics.some(t=>t.kind==='数值算法'))"));
+run("reset();state.view='theory';state.query='Newmark';render()");assert(run("filteredTheory().some(x=>x.id==='sw156')"));
+run("state.query='unfindable-model-query-93728';render()");assert(nodes.get('content').innerHTML.includes('没有匹配的条目'));
+run("reset();state.view='theory';exportCSV()");csv=await exported.text();
+assert(csv.includes('适用假设与边界')&&csv.includes('机理核查日期')&&csv.includes('功能文档状态')&&csv.includes('文档获取方式'));
+assert(csv.includes('已读功能正文')&&csv.includes('未单列核查'));
+assert(csv.includes('Aspen Plus')&&csv.includes('TELEMAC-MASCARET'));
+run("state.theoryStatus='documented';state.theoryKind='数值算法';exportCSV()");csv=await exported.text();assert(csv.includes('OpenSees')&&!csv.includes('机理正文待核实'));
+run("reset();state.view='software';exportCSV()");csv=await exported.text();assert(csv.includes('机理资料状态')&&csv.includes('模型文档'));
+run("state.selected.add('sw155');state.selected.add('sw156');showCompare()");assert(nodes.get('compare-body').innerHTML.includes('机理与模型'));
+run("state.view='method';render()");assert(nodes.get('content').innerHTML.includes('机理与模型文档的核查范围'));
+// Product-only records must be discoverable without becoming invented API evidence.
+assert.equal(data.catalogSummary.functionOnly,catalog.length);
+for(const row of catalog){
+  const x=data.software.find(x=>x.name===row[1]);assert(x&&x.coverageDepth==='function');
+  assert.equal(x.sources[0].url,row[7]);assert.equal(x.constraints,row[8]);
+  assert.equal(x.interfaces.length,0);assert.equal(x.theory.topics.length,0);
+  const card=run(`softwareCard(software.find(x=>x.id===${JSON.stringify(x.id)}))`);
+  assert(card.includes('用途与功能资料')&&!card.includes('undefined')&&!card.includes('0 种交互路径'));
+}
+run("reset();state.coverage='function';render()");assert.equal(run('filteredSoftware().length'),catalog.length);
+run("state.category='program';render()");assert.equal(run('filteredSoftware().length'),0);
+run("reset();state.coverage='interface';render()");assert.equal(run('filteredSoftware().length'),211);
+for(const [query,name] of [['制鞋','Romans CAD'],['陶瓷','NETZSCH Kinetics Neo'],['水产','aquaManager'],['奶牛','DairyComp'],['国产EDA','NanoSpice'],['核工程','OpenMC'],['PCB布线','KiCad']]){
+  run(`reset();state.query=${JSON.stringify(query)};render()`);
+  assert(run(`filteredSoftware().some(x=>x.name===${JSON.stringify(name)})`),query);
+}
+run("reset();state.query='制鞋';render()");assert.equal(run('filteredSoftware().length'),2,'Industry umbrella names must not turn clothing tools into footwear matches');
+run("reset();state.sector='mobility';state.query='SUMO';render()");assert.equal(run('filteredSoftware().length'),1);assert.equal(run('filteredSoftware()[0].name'),'Eclipse SUMO');
+run("reset();state.sector='environment';state.query='SUMO';render()");assert(run("filteredSoftware().some(x=>x.name==='SUMO')"));assert(!run("filteredSoftware().some(x=>x.name==='Eclipse SUMO')"));
+run("reset();state.view='software';exportCSV()");csv=await exported.text();
+for(const row of catalog)assert(csv.includes(row[1].replaceAll('"','""')),`Export omitted ${row[1]}`);
+assert(csv.includes('软件官方来源')&&csv.includes('用途与功能资料')&&!csv.includes('\"undefined\"'));
+run("state.selected.clear();state.selected.add('sw001');state.selected.add('sw212');showCompare()");assert(nodes.get('compare-body').innerHTML.includes('接口未专项核查'));
+run("reset();state.view='theory';state.theoryStatus='not-reviewed';exportCSV()");csv=await exported.text();assert(csv.includes('CarMaker')&&!csv.includes('Aspen Plus'));
+const result={checkedDate:'2026-10-24',software:data.software.length,sectors:data.sectors.length,catalog:data.catalogSummary,protocols:50,detailedInteractions:routeCount,documentedStandardRelations:relationCount,uniqueSources:data.sources.length,theory:data.theorySummary,
+  checks:['用途资料无虚构接口、模型、日期或标准关系','全部功能条目在 CSV 中保留且来源可追溯','核查深度筛选与交互证据交集','中文行业任务关键词检索','交通 SUMO 与污水 SUMO 分开','领域导航与六类交互分类',`${routeCount} 条交互字段与来源完整性`,'40 组工作任务入口与行业归属','54 个补充条目全部合并','原 157 个软件 ID 保持稳定','能源管理 OpenEMS 与电磁 openEMS 分开','OPC DA 不推定为 UA，历史手册保留年份','结构与抗震六工具入口和土木跨领域关联','电子设计工作对象及专题筛选','平台关系和软件计数分离','产品层级与许可字段导出','无更新批次、条目标记或新增筛选','AutoCAD 五类交互','原 63 款保留与名称/ID 去重','全部交互详情渲染','50 项标准详情与双向支持关系','首/中/末页分页','行业与技术形式交集筛选','分类与标准关系筛选','不从 HL7 或 UA 推断标准实现','无结果状态','协议关键词查询','完整字段 CSV 导出','CSV 引号转义','软件对比内容','矩阵与来源说明渲染','DOM 静态节点引用','单文件离线依赖'],
+  modelChecks:['211 个软件全部有独立机理核查记录','44 项功能正文与机理状态分别记录','原41项及剩余4项覆盖叠加、来源与获取路径验证','功能文档、获取方式与版本逐条渲染和 CSV 导出','状态、主题数与去重文档数一致','全部模型说明及文档版本/访问条件渲染','主题来源属于对应软件与全局来源','正面结论至少一项模型说明','模型行业/类别/状态交集筛选','土木跨领域关联保留且选择行业维持模型视图','模型关键词搜索与空状态','模型 CSV 保留无正文条目及全部主题','接口 CSV 与对比包含机理依据','界面无更新批次且接口与模型核查日期分开'],
+  scope:'Node 中验证页面逻辑与生成数据；不替代浏览器排版检查、模型复现或工业软件接口测试'};
 fs.writeFileSync(path.join(root,'research/validation.json'),JSON.stringify(result,null,2)+'\n');
 console.log(JSON.stringify(result,null,2));

@@ -1,0 +1,417 @@
+[
+  {
+    "softwareId": "sw052",
+    "name": "Petrel + Ocean",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方功能页说明相模型如何填充地质网格，并列出井数据粗化、参数复用和编辑入口；另取得历史实现论文。",
+      "documents": [
+        {
+          "title": "SLB：Petrel facies modeling",
+          "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/petrel-subsurface-software/petrel/petrel-geology-and-modeling/petrel-facies-modeling",
+          "version": "滚动功能页面，未标软件版本",
+          "access": "公开正文",
+          "evidence": "Overview / Benefits / Features：离散相属性填充、井数据粗化、参数对象保存与相建模方法。"
+        },
+        {
+          "title": "Application of multipoint geostatistics to honor multiple attribute constraints applied to a deepwater outcrop analog, Tanqua Karoo Basin, South Africa",
+          "url": "https://www.slb.com/-/media/files/fe/tech-report/2147942.ashx",
+          "version": "SEG 2005 Expanded Abstracts，1370–1373；未标 Petrel 版本",
+          "access": "公开正文",
+          "evidence": "实际读取5页官方托管论文；第1371页 Snesim Multipoint Modeling Method 明确 Petrel 插件、输入和训练图像假设。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方模块页及关联技术报告检索",
+          "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/petrel-subsurface-software/petrel/petrel-geology-and-modeling/petrel-facies-modeling",
+          "result": "取得完整功能段落"
+        },
+        {
+          "method": "读取官方 .ashx PDF 正文",
+          "url": "https://www.slb.com/-/media/files/fe/tech-report/2147942.ashx",
+          "result": "取得5页可读正文，非仅搜索摘要"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw052",
+      "name": "Petrel + Ocean",
+      "status": "documented",
+      "summary": "取得官方托管的 Petrel 历史插件技术论文，明确训练图像、硬数据与软概率场的作用；不代表现行版本全部地质统计实现。",
+      "topics": [
+        {
+          "title": "Snesim 多点相模拟的输入与约束",
+          "kind": "数学模型",
+          "explanation": "文中 Petrel 插件以训练图像表达相的空间纹理；井数据提供硬约束，旋转、缩放及分相概率场提供辅助约束，用于生成条件相分布。",
+          "assumptions": "训练图像需满足平稳性与遍历性要求。证据为2005年特定插件及案例，未核实现行全部算法或默认参数。",
+          "locator": "Snesim Multipoint Modeling Method；Facies Probabilities，印刷页1371–1372",
+          "sourceUrls": [
+            "https://www.slb.com/-/media/files/fe/tech-report/2147942.ashx"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "SLB：Petrel facies modeling",
+          "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/petrel-subsurface-software/petrel/petrel-geology-and-modeling/petrel-facies-modeling",
+          "version": "滚动功能页面，未标软件版本",
+          "access": "公开正文",
+          "evidence": "Overview / Benefits / Features：离散相属性填充、井数据粗化、参数对象保存与相建模方法。"
+        },
+        {
+          "title": "Application of multipoint geostatistics to honor multiple attribute constraints applied to a deepwater outcrop analog, Tanqua Karoo Basin, South Africa",
+          "url": "https://www.slb.com/-/media/files/fe/tech-report/2147942.ashx",
+          "version": "SEG 2005 Expanded Abstracts，1370–1373；未标 Petrel 版本",
+          "access": "公开正文",
+          "evidence": "实际读取5页官方托管论文；第1371页 Snesim Multipoint Modeling Method 明确 Petrel 插件、输入和训练图像假设。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "公开功能页与官方托管2005年技术论文可读。模型主题限定历史 Snesim 插件，未核实现行全部地质统计实现。"
+    },
+    "reason": "此前仅沿分类估计产品页检索，未追踪官方托管的历史技术论文；现补充特定实现证据，保留年代和插件范围。"
+  },
+  {
+    "softwareId": "sw053",
+    "name": "Techlog",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已读官方模块说明，确认模型保存与迁移、分区配置、端点曲线和输出；其中的配置与约束解释单独列为局部模型说明。",
+      "documents": [
+        {
+          "title": "SLB：Techlog Quanti.Elan",
+          "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/techlog-wellbore-software/techlog/techlog-petrophysics/techlog-quantielan",
+          "version": "滚动模块页，未标版本",
+          "access": "公开正文",
+          "evidence": "Model design：按分区定义矿物集合、分区曲线自动切换、XRD/CEC先验及单/多组分体积约束。"
+        },
+        {
+          "title": "Techlog 2024.3 release information",
+          "url": "https://www.software.slb.com/software-news/support-news/techlog/techlog-2024-3",
+          "version": "2024.3，2024-10-07",
+          "access": "公开正文",
+          "evidence": "Petrophysics / Quanti.Elan：输入参数与输出体积分数分布，数组列对应 Monte Carlo 周期。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "沿 Techlog 官方模块入口读取正文",
+          "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/techlog-wellbore-software/techlog/techlog-petrophysics/techlog-quantielan",
+          "result": "取得 Model design 等完整功能正文"
+        },
+        {
+          "method": "读取官方版本说明",
+          "url": "https://www.software.slb.com/software-news/support-news/techlog/techlog-2024-3",
+          "result": "取得具体输出结构说明"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw053",
+      "name": "Techlog",
+      "status": "limited",
+      "summary": "官方 Quanti.Elan 模块页解释按分区选择矿物集合及先验约束；发布说明补充 Monte Carlo 输出组织，尚未取得反演目标函数与完整响应方程。",
+      "topics": [
+        {
+          "title": "分区矿物集合与先验约束",
+          "kind": "数学模型",
+          "explanation": "Quanti.Elan 可按分区设置多个矿物集合，并随分区曲线切换；可用 XRD、CEC 等先验及组分体积约束限定解释结果。",
+          "assumptions": "这说明模型配置和约束含义，不给出优化目标、正则化、收敛算法或各电阻率模型的完整方程。",
+          "locator": "Model design",
+          "sourceUrls": [
+            "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/techlog-wellbore-software/techlog/techlog-petrophysics/techlog-quantielan"
+          ]
+        },
+        {
+          "title": "Monte Carlo 结果的数据组织",
+          "kind": "几何与数据模型",
+          "explanation": "2024.3 可启用输入参数、端点和变量的分布输出；数组以模拟周期为列，与输出体积分数分布一起用于不确定性和敏感性分析。",
+          "assumptions": "仅确认可选输出结构；抽样分布、相关性及默认采样次数未在该说明中展开。",
+          "locator": "Domains > Petrophysics > Techlog Quanti.Elan",
+          "sourceUrls": [
+            "https://www.software.slb.com/software-news/support-news/techlog/techlog-2024-3"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "SLB：Techlog Quanti.Elan",
+          "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/techlog-wellbore-software/techlog/techlog-petrophysics/techlog-quantielan",
+          "version": "滚动模块页，未标版本",
+          "access": "公开正文",
+          "evidence": "Model design：按分区定义矿物集合、分区曲线自动切换、XRD/CEC先验及单/多组分体积约束。"
+        },
+        {
+          "title": "Techlog 2024.3 release information",
+          "url": "https://www.software.slb.com/software-news/support-news/techlog/techlog-2024-3",
+          "version": "2024.3，2024-10-07",
+          "access": "公开正文",
+          "evidence": "Petrophysics / Quanti.Elan：输入参数与输出体积分数分布，数组列对应 Monte Carlo 周期。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "官方模块页说明模型配置与先验约束，2024.3发布说明确认输出结构；完整反演方程与求解过程尚未取得。"
+    },
+    "reason": "此前只集中查找多矿物反演理论手册，遗漏模块页中可独立核实的配置与约束机制；改列局部说明。"
+  },
+  {
+    "softwareId": "sw057",
+    "name": "GEOVIA Surpac",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方教程给出模型计算的输入准备与菜单步骤；配套PDF公开可读，网格插值教程还说明范围、字段、搜索和幂次设置。",
+      "documents": [
+        {
+          "title": "GEOVIA：Surpac tip — How to perform Dynamic Anisotropy",
+          "url": "https://3dswym.3dexperience.3ds.com/post/geovia-user-community/surpac-tip-how-to-perform-dynamic-anisotropy_qbP3m92cTSC03vvkQerGYA",
+          "version": "文章2022-03-11；说明从 Surpac 6.7.1 起",
+          "access": "公开正文",
+          "evidence": "Why use dynamic anisotropy / Steps 1–4：趋势面、倾角和倾向属性、逐块搜索方向及地质约束。"
+        },
+        {
+          "title": "TOP 5 TIPS IN GEOVIA SURPAC VOL 1",
+          "url": "https://www.3ds.com/fileadmin/PRODUCTS-SERVICES/GEOVIA/PDF/3DS-GEOVIA-SurpacTop5Tips.pdf",
+          "version": "Vol 1，未标整体软件版本",
+          "access": "公开正文",
+          "evidence": "PDF第3–4页 Tip 1，确认局部方向存为块属性并参与估值；第7页说明截顶分析。"
+        },
+        {
+          "title": "Contouring soil assay results using Grid Method in Surpac",
+          "url": "https://blog.3ds.com/brands/geovia/contouring-soil-assay-results-using-grid-method-in-surpac/",
+          "version": "历史官方教程，未标软件版本",
+          "access": "公开正文",
+          "evidence": "步骤1–14：定义网格范围和步长、指定样品字段/搜索参数/反距离幂次，再绘制等值线。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "检索官方技术社区具体功能并打开正文",
+          "url": "https://3dswym.3dexperience.3ds.com/post/geovia-user-community/surpac-tip-how-to-perform-dynamic-anisotropy_qbP3m92cTSC03vvkQerGYA",
+          "result": "取得无需登录即可读的71行教程；底部登录按钮未阻止正文"
+        },
+        {
+          "method": "读取官方静态PDF",
+          "url": "https://www.3ds.com/fileadmin/PRODUCTS-SERVICES/GEOVIA/PDF/3DS-GEOVIA-SurpacTop5Tips.pdf",
+          "result": "取得13页正文"
+        },
+        {
+          "method": "读取品牌官方博客",
+          "url": "https://blog.3ds.com/brands/geovia/contouring-soil-assay-results-using-grid-method-in-surpac/",
+          "result": "取得完整14步操作教程"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw057",
+      "name": "GEOVIA Surpac",
+      "status": "documented",
+      "summary": "取得官方逐步教程与配套PDF，说明动态各向异性通过块属性逐块控制搜索椭球方向。",
+      "topics": [
+        {
+          "title": "块属性控制动态各向异性",
+          "kind": "数学模型",
+          "explanation": "先从趋势面得到倾角和倾向，写入块属性，再在估值时按各块属性设置搜索椭球方向，使搜索邻域随局部矿体方向变化。",
+          "assumptions": "适用于文中反距离、最近邻及普通/简单克里金搜索方向设置；方向应基于构造地质，谨慎平滑伪角度，不等同完整克里金推导。",
+          "locator": "Why use dynamic anisotropy；Steps 1–4",
+          "sourceUrls": [
+            "https://3dswym.3dexperience.3ds.com/post/geovia-user-community/surpac-tip-how-to-perform-dynamic-anisotropy_qbP3m92cTSC03vvkQerGYA"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "GEOVIA：Surpac tip — How to perform Dynamic Anisotropy",
+          "url": "https://3dswym.3dexperience.3ds.com/post/geovia-user-community/surpac-tip-how-to-perform-dynamic-anisotropy_qbP3m92cTSC03vvkQerGYA",
+          "version": "文章2022-03-11；说明从 Surpac 6.7.1 起",
+          "access": "公开正文",
+          "evidence": "Why use dynamic anisotropy / Steps 1–4：趋势面、倾角和倾向属性、逐块搜索方向及地质约束。"
+        },
+        {
+          "title": "TOP 5 TIPS IN GEOVIA SURPAC VOL 1",
+          "url": "https://www.3ds.com/fileadmin/PRODUCTS-SERVICES/GEOVIA/PDF/3DS-GEOVIA-SurpacTop5Tips.pdf",
+          "version": "Vol 1，未标整体软件版本",
+          "access": "公开正文",
+          "evidence": "PDF第3–4页 Tip 1，确认局部方向存为块属性并参与估值；第7页说明截顶分析。"
+        },
+        {
+          "title": "Contouring soil assay results using Grid Method in Surpac",
+          "url": "https://blog.3ds.com/brands/geovia/contouring-soil-assay-results-using-grid-method-in-surpac/",
+          "version": "历史官方教程，未标软件版本",
+          "access": "公开正文",
+          "evidence": "步骤1–14：定义网格范围和步长、指定样品字段/搜索参数/反距离幂次，再绘制等值线。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "官方技术社区正文与配套PDF公开可读。解释动态搜索方向的输入和规则，未扩写完整克里金求解推导。"
+    },
+    "reason": "此前止于课程纲要，未追踪官方技巧PDF及公开社区技术教程；补足取得方式，不能把页面底部登录按钮当作正文受限。"
+  },
+  {
+    "softwareId": "sw135",
+    "name": "Deswik.CAD",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已取得6页官方说明：矿山实体、块模型、体积与面积查询、属性过滤及工作流；资料明确属于功能与架构说明。",
+      "documents": [
+        {
+          "title": "Deswik.CAD — Design & Solids Modeling",
+          "url": "https://www.deswik.com/wp-content/uploads/2017/05/Deswik.CAD_.pdf",
+          "version": "Version 1.4；URL含2017/05，正文未标发布日期",
+          "access": "公开正文",
+          "evidence": "6页；第4页 Integrated Data Management、第5页 Auditability and Consistency 描述对象属性、空间查询与可重复变换。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "按软件名限定官方域检索静态PDF并读取全文",
+          "url": "https://www.deswik.com/wp-content/uploads/2017/05/Deswik.CAD_.pdf",
+          "result": "取得6页、含Version 1.4；不采用第三方培训转载"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw135",
+      "name": "Deswik.CAD",
+      "status": "limited",
+      "summary": "取得官方 Deswik.CAD 产品说明全文，确认空间对象、属性计算和工作流组织；几何内核算法仍无足够解释。",
+      "topics": [
+        {
+          "title": "空间对象、属性公式与过程工作流",
+          "kind": "几何与数据模型",
+          "explanation": "官方将CAD描述为空间数据库：实体关联属性与元数据，以空间查询和公式组织分析；工作流宏连接可重复的数据变换，便于统一设计流程。",
+          "assumptions": "资料深度为产品架构概述；未给出拓扑结构、布尔鲁棒性、修复容差或体积积分算法，不能据此补写几何内核实现。",
+          "locator": "PDF第4页 Integrated Data Management；第5页 Auditability and Consistency",
+          "sourceUrls": [
+            "https://www.deswik.com/wp-content/uploads/2017/05/Deswik.CAD_.pdf"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Deswik.CAD — Design & Solids Modeling",
+          "url": "https://www.deswik.com/wp-content/uploads/2017/05/Deswik.CAD_.pdf",
+          "version": "Version 1.4；URL含2017/05，正文未标发布日期",
+          "access": "公开正文",
+          "evidence": "6页；第4页 Integrated Data Management、第5页 Auditability and Consistency 描述对象属性、空间查询与可重复变换。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "官方6页 Version 1.4 功能PDF可读；内容支持数据组织概述，几何内核的拓扑、容差与布尔算法仍未取得。"
+    },
+    "reason": "此前只查培训范围，漏掉官方公开产品PDF。该资料可确认功能与局部数据组织，尚不足以解释布尔计算算法，故仅列局部说明。"
+  },
+  {
+    "softwareId": "sw199",
+    "name": "DISPATCH（Modular Mining）",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方案例提供可读功能正文，说明可选模块各自处理的输入、分配行为和库存更新事件；不引用案例收益作普遍效果。",
+      "documents": [
+        {
+          "title": "Komatsu：Brazilian nickel mine reduces ore dilution through optimized material blending",
+          "url": "https://www.komatsu.com/en-us/case-studies/brazilian-nickel-mine-reduces-ore",
+          "version": "2024-03-06 官方网页；未标软件版本",
+          "access": "公开正文",
+          "evidence": "DISPATCH Blending Module / Dynamic Material Inventory Reporting Module：约束、去向分配、装卸后更新和测量校核。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "从旧 Modular 域扩展到母公司 Komatsu 官方案例检索并读取正文",
+          "url": "https://www.komatsu.com/en-us/case-studies/brazilian-nickel-mine-reduces-ore",
+          "result": "取得两个模块的完整功能段落与事件规则"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw199",
+      "name": "DISPATCH（Modular Mining）",
+      "status": "limited",
+      "summary": "取得 Komatsu 官方案例中的配矿约束、去向分配与逐次装卸库存更新说明；未取得核心调度求解器的公式与算法。",
+      "topics": [
+        {
+          "title": "配矿约束与装卸事件驱动库存",
+          "kind": "业务与控制模型",
+          "explanation": "案例说明配矿模块按破碎站约束分配车辆去向；库存模块在每次装卸后更新数量和品位，并结合新测量记录校核计算库存。",
+          "assumptions": "适用于案例的可选 Blending 与 Inventory 模块；未公开核心分配目标函数、约束方程或求解器，不归称Dijkstra/线性规划/动态规划实现。",
+          "locator": "DISPATCH Blending Module；DISPATCH Dynamic Material Inventory Reporting Module",
+          "sourceUrls": [
+            "https://www.komatsu.com/en-us/case-studies/brazilian-nickel-mine-reduces-ore"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Komatsu：Brazilian nickel mine reduces ore dilution through optimized material blending",
+          "url": "https://www.komatsu.com/en-us/case-studies/brazilian-nickel-mine-reduces-ore",
+          "version": "2024-03-06 官方网页；未标软件版本",
+          "access": "公开正文",
+          "evidence": "DISPATCH Blending Module / Dynamic Material Inventory Reporting Module：约束、去向分配、装卸后更新和测量校核。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "母公司官方案例说明可选模块的业务规则；未公开核心分配优化的目标函数、约束方程或算法。"
+    },
+    "reason": "此前围绕核心调度算法检索而漏记官方案例的业务规则；母公司站点存在可读正文，功能资料与闭源求解器细节应分别记录。"
+  },
+  {
+    "softwareId": "sw204",
+    "name": "EcoStruxure Power Operation",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "取得实际操作帮助，覆盖报警确认、波形条件、设备标签、显示值和现场值、覆盖与抑制状态及权限。",
+      "documents": [
+        {
+          "title": "EcoStruxure Power Operation 2024 Help — Equipment Pop-Up Page",
+          "url": "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/pwrscada/useequippopuppage.htm",
+          "version": "Power Operation 2024；页脚更新2026-07-15",
+          "access": "公开正文",
+          "evidence": "Override tag status：Override Tag、Control Inhibit Tag、Tag Status；文中列设备标签、权限及通信中断保留状态。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "打开旧官方链接",
+          "url": "https://product-help.schneider-electric.com/EcoStruxure-Power-Operation-2024/content/pwrscada/useequippopuppage.htm",
+          "result": "重定向至 product-help.se.com；web读取器未完成新域名访问"
+        },
+        {
+          "method": "curl --fail --location 下载迁移后官方HTML，再用Python标准库HTMLParser提取正文",
+          "url": "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/pwrscada/useequippopuppage.htm",
+          "result": "HTTP成功，32568字节；正文含具体步骤和2026-07-15页脚，非仅站点导航"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw204",
+      "name": "EcoStruxure Power Operation",
+      "status": "documented",
+      "summary": "跟随官方域名迁移后取得 Power Operation 2024 帮助正文，说明设备标签、显示覆盖、写入抑制与现场值的关系。",
+      "topics": [
+        {
+          "title": "标签显示覆盖与控制写入抑制",
+          "kind": "业务与控制模型",
+          "explanation": "Override Tag 可设置用于显示或测试的覆盖值；Control Inhibit Tag 开启时阻止该标签写入。Tag Status 分别显示显示值、覆盖状态、抑制状态和现场值。",
+          "assumptions": "按2024帮助操作需相应权限，标签覆盖功能要求账户至少level 4。通信中断可能保留最后状态；这些是监控控制规则，不是电网潮流模型。",
+          "locator": "Equipment Pop-Up Page > Override tag status",
+          "sourceUrls": [
+            "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/pwrscada/useequippopuppage.htm"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "EcoStruxure Power Operation 2024 Help — Equipment Pop-Up Page",
+          "url": "https://product-help.se.com/docs/EcoStruxure-Power-Operation-2024/content/pwrscada/useequippopuppage.htm",
+          "version": "Power Operation 2024；页脚更新2026-07-15",
+          "access": "公开正文",
+          "evidence": "Override tag status：Override Tag、Control Inhibit Tag、Tag Status；文中列设备标签、权限及通信中断保留状态。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "新官方域名HTML通过curl取得正文，web读取器在迁移处失败；访问限制属于工具差异，未观察到正文登录拦截。"
+    },
+    "reason": "此前将迁移后的检索失败留作正文缺口；直接跟随新域名下载官方HTML后取得完整功能规则。未绕过登录或证书验证。"
+  }
+]

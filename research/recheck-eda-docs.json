@@ -1,0 +1,850 @@
+[
+  {
+    "softwareId": "sw024",
+    "name": "Victory TCAD / DeckBuild",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认公开功能与建模示例：输入结构、选择物理与数值模型、扫描栅/漏偏压、比较电流与温度场。",
+      "documents": [
+        {
+          "title": "Silvaco：SOI_ex05.in — Breakdown in SOI MOSFETs / Effect of Lattice Heating",
+          "url": "https://silvaco.com/examples/examples-tcad/examples-tcad-technology/examples-tcad-technology-cmos-and-bicmos/examples-tcad-technology-cmos-and-bicmos-soi/soi-ex05/",
+          "version": "页面日期 2026-10-07；示例未标明软件发行版",
+          "access": "公开正文",
+          "evidence": "完整读取 Required Modules 和示例说明；正文点名 Victory Device 2D Simulator、2D Giga，解释两次运行的方程组、hcte.el / lat.temp、thermcontact 与边界条件。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方示例正文重试",
+          "url": "https://silvaco.com/examples/examples-tcad/examples-tcad-technology/examples-tcad-technology-cmos-and-bicmos/examples-tcad-technology-cmos-and-bicmos-soi/soi-ex05/",
+          "result": "成功取得 HTML 完整示例说明，包含方程名称、命令与热边界；此前 cache miss 不代表没有文档。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw024",
+      "name": "Victory TCAD / DeckBuild",
+      "status": "documented",
+      "summary": "官方 Victory Device 示例给出电子能量平衡与非等温耦合模型，并说明 SOI 自热的物理原因和热边界条件。",
+      "topics": [
+        {
+          "title": "电子能量平衡与晶格自热耦合",
+          "kind": "物理与机理",
+          "explanation": "EB 示例自洽求解泊松方程、载流子连续方程和电子能量平衡方程；NEB 增加晶格能量平衡。SOI 氧化层导热较差，自热可降低迁移率与碰撞电离率，改变输出特性。hcte.el 启用电子能量平衡，lat.temp 启用晶格温度求解。",
+          "assumptions": "限于所述短沟道 SOI 2D 示例及所需 2D Giga 模块；底面 thermcontact 为 300 K，其余表面绝热。不能将此例的模型选择或参数当成所有 Victory 工况的默认值。",
+          "locator": "SOI_ex05 示例：The first Victory Device run / The second Victory Device run / thermal boundary conditions",
+          "sourceUrls": [
+            "https://silvaco.com/examples/examples-tcad/examples-tcad-technology/examples-tcad-technology-cmos-and-bicmos/examples-tcad-technology-cmos-and-bicmos-soi/soi-ex05/"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Silvaco：SOI_ex05.in — Breakdown in SOI MOSFETs / Effect of Lattice Heating",
+          "url": "https://silvaco.com/examples/examples-tcad/examples-tcad-technology/examples-tcad-technology-cmos-and-bicmos/examples-tcad-technology-cmos-and-bicmos-soi/soi-ex05/",
+          "version": "页面日期 2026-10-07；示例未标明软件发行版",
+          "access": "公开正文",
+          "evidence": "完整读取 Required Modules 和示例说明；正文点名 Victory Device 2D Simulator、2D Giga，解释两次运行的方程组、hcte.el / lat.temp、thermcontact 与边界条件。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "核查范围为官方 Victory Device SOI_ex05 示例的两种能量平衡模型、命令和热边界。软件发行版未标明，完整模型手册与其他器件模块不在所读范围。"
+    },
+    "reason": "更换到同一官方示例库的可读 SOI_ex05，并实际阅读模型与边界段落，取代仅有索引线索的判断。"
+  },
+  {
+    "softwareId": "sw025",
+    "name": "Cadence Virtuoso Studio",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认官方技术使用说明，描述如何建立、入库和实例化裸片封装表示。",
+      "documents": [
+        {
+          "title": "Cadence：Virtuoso Meets Maxwell — Create a TILP",
+          "url": "https://community.cadence.com/cadence_blogs_8/b/cic/posts/virtuoso-meets-maxwell-here-s-all-you-must-know-to-create-a-tilp",
+          "version": "2019-08-19；文中关联 ICADVM18.1",
+          "access": "公开正文",
+          "evidence": "读取 TILP 的 cellview 组成、从 die symbol/base layout 建立、加入库并在父 cell 实例化的正文。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方技术博客正文",
+          "url": "https://community.cadence.com/cadence_blogs_8/b/cic/posts/virtuoso-meets-maxwell-here-s-all-you-must-know-to-create-a-tilp",
+          "result": "成功读取 106 行 HTML，含视图与实例化流程；不依赖客户视频或第三方镜像。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw025",
+      "name": "Cadence Virtuoso Studio",
+      "status": "limited",
+      "summary": "取得 Virtuoso RF 的技术无关版图 PCell（TILP）数据组织说明；覆盖封装/裸片表示，不覆盖平台各仿真求解器。",
+      "topics": [
+        {
+          "title": "TILP 与裸片 cellview 数据组织",
+          "kind": "几何与数据模型",
+          "explanation": "裸片足迹以 cellview 表示；导出的 die footprint 包括 abstract、TILP、schematic、symbol 视图。TILP 从含图形或通用层的基础版图 cell 及 die symbol 建立，加入库后在父 cell 实例化，接受单位、约束、参数和用户属性，并支持旋转、镜像和翻转。",
+          "assumptions": "依据 2019 年 Virtuoso RF 技术说明，不能直接证明当前 Virtuoso Studio 所有产品层级均包含相同功能；此项是版图数据模型，不是 RF 电磁求解原理。",
+          "locator": "正文 die footprint / Exported die / TILPs are created / rotation and mirroring",
+          "sourceUrls": [
+            "https://community.cadence.com/cadence_blogs_8/b/cic/posts/virtuoso-meets-maxwell-here-s-all-you-must-know-to-create-a-tilp"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Cadence：Virtuoso Meets Maxwell — Create a TILP",
+          "url": "https://community.cadence.com/cadence_blogs_8/b/cic/posts/virtuoso-meets-maxwell-here-s-all-you-must-know-to-create-a-tilp",
+          "version": "2019-08-19；文中关联 ICADVM18.1",
+          "access": "公开正文",
+          "evidence": "读取 TILP 的 cellview 组成、从 die symbol/base layout 建立、加入库并在父 cell 实例化的正文。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "核查范围为官方 2019 年 Virtuoso RF TILP 技术说明。资料描述几何与数据组织，未覆盖当前 Virtuoso Studio 全平台的许可、布局算法或电路/电磁求解原理。"
+    },
+    "reason": "此前将未取得布局/仿真算法等同于未取得模型正文，遗漏了公开的几何和数据模型说明；已按具体模块、日期限定。"
+  },
+  {
+    "softwareId": "sw026",
+    "name": "Synopsys Sentaurus TCAD",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认当前官方功能说明及历史版本技术简报，后者解释具体量子修正方法与适用对象。",
+      "documents": [
+        {
+          "title": "Synopsys：TCAD News — Fall 2014",
+          "url": "https://www.synopsys.com/content/dam/synopsys/silicon/newsletters/tcad-news-fall2014-nl.pdf",
+          "version": "2014-09；J-2014.09",
+          "access": "公开正文",
+          "evidence": "实际打开官方 24 页 PDF，读取印刷页 18 的 Sentaurus Device Monte Carlo / Improved Quantum Correction，以及量子参考提取的前后段落。"
+        },
+        {
+          "title": "Synopsys：Sentaurus Device 产品功能说明",
+          "url": "https://www.synopsys.com/manufacturing/tcad/device-simulation/sentaurus-device.html",
+          "version": "滚动页面，产品版本未标明",
+          "access": "公开正文",
+          "evidence": "读取 Overview / Features 的器件电、热、光仿真范围，以及应变、量子化、热载流子和材料类别；不据功能列表补造方程。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方静态 PDF",
+          "url": "https://www.synopsys.com/content/dam/synopsys/silicon/newsletters/tcad-news-fall2014-nl.pdf",
+          "result": "成功读取 24 页 PDF，定位 Improved Quantum Correction 全段；正文有方法和限制，非功能清单。"
+        },
+        {
+          "method": "官方 HTML",
+          "url": "https://www.synopsys.com/manufacturing/tcad/device-simulation/sentaurus-device.html",
+          "result": "成功读取 Overview / Features，核实 Sentaurus Device 产品范围。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw026",
+      "name": "Synopsys Sentaurus TCAD",
+      "status": "limited",
+      "summary": "官方技术简报公开了多栅器件量子修正的参数提取与校准思路；完整用户指南中的模型方程仍未取得。",
+      "topics": [
+        {
+          "title": "多栅器件的有效参数量子修正",
+          "kind": "物理与机理",
+          "explanation": "2014 技术说明从量子漂移扩散参考解提取有效氧化层介电常数和有效功函数。针对非平面多栅器件，再引入随阈值以上栅电压变化的导通态有效功函数；三个量子参数可由器件二维截面取得，也可用二维 Schrödinger–Poisson 解替代密度梯度法作为量子参考。",
+          "assumptions": "仅为 J-2014.09 时期特定多栅器件的模型改进说明；不是当前版本默认配置，也不能替代完整 Sentaurus Device 物理模型手册或校准。",
+          "locator": "TCAD News September 2014，印刷页 18，Improved Quantum Correction",
+          "sourceUrls": [
+            "https://www.synopsys.com/content/dam/synopsys/silicon/newsletters/tcad-news-fall2014-nl.pdf"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Synopsys：TCAD News — Fall 2014",
+          "url": "https://www.synopsys.com/content/dam/synopsys/silicon/newsletters/tcad-news-fall2014-nl.pdf",
+          "version": "2014-09；J-2014.09",
+          "access": "公开正文",
+          "evidence": "实际打开官方 24 页 PDF，读取印刷页 18 的 Sentaurus Device Monte Carlo / Improved Quantum Correction，以及量子参考提取的前后段落。"
+        },
+        {
+          "title": "Synopsys：Sentaurus Device 产品功能说明",
+          "url": "https://www.synopsys.com/manufacturing/tcad/device-simulation/sentaurus-device.html",
+          "version": "滚动页面，产品版本未标明",
+          "access": "公开正文",
+          "evidence": "读取 Overview / Features 的器件电、热、光仿真范围，以及应变、量子化、热载流子和材料类别；不据功能列表补造方程。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "已读取官方 J-2014.09 技术简报和当前产品功能页面。所采录量子修正限定于历史版本与特定器件，完整 Sentaurus Device 用户指南未取得。"
+    },
+    "reason": "以官方静态技术简报补充公开产品页，并明确历史版本；不使用未经授权的第三方用户手册镜像，也不把产品能力清单当模型方程。"
+  },
+  {
+    "softwareId": "sw027",
+    "name": "Opcenter Execution Semiconductor",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认官方应用技术正文，说明半导体先进封装中如何从批次、载具追溯到单件及其处理结构。",
+      "documents": [
+        {
+          "title": "Siemens：Single Device Tracking for Advanced Semiconductor Packaging",
+          "url": "https://blogs.sw.siemens.com/electronics-semiconductors/2026/04/07/single-device-tracking-how-semiconductor-leaders-transform-the-advanced-packaging-challenge/",
+          "version": "2026-04-07；未标明 Opcenter 发行版",
+          "access": "公开正文",
+          "evidence": "读取 Carriers / Item Structures、Parent/Child lot 与 MoveIn/TrackIn/TrackOut/Moveout、HPE 数据库处理说明；页面明确归类 Opcenter Execution Semiconductor。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方产品技术博客",
+          "url": "https://blogs.sw.siemens.com/electronics-semiconductors/2026/04/07/single-device-tracking-how-semiconductor-leaders-transform-the-advanced-packaging-challenge/",
+          "result": "成功读取完整 218 行正文及产品标签，取得具体对象关系、事务名称和计算部署方式。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw027",
+      "name": "Opcenter Execution Semiconductor",
+      "status": "limited",
+      "summary": "官方技术说明给出单件追溯的父子批次/载具关系，以及数据库侧 HPE 执行方式；未取得完整 MES 工艺状态机手册。",
+      "topics": [
+        {
+          "title": "单件追溯的载具、父子批次与事务模型",
+          "kind": "业务与控制模型",
+          "explanation": "单件可建立为有父批次或无父批次的 serial lot，item lot 或 carrier lot 均可关联载具。Parent/Child lot 在 MoveIn、TrackIn、TrackOut、Moveout 等事务中按需同步，维持单件谱系。HPE 将部分处理从应用服务器移向数据库服务器，以减少往返访问。",
+          "assumptions": "限于公开介绍的 Single Item Tracking / HPE 功能；未披露全部对象字段、事务原子性、状态转移条件或 SQL 实现。文中性能数字不当成通用保证。",
+          "locator": "Carriers / Item Structures；The high-performance solution approach；What has Siemens R&D achieved",
+          "sourceUrls": [
+            "https://blogs.sw.siemens.com/electronics-semiconductors/2026/04/07/single-device-tracking-how-semiconductor-leaders-transform-the-advanced-packaging-challenge/"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Siemens：Single Device Tracking for Advanced Semiconductor Packaging",
+          "url": "https://blogs.sw.siemens.com/electronics-semiconductors/2026/04/07/single-device-tracking-how-semiconductor-leaders-transform-the-advanced-packaging-challenge/",
+          "version": "2026-04-07；未标明 Opcenter 发行版",
+          "access": "公开正文",
+          "evidence": "读取 Carriers / Item Structures、Parent/Child lot 与 MoveIn/TrackIn/TrackOut/Moveout、HPE 数据库处理说明；页面明确归类 Opcenter Execution Semiconductor。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "已读取官方 Single Item Tracking / HPE 技术正文中的对象关系、事务与执行架构；完整工艺状态机、字段定义和事务保证仍需产品帮助。"
+    },
+    "reason": "通过官方产品博客和具体功能名 Single Item Tracking 查找，取得可用的业务模型；不能继续以旧产品页超时概括整个文档可得性。"
+  },
+  {
+    "softwareId": "sw088",
+    "name": "Cadence Allegro X PCB Editor",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认官方逐步技术说明，涵盖定义、分配、继承、局部覆盖和区域约束。",
+      "documents": [
+        {
+          "title": "Cadence BoardSurfers：Defining and Applying Physical and Spacing Constraints",
+          "url": "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/physical-spacing-constraints",
+          "version": "2019-09-17；软件版本未标明",
+          "access": "公开正文",
+          "evidence": "完整读取 Default/New CSet、Assigning CSet to Nets、Using Constraint Regions，说明 NetGroup 继承与 Region/Region Class 例外。"
+        },
+        {
+          "title": "Cadence BoardSurfers：Managing Design Constraints Using Constraint Sets",
+          "url": "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/using-constraint-sets-to-manage-design-constraints",
+          "version": "2022-09-07；软件版本未标明",
+          "access": "公开正文",
+          "evidence": "读取 Types of Constraint Sets / Using Constraint Sets，含六类约束域、DEFAULT、手动覆盖保留与 ECSet Overwrite existing constraints。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方 BoardSurfers 技术博客",
+          "url": "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/physical-spacing-constraints",
+          "result": "完整正文可读，具体解释约束继承、NetGroup 和 Region。"
+        },
+        {
+          "method": "官方 BoardSurfers 技术博客",
+          "url": "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/using-constraint-sets-to-manage-design-constraints",
+          "result": "完整正文可读，补充手动覆盖和 ECSet 选项；无需依赖来源不明的社区手册附件。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw088",
+      "name": "Cadence Allegro X PCB Editor",
+      "status": "documented",
+      "summary": "官方约束管理技术正文解释 CSet、NetGroup 和区域规则的继承与覆盖，可作为 Allegro 约束数据模型的直接依据。",
+      "topics": [
+        {
+          "title": "约束集合、继承与区域例外",
+          "kind": "几何与数据模型",
+          "explanation": "CSet 将同类约束集中为可复用对象，应用于 net、net class 或 region；NetGroup 的上层约束向成员传播。物理规则约束线宽等对象特征，间距规则区分异网与同网对象。Region 可对穿过区域的网络施加不同宽度/间距，Region Class 提供更具体的例外。",
+          "assumptions": "手工设定的值可覆盖集合继承；ECSet 覆盖行为还受 Overwrite existing constraints 选项控制。此项解释规则表达与优先关系，不推断原生 DRC 几何判定或布线算法。",
+          "locator": "2019：Assigning CSet to Nets / Using Constraint Regions；2022：Types / Using Constraint Sets",
+          "sourceUrls": [
+            "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/physical-spacing-constraints",
+            "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/using-constraint-sets-to-manage-design-constraints"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Cadence BoardSurfers：Defining and Applying Physical and Spacing Constraints",
+          "url": "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/physical-spacing-constraints",
+          "version": "2019-09-17；软件版本未标明",
+          "access": "公开正文",
+          "evidence": "完整读取 Default/New CSet、Assigning CSet to Nets、Using Constraint Regions，说明 NetGroup 继承与 Region/Region Class 例外。"
+        },
+        {
+          "title": "Cadence BoardSurfers：Managing Design Constraints Using Constraint Sets",
+          "url": "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/using-constraint-sets-to-manage-design-constraints",
+          "version": "2022-09-07；软件版本未标明",
+          "access": "公开正文",
+          "evidence": "读取 Types of Constraint Sets / Using Constraint Sets，含六类约束域、DEFAULT、手动覆盖保留与 ECSet Overwrite existing constraints。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "已读取 Cadence 官方 BoardSurfers 约束技术正文，覆盖 CSet、继承、手动覆盖和区域例外。原生 DRC 的几何算法与详细路由实现不在这些材料中。"
+    },
+    "reason": "改用由 Cadence 正式博客发布的约束模型说明，避开仅演示外部 DRC 标记 API 的旧资料。"
+  },
+  {
+    "softwareId": "sw089",
+    "name": "Cadence Innovus",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认官方布局方法说明，解释设计约束如何进入 placement 与拥塞处理。",
+      "documents": [
+        {
+          "title": "Cadence：Innovus Implementation System Datasheet",
+          "url": "https://www.cadence.com/en_US/home/resources/datasheets/innovus-implementation-system-ds.html",
+          "version": "页面未标明发行版；示意资料含 Innovus 15.1 界面",
+          "access": "公开正文",
+          "evidence": "读取 New Slack-Driven Placement Technique 全段，含 slack profile、GigaPlace 约束与代价函数、pin access 和 automatic density screen。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "从数据库 API 入口转向官方产品数据表",
+          "url": "https://www.cadence.com/en_US/home/resources/datasheets/innovus-implementation-system-ds.html",
+          "result": "成功读取 131 行 HTML，关键算法正文可直接展开读取，不必先获得受限支持页。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw089",
+      "name": "Cadence Innovus",
+      "status": "limited",
+      "summary": "官方数据表实际包含 GigaPlace 的 slack 驱动布局与拥塞处理思路，超出单纯功能列表；未公开完整目标函数或数值求解器实现。",
+      "topics": [
+        {
+          "title": "GigaPlace 的 slack 驱动布局与拥塞处理",
+          "kind": "数值算法",
+          "explanation": "布局引擎建立路径 slack profile 并据此调整单元位置，同时考虑重叠、线长、门延迟、假路径/多周期路径、层分配和拥塞影响。引脚可达性按相邻实例限制调整间距；自动 density screen 根据 floorplan、流量与拥塞图避开狭窄通道、凹口和宏边界等区域。",
+          "assumptions": "依据官方数据表的算法概述；求解器名称、权重、完整代价函数与收敛证明未公开。网页无明确发行版，不能把历史界面或性能宣传当当前默认实现。",
+          "locator": "New Slack-Driven Placement Technique，GigaPlace / pin access / automatic density screen",
+          "sourceUrls": [
+            "https://www.cadence.com/en_US/home/resources/datasheets/innovus-implementation-system-ds.html"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Cadence：Innovus Implementation System Datasheet",
+          "url": "https://www.cadence.com/en_US/home/resources/datasheets/innovus-implementation-system-ds.html",
+          "version": "页面未标明发行版；示意资料含 Innovus 15.1 界面",
+          "access": "公开正文",
+          "evidence": "读取 New Slack-Driven Placement Technique 全段，含 slack profile、GigaPlace 约束与代价函数、pin access 和 automatic density screen。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "核查范围为官方数据表的 GigaPlace、slack、引脚可达性和拥塞处理正文；数据表未标明发行版，完整数值目标与求解器实现未披露。"
+    },
+    "reason": "此前检索只集中数据库访问帮助，遗漏数据表中的 substantive placement 说明；现保留概述级证据与实现细节未知的边界。"
+  },
+  {
+    "softwareId": "sw090",
+    "name": "Synopsys Fusion Compiler",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认公开数据表含 RTL-to-GDSII 各步骤和数据共享架构的正文。",
+      "documents": [
+        {
+          "title": "Synopsys：Fusion Compiler Datasheet",
+          "url": "https://www.synopsys.com/content/dam/synopsys/implementation%26signoff/datasheets/fusion-compiler-ds.pdf",
+          "version": "三页官方数据表；未标明发行版",
+          "access": "公开正文",
+          "evidence": "实际读取三页 PDF，重点第 2 页 Fusion Data Model、Unified Physical Synthesis；逻辑/物理信息共享和优化引擎共用有正文说明。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方 HTML 入口",
+          "url": "https://www.synopsys.com/implementation-and-signoff/resources/datasheets/fusion-compiler-ds.html",
+          "result": "当前 open 返回 404；仅此 URL 失败不代表资料不存在。"
+        },
+        {
+          "method": "追踪官方 content/dam 静态 PDF",
+          "url": "https://www.synopsys.com/content/dam/synopsys/implementation%26signoff/datasheets/fusion-compiler-ds.pdf",
+          "result": "直接 PDF 成功返回三页正文，已读 Fusion Data Model 与 UPS 段落。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw090",
+      "name": "Synopsys Fusion Compiler",
+      "status": "limited",
+      "summary": "官方公开数据表说明统一逻辑/物理数据模型与共享优化引擎；这属于实现架构模型，完整优化方程仍未公开取得。",
+      "topics": [
+        {
+          "title": "统一逻辑与物理数据模型",
+          "kind": "几何与数据模型",
+          "explanation": "Fusion Data Model 同时承载逻辑、物理信息，使库、设计数据、约束和设计意图可在实现流程中共享；综合、布局布线与 signoff 引擎工作在同一数据模型上。Unified Physical Synthesis 结合综合和物理实现优化，减少分立工具间的数据转换。",
+          "assumptions": "文档解释共享数据和引擎的架构，不披露数据库 schema、完整优化目标、各算法权重或数值收敛条件；不把宣传的 PPA/TTR 增益当普遍性能结论。",
+          "locator": "PDF 第 2 页：Fusion Data Model / Up to 20% Better Power, Performance, and Area",
+          "sourceUrls": [
+            "https://www.synopsys.com/content/dam/synopsys/implementation%26signoff/datasheets/fusion-compiler-ds.pdf"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Synopsys：Fusion Compiler Datasheet",
+          "url": "https://www.synopsys.com/content/dam/synopsys/implementation%26signoff/datasheets/fusion-compiler-ds.pdf",
+          "version": "三页官方数据表；未标明发行版",
+          "access": "公开正文",
+          "evidence": "实际读取三页 PDF，重点第 2 页 Fusion Data Model、Unified Physical Synthesis；逻辑/物理信息共享和优化引擎共用有正文说明。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "已读取官方三页静态 PDF 的 Fusion Data Model 与 UPS 段落。HTML 数据表入口访问返回 404，但静态 PDF 可公开访问；未取得完整优化方程或数据库 schema。"
+    },
+    "reason": "保留可访问的官方静态 PDF，按几何与数据模型采录实际架构说明；不再以缺少完整数学优化算法排除已确认数据模型。"
+  },
+  {
+    "softwareId": "sw091",
+    "name": "Synopsys VCS",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认完整官方技术白皮书和并行机制说明，覆盖输入统计、调优步骤和应用范围。",
+      "documents": [
+        {
+          "title": "Synopsys：Reducing Simulation Regression Turnaround Time with Dynamic Performance Optimization",
+          "url": "https://www.synopsys.com/content/dam/synopsys/verification/white-papers/ai-driven-vcs-dpo-wp.pdf",
+          "version": "官方五页白皮书；文中未标明 VCS 发行版",
+          "access": "公开正文",
+          "evidence": "读取 PDF 第 3–4 页 DPO、Figure 2 和 learn/apply 闭环流程，含数据来源、本地数据库合并和重新学习触发条件。"
+        },
+        {
+          "title": "Synopsys：Cheetah Fine-Grained Parallelism for VCS",
+          "url": "https://news.synopsys.com/2016-03-24-Synopsys-Unveils-Breakthrough-Parallel-Simulation-Performance-Technology-for-VCS",
+          "version": "2016-03-24；技术发布说明",
+          "access": "公开正文",
+          "evidence": "读取 FGP 正文：设计模型分解为 micro-tasks/events，任务调度、同步开销、动态负载均衡与缓存效率。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方白皮书静态 PDF",
+          "url": "https://www.synopsys.com/content/dam/synopsys/verification/white-papers/ai-driven-vcs-dpo-wp.pdf",
+          "result": "成功读取五页；第 3–4 页完整说明数据源、learn/apply 和数据库闭环。"
+        },
+        {
+          "method": "官方技术发布正文",
+          "url": "https://news.synopsys.com/2016-03-24-Synopsys-Unveils-Breakthrough-Parallel-Simulation-Performance-Technology-for-VCS",
+          "result": "成功读取 FGP 任务分解与硬件自适应机制段落。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw091",
+      "name": "Synopsys VCS",
+      "status": "documented",
+      "summary": "官方白皮书说明 DPO 自动调优的数据、学习/应用流程和反馈；另有 FGP 任务分解概述，未公开 HDL 调度器全部语义。",
+      "topics": [
+        {
+          "title": "DPO 的学习与应用闭环",
+          "kind": "数值算法",
+          "explanation": "DPO 汇集仿真 profile、编译/运行统计、历史数据及规则/机器学习模型，选择线程、PLI 调用、FGP 等优化。learn 模式采集数据存入本地数据库并可合并；apply 模式将所学设置用于后续回归。设计或 testbench 大幅变化、更换仿真版本或性能下降时可重新学习。",
+          "assumptions": "学习与应用由用户控制，学习运行自身可能更慢。白皮书未公开机器学习模型结构/训练超参数；这解释性能调优，不替代事件调度和 HDL 逻辑语义手册。",
+          "locator": "白皮书 PDF 第 3–4 页：Synopsys Dynamic Performance Optimization / Figure 2 / closed-loop feedback",
+          "sourceUrls": [
+            "https://www.synopsys.com/content/dam/synopsys/verification/white-papers/ai-driven-vcs-dpo-wp.pdf"
+          ]
+        },
+        {
+          "title": "FGP 的微任务与事件并行",
+          "kind": "数值算法",
+          "explanation": "公开技术说明将设计仿真分解成微任务和事件，再通过面向目标处理器的调度、同步与动态负载均衡并行执行。",
+          "assumptions": "依据 2016 年 Cheetah 发布说明，属于机制概述；不据此声称所有当前 VCS 工作负载或硬件均使用相同策略，也不采用该页加速倍率作保证。",
+          "locator": "2016 Cheetah 发布说明，Fine-Grained Parallelism 正文",
+          "sourceUrls": [
+            "https://news.synopsys.com/2016-03-24-Synopsys-Unveils-Breakthrough-Parallel-Simulation-Performance-Technology-for-VCS"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Synopsys：Reducing Simulation Regression Turnaround Time with Dynamic Performance Optimization",
+          "url": "https://www.synopsys.com/content/dam/synopsys/verification/white-papers/ai-driven-vcs-dpo-wp.pdf",
+          "version": "官方五页白皮书；文中未标明 VCS 发行版",
+          "access": "公开正文",
+          "evidence": "读取 PDF 第 3–4 页 DPO、Figure 2 和 learn/apply 闭环流程，含数据来源、本地数据库合并和重新学习触发条件。"
+        },
+        {
+          "title": "Synopsys：Cheetah Fine-Grained Parallelism for VCS",
+          "url": "https://news.synopsys.com/2016-03-24-Synopsys-Unveils-Breakthrough-Parallel-Simulation-Performance-Technology-for-VCS",
+          "version": "2016-03-24；技术发布说明",
+          "access": "公开正文",
+          "evidence": "读取 FGP 正文：设计模型分解为 micro-tasks/events，任务调度、同步开销、动态负载均衡与缓存效率。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "已读取官方 DPO 五页白皮书及 2016 年 FGP 技术说明，记录调优数据与 learn/apply 流程；HDL 调度语义、模型结构和所有版本默认配置未核实。"
+    },
+    "reason": "以具体 DPO/FGP 功能名称检索官方技术材料，取得模型及操作流程，不由 FGP 名称推断其实现。"
+  },
+  {
+    "softwareId": "sw092",
+    "name": "Siemens Calibre",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认官方技术教程含可读规则代码与解释，覆盖器件识别、属性计算和层次化处理。",
+      "documents": [
+        {
+          "title": "Siemens / Mentor：Device Pin-Specific Property Extraction for Layout Simulation",
+          "url": "https://blogs.sw.siemens.com/calibre/2016/09/14/device-pin-specific-property-extraction-for-layout-simulation/",
+          "version": "2016-09-14；Calibre 发行版未标明",
+          "access": "公开正文",
+          "evidence": "完整技术正文含 DEVICE MP、perimeter_co/perimeter_outside、PAA CALCULATE PROPERTY、GET_PROPERTY_VALUE_BY_PIN，作者为 Calibre LVS 主架构师 Phil Brooks。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "按具体提取任务检索官方 Calibre 博客",
+          "url": "https://blogs.sw.siemens.com/calibre/2016/09/14/device-pin-specific-property-extraction-for-layout-simulation/",
+          "result": "完整读取 245 行技术正文及作者身份；不再只看课程目录。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw092",
+      "name": "Siemens Calibre",
+      "status": "documented",
+      "summary": "官方技术文给出 MOS 器件识别、几何属性和引脚属性后处理的实际规则代码，可直接核实 Calibre 的局部提取机制。",
+      "topics": [
+        {
+          "title": "器件识别与引脚属性后处理",
+          "kind": "几何与数据模型",
+          "explanation": "例子用栅/有源区图层识别 PMOS，并以几何周长运算计算宽和长。再在引脚图层计算面积，借助按引脚取值的属性操作将 source/drain 面积分配给对应器件。将不参与 LVS 比较的附加属性放在后处理，可避免为跨 cell 属性计算而整体提升器件及网络、进入更重的扁平识别。",
+          "assumptions": "这是所示 PMOS 与引脚面积的规则例子；尺寸计算依赖版图层定义和工艺 rule deck，不是所有器件的一般尺寸公式，也不证明已取得完整 DRC/LVS 手册。",
+          "locator": "LVS device program / Separate property calculations；DEVICE、ATTACH PROPERTIES TO DEVICE 代码",
+          "sourceUrls": [
+            "https://blogs.sw.siemens.com/calibre/2016/09/14/device-pin-specific-property-extraction-for-layout-simulation/"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Siemens / Mentor：Device Pin-Specific Property Extraction for Layout Simulation",
+          "url": "https://blogs.sw.siemens.com/calibre/2016/09/14/device-pin-specific-property-extraction-for-layout-simulation/",
+          "version": "2016-09-14；Calibre 发行版未标明",
+          "access": "公开正文",
+          "evidence": "完整技术正文含 DEVICE MP、perimeter_co/perimeter_outside、PAA CALCULATE PROPERTY、GET_PROPERTY_VALUE_BY_PIN，作者为 Calibre LVS 主架构师 Phil Brooks。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "核查范围为 Calibre LVS 架构师发表的官方器件属性技术文，包含实际规则代码和层次处理解释；完整 SVRF/DRC/LVS 用户手册不在所读范围。"
+    },
+    "reason": "以 Calibre 官方技术文章替代培训提纲；采用实际读取的规则与机制，不用课程题目推导算法。"
+  },
+  {
+    "softwareId": "sw093",
+    "name": "Siemens Xpedition",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认官方具体使用说明，区分自动辅助、强制挤入与精确路径控制的工作方式。",
+      "documents": [
+        {
+          "title": "Siemens：PCB routing — art + automation",
+          "url": "https://blogs.sw.siemens.com/electronic-systems-design/2023/07/19/pcb-routing/",
+          "version": "2023-07-19；未标明 Xpedition 发行版",
+          "access": "公开正文",
+          "evidence": "读取 Xpedition Layout 的 PCB sketch routing、Hug routing、Plow routing 全段，作者为 Siemens 高级应用工程师。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方应用工程师技术博客",
+          "url": "https://blogs.sw.siemens.com/electronic-systems-design/2023/07/19/pcb-routing/",
+          "result": "成功读取 82 行正文，明确产品为 Xpedition Layout，未混用 PADS 或 Package Designer 文档。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw093",
+      "name": "Siemens Xpedition",
+      "status": "limited",
+      "summary": "官方应用技术文解释 Xpedition 几种交互布线的处理方式；未公开路径代价函数或完整路由算法。",
+      "topics": [
+        {
+          "title": "交互布线中的 push-and-shove 处理",
+          "kind": "几何与数据模型",
+          "explanation": "Xpedition Layout 的 Hug routing 针对剩余少数连接，通过推移已有走线腾出路径；Real Trace Delayed/Dynamic plow 在已布线区域提供路径可行性的红/绿反馈并配合 push-and-shove。需要精确控制的模拟/RF 走线可选择 Hockey Stick 或 Segment 路径编辑。",
+          "assumptions": "属于官方应用层机制说明，未取得搜索策略、规则冲突优先级或数学最优性证明；不同布线模式及许可需按实际安装版本确认。",
+          "locator": "Hug routing / Plow routing",
+          "sourceUrls": [
+            "https://blogs.sw.siemens.com/electronic-systems-design/2023/07/19/pcb-routing/"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Siemens：PCB routing — art + automation",
+          "url": "https://blogs.sw.siemens.com/electronic-systems-design/2023/07/19/pcb-routing/",
+          "version": "2023-07-19；未标明 Xpedition 发行版",
+          "access": "公开正文",
+          "evidence": "读取 Xpedition Layout 的 PCB sketch routing、Hug routing、Plow routing 全段，作者为 Siemens 高级应用工程师。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "已读取 Siemens 应用工程师关于 Xpedition Layout 的技术正文；限于公开交互机制，未取得完整路由搜索、代价函数和规则冲突处理算法。"
+    },
+    "reason": "按 Xpedition Layout 的具体路由模式获取材料，避免把同厂其他工具的通用布线介绍直接移用。"
+  },
+  {
+    "softwareId": "sw149",
+    "name": "PSpice（含 PSpice for TI）",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认 Cadence 完整用户指南及 TI 版公开操作讲义，涵盖建模、分析配置、模型导入与结果查看。",
+      "documents": [
+        {
+          "title": "Cadence：PSpice User Guide 官方入口",
+          "url": "https://resources.pcb.cadence.com/home/col/rc/pspice-user-guide",
+          "version": "PSpice A/D 17.4-2019；2019-10，PDF 版权行 2022",
+          "access": "公开正文",
+          "evidence": "官方入口链接到 PathFactory 托管的 897 页 PSpice A/D User Guide；跟随正文链接实际读取，不把 PDF.js 外壳误判为仅目录。"
+        },
+        {
+          "title": "Cadence：PSpice A/D User Guide（官方链接 PDF）",
+          "url": "https://cdn.pathfactory.com/assets/preprocessed/11262/5e40813b-0740-4cad-aeb0-bfbe47ead034/5e40813b-0740-4cad-aeb0-bfbe47ead034.8007317a-f95c-49a8-bb51-bf29cf811cfa",
+          "version": "Product Version 17.4-2019；2019-10，PDF 版权行 2022",
+          "access": "公开正文",
+          "evidence": "897 页 PDF，实际下载 7,621,610 字节并用 pdftotext 读取第 848–853 页（收敛）及第 369–370 页（表/频域模型）；SHA-256 5a0c60851c17a692a165154ce65abff260b4021baccf707fca0667b5c7524490。"
+        },
+        {
+          "title": "Texas Instruments：Getting started with the new PSpice for TI design and simulation tool",
+          "url": "https://www.ti.com/lit/slyp725",
+          "version": "SLYP725；讲义版本日期未从正文核实",
+          "access": "公开正文",
+          "evidence": "实际读取官方 36 页 PDF，页 11–19 有模型库、Modeling Application、第三方导入与模型类型，页 21–23 为 AC/Transient/DC 示例；不将历史许可限制写为现行保证。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方资源页到嵌入 PDF",
+          "url": "https://resources.pcb.cadence.com/home/col/rc/pspice-user-guide",
+          "result": "页面本身是 PDF.js 外壳；跟随明确的 PSpice User Guide 链接得到 897 页正文。"
+        },
+        {
+          "method": "下载 PDF 并本地提取",
+          "url": "https://cdn.pathfactory.com/assets/preprocessed/11262/5e40813b-0740-4cad-aeb0-bfbe47ead034/5e40813b-0740-4cad-aeb0-bfbe47ead034.8007317a-f95c-49a8-bb51-bf29cf811cfa",
+          "result": "curl 成功下载；pdftotext 实读相关完整页，与封面/页脚产品名和版本相符；未依赖第三方附件。"
+        },
+        {
+          "method": "TI 官方讲义静态 PDF",
+          "url": "https://www.ti.com/lit/slyp725",
+          "result": "成功读取 36 页，确认 PSpice for TI 操作流程与模型库类型。"
+        },
+        {
+          "method": "核查旧应用笔记嵌入目标",
+          "url": "https://resources.pcb.cadence.com/technical-papers/pspice-including-relays-in-pspice-simulations",
+          "result": "搜索索引曾显示继电器模型正文，但当前文档链接打开为无关 DOWN TO THE WIRE PDF；未把该搜索索引或错配 PDF 当模型来源。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw149",
+      "name": "PSpice（含 PSpice for TI）",
+      "status": "documented",
+      "summary": "取得官方 897 页 PSpice A/D 用户指南的完整公开 PDF，核实 Newton-Raphson、连续延拓和 ABM 表/频域模型；另有 TI 版操作讲义。",
+      "topics": [
+        {
+          "title": "非线性电路的 Newton-Raphson 与连续延拓",
+          "kind": "数值算法",
+          "explanation": "PSpice A/D 的模拟器件偏置点、DC 扫描与瞬态分析求解非线性方程，迭代更新电压/电流。延续已知解并调整步长，失败时减小步长重试；偏置点若满电源不收敛，可先将电源降至接近线性状态，再逐步升回。",
+          "assumptions": "依据 17.4-2019 指南第 848–853 页；收敛依赖解存在、方程连续、可用导数及初值足够接近，有限数值范围仍会导致失败。此讨论不适用于 AC/noise 的线性求解或数字布尔运算；未证明当前 TI 定制版全部内部实现相同。",
+          "locator": "附录 Convergence and “time step too small errors”，第 848–853 页",
+          "sourceUrls": [
+            "https://cdn.pathfactory.com/assets/preprocessed/11262/5e40813b-0740-4cad-aeb0-bfbe47ead034/5e40813b-0740-4cad-aeb0-bfbe47ead034.8007317a-f95c-49a8-bb51-bf29cf811cfa"
+          ]
+        },
+        {
+          "title": "ABM 查表与频域传递函数",
+          "kind": "数学模型",
+          "explanation": "ETABLE/GTABLE 以输入表达式查表，节点之间线性插值，表外保持端点输出。ELAPLACE/GLAPLACE 等频域模型在 AC 分析取复增益，在 DC/偏置点取零频响应，在瞬态分析以输入与器件脉冲响应卷积求输出。",
+          "assumptions": "依据所读版本的指定 ABM 元件；不能由此推断所有器件模型或任意非线性/时变系统均可用线性传递函数代替。",
+          "locator": "第 6 章 Analog behavioral modeling，第 368–370 页 Lookup tables / Frequency-domain device models",
+          "sourceUrls": [
+            "https://cdn.pathfactory.com/assets/preprocessed/11262/5e40813b-0740-4cad-aeb0-bfbe47ead034/5e40813b-0740-4cad-aeb0-bfbe47ead034.8007317a-f95c-49a8-bb51-bf29cf811cfa"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Cadence：PSpice User Guide 官方入口",
+          "url": "https://resources.pcb.cadence.com/home/col/rc/pspice-user-guide",
+          "version": "PSpice A/D 17.4-2019；2019-10，PDF 版权行 2022",
+          "access": "公开正文",
+          "evidence": "官方入口链接到 PathFactory 托管的 897 页 PSpice A/D User Guide；跟随正文链接实际读取，不把 PDF.js 外壳误判为仅目录。"
+        },
+        {
+          "title": "Cadence：PSpice A/D User Guide（官方链接 PDF）",
+          "url": "https://cdn.pathfactory.com/assets/preprocessed/11262/5e40813b-0740-4cad-aeb0-bfbe47ead034/5e40813b-0740-4cad-aeb0-bfbe47ead034.8007317a-f95c-49a8-bb51-bf29cf811cfa",
+          "version": "Product Version 17.4-2019；2019-10，PDF 版权行 2022",
+          "access": "公开正文",
+          "evidence": "897 页 PDF，实际下载 7,621,610 字节并用 pdftotext 读取第 848–853 页（收敛）及第 369–370 页（表/频域模型）；SHA-256 5a0c60851c17a692a165154ce65abff260b4021baccf707fca0667b5c7524490。"
+        },
+        {
+          "title": "Texas Instruments：Getting started with the new PSpice for TI design and simulation tool",
+          "url": "https://www.ti.com/lit/slyp725",
+          "version": "SLYP725；讲义版本日期未从正文核实",
+          "access": "公开正文",
+          "evidence": "实际读取官方 36 页 PDF，页 11–19 有模型库、Modeling Application、第三方导入与模型类型，页 21–23 为 AC/Transient/DC 示例；不将历史许可限制写为现行保证。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "已从 Cadence 官方资源页追踪到官方指定的 PathFactory PDF，并下载核对 897 页 PSpice A/D 17.4-2019 用户指南；TI 版功能操作另由 TI 公开讲义核查。两种版本不无条件共享全部内部实现。"
+    },
+    "reason": "修正关键获取缺陷：官方资源中心的 PDF 外壳需继续解析文档链接；已取得可确认发布链的用户指南，不再依赖 TI 社区上传者未核实的旧参考指南。"
+  },
+  {
+    "softwareId": "sw150",
+    "name": "Siemens PADS（Standard / Professional）",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认官方 PADS Professional 的约束设置与传播说明；Standard 的对应原理正文尚未取得。",
+      "documents": [
+        {
+          "title": "Siemens：Six reasons not to be intimidated by PCB design constraints",
+          "url": "https://blogs.sw.siemens.com/electronic-systems-design/2017/10/11/six-reasons-not-to-be-intimidated-by-pcb-design-constraints/",
+          "version": "2017-10-11；PADS Professional，未标明发行版",
+          "access": "公开正文",
+          "evidence": "完整读取六项技术说明，包括 Hierarchical Rule Classes、Topology Assignment、Net Class Schemes 与约束同步。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方技术博客",
+          "url": "https://blogs.sw.siemens.com/electronic-systems-design/2017/10/11/six-reasons-not-to-be-intimidated-by-pcb-design-constraints/",
+          "result": "完整 40 行正文可读，产品分支清楚为 Professional，具体说明继承和区域覆盖。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw150",
+      "name": "Siemens PADS（Standard / Professional）",
+      "status": "documented",
+      "summary": "PADS Professional 官方技术说明给出分层约束继承与局部规则覆盖，不限于 PCB 能力清单；未核实 Standard 分支具有相同机制。",
+      "topics": [
+        {
+          "title": "分层规则类与局部制造约束",
+          "kind": "几何与数据模型",
+          "explanation": "规则类可建立层级，例如 DDR3_Data/DDR3_Address 继承 DDR3 父类规则。Net Class Schemes 对指定区域设置线宽或间距等制造约束，覆盖全局或分层规则。约束管理、原理图和版图之间同步并支持交叉定位；拓扑可用虚拟引脚、链式、H 树或星形表示。",
+          "assumptions": "证据明确针对 PADS Professional；不能无条件扩展到 PADS Standard/Standard Plus、所有发行版或相同许可。未从规则继承说明推导 HyperLynx 求解器实现。",
+          "locator": "六项说明中的 Constraint integration / Hierarchical Rule Classes / Topology Assignment / Net Class Schemes",
+          "sourceUrls": [
+            "https://blogs.sw.siemens.com/electronic-systems-design/2017/10/11/six-reasons-not-to-be-intimidated-by-pcb-design-constraints/"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Siemens：Six reasons not to be intimidated by PCB design constraints",
+          "url": "https://blogs.sw.siemens.com/electronic-systems-design/2017/10/11/six-reasons-not-to-be-intimidated-by-pcb-design-constraints/",
+          "version": "2017-10-11；PADS Professional，未标明发行版",
+          "access": "公开正文",
+          "evidence": "完整读取六项技术说明，包括 Hierarchical Rule Classes、Topology Assignment、Net Class Schemes 与约束同步。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "官方技术文明确针对 PADS Professional 的分层约束和区域覆盖；PADS Standard / Standard Plus 对应机制与许可未取得相同级别正文。"
+    },
+    "reason": "以具体 Professional 约束机制为证据并保留分支边界，不以同厂 HyperLynx 一般能力替代 PADS 文档。"
+  },
+  {
+    "softwareId": "sw151",
+    "name": "Cadence OrCAD / OrCAD X",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已确认官方产品操作和数据管理说明，涵盖 CIS 数据连接、Live BOM 属性、云工作区及文件迁移限制。",
+      "documents": [
+        {
+          "title": "Cadence Release Team：OrCAD X and Allegro X 23.1 HotFix 003",
+          "url": "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/cadence-orcad-x-and-allegro-x-23-1-hotfix-003-is-now-available",
+          "version": "23.1 HotFix 003；2024-04-05",
+          "access": "公开正文",
+          "evidence": "读取 OrCAD X Capture CIS 节：CIS 数据库放置元件、workspace revision 与 Live BOM 属性映射。"
+        },
+        {
+          "title": "Cadence：OrCAD X and PSpice FAQ",
+          "url": "https://www.cadence.com/en_US/home/tools/pcb-design-and-analysis/orcad/faqs.html",
+          "version": "滚动 FAQ，未标明统一发行版",
+          "access": "公开正文",
+          "evidence": "读取 Migration and Compatibility / Data Management / BOM and Supply Chain；确认原理图/版图数据库兼容性、可选 OnCloud、Live BOM 不回填符号库/CIS metadata 的边界。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方发行技术正文",
+          "url": "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/cadence-orcad-x-and-allegro-x-23-1-hotfix-003-is-now-available",
+          "result": "成功读取 OrCAD X Capture CIS 具体配置与映射行为。"
+        },
+        {
+          "method": "官方完整 FAQ",
+          "url": "https://www.cadence.com/en_US/home/tools/pcb-design-and-analysis/orcad/faqs.html",
+          "result": "成功读取 265 行正文，核对产品层级、文件兼容性与 Live BOM/CIS 边界。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw151",
+      "name": "Cadence OrCAD / OrCAD X",
+      "status": "limited",
+      "summary": "官方发布说明和 FAQ 给出 CIS、Live BOM、设计文件与云工作区的数据关系；这是产品数据模型说明，未取得完整 PCB 路由理论。",
+      "topics": [
+        {
+          "title": "CIS 与 Live BOM 的属性映射边界",
+          "kind": "几何与数据模型",
+          "explanation": "OrCAD X 23.1 HotFix 003 可将 Live BOM 属性映射到原理图属性，使已有 CIS 数据库设计接入 Live BOM。当前 FAQ 区分原理图设计/库、PCB 数据库和 OnCloud 工作区；Live BOM 的供应链信息查询不等同于向原理图符号库或 CIS 数据库回填元数据。",
+          "assumptions": "属性映射依据 23.1 HotFix 003；限制依据核查时的滚动 FAQ，可能随版本变化。OnCloud 为可选云数据管理，不能把其数据库关系当成 PCB 物理或电路仿真模型。",
+          "locator": "23.1 HF003：OrCAD X Capture CIS；FAQ：BOM and Supply Chain / Data Management / Migration",
+          "sourceUrls": [
+            "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/cadence-orcad-x-and-allegro-x-23-1-hotfix-003-is-now-available",
+            "https://www.cadence.com/en_US/home/tools/pcb-design-and-analysis/orcad/faqs.html"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Cadence Release Team：OrCAD X and Allegro X 23.1 HotFix 003",
+          "url": "https://community.cadence.com/cadence_blogs_8/b/pcb/posts/cadence-orcad-x-and-allegro-x-23-1-hotfix-003-is-now-available",
+          "version": "23.1 HotFix 003；2024-04-05",
+          "access": "公开正文",
+          "evidence": "读取 OrCAD X Capture CIS 节：CIS 数据库放置元件、workspace revision 与 Live BOM 属性映射。"
+        },
+        {
+          "title": "Cadence：OrCAD X and PSpice FAQ",
+          "url": "https://www.cadence.com/en_US/home/tools/pcb-design-and-analysis/orcad/faqs.html",
+          "version": "滚动 FAQ，未标明统一发行版",
+          "access": "公开正文",
+          "evidence": "读取 Migration and Compatibility / Data Management / BOM and Supply Chain；确认原理图/版图数据库兼容性、可选 OnCloud、Live BOM 不回填符号库/CIS metadata 的边界。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "已读取官方 23.1 HotFix 003 发布说明与滚动 FAQ，覆盖 CIS / Live BOM 属性、设计数据库和 OnCloud 边界；PCB 布线及电路求解理论需另查具体工具。"
+    },
+    "reason": "不再因没有 PCB 算法方程而遗漏已公开的数据组织与工作方式；同时与另行列出的 PSpice 求解模型分开。"
+  }
+]

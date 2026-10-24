@@ -1,0 +1,751 @@
+[
+  {
+    "softwareId": "sw001",
+    "name": "Aspen Plus",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方技术问答解释 Aspen Plus 第二代速率精馏的气液膜离散，并给出膜内传递与塔板压降的建模说明。",
+      "documents": [
+        {
+          "title": "Q&A: Enhance Distillation Column Design and Operation to Meet Sustainability Goals",
+          "url": "https://www.aspentech.com/-/media/aspentech/home/resources/faq-documents/pdfs/fy25/q1/at-3160-distillation-webinar-faq_final.pdf",
+          "version": "2024；第二代速率模型自 Aspen Plus V9 引入",
+          "access": "公开正文",
+          "evidence": "PDF 共6页；第1–2页解释气液膜离散，第4页说明传递速率求解与压降。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方PDF直接读取",
+          "url": "https://www.aspentech.com/-/media/aspentech/home/resources/faq-documents/pdfs/fy25/q1/at-3160-distillation-webinar-faq_final.pdf",
+          "result": "web读取6页正文，核对第1–4页；未依赖支持知识库附件。"
+        },
+        {
+          "method": "官方知识库直接读取",
+          "url": "https://esupport.aspentech.com/S_Article?id=000065887",
+          "result": "curl跟随跳转后为 Support Center Login；未读取受登录限制的 NRTL 参数文章。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw001",
+      "name": "Aspen Plus",
+      "status": "limited",
+      "summary": "官方技术问答解释 Aspen Plus 第二代速率精馏的气液膜离散，并给出膜内传递与塔板压降的建模说明。",
+      "topics": [
+        {
+          "title": "第二代速率精馏的膜离散",
+          "kind": "数值算法",
+          "explanation": "沿塔轴向分段后，还可在每个轴向段内离散气膜、液膜或两者，以线性或对数间距设置膜单元。方程求解器计算挥发组分穿过相界面并进入主体相的传递速率；官方说明这用于更细致地处理快速反应。",
+          "assumptions": "仅指速率精馏模块；参数与物性需要数据校准。2024问答说明 PETROFRAC 不支持该速率方法，不能推广到所有塔模型。",
+          "locator": "PDF 第1–2页及第4页膜离散问答",
+          "sourceUrls": [
+            "https://www.aspentech.com/-/media/aspentech/home/resources/faq-documents/pdfs/fy25/q1/at-3160-distillation-webinar-faq_final.pdf"
+          ]
+        },
+        {
+          "title": "塔板压降与填料压降的区分",
+          "kind": "物理与机理",
+          "explanation": "问答将塔板压降描述为液压头与筛孔或阀孔压降的组合；填料的 Wallis-Aspen 压降采用考虑气液负荷和几何条件的无量纲关联式。",
+          "assumptions": "塔板压降不直接使用该问答所指的起泡系统因子；部分厂商关联式因授权未公开。",
+          "locator": "PDF 第4页 pressure drop 问答",
+          "sourceUrls": [
+            "https://www.aspentech.com/-/media/aspentech/home/resources/faq-documents/pdfs/fy25/q1/at-3160-distillation-webinar-faq_final.pdf"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Q&A: Enhance Distillation Column Design and Operation to Meet Sustainability Goals",
+          "url": "https://www.aspentech.com/-/media/aspentech/home/resources/faq-documents/pdfs/fy25/q1/at-3160-distillation-webinar-faq_final.pdf",
+          "version": "2024；第二代速率模型自 Aspen Plus V9 引入",
+          "access": "公开正文",
+          "evidence": "PDF 共6页；第1–2页解释气液膜离散，第4页说明传递速率求解与压降。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "阅读所列官方公开功能或技术说明；主题仅覆盖注明的模型、模块和版本，未运行软件，也不据此推断未说明的内部实现。"
+    },
+    "reason": "原先停留在物性手册附件失败；公开技术问答包含可独立核查的局部模型说明。"
+  },
+  {
+    "softwareId": "sw064",
+    "name": "Aspen HYSYS",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方 Acid Gas 技术问答解释反应动力学、相间传质阻力以及两种建模精度层次。",
+      "documents": [
+        {
+          "title": "Top 10 Questions About Acid Gas Removal Optimization With Aspen HYSYS",
+          "url": "https://www.aspentech.com/-/media/aspentech/home/resources/faq-documents/pdfs/fy18/q4/at-04066-faq-acid-gas-removal.pdf",
+          "version": "2018；Acid Gas 技术自V8.3起",
+          "access": "公开正文",
+          "evidence": "PDF 共9页；第2页区分 Efficiency 与 Advanced 模式，第3页说明物性方法，第4页列自动反应集。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方PDF直接读取",
+          "url": "https://www.aspentech.com/-/media/aspentech/home/resources/faq-documents/pdfs/fy18/q4/at-04066-faq-acid-gas-removal.pdf",
+          "result": "web取得9页正文，核对问题1–3及版本说明。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw064",
+      "name": "Aspen HYSYS",
+      "status": "limited",
+      "summary": "官方 Acid Gas 技术问答解释反应动力学、相间传质阻力以及两种建模精度层次。",
+      "topics": [
+        {
+          "title": "酸性气吸收中的速率与物性模型",
+          "kind": "物理与机理",
+          "explanation": "Acid Gas 同时考虑反应速率和相间传质阻力。Efficiency 模式以传质阻力计算 H₂S、CO₂ 的速率效率并使用 HYSIM I/O；Advanced 模式直接计算所有组分的传递通量。化学溶剂包采用气相 Peng–Robinson 与电解质 eNRTL，物理溶剂包以 PC-SAFT 描述 DEPG。",
+          "assumptions": "来源为2018年特定 Acid Gas 功能说明；不同溶剂包有各自适用组分，不代表所有 HYSYS 单元采用相同方法。",
+          "locator": "PDF 第2–4页，问题1–3",
+          "sourceUrls": [
+            "https://www.aspentech.com/-/media/aspentech/home/resources/faq-documents/pdfs/fy18/q4/at-04066-faq-acid-gas-removal.pdf"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Top 10 Questions About Acid Gas Removal Optimization With Aspen HYSYS",
+          "url": "https://www.aspentech.com/-/media/aspentech/home/resources/faq-documents/pdfs/fy18/q4/at-04066-faq-acid-gas-removal.pdf",
+          "version": "2018；Acid Gas 技术自V8.3起",
+          "access": "公开正文",
+          "evidence": "PDF 共9页；第2页区分 Efficiency 与 Advanced 模式，第3页说明物性方法，第4页列自动反应集。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "阅读所列官方公开功能或技术说明；主题仅覆盖注明的模型、模块和版本，未运行软件，也不据此推断未说明的内部实现。"
+    },
+    "reason": "原先仅找到历史 COMThermo 目录；公开 Acid Gas 技术FAQ已有具体传质模式和热力学组合。"
+  },
+  {
+    "softwareId": "sw065",
+    "name": "UniSim Design",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "UniSim R520 官方技术通讯说明若干热力学模型的组合方式、相分裂计算及参数选择。",
+      "documents": [
+        {
+          "title": "Honeywell Benefits Guardianship e-Newsletter Q1 2026 — UniSim Design R520",
+          "url": "https://process.honeywell.com/content/dam/process/en/documents/document-lists/doc_list_bg/2026/hon-ia-hps-honeywell-benefit-guardianship-newsletter-Q1-2026.pdf",
+          "version": "R520，2025-12发布；2026年第1季度通讯",
+          "access": "公开正文",
+          "evidence": "30页PDF；第17–18页的 UniSim Design Suite 段说明 UMR-PRU、纯水闪蒸和四相稳定性分析。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方PDF直接读取",
+          "url": "https://process.honeywell.com/content/dam/process/en/documents/document-lists/doc_list_bg/2026/hon-ia-hps-honeywell-benefit-guardianship-newsletter-Q1-2026.pdf",
+          "result": "web取得30页正文，核对第17–18页热力学条目；支持门户的视频索引另需登录。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw065",
+      "name": "UniSim Design",
+      "status": "limited",
+      "summary": "UniSim R520 官方技术通讯说明若干热力学模型的组合方式、相分裂计算及参数选择。",
+      "topics": [
+        {
+          "title": "R520 热力学包与相稳定性分析",
+          "kind": "数学模型",
+          "explanation": "UMR-PRU 用通用混合规则 UMR 组合 Peng–Robinson 状态方程与 UNIFAC；PR/SRK 的 free-water flash 将该水相视为纯水。Phase Stability Analysis 对关联物流作 VLLL 四相闪蒸，检查能否分裂出三个液相。",
+          "assumptions": "仅覆盖R520列明功能；纯水假设不能替代含盐或溶解组分的完整水相模型。通讯未给出UMR参数、全部方程或求解实现。",
+          "locator": "PDF 第17–18页 Thermodynamics Feature Enhancements",
+          "sourceUrls": [
+            "https://process.honeywell.com/content/dam/process/en/documents/document-lists/doc_list_bg/2026/hon-ia-hps-honeywell-benefit-guardianship-newsletter-Q1-2026.pdf"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Honeywell Benefits Guardianship e-Newsletter Q1 2026 — UniSim Design R520",
+          "url": "https://process.honeywell.com/content/dam/process/en/documents/document-lists/doc_list_bg/2026/hon-ia-hps-honeywell-benefit-guardianship-newsletter-Q1-2026.pdf",
+          "version": "R520，2025-12发布；2026年第1季度通讯",
+          "access": "公开正文",
+          "evidence": "30页PDF；第17–18页的 UniSim Design Suite 段说明 UMR-PRU、纯水闪蒸和四相稳定性分析。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "阅读所列官方公开功能或技术说明；主题仅覆盖注明的模型、模块和版本，未运行软件，也不据此推断未说明的内部实现。"
+    },
+    "reason": "原先只读高级课程大纲；官方版本技术通讯能提供局部模型组成和相态计算规则。"
+  },
+  {
+    "softwareId": "sw067",
+    "name": "gPROMS",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方功能正文已取得：支持方程导向流程、自定义模型库，以及用实验、中试或运行数据拟合动力学参数和传热系数。",
+      "documents": [
+        {
+          "title": "gPROMS Process — Featured capabilities and FAQ",
+          "url": "https://www.siemens.com/en-gb/products/gproms/process/",
+          "version": "滚动官网，未标产品版本",
+          "access": "公开正文",
+          "evidence": "实际读取正文含方程导向流程建模、自定义模型、实验/中试/运行数据拟合经验常数、分布参数尺度放大及模型库。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "web官方页面读取",
+          "url": "https://www.siemens.com/en-gb/products/gproms/process/",
+          "result": "web多次返回timeout；另入口返回不支持的text/markdown。"
+        },
+        {
+          "method": "curl官方HTML下载与文本提取",
+          "url": "https://www.siemens.com/en-gb/products/gproms/process/",
+          "result": "取得约436KB完整HTML，读到Featured capabilities及完整FAQ，不需要账户。"
+        }
+      ]
+    },
+    "theoryPatch": null,
+    "reason": "功能文档可公开读取；其正文明确功能和校准工作流，但没有展开具体求解器或足够的方程/算法，不能据此填充完整理论。"
+  },
+  {
+    "softwareId": "sw160",
+    "name": "ChemSep",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方第二版完整书籍给出平衡级假设、MESH方程和闪蒸数值求解，并配有软件操作过程。",
+      "documents": [
+        {
+          "title": "The ChemSep Book, Second Edition — Kooijman and Taylor",
+          "url": "http://www.chemsep.org/book/docs/book2.pdf",
+          "version": "第二版，版权2007、2019；不作为现行软件版本号",
+          "access": "公开正文",
+          "evidence": "官方PDF实际下载约3.4MB并pdftotext；读到第2章平衡/非平衡、第12章闪蒸、第13章MESH正文。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "HTTPS官方PDF读取",
+          "url": "https://chemsep.org/book/docs/book2.pdf",
+          "result": "web502；curl HTTPS为TLS alert internal error；不据此认定需要登录。"
+        },
+        {
+          "method": "HTTP官网公开PDF下载与本地提取",
+          "url": "http://www.chemsep.org/book/docs/book2.pdf",
+          "result": "curl --fail --location 成功下载，pdftotext -layout取得全文；阅读目录以外实际模型章节。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw160",
+      "name": "ChemSep",
+      "status": "documented",
+      "summary": "官方第二版完整书籍给出平衡级假设、MESH方程和闪蒸数值求解，并配有软件操作过程。",
+      "topics": [
+        {
+          "title": "平衡级与MESH模型",
+          "kind": "物理与机理",
+          "explanation": "平衡级把离开同一阶段的气液流视为相平衡，并联立组分物料衡算、相平衡、摩尔分率归一化和焓衡算。多级塔将阶段方程与再沸器、冷凝器及指定条件一起求解，得到各级组成、温度和相流量。",
+          "assumptions": "平衡级假设不等于真实塔板总能达到平衡；真实设备需效率、HETP或传质模型。书中模型是历史文档说明，不保证现行默认设置。",
+          "locator": "印刷页45–47、243–247；§2.1、§13.1–13.2",
+          "sourceUrls": [
+            "http://www.chemsep.org/book/docs/book2.pdf"
+          ]
+        },
+        {
+          "title": "闪蒸的Newton与Rachford–Rice求解",
+          "kind": "数值算法",
+          "explanation": "手册§12.2说明ChemSep以Newton法联立闪蒸残差；§12.3把物料衡算、平衡和归一条件消去为Rachford–Rice标量方程，以气化分率V/F求根，并列出用sep文件选择该方法。",
+          "assumptions": "Rachford–Rice推导使用给定K值，V/F限定在0到1；温度、压力依赖的K值及焓仍需相应物性模型。方法选择说明对应所读第二版。",
+          "locator": "印刷页238–241；§12.1–12.3",
+          "sourceUrls": [
+            "http://www.chemsep.org/book/docs/book2.pdf"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "The ChemSep Book, Second Edition — Kooijman and Taylor",
+          "url": "http://www.chemsep.org/book/docs/book2.pdf",
+          "version": "第二版，版权2007、2019；不作为现行软件版本号",
+          "access": "公开正文",
+          "evidence": "官方PDF实际下载约3.4MB并pdftotext；读到第2章平衡/非平衡、第12章闪蒸、第13章MESH正文。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "阅读所列官方公开功能或技术说明；主题仅覆盖注明的模型、模块和版本，未运行软件，也不据此推断未说明的内部实现。"
+    },
+    "reason": "HTTPS兼容问题造成获取失败；同一官网公开HTTP文档可下载完整理论正文。"
+  },
+  {
+    "softwareId": "sw161",
+    "name": "Aspen Custom Modeler",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方技术例程解释动态任务改变变量频率与外部采样间隔的区别，并给出显式计时变量实现。",
+      "documents": [
+        {
+          "title": "Retrieving data from ACM at the communication interval when a task is running",
+          "url": "https://esupport.aspentech.com/apex/S_Article?id=000053518",
+          "version": "例程11.1 SP1；文章2020-11-03更新，原文2002",
+          "access": "公开正文",
+          "evidence": "实际正文含xtime变量、$xtime=1微分式与Excel逐步仿真、到间隔采集及重置的VB代码。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方知识库HTML正文读取",
+          "url": "https://esupport.aspentech.com/apex/S_Article?id=000053518",
+          "result": "web直接取得85行完整技术正文和代码；附件无需下载即可核查逻辑。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw161",
+      "name": "Aspen Custom Modeler",
+      "status": "limited",
+      "summary": "官方技术例程解释动态任务改变变量频率与外部采样间隔的区别，并给出显式计时变量实现。",
+      "topics": [
+        {
+          "title": "动态时间变量与外部采样规则",
+          "kind": "业务与控制模型",
+          "explanation": "例程定义xtime并令其时间导数为1、初值为0；Excel宏每次推进仿真后检查xtime是否超过指定间隔，达到时读取第五个储罐液位并将xtime归零。该办法在任务频繁改变变量时维持用户指定的数据记录节奏。",
+          "assumptions": "这是公开历史采样例程，条件使用大于阈值且依赖步进；不等于严格无误差的等间隔采样，也未说明ACM全部DAE求解器。",
+          "locator": "Solution步骤1–3与VB代码；$xtime=1、Simulation.Step、阈值判断",
+          "sourceUrls": [
+            "https://esupport.aspentech.com/apex/S_Article?id=000053518"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Retrieving data from ACM at the communication interval when a task is running",
+          "url": "https://esupport.aspentech.com/apex/S_Article?id=000053518",
+          "version": "例程11.1 SP1；文章2020-11-03更新，原文2002",
+          "access": "公开正文",
+          "evidence": "实际正文含xtime变量、$xtime=1微分式与Excel逐步仿真、到间隔采集及重置的VB代码。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "阅读所列官方公开功能或技术说明；主题仅覆盖注明的模型、模块和版本，未运行软件，也不据此推断未说明的内部实现。"
+    },
+    "reason": "原先只读建模课程目录；官方知识库技术正文公开给出数学变量与采样逻辑。"
+  },
+  {
+    "softwareId": "sw074",
+    "name": "BIOVIA Discovery Studio",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "BIOVIA 官方仿真技术页解释MD的力与运动关系，并说明GaMD增强采样及统计重加权流程。",
+      "documents": [
+        {
+          "title": "BIOVIA Discovery Studio — Molecular Dynamics Simulations",
+          "url": "https://www.3ds.com/products/biovia/discovery-studio/simulations",
+          "version": "滚动产品技术页；列有2023 SP1/2024资料入口，正文未统一标版本",
+          "access": "公开正文",
+          "evidence": "实际读到经典MD的力—运动更新说明、GaMD boost平衡参数化和轨迹统计重加权、隐式/显式溶剂等。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方技术页直接读取",
+          "url": "https://www.3ds.com/products/biovia/discovery-studio/simulations",
+          "result": "web取得183行正文，核对Simulate、Model及FAQ，而非仅使用方法名称列表。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw074",
+      "name": "BIOVIA Discovery Studio",
+      "status": "limited",
+      "summary": "BIOVIA 官方仿真技术页解释MD的力与运动关系，并说明GaMD增强采样及统计重加权流程。",
+      "topics": [
+        {
+          "title": "分子动力学与GaMD采样",
+          "kind": "物理与机理",
+          "explanation": "官方FAQ将MD描述为根据粒子间相互作用力和经典运动规律推进原子位置。Discovery Studio支持CHARMm/NAMD；GaMD流程先平衡并参数化boost势，再运行轨迹并可作统计重加权以估计自由能景观。",
+          "assumptions": "公开页没有给出具体boost势公式、时间步和重加权收敛条件；不同引擎、力场与模块不可视为数值等价。",
+          "locator": "Simulate、Model及FAQ的MD方法说明",
+          "sourceUrls": [
+            "https://www.3ds.com/products/biovia/discovery-studio/simulations"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "BIOVIA Discovery Studio — Molecular Dynamics Simulations",
+          "url": "https://www.3ds.com/products/biovia/discovery-studio/simulations",
+          "version": "滚动产品技术页；列有2023 SP1/2024资料入口，正文未统一标版本",
+          "access": "公开正文",
+          "evidence": "实际读到经典MD的力—运动更新说明、GaMD boost平衡参数化和轨迹统计重加权、隐式/显式溶剂等。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "阅读所列官方公开功能或技术说明；主题仅覆盖注明的模型、模块和版本，未运行软件，也不据此推断未说明的内部实现。"
+    },
+    "reason": "官方专门仿真页比原结构设计两页数据表提供更多机制正文。"
+  },
+  {
+    "softwareId": "sw077",
+    "name": "LabVantage LIMS",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方工作流文章和课程说明给出任务序列、分支逻辑、队列衔接及执行控制的业务模型。",
+      "documents": [
+        {
+          "title": "LabVantage’s Superpower: The Workflow Engine",
+          "url": "https://www.labvantage.com/blog/labvantages-superpower-the-workflow-engine/",
+          "version": "2021-01-15；未指定产品版本",
+          "access": "公开正文",
+          "evidence": "正文说明按测试流程组成任务序列、根据步骤结果分支、管理员任务装配以及开始/停止/暂停。"
+        },
+        {
+          "title": "Workflow Administration Training Course Syllabus",
+          "url": "https://www.labvantage.com/services/customer-success/training/workflow-administration-training-course-syllabus/",
+          "version": "公开课程说明，未指定软件版本",
+          "access": "公开正文",
+          "evidence": "Introduction to Tasks解释输入/输出队列与连接器衔接任务；课程正文说明手动/自动分配及安全限制。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方文章直接读取",
+          "url": "https://www.labvantage.com/blog/labvantages-superpower-the-workflow-engine/",
+          "result": "web取得128行文章正文，核对任务、分支与暂停/继续逻辑。"
+        },
+        {
+          "method": "官方课程正文读取",
+          "url": "https://www.labvantage.com/services/customer-success/training/workflow-administration-training-course-syllabus/",
+          "result": "读取任务/队列/连接器说明；不将课程承诺视为已取得全套培训材料。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw077",
+      "name": "LabVantage LIMS",
+      "status": "limited",
+      "summary": "官方工作流文章和课程说明给出任务序列、分支逻辑、队列衔接及执行控制的业务模型。",
+      "topics": [
+        {
+          "title": "任务、分支与队列组成的实验室工作流",
+          "kind": "业务与控制模型",
+          "explanation": "工作流由批准测试方法所规定的任务组成，样品批次随任务完成进入下一步；步骤结果可触发分支。管理员从任务库装配流程；课程说明以输入/输出队列和连接器衔接任务，运行中可暂停或继续。",
+          "assumptions": "这是可配置业务执行模型，不是样品实验本身的化学机理；文章及课程均未提供底层数据库模式或完整状态转移表。",
+          "locator": "工作流文章What Defines a Workflow、Managing Complex Workflows；课程Introduction to Tasks",
+          "sourceUrls": [
+            "https://www.labvantage.com/blog/labvantages-superpower-the-workflow-engine/",
+            "https://www.labvantage.com/services/customer-success/training/workflow-administration-training-course-syllabus/"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "LabVantage’s Superpower: The Workflow Engine",
+          "url": "https://www.labvantage.com/blog/labvantages-superpower-the-workflow-engine/",
+          "version": "2021-01-15；未指定产品版本",
+          "access": "公开正文",
+          "evidence": "正文说明按测试流程组成任务序列、根据步骤结果分支、管理员任务装配以及开始/停止/暂停。"
+        },
+        {
+          "title": "Workflow Administration Training Course Syllabus",
+          "url": "https://www.labvantage.com/services/customer-success/training/workflow-administration-training-course-syllabus/",
+          "version": "公开课程说明，未指定软件版本",
+          "access": "公开正文",
+          "evidence": "Introduction to Tasks解释输入/输出队列与连接器衔接任务；课程正文说明手动/自动分配及安全限制。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "阅读所列官方公开功能或技术说明；主题仅覆盖注明的模型、模块和版本，未运行软件，也不据此推断未说明的内部实现。"
+    },
+    "reason": "公开文章已有实际业务规则，原功能宣传资料不足不应扩展为没有可用文档。"
+  },
+  {
+    "softwareId": "sw013",
+    "name": "Opcenter Execution Process",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方4.4版本正文说明通用配方到主指令的执行准备，以及生产历史中的设备设定快照。",
+      "documents": [
+        {
+          "title": "Opcenter Execution Process 4.4 — Official release article",
+          "url": "https://blogs.sw.siemens.com/opcenter/available-now-opcenter-execution-process-4-4/",
+          "version": "4.4；2022-04-19",
+          "access": "公开正文",
+          "evidence": "完整正文说明可配置生产履历含设备设置快照，以及从generic配方规格转换为master指令供订单调度与执行。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方发行文章正文读取",
+          "url": "https://blogs.sw.siemens.com/opcenter/available-now-opcenter-execution-process-4-4/",
+          "result": "web取得64行完整正文。"
+        },
+        {
+          "method": "旧官网PDF下载",
+          "url": "https://www.plm.automation.siemens.com/media/global/cz/Siemens%20SW%20Opcenter%20Execution%20Process%204-1%20Fact%20Sheet_tcm84-69240.pdf",
+          "result": "curl响应为HTML而非PDF，pdftotext失败；未将检索摘要当作已读PDF。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw013",
+      "name": "Opcenter Execution Process",
+      "status": "limited",
+      "summary": "官方4.4版本正文说明通用配方到主指令的执行准备，以及生产历史中的设备设定快照。",
+      "topics": [
+        {
+          "title": "配方规格、主指令与生产履历",
+          "kind": "业务与控制模型",
+          "explanation": "文章描述将generic配方规格转为可供订单调度和执行的master指令；生产历史追踪可配置，并包含与对应追踪记录有关的设备设定快照，为执行时的配置提供上下文。",
+          "assumptions": "仅能核实公开说明的业务对象关系；没有读取完整转换规则、配方状态机或APS调度算法。",
+          "locator": "正文开头生产履历说明及New Product Development & Introduction段",
+          "sourceUrls": [
+            "https://blogs.sw.siemens.com/opcenter/available-now-opcenter-execution-process-4-4/"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Opcenter Execution Process 4.4 — Official release article",
+          "url": "https://blogs.sw.siemens.com/opcenter/available-now-opcenter-execution-process-4-4/",
+          "version": "4.4；2022-04-19",
+          "access": "公开正文",
+          "evidence": "完整正文说明可配置生产履历含设备设置快照，以及从generic配方规格转换为master指令供订单调度与执行。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "阅读所列官方公开功能或技术说明；主题仅覆盖注明的模型、模块和版本，未运行软件，也不据此推断未说明的内部实现。"
+    },
+    "reason": "原审核将非数值软件也按求解理论门槛排除；现保留可核实的配方/履历业务对象关系并明确非完整执行模型。"
+  },
+  {
+    "softwareId": "sw016",
+    "name": "AVEVA Manufacturing Execution System",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "公开MES帮助正文已取得，说明设备模型到MES实体的映射和利用率事件拆分的保留规则。",
+      "documents": [
+        {
+          "title": "AVEVA MES — Client Components",
+          "url": "https://docs.aveva.com/bundle/manufacturing-execution-system-7.0/page/71244.html",
+          "version": "Manufacturing Execution System 2023；2023-05-01",
+          "access": "公开正文",
+          "evidence": "取得官方公开topic_html正文；OCO记录生产事件，UCO监测设备表现，SRO记录质量样品；Entity Model Builder由设备模型创建MES实体。"
+        },
+        {
+          "title": "AVEVA Composable and Model Driven MES — Split a utilization event",
+          "url": "https://docs.aveva.com/bundle/composable-and-model-driven-mes/page/1532959.html",
+          "version": "2025-10-15，当前公开文档",
+          "access": "公开正文",
+          "evidence": "取得官方完整操作正文；拆分事件形成两个时间段，保留原利用率原因，并可分别重新指定原因。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "文档HTML直接读取",
+          "url": "https://docs.aveva.com/bundle/manufacturing-execution-system-7.0/page/71244.html",
+          "result": "直接web返回19行JS导航壳，不能反映正文是否存在。"
+        },
+        {
+          "method": "官方站点公开正文API",
+          "url": "https://docs-be.aveva.com/api/bundle/manufacturing-execution-system-7.0/page/71244.html",
+          "result": "从官方页面api.host及加载脚本TOPIC路由定位；匿名curl取得JSON中的完整topic_html。"
+        },
+        {
+          "method": "官方站点公开正文API",
+          "url": "https://docs-be.aveva.com/api/bundle/composable-and-model-driven-mes/page/1532959.html",
+          "result": "匿名curl取得完整事件拆分正文及日期；无登录和许可绕过。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw016",
+      "name": "AVEVA Manufacturing Execution System",
+      "status": "limited",
+      "summary": "公开MES帮助正文已取得，说明设备模型到MES实体的映射和利用率事件拆分的保留规则。",
+      "topics": [
+        {
+          "title": "设备对象与MES实体映射",
+          "kind": "几何与数据模型",
+          "explanation": "Entity Model Builder由System Platform设备模型创建MES实体：OCO扩展设备模型以触发生产事件并写入MES数据库；UCO用于设备利用率/OEE支持；SRO用于质量样品采集。",
+          "assumptions": "描述限所读2023部署/组件文档；需要相应MES应用对象已安装且导入Galaxy，不能据此推断完整数据库结构或OEE公式。",
+          "locator": "Client Components → Application Objects、Entity Model Builder",
+          "sourceUrls": [
+            "https://docs.aveva.com/bundle/manufacturing-execution-system-7.0/page/71244.html"
+          ]
+        },
+        {
+          "title": "利用率事件拆分规则",
+          "kind": "业务与控制模型",
+          "explanation": "拆分操作将选中利用率事件分为两个时间段并更新事件清单；新事件保留原先指定的利用率原因，用户需要时再为每段重新分配原因。",
+          "assumptions": "这是公开操作规则，未说明数据库事务实现，也不代表全部事件编辑和OEE重算细节。",
+          "locator": "Split a utilization event步骤4–6及Note",
+          "sourceUrls": [
+            "https://docs.aveva.com/bundle/composable-and-model-driven-mes/page/1532959.html"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "AVEVA MES — Client Components",
+          "url": "https://docs.aveva.com/bundle/manufacturing-execution-system-7.0/page/71244.html",
+          "version": "Manufacturing Execution System 2023；2023-05-01",
+          "access": "公开正文",
+          "evidence": "取得官方公开topic_html正文；OCO记录生产事件，UCO监测设备表现，SRO记录质量样品；Entity Model Builder由设备模型创建MES实体。"
+        },
+        {
+          "title": "AVEVA Composable and Model Driven MES — Split a utilization event",
+          "url": "https://docs.aveva.com/bundle/composable-and-model-driven-mes/page/1532959.html",
+          "version": "2025-10-15，当前公开文档",
+          "access": "公开正文",
+          "evidence": "取得官方完整操作正文；拆分事件形成两个时间段，保留原利用率原因，并可分别重新指定原因。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "阅读所列官方公开功能或技术说明；主题仅覆盖注明的模型、模块和版本，未运行软件，也不据此推断未说明的内部实现。"
+    },
+    "reason": "JS空壳造成误判；公开后端正文可匿名访问。功能文档与局部业务规则均可核查。"
+  },
+  {
+    "softwareId": "sw081",
+    "name": "AVEVA System Platform",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方帮助已取得模板、实例与属性传播规则的完整正文。",
+      "documents": [
+        {
+          "title": "AVEVA System Platform/OMI — About templates and instances",
+          "url": "https://docs.aveva.com/bundle/sp-omi-2023/page/248505.html",
+          "version": "OMI 2023 R2 SP1；正文2024-07-16",
+          "access": "公开正文",
+          "evidence": "完整topic_html说明公共配置模板、特定设备实例、父子属性继承；模板留在开发环境，仅实例部署到运行环境。"
+        },
+        {
+          "title": "AVEVA System Platform/OMI — Propagation",
+          "url": "https://docs.aveva.com/bundle/sp-omi-2023/page/248508.html",
+          "version": "sp-omi-2023文档包；条目原日期2016-08-17",
+          "access": "公开正文",
+          "evidence": "正文明确传播条件：父模板属性锁定时，对模板的更改由相关实例继承。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "文档HTML直接读取",
+          "url": "https://docs.aveva.com/bundle/sp-omi-2023/page/248505.html",
+          "result": "web仅返回JS导航壳。"
+        },
+        {
+          "method": "公开页面脚本定位正文入口",
+          "url": "https://cdn.zoominsoftware.io/aveva/public/app.ec6d8ab7fab73fa15d22.js",
+          "result": "官方HTML配置api.host=docs-be.aveva.com；公开脚本给出/api/bundle/:bundleId/page/:navPath。"
+        },
+        {
+          "method": "官方匿名正文API",
+          "url": "https://docs-be.aveva.com/api/bundle/sp-omi-2023/page/248505.html",
+          "result": "curl取得JSON完整正文及日期。"
+        },
+        {
+          "method": "官方匿名正文API",
+          "url": "https://docs-be.aveva.com/api/bundle/sp-omi-2023/page/248508.html",
+          "result": "从上一正文相关链接进入Propagation，curl取得完整锁定属性传播规则。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw081",
+      "name": "AVEVA System Platform",
+      "status": "documented",
+      "summary": "官方帮助已取得模板、实例与属性传播规则的完整正文。",
+      "topics": [
+        {
+          "title": "模板—实例对象模型与传播条件",
+          "kind": "几何与数据模型",
+          "explanation": "模板保存一类设备的公共配置，实例表示具体设备并可进一步配置。二者具有父子属性继承关系；模板只存在于开发环境，实例才能部署到运行环境。修改模板时，父模板中锁定的属性更改可传播给派生对象。",
+          "assumptions": "官方提醒其对象关系与一般面向对象编程存在差异；不能假定所有未锁定或实例覆盖的属性都会同样传播。传播条目有历史原日期，适用以所读文档包为限。",
+          "locator": "About templates and instances；Propagation",
+          "sourceUrls": [
+            "https://docs.aveva.com/bundle/sp-omi-2023/page/248505.html",
+            "https://docs.aveva.com/bundle/sp-omi-2023/page/248508.html"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "AVEVA System Platform/OMI — About templates and instances",
+          "url": "https://docs.aveva.com/bundle/sp-omi-2023/page/248505.html",
+          "version": "OMI 2023 R2 SP1；正文2024-07-16",
+          "access": "公开正文",
+          "evidence": "完整topic_html说明公共配置模板、特定设备实例、父子属性继承；模板留在开发环境，仅实例部署到运行环境。"
+        },
+        {
+          "title": "AVEVA System Platform/OMI — Propagation",
+          "url": "https://docs.aveva.com/bundle/sp-omi-2023/page/248508.html",
+          "version": "sp-omi-2023文档包；条目原日期2016-08-17",
+          "access": "公开正文",
+          "evidence": "正文明确传播条件：父模板属性锁定时，对模板的更改由相关实例继承。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "阅读所列官方公开功能或技术说明；主题仅覆盖注明的模型、模块和版本，未运行软件，也不据此推断未说明的内部实现。"
+    },
+    "reason": "原先将JS壳当作没有足够正文；实际官方正文公开且足以解释对象模型。"
+  },
+  {
+    "softwareId": "sw085",
+    "name": "Lectra Modaris",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "Lectra 官方说明解释动态尺寸表、依赖衣片和关联点如何在版型修改后保持尺寸与缺口一致。",
+      "documents": [
+        {
+          "title": "Lectra — Resolve technical design issues as of the pattern development stage",
+          "url": "https://www.lectra.com/it/libreria/come-risolvere-le-sfide-legate-allo-sviluppo-dei-modelli-con-un-software-cad-avanzato",
+          "version": "2024-10-02；Modaris Classic/Expert，未指定发行版本",
+          "access": "公开正文",
+          "evidence": "读取意大利语官方完整正文；动态尺寸表在修改后应用公式检查兼容性；Expert用依赖片、关联点、缺口联动保持一致。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方产品正文读取",
+          "url": "https://www.lectra.com/en/fashion/products/modaris",
+          "result": "读到尺寸放码、缝份、轴线、2D/3D同步及文件转换功能；不以该功能清单替代理论。"
+        },
+        {
+          "method": "官方技术文章跨语言读取",
+          "url": "https://www.lectra.com/it/libreria/come-risolvere-le-sfide-legate-allo-sviluppo-dei-modelli-con-un-software-cad-avanzato",
+          "result": "web取得93行意大利语正文，核对尺寸表公式与依赖点/缺口关联段。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw085",
+      "name": "Lectra Modaris",
+      "status": "limited",
+      "summary": "Lectra 官方说明解释动态尺寸表、依赖衣片和关联点如何在版型修改后保持尺寸与缺口一致。",
+      "topics": [
+        {
+          "title": "动态尺寸表与衣片依赖联动",
+          "kind": "几何与数据模型",
+          "explanation": "Modaris Classic的动态尺寸表在版型修改后应用公式检查待缝衣片尺寸兼容性；Expert可连接相互依赖的衣片，并把关联点尺寸或缺口与尺寸表联系，使相关版片随修改联动。",
+          "assumptions": "公开文章解释约束联动效果及数据关联，但没有给出几何约束求解器、放码方程或布料仿真算法；Classic与Expert能力不可互换。",
+          "locator": "Risoluzione dei problemi di incompatibilità、Controllo rapido、Coerenza di tutte le tacche",
+          "sourceUrls": [
+            "https://www.lectra.com/it/libreria/come-risolvere-le-sfide-legate-allo-sviluppo-dei-modelli-con-un-software-cad-avanzato"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Lectra — Resolve technical design issues as of the pattern development stage",
+          "url": "https://www.lectra.com/it/libreria/come-risolvere-le-sfide-legate-allo-sviluppo-dei-modelli-con-un-software-cad-avanzato",
+          "version": "2024-10-02；Modaris Classic/Expert，未指定发行版本",
+          "access": "公开正文",
+          "evidence": "读取意大利语官方完整正文；动态尺寸表在修改后应用公式检查兼容性；Expert用依赖片、关联点、缺口联动保持一致。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "阅读所列官方公开功能或技术说明；主题仅覆盖注明的模型、模块和版本，未运行软件，也不据此推断未说明的内部实现。"
+    },
+    "reason": "原先仅检索产品和版本页；官网技术文章实际解释依赖尺寸与修改传播关系。"
+  }
+]

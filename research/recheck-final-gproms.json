@@ -1,0 +1,79 @@
+{
+  "softwareId": "sw067",
+  "name": "gPROMS",
+  "functionDocumentation": {
+    "status": "confirmed",
+    "summary": "官方功能正文已取得：支持方程导向流程、自定义模型库，以及用实验、中试或运行数据拟合动力学参数和传热系数。",
+    "documents": [
+      {
+        "title": "gPROMS Process — Featured capabilities and FAQ",
+        "url": "https://www.siemens.com/en-gb/products/gproms/process/",
+        "version": "滚动官网，未标产品版本",
+        "access": "公开正文",
+        "evidence": "实际读取正文含方程导向流程建模、自定义模型、实验/中试/运行数据拟合经验常数、分布参数尺度放大及模型库。"
+      }
+    ],
+    "retrieval": [
+      {
+        "method": "web官方页面读取",
+        "url": "https://www.siemens.com/en-gb/products/gproms/process/",
+        "result": "web多次返回timeout；另入口返回不支持的text/markdown。"
+      },
+      {
+        "method": "curl官方HTML下载与文本提取",
+        "url": "https://www.siemens.com/en-gb/products/gproms/process/",
+        "result": "取得约436KB完整HTML，读到Featured capabilities及完整FAQ，不需要账户。"
+      },
+      {
+        "method": "web 官方文章读取",
+        "url": "https://blog.siemens.com/2025/07/multi-component-modeling-in-pharmaceutical-spray-drying-insights-from-eli-lilly/",
+        "result": "正文提取只返回 Please enable Javascript；不能据此判断文章受限。"
+      },
+      {
+        "method": "curl 下载官方 HTML，并解析公开页面内嵌 JSON",
+        "url": "https://blog.siemens.com/2025/07/multi-component-modeling-in-pharmaceutical-spray-drying-insights-from-eli-lilly/",
+        "result": "正常 TLS 下载 553,341 字节 HTML，无账户；从 script#siemens-app-js-before 的 SIEMENS_PRELOADED_STATE.posts[87377].content.rendered 提取并实际阅读全文。文章日期 2025-07-07，modified 字段 2025-07-08；正文含三组分体系、MD 扩散系数处理、液滴与过程模型耦合及尚待完成的验证。"
+      }
+    ]
+  },
+  "theoryPatch": {
+    "softwareId": "sw067",
+    "name": "gPROMS",
+    "status": "limited",
+    "summary": "Siemens 公开技术文章具体说明了在 gPROMS FormulatedProducts 上实现的 Lilly 喷雾干燥多尺度案例：分子模拟提供扩散参数，液滴干燥与粒内扩散耦合，再接收过程模型的温度和流量条件。其机理正文可公开读取，但不是整个 gPROMS 平台的完整理论手册，也没有说明通用求解器实现。",
+    "topics": [
+      {
+        "title": "喷雾干燥案例中的扩散系数跨尺度传递",
+        "kind": "物理与机理",
+        "explanation": "Siemens 对 Lilly 案例的技术说明指出，在 gPROMS FormulatedProducts 的液滴干燥与粒内扩散模型中，分子动力学模拟用于取得组分扩散系数；案例先在较高温度和较短聚合物链条件下计算，再用 Arrhenius 外推到工艺温度，并将 Maxwell–Stefan 扩散系数转换为 Fick 扩散系数后传入过程模型。",
+        "assumptions": "这是纤维素基聚合物、活性药物成分及单一溶剂构成的三组分定制案例；高温/短链计算及外推的适用性需具体体系验证。文章未给转换方程、力场或数值离散细节，不能据此断言 gPROMS 自带分子动力学引擎或各模型均采用该方案。",
+        "locator": "Integrated modeling framework and methodology；Case study: Three-component system application",
+        "sourceUrls": [
+          "https://blog.siemens.com/2025/07/multi-component-modeling-in-pharmaceutical-spray-drying-insights-from-eli-lilly/"
+        ]
+      },
+      {
+        "title": "液滴与过程尺度耦合及壳层锁定条件",
+        "kind": "数学模型",
+        "explanation": "该案例把过程模型给出的出口温度和流量传入液滴模型，计算颗粒形成、组分在颗粒内的分布，以及粒径、残留溶剂和玻璃化转变温度。文章说明壳层锁定可依据临界溶剂含量或玻璃化转变温度条件描述，在锁定后限制组分继续迁移。",
+        "assumptions": "限于文中报告的 gPROMS FormulatedProducts 案例；文章没有公开锁定阈值或方程。正文将 SEM/EDX 颗粒分布验证、低溶剂含量扩散系数修正及从稳态扩展到启停等动态工况列为正在推进的工作，不能把这些写成已完成能力验证。",
+        "locator": "Model coupling and key outcomes；Validation and ongoing model development",
+        "sourceUrls": [
+          "https://blog.siemens.com/2025/07/multi-component-modeling-in-pharmaceutical-spray-drying-insights-from-eli-lilly/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Multi-component modeling in pharmaceutical spray drying: Insights from Eli Lilly",
+        "url": "https://blog.siemens.com/2025/07/multi-component-modeling-in-pharmaceutical-spray-drying-insights-from-eli-lilly/",
+        "version": "Siemens 官方文章，2025-07-07；页面数据 modified 2025-07-08；案例软件产品未标版本",
+        "access": "公开正文",
+        "evidence": "实际下载官方 HTML 并解析其公开预加载状态中的文章正文；读取 Integrated modeling framework and methodology、Model coupling and key outcomes、三组分案例及验证进展。正文具体说明 MD 参数传递、Arrhenius 外推、Maxwell–Stefan/Fick 转换、过程/液滴耦合与壳层锁定。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "功能正文与案例级机制正文均可公开取得。技术文章正文位于官方页面预加载 JSON，常规文本提取可能只显示 JavaScript 提示；这不等于登录限制。开发者/模型验证手册的检索命中包含非官方镜像，未以其作为官方发布证据。PSE 作者固定床反应器论文已在 ACS 官方页面确认作者及题录，但直接正文/PDF 请求未成功，未据此补写反应器理论或通用数值算法。"
+  },
+  "reason": "gPROMS 可由未取得足够正文调整为仅有局部说明：官方公开文章取得具体跨尺度扩散与液滴/过程耦合机制。保留案例范围与验证局限；完整平台理论和通用求解器仍未确认。"
+}

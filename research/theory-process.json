@@ -1,0 +1,1513 @@
+[
+  {
+    "softwareId": "sw001",
+    "name": "Aspen Plus",
+    "status": "not-located",
+    "summary": "官方知识库列出物性方法参考手册，但本次未取得附件正文，不能据此整理具体物性方程。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Aspen Physical Property System V8.8 Physical Properties Methods Reference Manual",
+        "url": "https://esupport.aspentech.com/S_Article?id=000052872",
+        "version": "V8.8，知识库更新2020-11-03",
+        "access": "仅目录/摘要",
+        "evidence": "确认手册名称及附件 AspenPhysPropMethodsV8_8-Ref.pdf；附件入口未返回可读正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方知识库及附件链接；附件抓取为空，不足以判断是否需要账户，也不据此判断现行版本没有理论说明。"
+  },
+  {
+    "softwareId": "sw002",
+    "name": "DWSIM",
+    "status": "documented",
+    "summary": "用户指南直接给出相平衡条件、状态方程及液相活度系数模型。",
+    "topics": [
+      {
+        "title": "相平衡与物性模型",
+        "kind": "物理与机理",
+        "explanation": "文档以各共存相中组分逸度相等建立气液平衡，区分气相逸度系数与液相活度系数的定义，并给出由状态方程计算逸度的路径。后续分别解释立方状态方程与活度系数模型，帮助判断物性包如何影响流股相态和热量计算。",
+        "assumptions": "模型、混合规则及二元交互参数须与组分、温压及相态匹配；不能把某物性包的有效范围外推到所有体系。",
+        "locator": "Technical Basis → Phase Equilibria Calculation；Peng-Robinson、SRK、UNIQUAC、UNIFAC、NRTL。",
+        "sourceUrls": [
+          "https://dwsim.org/help/main/39-thermodynamic-properties.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "DWSIM User Guide — Thermodynamic Properties",
+        "url": "https://dwsim.org/help/main/39-thermodynamic-properties.html",
+        "version": "滚动文档",
+        "access": "公开正文",
+        "evidence": "Technical Basis → Phase Equilibria Calculation；Peng-Robinson、SRK、UNIQUAC、UNIFAC、NRTL。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw003",
+    "name": "BIOVIA Materials Studio",
+    "status": "limited",
+    "summary": "公开 CASTEP 技术说明解释平面波赝势与密度泛函微扰理论；并非 Materials Studio 全模块理论手册。",
+    "topics": [
+      {
+        "title": "CASTEP 的电子结构与响应计算",
+        "kind": "物理与机理",
+        "explanation": "官方说明把芯电子替换为作用于价电子的有效势，用平面波基展开电子波函数，并在所选交换关联近似下计算总能量及结构。材料的声子与部分光学响应可通过密度泛函微扰理论求得，说明了从电子模型到可观测性质的计算关系。",
+        "assumptions": "仅核查 CASTEP 部分；不同泛函、赝势和模块另有假设，文档没有公开整个产品的全部算法实现。",
+        "locator": "How does BIOVIA Materials Studio CASTEP work?，第2页。",
+        "sourceUrls": [
+          "https://www.3ds.com/assets/invest/2023-10/biovia-material-studio-castep.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "BIOVIA Materials Studio CASTEP technical datasheet",
+        "url": "https://www.3ds.com/assets/invest/2023-10/biovia-material-studio-castep.pdf",
+        "version": "未标明产品版本",
+        "access": "公开正文",
+        "evidence": "How does BIOVIA Materials Studio CASTEP work?，第2页。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw004",
+    "name": "Thermo-Calc",
+    "status": "documented",
+    "summary": "官方历史命令参考解释 Gibbs 能最小化、全局搜索及相稳定性处理。",
+    "topics": [
+      {
+        "title": "平衡态 Gibbs 能最小化",
+        "kind": "数学模型",
+        "explanation": "手册区分普通 POLY 最小化与全局最小化策略，解释通过候选组分集合及网格点寻找可能的稳定相，并可控制 Hessian 正定性和迭代步长。其目标是给定热力学条件下的平衡态，而不是直接模拟材料达到该状态的动力学过程。",
+        "assumptions": "来源为2014年4.0历史手册；现行版本实现、数据库参数和适用相系须另查，不能将平衡预测等同实际工艺时间尺度。",
+        "locator": "POLY → EQUILIBRIUM_CALCUL，印刷页115及相关 GLOBAL_MINIMIZATION 条目。",
+        "sourceUrls": [
+          "https://thermocalc.com/wp-content/uploads/Documentation/Archive/2007-2014/V4-0/2014-v4.0-thermo-calc-console-mode-command-reference.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Thermo-Calc Console Mode Command Reference",
+        "url": "https://thermocalc.com/wp-content/uploads/Documentation/Archive/2007-2014/V4-0/2014-v4.0-thermo-calc-console-mode-command-reference.pdf",
+        "version": "4.0，2014",
+        "access": "公开正文",
+        "evidence": "POLY → EQUILIBRIUM_CALCUL，印刷页115及相关 GLOBAL_MINIMIZATION 条目。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw005",
+    "name": "COMSOL Multiphysics",
+    "status": "documented",
+    "summary": "官方方法说明推导弱形式和 Galerkin 离散；6.4参考手册另列单元与形函数。",
+    "topics": [
+      {
+        "title": "弱形式与有限元离散",
+        "kind": "数值算法",
+        "explanation": "官方从热传导方程示例说明如何乘以测试函数、积分形成弱形式，再用有限个基函数表示近似解。Galerkin 方法使用相同的试函数与测试函数空间，离散后得到代数或时间微分方程；混合单元可为速度与压力选择不同阶次。",
+        "assumptions": "这是通用有限元方法及 COMSOL 使用示例；具体物理接口、材料本构和求解器设置须对照对应版本模块手册。",
+        "locator": "Weak Formulation、Galerkin Method、Time-Dependent Problems、Different Elements。",
+        "sourceUrls": [
+          "https://www.comsol.com/multiphysics/finite-element-method"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Detailed Explanation of the Finite Element Method",
+        "url": "https://www.comsol.com/multiphysics/finite-element-method",
+        "version": "方法说明发表于2016、修订2017；非特定产品版本",
+        "access": "公开正文",
+        "evidence": "Weak Formulation、Galerkin Method、Time-Dependent Problems、Different Elements。"
+      },
+      {
+        "title": "COMSOL 6.4 — Elements and Shape Functions",
+        "url": "https://doc.comsol.com/6.4/doc/com.comsol.help.comsol/comsol_ref_xmesh.35.1.html",
+        "version": "6.4",
+        "access": "公开正文",
+        "evidence": "参考手册单元与形函数章节，说明其包含单元形函数与关联计算方法背景。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw006",
+    "name": "LAMMPS",
+    "status": "documented",
+    "summary": "开发者文档公开 velocity-Verlet 时间步、邻居表、力计算及并行通信顺序。",
+    "topics": [
+      {
+        "title": "粒子动力学时间推进",
+        "kind": "数值算法",
+        "explanation": "文档逐步展示速度 Verlet 的时间步：先做初始积分与粒子位置更新，按需重建邻居表，再累计成对、键合和长程作用力，完成通信与末段积分。能量最小化复用部分力计算逻辑，但不代表真实时间推进。",
+        "assumptions": "所述为 Verlet 路径；实际作用势、fix、长程算法和加速包由构建及输入选择，不存在对所有体系通用的默认物理模型。",
+        "locator": "§4.7，Verlet::run() 伪代码及前后积分步骤。",
+        "sourceUrls": [
+          "https://doc.lammps.org/Developer_flow.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "LAMMPS — How a timestep works",
+        "url": "https://doc.lammps.org/Developer_flow.html",
+        "version": "release，git info 2Sep2026",
+        "access": "公开正文",
+        "evidence": "§4.7，Verlet::run() 伪代码及前后积分步骤。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw064",
+    "name": "Aspen HYSYS",
+    "status": "not-located",
+    "summary": "官方明确列出热力学原理、计算模型和闪蒸章节，附件正文未取得。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Aspen HYSYS V7.2 — Thermodynamics COM Interface Reference",
+        "url": "https://esupport.aspentech.com/S_Article?id=000053453",
+        "version": "V7.2，知识库更新2020-11-03",
+        "access": "仅目录/摘要",
+        "evidence": "正文列出 Thermodynamic Principles、Calculation Models、Flash Calculations 等十个章节。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "已读官方手册介绍和附件入口，未取得理论正文；仅确认资料存在及历史版本，不把目录作为具体方程的证据。"
+  },
+  {
+    "softwareId": "sw065",
+    "name": "UniSim Design",
+    "status": "not-located",
+    "summary": "已读高级建模课程与产品资料，但未取得公开的热力学参考手册正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "UniSim Design — Advanced Process Modelling course USD-0002",
+        "url": "https://process.honeywell.com/content/dam/process/en/documents/training-docs/honeywell-connected-industrial/usd/USD-0002-Honeywell-UniSim-Design-Advanced-Process-Modelling-Using-UniSim-Design.pdf",
+        "version": "未标明版本",
+        "access": "仅目录/摘要",
+        "evidence": "课程大纲列出高级建模主题，未展开模型方程、参数及求解过程。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查官方课程、产品与版本资料；第三方转载 Thermo Reference Guide 未作为依据。公开资料缺少可核实的具体模型正文，不说明安装帮助中不存在。"
+  },
+  {
+    "softwareId": "sw066",
+    "name": "CHEMCAD",
+    "status": "limited",
+    "summary": "公开用户指南解释 K 值、焓模型与相平衡/热平衡的关系，但不是完整物性理论推导。",
+    "topics": [
+      {
+        "title": "相平衡与热平衡的模型分工",
+        "kind": "物理与机理",
+        "explanation": "用户指南把 K 值定义为给定条件下组分在气液两相中分配的比率，并说明软件用它计算流股与单元操作的气液平衡。焓模型则计算热含量、支撑热平衡；选择物性时还需指定一液相或两液相，模型选择会改变可处理的相行为。",
+        "assumptions": "本次仅核实模型角色与配置边界；各内置关联式、参数来源及数值算法需继续查物性与单元操作专门手册。",
+        "locator": "Manually Selecting Thermodynamics Settings，印刷页51；Creating a Custom K-value or Enthalpy Model，页131。",
+        "sourceUrls": [
+          "https://chemstations.com/hubfs/Datacor-Chemstations/PDF/CHEMCAD_User_Guide.pdf?hsLang=en"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "CHEMCAD User Guide",
+        "url": "https://chemstations.com/hubfs/Datacor-Chemstations/PDF/CHEMCAD_User_Guide.pdf?hsLang=en",
+        "version": "2021版权版",
+        "access": "公开正文",
+        "evidence": "Manually Selecting Thermodynamics Settings，印刷页51；Creating a Custom K-value or Enthalpy Model，页131。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw067",
+    "name": "gPROMS",
+    "status": "not-located",
+    "summary": "官方页面确认采用基于方程的过程建模，但未取得足以解释求解机理的公开用户手册。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Siemens gPROMS product documentation entry",
+        "url": "https://www.siemens.com/en-gb/products/gproms/",
+        "version": "滚动产品页面",
+        "access": "仅目录/摘要",
+        "evidence": "FAQ 说明 equation-based modeling；没有展开方程结构、离散化或求解器算法。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检索官方 gPROMS 产品、培训及技术入口；不采用第三方转载 Introductory User Guide，也不由产品宣传补写 DAE 求解过程。"
+  },
+  {
+    "softwareId": "sw068",
+    "name": "VASP",
+    "status": "documented",
+    "summary": "VASP Wiki 解释电子结构近似、平面波/PAW、自洽与离子自由度的计算关系。",
+    "topics": [
+      {
+        "title": "电子基态、自洽循环与离子运动",
+        "kind": "物理与机理",
+        "explanation": "官方理论概览说明用 Kohn–Sham 密度泛函或 Hartree–Fock 等近似求电子态，并以平面波和 PAW 表示相关量。电子基态通过迭代矩阵求解与电荷密度混合获得；离子可据力优化结构或按运动方程进行分子动力学。",
+        "assumptions": "不同泛函、赝势、精度和边界条件影响结果；理论目录覆盖多种可选方法，不能认为一次计算同时使用全部方法。",
+        "locator": "Theory 正文与 Electronic minimization 入口。",
+        "sourceUrls": [
+          "https://vasp.at/wiki/Category:Theory"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "VASP Wiki — Theory",
+        "url": "https://vasp.at/wiki/Category:Theory",
+        "version": "滚动 Wiki",
+        "access": "公开正文",
+        "evidence": "Theory 正文与 Electronic minimization 入口。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw069",
+    "name": "Quantum ESPRESSO / PWscf",
+    "status": "limited",
+    "summary": "PWscf 用户指南公开解释自洽/非自洽计算、能带与自旋轨道条件，详细推导需结合理论资料。",
+    "topics": [
+      {
+        "title": "自洽势与能带计算路径",
+        "kind": "物理与机理",
+        "explanation": "指南说明先在固定离子条件下求自洽电子态，再在该势上对指定 k 点进行非自洽求解，以获得能带或态密度所需结果。自旋轨道计算还要求启用非共线与自旋轨道设置，并至少为一种原子使用全相对论赝势。",
+        "assumptions": "这是模型设置及计算依赖的说明，未在本页完整推导泛函与迭代算法；不同版本输入语法应查相应输入参考。",
+        "locator": "§3.3.0.1–3.3.0.4：SCF、bands/nscf、noncollinear、DFT+U。",
+        "sourceUrls": [
+          "https://www.quantum-espresso.org/Doc/pw_user_guide/node10.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "PWscf User Guide — Electronic structure calculations",
+        "url": "https://www.quantum-espresso.org/Doc/pw_user_guide/node10.html",
+        "version": "滚动HTML指南，页面未标明版本",
+        "access": "公开正文",
+        "evidence": "§3.3.0.1–3.3.0.4：SCF、bands/nscf、noncollinear、DFT+U。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw070",
+    "name": "BIOVIA Pipeline Pilot",
+    "status": "limited",
+    "summary": "官方技术社区正文解释平面记录与层次数据模型，未核查各科学组件的全部算法。",
+    "topics": [
+      {
+        "title": "记录、属性与层次数据模型",
+        "kind": "几何与数据模型",
+        "explanation": "说明以根节点上的键值属性表示普通表格行；复杂对象则在根节点下挂接多层子节点，形成层次化记录。这解释了同一管道中数据为何不总能压成单行表格，以及 Data Record Tree Viewer 所展示的对象结构。",
+        "assumptions": "仅核查通用记录模型；化学计算、机器学习等组件的算法另有文档，不能由数据管道结构推断科学模型正确性。",
+        "locator": "flat one-level data record、root node、child nodes。",
+        "sourceUrls": [
+          "https://3dswym.3dexperience.3ds.com/post/biovia-pipeline-pilot/hierarchical-data-in-pipeline-pilot_efCeGh8RQ-qpZdXARA3BYA"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Hierarchical Data in Pipeline Pilot",
+        "url": "https://3dswym.3dexperience.3ds.com/post/biovia-pipeline-pilot/hierarchical-data-in-pipeline-pilot_efCeGh8RQ-qpZdXARA3BYA",
+        "version": "2022-10-27技术说明",
+        "access": "公开正文",
+        "evidence": "flat one-level data record、root node、child nodes。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw071",
+    "name": "SIMATIC PCS 7 / OpenPCS 7",
+    "status": "documented",
+    "summary": "公开历史 APL 手册详细说明增益调度、插值及其非线性控制局限。",
+    "topics": [
+      {
+        "title": "按工况调度 PID 参数",
+        "kind": "业务与控制模型",
+        "explanation": "GainSched 用可连续测量的工况变量索引预设的 PID 参数表，在相邻工况点之间线性插值控制增益及积分、微分时间，范围外取边界参数。这样可平滑切换局部整定结果，但文档明确指出局部最优控制器的拼接不保证全局非线性最优。",
+        "assumptions": "历史 APL V7.1资料；调度表需先行整定，非单调或不连续过程须谨慎。这里只涉及 PCS 7 控制块，不是 OpenPCS 7 通信接口的机理。",
+        "locator": "§4.4 GainSched，印刷页379–380；§18.1，页1431–1432。",
+        "sourceUrls": [
+          "https://cache.industry.siemens.com/dl/files/808/36209808/att_77975/v1/s7jal71b_en-US.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "PCS 7 Advanced Process Library V7.1 Function Manual",
+        "url": "https://cache.industry.siemens.com/dl/files/808/36209808/att_77975/v1/s7jal71b_en-US.pdf",
+        "version": "V7.1，2009-03",
+        "access": "公开正文",
+        "evidence": "§4.4 GainSched，印刷页379–380；§18.1，页1431–1432。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw158",
+    "name": "Cantera",
+    "status": "documented",
+    "summary": "Science Reference 给出质量作用定律、反应速率及速率常数参数化。",
+    "topics": [
+      {
+        "title": "反应速率与动力学机制",
+        "kind": "物理与机理",
+        "explanation": "文档由化学计量关系建立基本反应的质量作用速率，正向速率由反应物浓度的幂次乘积与速率常数构成，并说明 Arrhenius 等参数化如何给出常数。不同反应类别另有压力或碰撞体处理，因此反应机制文件同时决定方程形式及参数。",
+        "assumptions": "机理与参数须适合目标温压、组分和反应类型；软件能计算所给机理不代表它已验证真实工艺的化学动力学。",
+        "locator": "Elementary Reactions；Three-body、Falloff 等后续反应类别。",
+        "sourceUrls": [
+          "https://cantera.org/stable/reference/kinetics/reaction-rates.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Cantera Science Reference — Reaction Rates",
+        "url": "https://cantera.org/stable/reference/kinetics/reaction-rates.html",
+        "version": "3.2.0",
+        "access": "公开正文",
+        "evidence": "Elementary Reactions；Three-body、Falloff 等后续反应类别。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw159",
+    "name": "CP2K",
+    "status": "documented",
+    "summary": "Quickstep 方法文档解释 GPW 的高斯基、网格及平面波表示转换。",
+    "topics": [
+      {
+        "title": "高斯与平面波混合表示",
+        "kind": "数值算法",
+        "explanation": "GPW 以高斯型轨道为主要基，将电子密度映射到规则网格，再借助快速傅里叶变换在适合求 Poisson 方程的表示中计算静电势，最后积分回高斯基。文档把这种在两种表示间转换的流程作为 GPW 的核心思想。",
+        "assumptions": "来源是 trunk 开发文档；基组与赝势须一致并完成网格及自洽收敛检验，不应假定开发文档对应用户已安装的发布版。",
+        "locator": "Gaussian Plane Wave 正文及 collocation → FFT → Poisson Solver → integration 图。",
+        "sourceUrls": [
+          "https://manual.cp2k.org/trunk/methods/dft/gpw.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "CP2K — Gaussian Plane Wave",
+        "url": "https://manual.cp2k.org/trunk/methods/dft/gpw.html",
+        "version": "trunk开发文档",
+        "access": "公开正文",
+        "evidence": "Gaussian Plane Wave 正文及 collocation → FFT → Poisson Solver → integration 图。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw160",
+    "name": "ChemSep",
+    "status": "not-located",
+    "summary": "官方书籍包含平衡级、非平衡级和物性模型章节，检索可见正文片段，但完整 PDF 本次持续抓取失败。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "The ChemSep Book",
+        "url": "https://chemsep.org/book/docs/book2.pdf",
+        "version": "未标明版本",
+        "access": "仅目录/摘要",
+        "evidence": "检索片段含第2章非平衡模型及第10章相平衡线索；直接打开多次超时。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查官方 book/docs 与 downloads/docs 入口及官方域内检索；由于未取得完整正文，本页不把检索片段扩写为已完整核查的模型解读，也不能断言文档不可公开访问。"
+  },
+  {
+    "softwareId": "sw161",
+    "name": "Aspen Custom Modeler",
+    "status": "not-located",
+    "summary": "官方课程列出开放方程建模与模型运行主题，但课程页没有实际方程或求解理论正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Building Custom Simulation Models using Aspen Custom Modeler",
+        "url": "https://esupport.aspentech.com/apex/T_course?id=a3p0B0000004YqGQAU",
+        "version": "课程 EAP2311，页面未标明软件版本",
+        "access": "仅目录/摘要",
+        "evidence": "Course content：模型变量、方程、仿真与自动化教学范围。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方课程大纲、产品页及学习目录；不将课程标题或模型可编辑能力当作具体模型机理的证据，安装帮助仍需另行核查。"
+  },
+  {
+    "softwareId": "sw007",
+    "name": "SuperPro Designer",
+    "status": "documented",
+    "summary": "在线手册通过实例说明物料/能量平衡、设计/评价模式和过滤操作的建模参数。",
+    "topics": [
+      {
+        "title": "流程平衡与设备尺寸/性能的分工",
+        "kind": "数学模型",
+        "explanation": "手册将流程分成单元操作与物料流，通过物料和能量平衡连接各步骤。设计模式由工艺负荷求设备尺寸，评价模式则在既定设备条件下计算表现；过滤示例使用给定通量等参数，展示操作时长、处理量和设备需求之间的依赖。",
+        "assumptions": "案例中的操作模型和参数需对应真实过程；不是所有设备采用同一模型，经济估算与操作模型也有各自输入和适用范围。",
+        "locator": "Chapter 2，Design Mode、Rating Mode、Solve M&E Balances、filter flux。",
+        "sourceUrls": [
+          "https://docs.intelligen.com/spd/SPDWebHelp/Bk7/Chapter2/Developing_a_Process_Model.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "SuperPro Designer — Developing a Process Model",
+        "url": "https://docs.intelligen.com/spd/SPDWebHelp/Bk7/Chapter2/Developing_a_Process_Model.htm",
+        "version": "滚动在线手册，页面未标明版本",
+        "access": "公开正文",
+        "evidence": "Chapter 2，Design Mode、Rating Mode、Solve M&E Balances、filter flux。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw008",
+    "name": "PAS-X MES",
+    "status": "limited",
+    "summary": "公开 PAS-X 说明给出参数化主批记录和可复用流程块的业务模型，未公开完整执行引擎理论。",
+    "topics": [
+      {
+        "title": "参数化主批记录与流程块",
+        "kind": "业务与控制模型",
+        "explanation": "公开说明将配方表示为图形化、可重复使用的流程块，通用主批记录用参数占位代替固定值，执行时记录设备和批次状态，并以审批流程处理偏差。这说明了配方定义与批次记录之间的业务关系，但未披露执行器内部状态转移细节。",
+        "assumptions": "来源是公开功能说明，仅支持业务结构层面的理解；不能据此证明所有项目采用相同块库、校验规则或合规验证结果。",
+        "locator": "PAS-X Electronic Batch Recording；generic MBRs define parameters instead of values。",
+        "sourceUrls": [
+          "https://www.koerber.com/en/solutions/software-and-ai/life-sciences-mes/digital-manufacturing/execute-paperless"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "PAS-X — Execute paperless manufacturing",
+        "url": "https://www.koerber.com/en/solutions/software-and-ai/life-sciences-mes/digital-manufacturing/execute-paperless",
+        "version": "滚动产品说明",
+        "access": "公开正文",
+        "evidence": "PAS-X Electronic Batch Recording；generic MBRs define parameters instead of values。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw009",
+    "name": "Opcenter Execution Pharma",
+    "status": "limited",
+    "summary": "2411官方发布说明解释 SIMATIC Batch 任务元素中的配方标识与通用配方关系。",
+    "topics": [
+      {
+        "title": "批次任务与配方版本绑定",
+        "kind": "业务与控制模型",
+        "explanation": "发布说明指出批次创建时可为任务元素指定配方的类别、名称和版本，使 SIMATIC Batch 中的通用配方能够在执行时绑定实际公式标识。由此可以理解配方定义与具体批次之间的关系；文档同时介绍生产中检测与操作界面的信息流。",
+        "assumptions": "只核实2411的局部业务机制，不包含整个 MES 的执行状态机或数据库模型；具体配方兼容与权限取决于项目配置。",
+        "locator": "Opcenter batch task element；formula identification(category,name,version) at batch creation。",
+        "sourceUrls": [
+          "https://blogs.sw.siemens.com/opcenter/whats-new-in-opcenter-execution-pharma-2411/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "What’s new in Opcenter Execution Pharma 2411",
+        "url": "https://blogs.sw.siemens.com/opcenter/whats-new-in-opcenter-execution-pharma-2411/",
+        "version": "2411，2024-12-11",
+        "access": "公开正文",
+        "evidence": "Opcenter batch task element；formula identification(category,name,version) at batch creation。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw010",
+    "name": "LabWare LIMS / Integration Platform",
+    "status": "limited",
+    "summary": "官方文章解释样品从登记到审批报告的生命周期，属于通用 LIMS 业务说明。",
+    "topics": [
+      {
+        "title": "样品生命周期与可追溯记录",
+        "kind": "业务与控制模型",
+        "explanation": "文章按样品登记、分派工作流、检测、结果采集、审批和报告解释 LIMS 的运作，并用样品标识把操作、仪器和审核记录关联起来。这可作为理解 LabWare 应用业务对象的入口，但文章讲的是 LIMS 通用流程，不足以推断底层状态机实现。",
+        "assumptions": "仅是厂商对通用 LIMS 的业务解释；现场状态、转换条件、规则脚本与数据库结构仍需客户版配置及帮助文档核查。",
+        "locator": "How a LIMS Works: The Sample Lifecycle。",
+        "sourceUrls": [
+          "https://www.labware.com/blog/how-does-a-lims-work"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "How Does a LIMS Work?",
+        "url": "https://www.labware.com/blog/how-does-a-lims-work",
+        "version": "2026-08-25更新",
+        "access": "公开正文",
+        "evidence": "How a LIMS Works: The Sample Lifecycle。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw011",
+    "name": "Materialise Mimics / Mimics Innovation Suite",
+    "status": "limited",
+    "summary": "Mimics 官方教程解释阈值掩模与6/26邻域连通的区域生长。",
+    "topics": [
+      {
+        "title": "体素连通性与区域分离",
+        "kind": "几何与数据模型",
+        "explanation": "教程先用全局阈值生成掩模，再以选定种子和连通规则分离结构。6连通只允许共享面的相邻体素连接，26连通还允许边角方向相接；因此相同掩模可因邻域定义不同而产生不同连通区域，孤立体素或壳体也可能被排除。",
+        "assumptions": "只覆盖阈值后区域生长的局部原理，未公开所有分割与表面重建算法；研究/医疗版本及所在市场许可另需核查。",
+        "locator": "Instructions → Simple segmentation、Understanding connectivity。",
+        "sourceUrls": [
+          "https://www.materialise.com/en/academy/healthcare/mimics-innovation-suite/video-tutorials/region-growing?t=70"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Materialise Academy — How to Use Region Growing",
+        "url": "https://www.materialise.com/en/academy/healthcare/mimics-innovation-suite/video-tutorials/region-growing?t=70",
+        "version": "未标明产品版本",
+        "access": "公开正文",
+        "evidence": "Instructions → Simple segmentation、Understanding connectivity。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw012",
+    "name": "UNICORN / UNICORN OPC Server",
+    "status": "documented",
+    "summary": "官方旧版评估手册解释形态学基线及结构宽度对峰积分的影响。",
+    "topics": [
+      {
+        "title": "形态学基线与色谱峰评估",
+        "kind": "数值算法",
+        "explanation": "手册用沿横轴移动的线段描述基线构造：线段触及色谱曲线时形成基线采样点，随后连接这些点，并可从原曲线扣除基线。结构宽度决定线段尺度，因而影响漂移基线和峰簇的识别；这为调节积分结果提供了具体机制。",
+        "assumptions": "这是 UNICORN6.1评估模块的历史说明，不是 OPC Server 机理；手册明确指出负峰及其定量重要时不宜使用该算法。",
+        "locator": "§4.3.2 Optimize the baseline with a morphological algorithm，印刷页134–136。",
+        "sourceUrls": [
+          "https://cdn.cytivalifesciences.com/api/public/content/digi-15615-original"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "UNICORN 6.1 Evaluation Manual",
+        "url": "https://cdn.cytivalifesciences.com/api/public/content/digi-15615-original",
+        "version": "6.1，文档28-9817-67 AA",
+        "access": "公开正文",
+        "evidence": "§4.3.2 Optimize the baseline with a morphological algorithm，印刷页134–136。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw072",
+    "name": "DeltaV DCS",
+    "status": "documented",
+    "summary": "官方白皮书解释动态复位限制、双自由度 PID 和 PIDPlus 的控制行为。",
+    "topics": [
+      {
+        "title": "利用实际输出响应限制积分累积",
+        "kind": "业务与控制模型",
+        "explanation": "白皮书说明动态复位限制根据实际实现的输出响应补偿 PID 的积分累积：普通回路可利用现场输出，串级主回路可利用副回路测量值。它让主回路的积分行为考虑副回路或执行端的响应速度，帮助解释串级、超驰场景中的控制效果。",
+        "assumptions": "该说明聚焦特定 PID 功能，不代表所有 DeltaV 选件算法；效果依赖回路连接、测量质量和整定，不能据此保证任何过程的稳定性。",
+        "locator": "Dynamic Reset Limiting，第3页；Two Degrees of Freedom，第4页。",
+        "sourceUrls": [
+          "https://www.emerson.com/is/content/emerson/en/systems-and-software/deltav-distributed-control-system-dcs/white-papers/documents/key-features-of-the-deltav-pid-function-block.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Key Features of the DeltaV PID Function Block",
+        "url": "https://www.emerson.com/is/content/emerson/en/systems-and-software/deltav-distributed-control-system-dcs/white-papers/documents/key-features-of-the-deltav-pid-function-block.pdf",
+        "version": "2022-07白皮书",
+        "access": "公开正文",
+        "evidence": "Dynamic Reset Limiting，第3页；Two Degrees of Freedom，第4页。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw073",
+    "name": "Schrödinger Suite / Maestro",
+    "status": "limited",
+    "summary": "官方 Glide 白皮书解释分层构象筛选及 Emodel/GlideScore 的不同用途。",
+    "topics": [
+      {
+        "title": "分层对接搜索与打分",
+        "kind": "数值算法",
+        "explanation": "说明中 Glide 先用分层过滤搜索配体在受体结合区域内的可能位置，再进行姿态评估。Emodel 用于同一配体的不同蛋白复合姿态选择，GlideScore 用于跨化合物排序；两种分数的用途不同，不能简单混同成同一个结合亲和力测量。",
+        "assumptions": "仅覆盖 Suite 中 Glide 的已公开原理；具体版本的打分函数及模式另查，Maestro 界面本身不等于独立物理求解器。",
+        "locator": "Glide HTVS/SP hierarchical filters；Emodel versus GlideScore。",
+        "sourceUrls": [
+          "https://www.schrodinger.com/life-science/learn/white-papers/docking-and-scoring/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Schrödinger — Docking and scoring",
+        "url": "https://www.schrodinger.com/life-science/learn/white-papers/docking-and-scoring/",
+        "version": "滚动技术白皮书页面",
+        "access": "公开正文",
+        "evidence": "Glide HTVS/SP hierarchical filters；Emodel versus GlideScore。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw074",
+    "name": "BIOVIA Discovery Studio",
+    "status": "not-located",
+    "summary": "已核查官方结构设计资料，列出 CDOCKER、CHARMm、LIBDOCK 等方法，但没有足够算法正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Structure-Based Design with BIOVIA Discovery Studio",
+        "url": "https://www.3ds.com/fileadmin/PRODUCTS-SERVICES/BIOVIA/PDF/structure-based-design-biovia-discovery-studio.pdf",
+        "version": "未标明产品版本",
+        "access": "仅目录/摘要",
+        "evidence": "两页数据表，给出方法清单与任务范围，未展开评分函数、搜索流程或参数假设。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检索官方技术资料和产品说明，已读公开数据表；没有将“使用某算法”的功能列表等同于已核查其机理，完整客户端帮助需另查。"
+  },
+  {
+    "softwareId": "sw075",
+    "name": "Waters Empower CDS",
+    "status": "limited",
+    "summary": "官方技术提示说明 ApexTrack 依据色谱二阶导数检测峰，并给出共洗脱分析入口。",
+    "topics": [
+      {
+        "title": "基于曲率的色谱峰检测",
+        "kind": "数值算法",
+        "explanation": "技术提示说明 ApexTrack 从色谱信号的二阶导数检测峰，观察导数曲线可帮助识别共洗脱峰。相应支持文档进一步以曲率极值和拐点解释识别行为；因此峰检出不只由原始信号高度决定，还受到曲线形状及噪声处理影响。",
+        "assumptions": "仅整理公开支持说明，未取得完整 Data Acquisition and Processing Theory Guide；积分事件、阈值和版本差异仍需核对。",
+        "locator": "Tip #64正文：ApexTrack detects peaks from second derivative。",
+        "sourceUrls": [
+          "https://help.waters.com/help/en/product-support/empower-chromatography-data-system-support/empower-tips/tip-64.html",
+          "https://support.waters.com/KB_Inf/Empower_Breeze/WKB219994_Why_is_an_apparent_unknown_peak_between_two_unresolved_peaks_is_automatically_picked_up_and_integrated_using_Apex_Track"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Empower Tip #64 — Review Window and the Processing Method",
+        "url": "https://help.waters.com/help/en/product-support/empower-chromatography-data-system-support/empower-tips/tip-64.html",
+        "version": "Empower 技术提示，页面未限定产品版本",
+        "access": "公开正文",
+        "evidence": "Tip #64正文：ApexTrack detects peaks from second derivative。"
+      },
+      {
+        "title": "Waters WKB219994 — ApexTrack unresolved peaks",
+        "url": "https://support.waters.com/KB_Inf/Empower_Breeze/WKB219994_Why_is_an_apparent_unknown_peak_between_two_unresolved_peaks_is_automatically_picked_up_and_integrated_using_Apex_Track",
+        "version": "Empower，未限定小版本",
+        "access": "公开正文",
+        "evidence": "ANSWER解释二阶导数曲率极值、零交叉拐点以及噪声导致并非所有极值都对应峰。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw076",
+    "name": "Chromeleon CDS",
+    "status": "documented",
+    "summary": "官方技术说明公开 Cobra 平滑、二阶导数与自适应阈值的处理链。",
+    "topics": [
+      {
+        "title": "Cobra 自适应平滑与峰检出",
+        "kind": "数值算法",
+        "explanation": "Cobra 先采用自适应 Savitzky–Golay 平滑，再把信号转换成二阶导数，并依据曲线特征设定检测阈值。文档解释求导会放大噪声，足够平滑对识别峰起止点很重要，并区分用于检测和积分的处理与原始数据本身。",
+        "assumptions": "只覆盖 Cobra/SmartPeaks 色谱处理，不代表所有 Chromeleon 检测器和处理类型；参数须由实际信号和实验室方法验证。",
+        "locator": "§2，PDF第4页；§8 detection parameters。",
+        "sourceUrls": [
+          "https://documents.thermofisher.com/TFS-Assets/LSG/brochures/TechnicalNote70698.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Intelligent Integration Using Cobra and SmartPeaks",
+        "url": "https://documents.thermofisher.com/TFS-Assets/LSG/brochures/TechnicalNote70698.pdf",
+        "version": "Technical Note70698，未标明软件小版本",
+        "access": "公开正文",
+        "evidence": "§2，PDF第4页；§8 detection parameters。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw077",
+    "name": "LabVantage LIMS",
+    "status": "not-located",
+    "summary": "公开资料列出样品生命周期与工作流功能，未取得详细状态转换或数据模型说明。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "LabVantage 8 Features and Benefits",
+        "url": "https://www.labvantage.com/pdfs/knowledge-center/brochures/LabVantage-8-Features-and-Benefits-Brochure.pdf",
+        "version": "LabVantage8",
+        "access": "仅目录/摘要",
+        "evidence": "Sample Lifecycle、Workflow等功能段；为产品功能数据表。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "已检查官方功能说明和培训线索；没有用“可配置工作流”等功能清单补造内部业务状态机。客户版文档的可用性尚未核实。"
+  },
+  {
+    "softwareId": "sw078",
+    "name": "LabSolutions IR",
+    "status": "limited",
+    "summary": "官方教学材料用真实 LabSolutions IR 操作说明线性/非线性校准模型的选择。",
+    "topics": [
+      {
+        "title": "吸光度与浓度的校准关系",
+        "kind": "数学模型",
+        "explanation": "教学材料先以 Beer–Lambert 关系解释线性浓度校准，再用不遵循线性关系的样品演示非线性校准。LabSolutions IR 中需导入处理后的标准谱并给出标准浓度，再拟合校准曲线；未知样浓度依赖所选特征和已建立的标准关系。",
+        "assumptions": "本例只解释校准模型的选择与工作流；不包含光谱库检索算法、全部校正公式或各型号仪器的物理实现。",
+        "locator": "Introduction；LabSolutions IR calibration table 与 calibration curve 设置。",
+        "sourceUrls": [
+          "https://www.ssi.shimadzu.com/sites/ssi.shimadzu.com/files/products/literature/UV/teach_notes/220-93223-04-TEACHING_NOTE_An_Example_of_a_Non-Linear_Calibration_Curve_Dimethicone.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "FTIR Teaching Notes — An Example of a Non-Linear Calibration Curve",
+        "url": "https://www.ssi.shimadzu.com/sites/ssi.shimadzu.com/files/products/literature/UV/teach_notes/220-93223-04-TEACHING_NOTE_An_Example_of_a_Non-Linear_Calibration_Curve_Dimethicone.pdf",
+        "version": "教学资料220-93223-04，未标明软件版本",
+        "access": "公开正文",
+        "evidence": "Introduction；LabSolutions IR calibration table 与 calibration curve 设置。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw079",
+    "name": "Benchling",
+    "status": "documented",
+    "summary": "官方帮助详细说明 Registry schema、实体、字段、父子关系与验证规则。",
+    "topics": [
+      {
+        "title": "实体 schema 与样品谱系",
+        "kind": "几何与数据模型",
+        "explanation": "Schema 定义实体的结构、命名、字段及校验要求，具体样品是其下的实体实例。父子实体链接可表示同一材料的批次、稀释物或制备物，也可继续形成多阶段生产关系；必填、多选和实体链接规则决定注册时可接受的数据。",
+        "assumptions": "这是数据与业务对象模型，不是生物过程机理；部分实体类型依赖 Benchling Biologics 等功能授权，项目配置仍需逐项核对。",
+        "locator": "Structure metadata with Registry schemas；Entity field configuration options。",
+        "sourceUrls": [
+          "https://help.benchling.com/hc/en-us/articles/39935326052493-Configure-Registry-schemas"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Benchling — Configure Registry schemas",
+        "url": "https://help.benchling.com/hc/en-us/articles/39935326052493-Configure-Registry-schemas",
+        "version": "2026-05-13更新",
+        "access": "公开正文",
+        "evidence": "Structure metadata with Registry schemas；Entity field configuration options。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw162",
+    "name": "GROMACS",
+    "status": "documented",
+    "summary": "GROMACS 参考手册解释运动积分、半步速度与温压耦合的差别。",
+    "topics": [
+      {
+        "title": "Leap-frog 与 velocity Verlet",
+        "kind": "数值算法",
+        "explanation": "文档给出 leap-frog 用半步速度和整步位置推进牛顿运动方程的关系，并比较 velocity Verlet 的时间对齐和动能计算。无温压耦合且起始点一致时两者可生成相同轨迹，但速度解释、温度估计及恒温/恒压耦合会使结果出现区别。",
+        "assumptions": "分子模型、势函数、约束和时间步仍需独立选择；积分算法正确不保证力场、采样或目标热力学量已收敛。",
+        "locator": "The leap-frog integrator；The velocity Verlet integrator；Trotter decomposition。",
+        "sourceUrls": [
+          "https://manual.gromacs.org/current/reference-manual/algorithms/molecular-dynamics.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "GROMACS — Molecular Dynamics",
+        "url": "https://manual.gromacs.org/current/reference-manual/algorithms/molecular-dynamics.html",
+        "version": "2026.4",
+        "access": "公开正文",
+        "evidence": "The leap-frog integrator；The velocity Verlet integrator；Trotter decomposition。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw163",
+    "name": "OpenMM",
+    "status": "documented",
+    "summary": "Theory 部分给出 Verlet、Langevin、Nose–Hoover 等积分器的方程与离散流程。",
+    "topics": [
+      {
+        "title": "动力学积分与热浴模型",
+        "kind": "数值算法",
+        "explanation": "VerletIntegrator 使用位置与速度相差半步的 leap-frog 更新；Langevin 积分器则在力学作用之外加入摩擦与随机力，表示与热浴接触的系统。文档给出所用 LFMiddle 离散和随机项的统计约束，并提醒半步错位会影响总能量的读取方式。",
+        "assumptions": "需将积分器与力场、约束及时间步匹配；自定义 Force/Integrator 可能改写默认模型，理论说明不等于对特定体系的验证。",
+        "locator": "§21.1 VerletIntegrator；§21.2 LangevinIntegrator；§21.3 LangevinMiddleIntegrator。",
+        "sourceUrls": [
+          "https://docs.openmm.org/latest/userguide/theory/04_integrators.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "OpenMM User Guide — Integrators",
+        "url": "https://docs.openmm.org/latest/userguide/theory/04_integrators.html",
+        "version": "8.6",
+        "access": "公开正文",
+        "evidence": "§21.1 VerletIntegrator；§21.2 LangevinIntegrator；§21.3 LangevinMiddleIntegrator。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw164",
+    "name": "RDKit",
+    "status": "documented",
+    "summary": "RDKit Book 解释芳香性规则、化学表示与其他化学信息学算法。",
+    "topics": [
+      {
+        "title": "分子图上的芳香性判定",
+        "kind": "几何与数据模型",
+        "explanation": "文档说明芳香性是依据选定规则在分子图上分配的属性，RDKit 提供多种模型并允许自定义。环外键、杂原子自由基及稠合环会改变电子贡献和候选资格；因此原子被标为芳香性并不必然意味着连接两者的任意键也被标为芳香键。",
+        "assumptions": "这属于化学信息学表示规则，不是量子化学直接求解；不同芳香性模型、SMILES处理和版本可能产生不同标记。",
+        "locator": "Aromaticity、The RDKit Aromaticity Model、Simple/MDL models。",
+        "sourceUrls": [
+          "https://www.rdkit.org/docs/RDKit_Book.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "The RDKit Book",
+        "url": "https://www.rdkit.org/docs/RDKit_Book.html",
+        "version": "2026.09.1",
+        "access": "公开正文",
+        "evidence": "Aromaticity、The RDKit Aromaticity Model、Simple/MDL models。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw165",
+    "name": "FEBio",
+    "status": "documented",
+    "summary": "官方材料条目公开 neo-Hookean 应变能、参数转换及近不可压缩锁定限制。",
+    "topics": [
+      {
+        "title": "Neo-Hookean 超弹性本构",
+        "kind": "物理与机理",
+        "explanation": "条目用超弹性应变能定义非线性应力应变关系，并给出 Young 模量、Poisson 比与 Lamé 参数的转换。小应变和小转动下退化为经典线弹性；相同条目还说明该实现采用位移型单元，接近不可压缩时可能发生单元锁定。",
+        "assumptions": "这里只展示一种本构模型，不能外推到全部软组织；近不可压缩情况需按文档选用合适本构与单元，参数也须实验标定。",
+        "locator": "Description；Parameters；displacement-based element locking warning。",
+        "sourceUrls": [
+          "https://febiosoftware.github.io/febio-docs/features/features/solid_material_neo-hookean/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "FEBio Manuals — neo-Hookean",
+        "url": "https://febiosoftware.github.io/febio-docs/features/features/solid_material_neo-hookean/",
+        "version": "滚动官方手册，页面未标明版本",
+        "access": "公开正文",
+        "evidence": "Description；Parameters；displacement-based element locking warning。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw166",
+    "name": "3D Slicer",
+    "status": "limited",
+    "summary": "Segment Editor 文档解释种子生长、切片间插值及其输入限制。",
+    "topics": [
+      {
+        "title": "种子分割与形态学轮廓插值",
+        "kind": "数值算法",
+        "explanation": "Grow from seeds 依据各组织内部的人工种子扩展分割，官方注明采用改进的 Fast GrowCut 方法；Fill between slices 则在已有轮廓切片之间插值，并明确只使用分割形状、不使用源图像。两者处理依据不同，不能视为同一种自动识别机制。",
+        "assumptions": "种子法至少需要两个可见分段；删去种子可能需要重新初始化。文档是模块级原理入口，并非完整推导；软件定位研究用途。",
+        "locator": "Grow from seeds；Fill between slices，Notes。",
+        "sourceUrls": [
+          "https://slicer.readthedocs.io/en/latest/user_guide/modules/segmenteditor.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "3D Slicer — Segment editor",
+        "url": "https://slicer.readthedocs.io/en/latest/user_guide/modules/segmenteditor.html",
+        "version": "latest滚动文档",
+        "access": "公开正文",
+        "evidence": "Grow from seeds；Fill between slices，Notes。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw167",
+    "name": "LabKey Server",
+    "status": "documented",
+    "summary": "LabKey 官方说明区分 assay type、design、run，解释仪器数据的解释模型。",
+    "topics": [
+      {
+        "title": "检测类型、设计与运行实例",
+        "kind": "几何与数据模型",
+        "explanation": "Assay type 提供一类检测的基本框架，assay design 在其上定义特定实验所需字段和元信息，run 则表示一次按该设计导入的仪器结果。设计决定如何解释上传数据，以及需要额外询问哪些运行属性，形成原始结果与实验语境的绑定。",
+        "assumptions": "这是实验数据模型而非仪器测量物理模型；具体 assay 类型可另带转换脚本和计算方法，不能由通用术语推断。",
+        "locator": "Assay Types；Assay Designs；Assay run。",
+        "sourceUrls": [
+          "https://www.labkey.org/Documentation/wiki-page.view?name=assayDesign"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "LabKey — Assay Terminology",
+        "url": "https://www.labkey.org/Documentation/wiki-page.view?name=assayDesign",
+        "version": "滚动文档",
+        "access": "公开正文",
+        "evidence": "Assay Types；Assay Designs；Assay run。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw013",
+    "name": "Opcenter Execution Process",
+    "status": "not-located",
+    "summary": "官方4.4说明与信息模型资料主要讲功能和集成，未取得过程执行状态模型的详细正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Opcenter Execution Process 4.4",
+        "url": "https://blogs.sw.siemens.com/opcenter/available-now-opcenter-execution-process-4-4/",
+        "version": "4.4",
+        "access": "仅目录/摘要",
+        "evidence": "版本说明列出集成与功能能力，没有展开调度或执行算法。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检索官方产品、发布说明及现有集成资料；不以接口信息模型替代产品内部业务机理，详细用户帮助仍需核查。"
+  },
+  {
+    "softwareId": "sw014",
+    "name": "Sepasoft MES / Batch Procedure",
+    "status": "documented",
+    "summary": "官方手册解释 ISA-88 层级、配方步骤及主配方复制为控制配方的执行模型。",
+    "topics": [
+      {
+        "title": "主配方与批次执行副本",
+        "kind": "业务与控制模型",
+        "explanation": "配方以步骤、顺序和转换条件描述过程，步骤可按单元程序、操作和阶段形成层级；设备执行阶段逻辑并向批引擎反馈状态及参数。保存后形成主配方，每次执行复制为控制配方，因此后续编辑主配方不会立即改变已在执行的批次。",
+        "assumptions": "配方可复用的前提是设备提供兼容的阶段配置；实际联锁、设备控制与安全逻辑仍取决于 PLC 和项目实现。",
+        "locator": "Batch Procedure Recipe Authoring：phase transitions、Master Recipe、Control Recipe。",
+        "sourceUrls": [
+          "https://docs.sepasoft.com/articles/user-manual/batch-recipe-authoring"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Sepasoft — Batch Recipe Authoring",
+        "url": "https://docs.sepasoft.com/articles/user-manual/batch-recipe-authoring",
+        "version": "滚动文档",
+        "access": "公开正文",
+        "evidence": "Batch Procedure Recipe Authoring：phase transitions、Master Recipe、Control Recipe。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw015",
+    "name": "SIMATIC WinCC Unified",
+    "status": "documented",
+    "summary": "WinCC Unified V20帮助明确列出报警类状态机与确认/复位规则。",
+    "topics": [
+      {
+        "title": "报警状态与确认模型",
+        "kind": "业务与控制模型",
+        "explanation": "报警类的状态机决定报警可处于哪些状态、发生哪些事件以及是否需要确认。文档区分仅激活、激活/恢复、需要确认及需要额外复位等组合，并说明“操作员已知悉”与“触发条件已经消失”是不同事件，不能仅因确认就认为故障已恢复。",
+        "assumptions": "仅涉及 WinCC Unified 的 HMI 报警管理；不描述 PLC 过程控制算法，不可直接套用经典 WinCC 或其他产品的状态名称。",
+        "locator": "Acknowledgment model → State machines。",
+        "sourceUrls": [
+          "https://docs.tia.siemens.cloud/r/en-us/v20/operating-unified-pc-rt-unified/controls-rt-unified/operating-alarms-rt-unified/basics-of-alarms-rt-unified/acknowledgment-model-rt-unified"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "WinCC Unified — Acknowledgment model",
+        "url": "https://docs.tia.siemens.cloud/r/en-us/v20/operating-unified-pc-rt-unified/controls-rt-unified/operating-alarms-rt-unified/basics-of-alarms-rt-unified/acknowledgment-model-rt-unified",
+        "version": "V20，2025-06",
+        "access": "公开正文",
+        "evidence": "Acknowledgment model → State machines。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw016",
+    "name": "AVEVA Manufacturing Execution System",
+    "status": "not-located",
+    "summary": "已找到官方 MES 文档入口，但抓取只返回网站导航，未取得制造模型正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "AVEVA Manufacturing Execution System Documentation",
+        "url": "https://docs.aveva.com/bundle/manufacturing-execution-system/page/352856.html",
+        "version": "滚动文档入口",
+        "access": "仅目录/摘要",
+        "evidence": "页面仅返回导航及 JavaScript 提示；产品资料说明 model-driven，但未核实模型细节。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "官方 docs 与公开产品资料均检查；JavaScript空壳不代表许可限制，也不代表理论文档不存在。本次不从“model-driven”宣传推断执行机理。"
+  },
+  {
+    "softwareId": "sw017",
+    "name": "Esko Automation Engine / WebCenter 集成",
+    "status": "limited",
+    "summary": "Automation Engine 手册解释 SmartName 的变量求值与工作流参数使用。",
+    "topics": [
+      {
+        "title": "工作流中的变量与参数化规则",
+        "kind": "业务与控制模型",
+        "explanation": "SmartName 是运行时引用具体值的变量，可来自输入文件名、任务启动日期、作业属性或其他参数，并能组合静态文字构造输出路径与名称。文档还说明工作流参数可被任务票据取用，条件 SmartName 可比较其他变量以决定后续值。",
+        "assumptions": "仅核实 Automation Engine16.1通用参数机制；不等于 WebCenter 集成协议或印前图像算法，作用域和版本需查实际部署。",
+        "locator": "Concept → What is a SmartName?；Where can SmartNames be used?。",
+        "sourceUrls": [
+          "https://docs.esko.com/docs/en-us/automationengine/16.1/userguide/en-us/common/ae/concept/co_ae_SN_Concept.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Automation Engine — What is a SmartName?",
+        "url": "https://docs.esko.com/docs/en-us/automationengine/16.1/userguide/en-us/common/ae/concept/co_ae_SN_Concept.html",
+        "version": "16.1历史用户指南",
+        "access": "公开正文",
+        "evidence": "Concept → What is a SmartName?；Where can SmartNames be used?。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw018",
+    "name": "CLO",
+    "status": "limited",
+    "summary": "官方帮助解释粒子距离作为网格尺度以及精细度与计算速度的关系。",
+    "topics": [
+      {
+        "title": "服装网格尺度与模拟精细度",
+        "kind": "几何与数据模型",
+        "explanation": "粒子距离表示服装纸样网格中点与点的平均间距，减小该值意味着用更细的网格描述服装，通常增加外观细节并降低模拟速度。文档据此区分试穿搭建阶段和完成后的精细模拟设置，使读者能理解分辨率参数与计算负担的联系。",
+        "assumptions": "这是网格与性能关系的局部说明；未公开完整布料本构、接触方程或数值求解器，不应据此断言采用某种弹簧或有限元模型。",
+        "locator": "Objective：Particle Distance is average distance between pattern points, size of mesh。",
+        "sourceUrls": [
+          "https://support.clo3d.com/hc/en-us/articles/115000414447-Particle-Distance-Setting"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "CLO — Particle Distance Setting",
+        "url": "https://support.clo3d.com/hc/en-us/articles/115000414447-Particle-Distance-Setting",
+        "version": "滚动帮助，未标明产品版本",
+        "access": "公开正文",
+        "evidence": "Objective：Particle Distance is average distance between pattern points, size of mesh。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw080",
+    "name": "SAP Digital Manufacturing",
+    "status": "documented",
+    "summary": "SAP 官方课程解释 OEE 时间桶、停机/速度/质量损失及指标比率。",
+    "topics": [
+      {
+        "title": "OEE 的时间损失模型",
+        "kind": "数学模型",
+        "explanation": "计算以资源或工作中心为对象，按班次或日划分时间桶：可用时间扣除计划中断形成负荷时间，再扣非计划中断形成净生产时间，并由实际产量及标准速率得到净作业时间，进一步扣除废品损失。可用率、性能和质量率由相邻时间桶的比率计算。",
+        "assumptions": "需先统一班次、停机分类、标准速率与合格/废品口径；指标模型不代表设备物理机理，也不能直接比较口径不同的工厂。",
+        "locator": "OEE Calculation in SAP DM；Time Buckets；Availability/Performance/Quality formulas。",
+        "sourceUrls": [
+          "https://learning.sap.com/courses/analyzing-manufacturing-data-in-sap-digital-manufacturing/oee-calculation-in-dm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "SAP Learning — Calculating the OEE SAP DM",
+        "url": "https://learning.sap.com/courses/analyzing-manufacturing-data-in-sap-digital-manufacturing/oee-calculation-in-dm",
+        "version": "滚动课程",
+        "access": "公开正文",
+        "evidence": "OEE Calculation in SAP DM；Time Buckets；Availability/Performance/Quality formulas。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw081",
+    "name": "AVEVA System Platform",
+    "status": "not-located",
+    "summary": "官方对象手册入口与模板主题已定位，但本次未取得可读正文以确认继承规则。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "AVEVA System Platform — Work with Objects",
+        "url": "https://docs.aveva.com/bundle/sp-appserver-2023r2/page/248520.html",
+        "version": "2023R2",
+        "access": "仅目录/摘要",
+        "evidence": "官方检索摘要出现 templates、instances；直接读取仅返回站点导航。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方HTML与deployment PDF入口，HTML为JavaScript壳、PDF返回404；工具读取限制不等于登录受限，不使用第三方教程补写模板继承细节。"
+  },
+  {
+    "softwareId": "sw082",
+    "name": "FactoryTalk View SE",
+    "status": "limited",
+    "summary": "配套 FactoryTalk Alarms and Events 官方帮助解释限值报警的死区与状态转换。",
+    "topics": [
+      {
+        "title": "报警死区与恢复阈值",
+        "kind": "业务与控制模型",
+        "explanation": "示例对比无死区和有死区的高高、高、低、低低报警：增加死区后，进入报警状态的触发限值不变，而返回正常状态使用不同阈值，减少信号在限值附近波动导致的反复切换。这解释了报警触发与恢复并不总使用同一数值。",
+        "assumptions": "来源是 View SE 配套的 FactoryTalk Alarms and Events 组件帮助，不是 VBA 界面模型；实际报警类型与组件版本应按项目核对。",
+        "locator": "Example: Level alarm deadband，报警/恢复示意。",
+        "sourceUrls": [
+          "https://www.rockwellautomation.com/en-us/docs/factorytalk-services-platform/6-60/factorytalk-services-platform-help-ditamap/factorytalk-alarms-and-events-help/use-tag-based-alarm-monitoring/configure-alarms/example--level-alarm-deadband.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "FactoryTalk Services Platform — Example: Level alarm deadband",
+        "url": "https://www.rockwellautomation.com/en-us/docs/factorytalk-services-platform/6-60/factorytalk-services-platform-help-ditamap/factorytalk-alarms-and-events-help/use-tag-based-alarm-monitoring/configure-alarms/example--level-alarm-deadband.html",
+        "version": "FactoryTalk Services Platform6.60",
+        "access": "公开正文",
+        "evidence": "Example: Level alarm deadband，报警/恢复示意。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw083",
+    "name": "SIMATIC WinCC（经典平台）",
+    "status": "limited",
+    "summary": "经典 WinCC 历史手册公开解释报警滞环的作用及生效方向。",
+    "topics": [
+      {
+        "title": "限值报警的滞环模型",
+        "kind": "业务与控制模型",
+        "explanation": "手册说明滞环使过程值越过限值一定偏移后才改变报警状态，可用绝对值或相对于限值的百分比表示，并按配置作用于触发或恢复方向。其作用是为状态切换设置区间，帮助理解模拟量在阈值附近波动时的报警行为。",
+        "assumptions": "来源为1997年V4历史实现，不能作为当前版本的完整兼容承诺；具体生效方向、质量码与延迟逻辑需查部署版本。",
+        "locator": "Alarm Logging → Hysteresis，章节页4-40。",
+        "sourceUrls": [
+          "https://cache.industry.siemens.com/dl/files/918/1142918/att_32407/v1/WinCC_V4_Band3_e.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "WinCC V4 Manual Part3 — Alarm Logging",
+        "url": "https://cache.industry.siemens.com/dl/files/918/1142918/att_32407/v1/WinCC_V4_Band3_e.pdf",
+        "version": "V4，1997-08",
+        "access": "公开正文",
+        "evidence": "Alarm Logging → Hysteresis，章节页4-40。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw084",
+    "name": "Optitex PDS / Marker",
+    "status": "access-limited",
+    "summary": "官方放码工具帮助入口跳转至 My Optitex 登录，未取得分级或排料机理正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Optitex — Using the Set Grading Tool",
+        "url": "https://help.optitex.com/1382687/Content/Optitex_2D/Using_the_Set_Grading_Tool.htm",
+        "version": "未标明版本",
+        "access": "登录/许可受限",
+        "evidence": "官方帮助重定向 My Optitex 登录页，需账户继续。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查官方PDS/Marker与具体放码工具帮助链接；确认正文入口需要登录。公开自动排料功能声明没有披露算法，不使用第三方转载手册填补。"
+  },
+  {
+    "softwareId": "sw085",
+    "name": "Lectra Modaris",
+    "status": "not-located",
+    "summary": "官方 Modaris 产品和版本资料介绍放码与版型功能，但未取得几何约束或算法说明正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Lectra — Modaris",
+        "url": "https://www.lectra.com/en/fashion/products/modaris",
+        "version": "滚动产品页面",
+        "access": "仅目录/摘要",
+        "evidence": "产品页面与V8升级资料仅说明设计、放码、装配和交换功能。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方产品、升级说明及文档检索；没有把同类服装CAD的放码实现套用于Modaris，未定位不表示其客户手册不存在。"
+  },
+  {
+    "softwareId": "sw086",
+    "name": "Gerber AccuMark",
+    "status": "limited",
+    "summary": "官方 Grade Rule Editor 帮助说明放码规则以 X/Y 值记录并应用于版片。",
+    "topics": [
+      {
+        "title": "规则表驱动的版片放码",
+        "kind": "几何与数据模型",
+        "explanation": "放码编辑器把每条规则记录为带编号的 X、Y 数值，建立版片时应用规则表及其规则。PDS 帮助另说明可把规则编号分配给选定点，因此读者可以把点、规则编号和坐标方向的分级量联系起来，理解不同尺寸版片的几何数据来源。",
+        "assumptions": "这是规则数据组织的局部说明；曲线平滑、尺寸插值和排料优化未在该页推导，不能由规则表推断全部实现。",
+        "locator": "Grade Rule Editor 正文；配合 PDS Rule Number。",
+        "sourceUrls": [
+          "https://help.gerbertechnology.com/accumark/AMX/Function_Grade_Rule_Editor.htm",
+          "https://help.gerbertechnology.com/AccuMark/PDS/Function_Rule%20Number.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "AccuMark — Grade Rule Editor",
+        "url": "https://help.gerbertechnology.com/accumark/AMX/Function_Grade_Rule_Editor.htm",
+        "version": "滚动帮助，页面未标明版本",
+        "access": "公开正文",
+        "evidence": "Grade Rule Editor 正文；配合 PDS Rule Number。"
+      },
+      {
+        "title": "AccuMark PDS — Rule Number",
+        "url": "https://help.gerbertechnology.com/AccuMark/PDS/Function_Rule%20Number.htm",
+        "version": "未标明",
+        "access": "公开正文",
+        "evidence": "说明向选定点分配放码规则编号，-1用于移除现有放码。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw087",
+    "name": "Esko ArtiosCAD",
+    "status": "documented",
+    "summary": "ArtiosCAD 用户指南解释用变量及公式重建参数化包装结构。",
+    "topics": [
+      {
+        "title": "公式驱动的可重建几何",
+        "kind": "几何与数据模型",
+        "explanation": "StyleMaker 用变量表示长度、角度和半径等几何量，变量可由公式计算，也可在重建设计时输入常数。结构中的槽、插片等特征因此可以依赖总体尺寸而变化；文档通过建立菜单、变量及几何，再测试和加入样式目录解释模板构造。",
+        "assumptions": "Advanced StyleMaker 是需购买的选件；本节解释参数化设计，不代表材料力学、强度预测或拼版优化算法。",
+        "locator": "Variables、rebuildable geometry、four steps to making a standard。",
+        "sourceUrls": [
+          "https://docs.esko.com/docs/en-us/artioscad/23.03/userguide/en-us/common/ac/topic/UG3_Designer_id1055242UER23.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "ArtiosCAD — Using Advanced StyleMaker techniques to construct a standard",
+        "url": "https://docs.esko.com/docs/en-us/artioscad/23.03/userguide/en-us/common/ac/topic/UG3_Designer_id1055242UER23.html",
+        "version": "23.03",
+        "access": "公开正文",
+        "evidence": "Variables、rebuildable geometry、four steps to making a standard。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw168",
+    "name": "Valentina",
+    "status": "limited",
+    "summary": "官方预览手册公开解释曲线近似尺度与点数、精度及计算负担的关系；详细公式章节为付费内容。",
+    "topics": [
+      {
+        "title": "曲线离散近似尺度",
+        "kind": "几何与数据模型",
+        "explanation": "手册说明曲线与非椭圆弧的近似尺度越高，绘制越平滑、准确，但需要更多点并增加处理耗时。该参数可设为全局值，也可对单条曲线覆盖；局部值为零时继承全局设置，过小尺度还可能影响计算精度。",
+        "assumptions": "仅核实历史预览中公开的离散尺度行为；参数公式、作图工具等章节明确要求购买完整手册，不据预览目录补写其内容。",
+        "locator": "Pattern preferences，印刷页19；§7.2公式章节在预览中省略。",
+        "sourceUrls": [
+          "https://media.smart-pattern.com.ua/images/products/2021/03/Valentina._User_manual._Preview_version.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Valentina User Manual — Preview",
+        "url": "https://media.smart-pattern.com.ua/images/products/2021/03/Valentina._User_manual._Preview_version.pdf",
+        "version": "Edition1.5，2020-12-23",
+        "access": "公开正文",
+        "evidence": "Pattern preferences，印刷页19；§7.2公式章节在预览中省略。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw169",
+    "name": "Seamly2D",
+    "status": "limited",
+    "summary": "官方项目链接的帮助论坛给出按已有长度/角度等变量定义新几何的实例。",
+    "topics": [
+      {
+        "title": "尺寸和既有几何量驱动的作图",
+        "kind": "几何与数据模型",
+        "explanation": "示例通过变量表选择已有线段长度，把它作为新线段长度的公式输入，展示新几何与既有对象的数值依赖。可引用的量还包括人体尺寸、增量、曲线长度、线段角度和圆弧半径；因此作图参数可以来自已有数据，不必总手填固定数值。",
+        "assumptions": "来源为官方项目所链接帮助论坛的历史示例，非完整算法规范；当前Wiki抓取503，公式解析与几何内核的完整理论尚未核实。",
+        "locator": "Documentation / How to，回复2：Length of Lines 与公式变量选择。",
+        "sourceUrls": [
+          "https://forum.seamly.io/t/distance-function-in-formula-mode/2955"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Seamly documentation forum — Distance-Function in Formula-Mode",
+        "url": "https://forum.seamly.io/t/distance-function-in-formula-mode/2955",
+        "version": "2018帮助示例",
+        "access": "公开正文",
+        "evidence": "Documentation / How to，回复2：Length of Lines 与公式变量选择。"
+      },
+      {
+        "title": "Seamly2D official repository — Community documentation links",
+        "url": "https://github.com/fashionfreedom/seamly2d",
+        "version": "develop滚动README",
+        "access": "公开正文",
+        "evidence": "README链接User Forum与User Wiki Manual，并标注Wiki需要更新。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw170",
+    "name": "Opcenter APS",
+    "status": "limited",
+    "summary": "官方技术文章解释有限产能与多资源限制的排程建模，但未公开优化算法。",
+    "topics": [
+      {
+        "title": "多资源约束的排程问题",
+        "kind": "业务与控制模型",
+        "explanation": "文章说明排程不仅考虑主设备产能，还可把工具、人工等有限资源纳入约束，并通过不同资源配置的场景分析观察交付与等待的变化。它提供了理解作业安排为何需要同时检查多种资源的模型入口，但没有给出搜索规则或最优性证明。",
+        "assumptions": "仅核实建模对象与约束思想；产品配置、调度规则和数据质量决定具体结果，不能把“优化排程”当成全局最优保证。",
+        "locator": "Multiple Finite Constraints；Materials Management。",
+        "sourceUrls": [
+          "https://blogs.sw.siemens.com/opcenter/improving-profitability-with-advanced-scheduling/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Improving Profitability with Advanced Scheduling",
+        "url": "https://blogs.sw.siemens.com/opcenter/improving-profitability-with-advanced-scheduling/",
+        "version": "2019技术文章，未限定软件版本",
+        "access": "公开正文",
+        "evidence": "Multiple Finite Constraints；Materials Management。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  },
+  {
+    "softwareId": "sw171",
+    "name": "Packmage（包装魔术师）",
+    "status": "documented",
+    "summary": "官方教程直接解释纸厚补偿、尺寸分段规则、参数依赖与校验条件。",
+    "topics": [
+      {
+        "title": "盒型参数化的几何与约束规则",
+        "kind": "几何与数据模型",
+        "explanation": "教程用盖片与防尘襟的高度差说明纸厚补偿，用盒长分段决定插舌尺寸说明经验规则，再解释前一步参数影响后一步、默认公式和校验条件。软件据输入和这些关系生成结构，说明“输入长宽高”背后仍包含材料厚度与盒型约束。",
+        "assumptions": "来源为历史盒型示例，部分薄纸结构可忽略偏移；具体模板公式与经验阈值不同，不是纸盒强度或材料变形的通用物理模型。",
+        "locator": "§1 Mathematical logic in box structure；§2 Operational logic。",
+        "sourceUrls": [
+          "https://www.packmage.com/about/article/467-B_The_logic_of_parametric_design"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Packmage — The logic of parametric design",
+        "url": "https://www.packmage.com/about/article/467-B_The_logic_of_parametric_design",
+        "version": "2014-03-17教程",
+        "access": "公开正文",
+        "evidence": "§1 Mathematical logic in box structure；§2 Operational logic。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方帮助、手册及技术说明的公开正文；所列主题是已核实样本，不代表产品全部理论，也未运行软件验证。未定位不表示该文档不存在。"
+  }
+]

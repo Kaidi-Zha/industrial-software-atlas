@@ -1,0 +1,1421 @@
+[
+  {
+    "softwareId": "sw040",
+    "name": "PowerFactory",
+    "status": "limited",
+    "summary": "公开功能正文解释潮流分析的算法类别和控制模型；尚未取得完整安装版 Technical Reference。",
+    "topics": [
+      {
+        "title": "交流与直流潮流方法",
+        "kind": "数值算法",
+        "explanation": "官方将潮流定义为电网稳态分析，并说明平衡与不平衡交流潮流采用增强的非解耦 Newton–Raphson 方法；线性直流方法计算有功潮流与电压相角。页面还交代电压相关负荷、发电机无功限值及分布式平衡等建模选项。",
+        "assumptions": "这是算法与模型选项说明，未公开增强策略的完整推导、参数默认值或全部收敛条件。",
+        "locator": "Load Flow Analysis：首段及功能列表",
+        "sourceUrls": [
+          "https://faq.digsilent.de/en/load-flow-analysis.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "DIgSILENT：Load Flow Analysis",
+        "url": "https://faq.digsilent.de/en/load-flow-analysis.html",
+        "version": "滚动功能文档，未标明安装版本",
+        "access": "公开正文",
+        "evidence": "正文首段说明增强非解耦 Newton–Raphson 与线性 DC 方法。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw041",
+    "name": "PSCAD / EMTDC",
+    "status": "documented",
+    "summary": "EMTDC 在线手册公开固定步长求解过程，以及电网络矩阵和支路、变压器数据的关系。",
+    "topics": [
+      {
+        "title": "系统动态与网络求解顺序",
+        "kind": "数值算法",
+        "explanation": "EMTDC 将仿真分为系统动态与电网络求解两部分。初始化在 BEGIN 完成，DSDYN 处理控制及器件准备，随后求解电网络，再由 DSOUT 处理测量与输出。这个顺序随固定时间步长重复，为理解控制信号与网络状态何时更新提供依据。",
+        "assumptions": "本条依据 5.0.2 在线手册；步长和器件模型会影响结果，不能由流程推断任意模型均稳定。",
+        "locator": "The EMTDC Solution Process，Figure 2-1 / 2-2",
+        "sourceUrls": [
+          "https://www.pscad.com/webhelp-v502-ol/EMTDC/Program_Structure/main_program_structure.htm"
+        ]
+      },
+      {
+        "title": "网络矩阵与元件表示",
+        "kind": "数学模型",
+        "explanation": "手册用节点电压、电流向量及电导矩阵说明电网络求解，并解释 PSCAD 如何从图形连接生成节点和子系统信息。Data 文件保存支路的 R、L、C、开关及电源参数，变压器部分保存互感矩阵；Map 文件把模块内节点编号映射至全局网络。",
+        "assumptions": "这里说明网络组装及数据对应；具体线路、饱和及开关插值模型需继续查相应器件理论。",
+        "locator": "Network Solution；Local Branch Data；Local Transformer Data；Map File",
+        "sourceUrls": [
+          "https://pscad.com/webhelp-v502-ol/EMTDC/Program_Structure/other_important_files.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "EMTDC：The Solution Process",
+        "url": "https://www.pscad.com/webhelp-v502-ol/EMTDC/Program_Structure/main_program_structure.htm",
+        "version": "PSCAD / EMTDC 5.0.2 在线手册",
+        "access": "公开正文",
+        "evidence": "Program Structure 正文与求解流程图。"
+      },
+      {
+        "title": "EMTDC：Network Solution",
+        "url": "https://pscad.com/webhelp-v502-ol/EMTDC/Program_Structure/other_important_files.htm",
+        "version": "PSCAD / EMTDC 5.0.2 在线手册",
+        "access": "公开正文",
+        "evidence": "电网络矩阵、支路符号与变压器互感矩阵。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw042",
+    "name": "PSS E",
+    "status": "limited",
+    "summary": "公开产品技术说明解释短路计算的对称分量表示；完整应用与动态模型手册未在本次公开入口中取得。",
+    "topics": [
+      {
+        "title": "短路计算中的序网表示",
+        "kind": "物理与机理",
+        "explanation": "厂商说明短路模块基于对称分量系统表示：潮流算例中的正序系统模型可直接用于故障分析，负序与零序数据附加在同一算例数据中。文档同时区分平衡与不平衡短路研究，以及按 ANSI 或 IEC 进行的断路器责任计算。",
+        "assumptions": "所读为 v35 产品技术说明，属于局部机理解释；未核查 v36 的各元件序网方程和完整短路算法。",
+        "locator": "Frequently asked questions：Base + Short Circuit Module / System Features",
+        "sourceUrls": [
+          "https://www.siemens.com/en-us/products/pss-software/psse-version-35/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Siemens：PSS E Version 35",
+        "url": "https://www.siemens.com/en-us/products/pss-software/psse-version-35/",
+        "version": "v35 技术说明",
+        "access": "公开正文",
+        "evidence": "System Features 正文明确 fault analysis 的 symmetrical component representation。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw043",
+    "name": "ETAP",
+    "status": "limited",
+    "summary": "公开历史说明解释自适应 Newton–Raphson 的步长调整与开关联锁逻辑；未取得完整潮流理论手册。",
+    "topics": [
+      {
+        "title": "自适应迭代与开关联锁",
+        "kind": "数值算法",
+        "explanation": "官方历史发行说明解释，自适应 Newton–Raphson 在普通迭代难以求解的特定系统配置或工况下调整迭代步长；文档举出极小阻抗和串联电容处理。另说明开关联锁可依据设备位置及潮流结果检查动作条件与级联关系。",
+        "assumptions": "这份汇编为 ETAP 16，相关段落属于内附的历史功能说明；未给步长选择公式或对所有工况的收敛保证。",
+        "locator": "PDF 第 38 页：Adaptive Newton-Raphson；Switching Device Interlock Enforcer",
+        "sourceUrls": [
+          "https://etap.com/docs/default-source/whats-new/etap-16-readme.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "ETAP 16 Readme：历史功能说明汇编",
+        "url": "https://etap.com/docs/default-source/whats-new/etap-16-readme.pdf",
+        "version": "2016 年 ETAP 16 文档，含早期发行说明",
+        "access": "公开正文",
+        "evidence": "PDF 第 38 页说明迭代步长调整及联锁判断依据。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw044",
+    "name": "OpenDSS",
+    "status": "documented",
+    "summary": "EPRI 在线手册说明多相网络模型、负荷表示和电流注入潮流迭代。",
+    "topics": [
+      {
+        "title": "多相网络与电流注入潮流",
+        "kind": "数值算法",
+        "explanation": "OpenDSS 可使用完整多相或正序等值网络。手册区分带非线性负荷的迭代潮流与线性负荷的直接求解，并解释默认 Normal 方法为固定点电流注入迭代；另有 Newton 和 2024 年加入的 NCIM。连续时间序列可用前一步结果初始化后一步。",
+        "assumptions": "Normal 方法适合具有较强电源的配电网；正序转换不保证自动完成，算法和收敛需按网络与负荷模型核对。",
+        "locator": "Power Flow：网络表示、solution types、Normal / Newton / NCIM",
+        "sourceUrls": [
+          "https://opendss.epri.com/PowerFlow.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "EPRI OpenDSS：Power Flow",
+        "url": "https://opendss.epri.com/PowerFlow.html",
+        "version": "滚动手册，正文含 2024 年 NCIM 说明",
+        "access": "公开正文",
+        "evidence": "正文说明多相建模、固定点迭代及时间序列初值。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw045",
+    "name": "System Advisor Model（SAM）",
+    "status": "documented",
+    "summary": "官方光伏技术参考公开组件电学、辐照、温度及逆变器模型的计算方法。",
+    "topics": [
+      {
+        "title": "光伏组件的等效电路与参数模型",
+        "kind": "物理与机理",
+        "explanation": "SAM 的光伏参考区分简单效率、Sandia 点值模型，以及 CEC、IEC 61853 单二极管等效电路模型。CEC 模型通过光生电流、反向饱和电流、串并联电阻和二极管参数建立电流电压关系，再根据辐照与电池温度换算运行参数。",
+        "assumptions": "依据 2018 技术参考；不同组件模型的输入与假定不同，不能把某一种模型视为全部 SAM 模块的共同实现。",
+        "locator": "§10.1 Module Models；§10.4 CEC Module Model；§10.9 IEC 61853 Single Diode Model",
+        "sourceUrls": [
+          "https://www.nlr.gov/docs/fy18osti/67399.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "SAM Photovoltaic Model Technical Reference Update",
+        "url": "https://www.nlr.gov/docs/fy18osti/67399.pdf",
+        "version": "2018，NREL/TP-6A20-67399",
+        "access": "公开正文",
+        "evidence": "第 10 章公开组件模型方程、参数及运行条件换算。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw112",
+    "name": "EMTP",
+    "status": "documented",
+    "summary": "官方 Simulation Options 文档推导电磁暂态离散和间断处的积分方法切换。",
+    "topics": [
+      {
+        "title": "梯形积分与间断处理",
+        "kind": "数值算法",
+        "explanation": "手册从微分状态方程说明固定步长积分，并解释梯形法在电流或电压状态间断附近可能产生数值振荡。混合选项通常使用梯形法，在检测到间断时改为两个半步长的后向 Euler 步，再恢复梯形积分，以处理这种数值问题。",
+        "assumptions": "依据 2014 文档，不外推当前所有元件的间断检测范围；固定步长过大会遗漏快速暂态。",
+        "locator": "§3.1 Numerical integration techniques；§3.1.1–3.1.3，页 4–7",
+        "sourceUrls": [
+          "https://emtp.com/documents/EMTP%20Documentation/doc/simoptions/simoptions.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "EMTP-EMTPWorks Simulation Options",
+        "url": "https://emtp.com/documents/EMTP%20Documentation/doc/simoptions/simoptions.pdf",
+        "version": "2014-10-15",
+        "access": "公开正文",
+        "evidence": "第 3.1 节说明离散方程、振荡原因及混合积分流程。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw113",
+    "name": "RT-LAB",
+    "status": "limited",
+    "summary": "公开手册解释实时步进的计算预算与 overrun；物理系统方程来自具体宿主模型及求解器。",
+    "topics": [
+      {
+        "title": "实时步进与计算超时模型",
+        "kind": "业务与控制模型",
+        "explanation": "RT-LAB 监测文档把每步运行时间拆为模型计算、输入输出及平台处理，并用空闲时间和 overrun 衡量时钟约束。当下一次时钟中断到达、前一计算步仍未结束时，记录一次 overrun；因此运行能否实时取决于每步总计算是否落在时间预算内。",
+        "assumptions": "这是实时执行机制，不是电网或机械的通用物理模型；具体积分器和子系统耦合须查所用模型及附加求解器文档。",
+        "locator": "Monitoring Models：Basic Probes / Number of Overruns",
+        "sourceUrls": [
+          "https://opal-rt.atlassian.net/wiki/spaces/PRD/pages/143986526/Monitoring%2BModels"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "RT-LAB：Monitoring Models",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PRD/pages/143986526/Monitoring%2BModels",
+        "version": "滚动文档，未标明独立版本",
+        "access": "公开正文",
+        "evidence": "Timing probes 表解释计算时间、I/O 与 overrun 的定义。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw114",
+    "name": "HYPERSIM",
+    "status": "documented",
+    "summary": "公开元件文档解释 WECC 通用光伏电站的分层动态模型与适用扰动。",
+    "topics": [
+      {
+        "title": "通用光伏电站的控制层次",
+        "kind": "业务与控制模型",
+        "explanation": "Generic PV Plant 用 REGC_B 表示变流器向网络的受控电流注入，用 REEC_A 将有功和无功参考转换为电流指令，用 REPC_A 实现电站级电压、无功、有功及频率下垂控制。文档说明总电流限幅下的有功或无功优先逻辑，以及测量反馈闭环。",
+        "assumptions": "正序集总模型用于并网点附近的暂态稳定研究，假定仿真期间可用太阳能功率恒定；不用于解释辐照骤变或电站内部全部细节。",
+        "locator": "Generic PV Plant：Description / REGC_B / REEC_A / REPC_A / Network Interface",
+        "sourceUrls": [
+          "https://opal-rt.atlassian.net/wiki/spaces/PDOCHS/pages/2869919748"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "HYPERSIM：Generic PV Plant",
+        "url": "https://opal-rt.atlassian.net/wiki/spaces/PDOCHS/pages/2869919748",
+        "version": "滚动组件文档，未标明独立发行版",
+        "access": "公开正文",
+        "evidence": "Description 与三个控制层次正文；正文明确恒定可用光伏功率等假定。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw115",
+    "name": "PLECS",
+    "status": "documented",
+    "summary": "How PLECS Works 公开开关状态空间模型、事件管理、代数环与固定步长离散机制。",
+    "topics": [
+      {
+        "title": "分段线性电路与开关事件",
+        "kind": "数学模型",
+        "explanation": "PLECS 对理想线性及开关元件按 Kirchhoff 定律建立分段线性状态空间方程；每组开关状态对应一组系统矩阵。开关管理器检查门极和测量条件，更新或复用矩阵，并迭代至开关状态稳定；代数环使用 Newton 类方程求解器同时求解。",
+        "assumptions": "分段线性说明有明确元件条件；开关状态循环或代数环不收敛会终止，不能视为器件全部半导体物理的解析模型。",
+        "locator": "Model Initialization：Physical Model Equations / Switch Manager / Algebraic loops",
+        "sourceUrls": [
+          "https://docs.plexim.com/plecs/latest/how-plecs-works/"
+        ]
+      },
+      {
+        "title": "固定步长离散与误差",
+        "kind": "数值算法",
+        "explanation": "固定步长仿真将电磁物理域转换为离散状态空间更新式，默认输入一阶保持，可为受控源选择零阶保持。当前手册给出 Radau IIA 与 Tustin 两类离散选择，并说明通过事件时刻和状态插值处理步间开关；控制框图状态另用 Euler 积分。",
+        "assumptions": "固定步长不自动控制积分误差；物理域离散选择不能外推成控制框图也使用相同方法。",
+        "locator": "Fixed-Step Simulation / Physical Model Discretization / Interpolation of Non-Sampled Switching Events",
+        "sourceUrls": [
+          "https://docs.plexim.com/plecs/latest/how-plecs-works/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "PLECS：How PLECS Works",
+        "url": "https://docs.plexim.com/plecs/latest/how-plecs-works/",
+        "version": "PLECS 5.0 在线文档",
+        "access": "公开正文",
+        "evidence": "建模方程、开关管理器流程及固定步长章节公开正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw116",
+    "name": "PSIM",
+    "status": "limited",
+    "summary": "厂商历史技术说明解释热模块开关损耗取样；完整原生电路求解理论未在本次正文中核实。",
+    "topics": [
+      {
+        "title": "热模块的开关损耗取样",
+        "kind": "物理与机理",
+        "explanation": "PSIM 热模块说明在开通时取关断状态末端的电压样点和导通状态起始的电流样点，关断时采用对应处理。软开关条件下，器件开关瞬间的电压或电流接近零，这些样点进入损耗计算，使计算损耗相应降低。",
+        "assumptions": "所读厂商社区文章已标注迁移后不再维护；这是热模块的局部损耗机制，不等于 SPICE 瞬态器件模型或完整原生求解器理论。",
+        "locator": "Soft Switching with PSIM’s Thermal Module：Measurements for switching loss calculations",
+        "sourceUrls": [
+          "https://community.altair.com/discussion/63730/soft-switching-with-psim-s-thermal-module"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Altair：Soft Switching with PSIM’s Thermal Module",
+        "url": "https://community.altair.com/discussion/63730/soft-switching-with-psim-s-thermal-module",
+        "version": "历史技术文章，未标明 PSIM 版本",
+        "access": "公开正文",
+        "evidence": "正文明确开通和关断时电压、电流的取样位置；页面提示已迁移且不再维护。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw117",
+    "name": "PVsyst",
+    "status": "documented",
+    "summary": "官方物理模型帮助公开光伏单二极管模型、参数含义和环境条件换算。",
+    "topics": [
+      {
+        "title": "光伏单二极管模型",
+        "kind": "物理与机理",
+        "explanation": "PVsyst 用含光生电流、二极管、串联电阻与并联电阻的等效电路建立组件电流电压关系；隐式方程需要逐次近似求解。帮助页解释五参数及参考条件，并分别给出光生电流随辐照、饱和电流随温度变化的关系。",
+        "assumptions": "从单电池推广到组件时假定各电池相同；薄膜技术需调整，基本模型不包括光谱修正。所读为 v7 帮助。",
+        "locator": "Standard one-diode-model：Basic equation / Extension to varying environmental conditions",
+        "sourceUrls": [
+          "https://www.pvsyst.com/help-pvsyst7/pvmodule_model.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "PVsyst：Standard one-diode-model",
+        "url": "https://www.pvsyst.com/help-pvsyst7/pvmodule_model.htm",
+        "version": "PVsyst 7 帮助",
+        "access": "公开正文",
+        "evidence": "公开等效电路、基本方程、参数定义和环境扩展。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw118",
+    "name": "HOMER Pro",
+    "status": "documented",
+    "summary": "公开帮助解释微电网逐时经济调度规则、成本组成及不同控制策略的区别。",
+    "topics": [
+      {
+        "title": "负荷跟随的经济调度",
+        "kind": "业务与控制模型",
+        "explanation": "负荷跟随策略在每个时间步选择可控电源、储能和电网的组合，在满足主要负荷、热负荷和运行备用的条件下比较成本。文档将发电机固定成本与边际成本、储能磨损成本及购电价格分开，解释余热和碳排放成本如何影响决策。",
+        "assumptions": "负荷跟随的逐步调度规则不等于预测式调度；策略优劣取决于设备容量、价格、资源与负荷，不能把局部最小成本当作任意情形的全期最优。",
+        "locator": "Load Following Strategy；Controller 对 LF、CC、GO、Predictive Dispatch 的区分",
+        "sourceUrls": [
+          "https://homerenergy.com/products/pro/docs/latest/load_following_strategy.html",
+          "https://homerenergy.com/products/pro/docs/latest/controller.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "HOMER Pro：Load Following Strategy",
+        "url": "https://homerenergy.com/products/pro/docs/latest/load_following_strategy.html",
+        "version": "HOMER Pro 3.16",
+        "access": "公开正文",
+        "evidence": "逐时间步约束、固定/边际成本和电源组合正文。"
+      },
+      {
+        "title": "HOMER Pro：Controller",
+        "url": "https://homerenergy.com/products/pro/docs/latest/controller.html",
+        "version": "HOMER Pro 3.16",
+        "access": "公开正文",
+        "evidence": "不同控制器规则及预测调度所需未来信息。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw119",
+    "name": "pandapower",
+    "status": "documented",
+    "summary": "潮流文档公开算法选择、适用拓扑及温度相关线路模型的要求。",
+    "topics": [
+      {
+        "title": "潮流算法与适用网络",
+        "kind": "数值算法",
+        "explanation": "平衡交流潮流文档区分 Newton–Raphson、带 Iwamoto 系数的迭代、前后向扫掠、Gauss–Seidel 及快速解耦方法，并说明前后向扫掠适合辐射或弱环网。温度相关潮流另考虑导线热惯性和温度随工况变化，需要相应线路与热参数。",
+        "assumptions": "不同求解后端支持的元件和特性不完全相同；不能由算法可选推定任意模型均兼容，加速后端还有电压相关负荷等限制。",
+        "locator": "Possible Solver Algorithm；Temperature-Dependent Power Flow；lightsim2grid Compatibility",
+        "sourceUrls": [
+          "https://pandapower.readthedocs.io/en/stable/powerflow/ac.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "pandapower：Balanced AC Power Flow",
+        "url": "https://pandapower.readthedocs.io/en/stable/powerflow/ac.html",
+        "version": "stable 页面显示 3.5.6",
+        "access": "公开正文",
+        "evidence": "算法列表、后端约束及 Temperature-Dependent Power Flow 正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw200",
+    "name": "MATPOWER",
+    "status": "documented",
+    "summary": "数学模型文档与用户手册公开交流/直流潮流、连续潮流和最优潮流的变量及约束形式。",
+    "topics": [
+      {
+        "title": "潮流与最优潮流问题形式",
+        "kind": "数学模型",
+        "explanation": "MATPOWER 把普通潮流写为待求变量的方程组：交流形式为非线性，直流形式为线性。连续潮流跟踪随参数变化的解曲线；最优潮流则加入目标、等式、不等式及变量界限，标准直流 OPF 可写为二次规划。用户手册进一步区分参考、PV 和 PQ 母线。",
+        "assumptions": "普通潮流不自动满足最优潮流的全部电压、发电或支路约束；交流、直流及扩展元件的假定须分别检查。",
+        "locator": "Developer Manual §8：Mathematical Model Object；User’s Manual §4 Power Flow",
+        "sourceUrls": [
+          "https://matpower.org/doc/dev-manual/math-model.html",
+          "https://www.matpower.org/docs/manual.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "MATPOWER：Mathematical Model Object",
+        "url": "https://matpower.org/doc/dev-manual/math-model.html",
+        "version": "8.1",
+        "access": "公开正文",
+        "evidence": "§8 方程 (8.1)–(8.5) 定义问题类别。"
+      },
+      {
+        "title": "MATPOWER User’s Manual",
+        "url": "https://www.matpower.org/docs/manual.pdf",
+        "version": "在线手册，具体发行号以文档封面为准",
+        "access": "公开正文",
+        "evidence": "§4 Power Flow 说明参考/PV/PQ 母线与常量负荷假定。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw201",
+    "name": "PyPSA",
+    "status": "documented",
+    "summary": "公开优化文档给出跨组件、跨时间的母线能量守恒约束和变量含义。",
+    "topics": [
+      {
+        "title": "母线能量平衡约束",
+        "kind": "数学模型",
+        "explanation": "PyPSA 将每个母线、每个时间点的流入与流出能量建立为平衡约束，把发电、用能、储能及连接组件统一计入。文档逐项给出功率、组件符号和连接效率的作用，并说明母线平衡的对偶变量可解释为边际价格，用于理解优化结果。",
+        "assumptions": "这是优化约束的正文，不代表所有研究都求解完整非线性交流潮流；时间分辨率、效率、网络与容量假定仍由具体组件模型决定。",
+        "locator": "Energy Balances：平衡方程、变量说明及 dual values",
+        "sourceUrls": [
+          "https://docs.pypsa.org/latest/user-guide/optimization/energy-balance/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "PyPSA：Energy Balances",
+        "url": "https://docs.pypsa.org/latest/user-guide/optimization/energy-balance/",
+        "version": "latest 滚动文档，界面含 v1.0 指南",
+        "access": "公开正文",
+        "evidence": "平衡约束正文与组件符号、边际价格解释。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw202",
+    "name": "GridLAB-D",
+    "status": "documented",
+    "summary": "建模参考公开三相不平衡潮流、算法拓扑条件和节点/支路的复数数据模型。",
+    "topics": [
+      {
+        "title": "三相潮流的节点与支路模型",
+        "kind": "数学模型",
+        "explanation": "Powerflow 模块按节点负荷、支路及变电站电压求解稳态节点电压和线路电流。Newton–Raphson 理论文档采用直角坐标复数量，每母线分别保存三相电压、恒功率、恒电流和导纳负荷，支路以三乘三导纳矩阵及变比表示；三角形设备需转换为对应星形量。",
+        "assumptions": "该滚动参考保留历史说明；FBS 的严格辐射条件与 NR/GS 的适用范围须分别确认，不外推全软件的动态模型。",
+        "locator": "Power Flow User Guide / Theory；Newton-Raphson Distribution Powerflow Solver / Data model",
+        "sourceUrls": [
+          "https://gridlab-d.readthedocs.io/en/docs/docs/3.0%20-%20Modeling%20Reference/Modules/Powerflow/00-Powerflow_Introduction/",
+          "https://gridlab-d.readthedocs.io/en/docs/docs/3.0%20-%20Modeling%20Reference/Modules/Powerflow/Theory/Newton-Raphson_Distribution_Powerflow_Solver/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "GridLAB-D：Power Flow User Guide",
+        "url": "https://gridlab-d.readthedocs.io/en/docs/docs/3.0%20-%20Modeling%20Reference/Modules/Powerflow/00-Powerflow_Introduction/",
+        "version": "docs 滚动参考，未标明独立发行号",
+        "access": "公开正文",
+        "evidence": "说明三相潮流与各算法拓扑条件。"
+      },
+      {
+        "title": "GridLAB-D：Newton-Raphson Distribution Powerflow Solver",
+        "url": "https://gridlab-d.readthedocs.io/en/docs/docs/3.0%20-%20Modeling%20Reference/Modules/Powerflow/Theory/Newton-Raphson_Distribution_Powerflow_Solver/",
+        "version": "docs 滚动参考，含历史外部求解器说明",
+        "access": "公开正文",
+        "evidence": "Data model 公开三相节点量、支路矩阵和符号约定。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw203",
+    "name": "OpenEMS（能源管理系统）",
+    "status": "documented",
+    "summary": "架构文档解释输入过程输出周期、过程映像以及按优先级约束储能功率的机制。",
+    "topics": [
+      {
+        "title": "控制周期与优先级约束",
+        "kind": "业务与控制模型",
+        "explanation": "OpenEMS Edge 每周期先固定输入过程映像，再按调度器顺序执行控制器，最后将设定值送到设备。后续低优先级控制器不能覆盖前面写入的约束；Ess.Power 通过线性方程系统组织有功、无功和三相设定值的可行范围，并可分配多个储能系统的功率。",
+        "assumptions": "属于能源管理软件的控制模型，与同名电磁 FDTD 求解器不同；文档明确软实时周期不适合虚拟惯量等低延迟控制或关键安全动作。",
+        "locator": "Edge Architecture §§2–6：IPO / Controller / Scheduler / Cycle / Process Image",
+        "sourceUrls": [
+          "https://openems.github.io/openems.io/openems/latest/edge/architecture.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "OpenEMS：Edge Architecture",
+        "url": "https://openems.github.io/openems.io/openems/latest/edge/architecture.html",
+        "version": "latest 滚动文档",
+        "access": "公开正文",
+        "evidence": "控制器优先顺序、可行功率约束和软实时边界正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw204",
+    "name": "EcoStruxure Power Operation",
+    "status": "not-located",
+    "summary": "官方索引可检索到寄存器逻辑码和功率因数等换算说明，但本次无法取得跳转后完整正文，暂不据此收录机理主题。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Power Operation：Logic code definitions",
+        "url": "https://product-help.schneider-electric.com/EcoStruxure-Power-Operation-2024/content/8_reference/configuring/logiccodes.htm",
+        "version": "Power Operation 2024 帮助",
+        "access": "仅目录/摘要",
+        "evidence": "官方检索索引显示各逻辑码的寄存器运算；直接页面迁移至 product-help.se.com 后读取失败。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检索官方 2024 帮助中的逻辑码、母线状态和标签运算；旧域名跳转后 web 与 HTTPS 下载均未成功取得正文。这是本次访问限制，不是已确认需要登录，也不表示没有模型文档。"
+  },
+  {
+    "softwareId": "sw205",
+    "name": "AVEVA PI System",
+    "status": "limited",
+    "summary": "官方历史培训手册解释异常过滤、归档压缩及其对趋势和历史采样的影响。",
+    "topics": [
+      {
+        "title": "异常过滤与时序归档",
+        "kind": "数值算法",
+        "explanation": "PI 官方培训手册把数据处理分为接口端异常测试和服务器端归档压缩：前者用死区过滤变化很小的值，后者按压缩偏差和时间参数决定保留哪些事件。手册借助曲线示意解释减少存储点后如何保留变化信息，也解释历史数据时间戳为何可能不等间隔。",
+        "assumptions": "依据 2014 培训文档；当前服务器、接口及缓冲配置可能不同，不能据此认定任意压缩设置无信息损失或满足全部归档要求。",
+        "locator": "PI WebParts 2013 Workbook，Version 2014：§1.5 / §1.6，正文页 22–29",
+        "sourceUrls": [
+          "https://cdn.osisoft.com/learningcontent/pdfs/PIWebPartsWorkbook.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "OSIsoft：PI WebParts 2013 User and Administrator Workbook",
+        "url": "https://cdn.osisoft.com/learningcontent/pdfs/PIWebPartsWorkbook.pdf",
+        "version": "Version 2014",
+        "access": "公开正文",
+        "evidence": "§1.5 Exception Test 与 §1.6 Compression Algorithm，含死区和压缩图示。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw046",
+    "name": "Revit",
+    "status": "limited",
+    "summary": "官方帮助解释参数关系及模型变更传播；该页不公开内部约束求解器的完整算法。",
+    "topics": [
+      {
+        "title": "参数关系与变更传播",
+        "kind": "几何与数据模型",
+        "explanation": "Revit 将项目元素之间的关系作为参数化建模的基础；关系可以由用户设置，也可以在建模时自动捕获。修改某个元素后，软件据关联关系确定受影响对象并传播变化，例如构件长度变化时维持钢筋等间距，使相关模型与图纸保持对应。",
+        "assumptions": "这是设计关系的数据模型说明；不等于结构受力模型，也未公开通用约束求解、冲突消解和传播排序的内部实现。",
+        "locator": "About Parametric Modeling Relationships：关系定义、钢筋等间距示例与变更传播",
+        "sourceUrls": [
+          "https://help.autodesk.com/cloudhelp/2024/ENU/Revit-GetStarted/files/GUID-71F2C8EE-2A90-4076-A6C7-702082566DDF.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Revit：About Parametric Modeling Relationships",
+        "url": "https://help.autodesk.com/cloudhelp/2024/ENU/Revit-GetStarted/files/GUID-71F2C8EE-2A90-4076-A6C7-702082566DDF.htm",
+        "version": "Revit 2024 帮助",
+        "access": "公开正文",
+        "evidence": "全文解释参数化关系和关联变更；无内部算法推导。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw047",
+    "name": "Tekla Structures",
+    "status": "limited",
+    "summary": "官方文档解释实体构件模型如何形成分析对象；不把它当作独立求解器的理论手册。",
+    "topics": [
+      {
+        "title": "实体模型与分析模型的区分",
+        "kind": "几何与数据模型",
+        "explanation": "Tekla 文档把物理模型定义为实际构件及其相关信息的三维集合，并包括荷载、荷载组和组合规范信息。分析模型由物理模型生成，包含杆、面、分析节点、节点支承、刚性连接和作用在分析对象上的荷载，用于表示承载与结构行为。",
+        "assumptions": "本条是分析理想化和对象关系；具体有限元、本构及动力分析算法须查实际连接的分析软件，不与 Tekla Structural Designer 混同。",
+        "locator": "What is an analysis model：physical model / analysis model / generated analysis objects",
+        "sourceUrls": [
+          "https://support.tekla.com/doc/tekla-structures/2026/ana_what_is_analysis_model"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Tekla Structures：What is an analysis model",
+        "url": "https://support.tekla.com/doc/tekla-structures/2026/ana_what_is_analysis_model",
+        "version": "2026 帮助，页面正文修改日期 2022-12-06",
+        "access": "公开正文",
+        "evidence": "实体模型定义及分析对象生成列表。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw048",
+    "name": "ETABS",
+    "status": "documented",
+    "summary": "CSI 共用分析参考手册公开质量、约束、模态与反应谱的数学基础；所读公开版为 2016 Rev.15。",
+    "topics": [
+      {
+        "title": "模态与反应谱分析",
+        "kind": "数学模型",
+        "explanation": "CSI 参考以质量、阻尼和刚度组织结构动力平衡，区分特征向量与 Ritz 向量模态。反应谱分析将地震响应按模态和方向组合；参与系数及质量参与率用于判断模态覆盖范围。手册说明这些指标不能替代模态数量敏感性检查。",
+        "assumptions": "所读为 2016 共用理论，适用功能需核对当前 ETABS 版本；不据此认定所有非线性时程均可用线性模态叠加。",
+        "locator": "CSI Analysis Reference Manual：Chapter XIX Modal Analysis；Chapter XX Response-Spectrum Analysis",
+        "sourceUrls": [
+          "https://docs.csiamerica.com/manuals/etabs/Analysis%20Reference.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "CSI Analysis Reference Manual",
+        "url": "https://docs.csiamerica.com/manuals/etabs/Analysis%20Reference.pdf",
+        "version": "July 2016，Rev.15",
+        "access": "公开正文",
+        "evidence": "封面明确适用 SAP2000、ETABS、SAFE、CSiBridge；第 XIX–XX 章有正文推导。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw049",
+    "name": "Civil 3D",
+    "status": "documented",
+    "summary": "官方帮助解释 TIN 地形的三角化、三角形内高程插值和 breakline 约束。",
+    "topics": [
+      {
+        "title": "TIN 地形与约束三角化",
+        "kind": "几何与数据模型",
+        "explanation": "Civil 3D 将离散测点组织成不规则三角网，三角形内部位置的高程由顶点高程插值得到。点数据生成 TIN 时采用 Delaunay 三角化；若加入 breakline、等高线或边界，指定连接边会约束三角化，即使局部不再满足原来的 Delaunay 性质。",
+        "assumptions": "所读为 2022 帮助；这是曲面表示与插值机制，不是对测量误差、地质真实性或全部体积算法的保证。",
+        "locator": "About Creating a TIN Surface：TIN elevation interpolation / Delaunay / breakline data",
+        "sourceUrls": [
+          "https://help.autodesk.com/cloudhelp/2022/ENU/Civil3D-UserGuide/files/GUID-D0FCED34-D68F-42D2-A6FB-14C454CA57FA.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Civil 3D：About Creating a TIN Surface",
+        "url": "https://help.autodesk.com/cloudhelp/2022/ENU/Civil3D-UserGuide/files/GUID-D0FCED34-D68F-42D2-A6FB-14C454CA57FA.htm",
+        "version": "Civil 3D 2022 帮助",
+        "access": "公开正文",
+        "evidence": "公开 TIN 插值、空圆性质和 breakline 对三角化的影响。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw050",
+    "name": "PLAXIS 2D / 3D",
+    "status": "documented",
+    "summary": "官方科学手册公开连续体变形、地下水流、固结、动力及有限元离散；本次重点读 PLAXIS 2D 2025.1。",
+    "topics": [
+      {
+        "title": "岩土变形的有限元与非线性迭代",
+        "kind": "数学模型",
+        "explanation": "Scientific Manual 从连续体平衡、位移应变关系和本构关系出发，经虚功弱式与形函数插值形成离散平衡。材料非线性需要局部应力积分和整体迭代配合；手册解释隐式塑性积分、弹性试算应力以及平衡残差与刚度近似的关系。",
+        "assumptions": "本章推导以小变形及原始几何为起点；大变形、各土体本构和 3D 差异须分别查对应手册，不能按同一设置外推。",
+        "locator": "PLAXIS 2D Scientific Manual §§2.1–2.4，正文页 6–10",
+        "sourceUrls": [
+          "https://files.seequent.com/PLAXIS/Manuals/PLAXIS_2D/English/PLAXIS_2D_4_Scientific%20Manual.pdf"
+        ]
+      },
+      {
+        "title": "地下水渗流与边界条件",
+        "kind": "物理与机理",
+        "explanation": "地下水章节用 Darcy 定律和质量连续性建立多孔介质流动方程，并讨论非饱和状态下渗透率与饱和度的关系。边界章节区分给定水头、通量、渗出及入渗；降雨超过土体入渗能力时，可由通量边界切换为水头边界。",
+        "assumptions": "依据 2D 科学手册；瞬态地下水方程采用明确近似并忽略固体颗粒位移，固结耦合另有专章，不应混用。",
+        "locator": "§3 Groundwater flow theory，正文页 11–17；§4 Consolidation theory 为另列入口",
+        "sourceUrls": [
+          "https://files.seequent.com/PLAXIS/Manuals/PLAXIS_2D/English/PLAXIS_2D_4_Scientific%20Manual.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "PLAXIS 2D Scientific Manual",
+        "url": "https://files.seequent.com/PLAXIS/Manuals/PLAXIS_2D/English/PLAXIS_2D_4_Scientific%20Manual.pdf",
+        "version": "PLAXIS 2025.1，更新 2025-09-24",
+        "access": "公开正文",
+        "evidence": "第 2、3 章正文公开变形与渗流理论；其余章节提供固结、THM、动力和单元入口。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw051",
+    "name": "EnergyPlus",
+    "status": "documented",
+    "summary": "Engineering Reference 公开围护结构热平衡、辐射换热和传导差分算法及其假定。",
+    "topics": [
+      {
+        "title": "室内表面的热平衡与辐射",
+        "kind": "物理与机理",
+        "explanation": "室内表面热平衡把墙体传导、表面对流及短波、长波辐射纳入同一能量平衡。长波交换采用灰体换热模型，文档区分 ScriptF 和 CarrollMRT 方法；ScriptF 由表面间交换系数组织反射、吸收和再发射，并用近似视角系数及修正处理 enclosure。",
+        "assumptions": "模型假定室内空气对长波辐射透明；ScriptF 采用灰体和漫射假定，近似视角系数有明确适用边界。",
+        "locator": "Engineering Reference：Inside Heat Balance / Internal Long-Wave Radiation Exchange / ScriptF",
+        "sourceUrls": [
+          "https://energyplus.readthedocs.io/en/latest/guides/engineering-reference/3.6-inside-heat-balance.html"
+        ]
+      },
+      {
+        "title": "围护结构传导的有限差分",
+        "kind": "数值算法",
+        "explanation": "CondFD 用空间节点和隐式有限差分处理围护结构传热，作为传导传递函数法的补充，可描述相变材料及变化的导热系数。文档区分二阶时间精度的 Crank–Nicolson 与一阶全隐式格式，并用用户输入的焓温关系把相变能量纳入迭代。",
+        "assumptions": "两格式的时间精度不同；材料曲线、空间划分和时间步会影响解，不应把差分法与假定常物性的 CTF 互换。",
+        "locator": "Conduction Finite Difference Solution Algorithm：方案、节点安排及焓温关系",
+        "sourceUrls": [
+          "https://energyplus.readthedocs.io/en/latest/guides/engineering-reference/3.2-conduction-finite-difference-solution-algorithm.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "EnergyPlus：Inside Heat Balance",
+        "url": "https://energyplus.readthedocs.io/en/latest/guides/engineering-reference/3.6-inside-heat-balance.html",
+        "version": "latest 滚动 Engineering Reference",
+        "access": "公开正文",
+        "evidence": "长波辐射交换、空气透明及灰体漫射假定正文。"
+      },
+      {
+        "title": "EnergyPlus：Conduction Finite Difference Solution Algorithm",
+        "url": "https://energyplus.readthedocs.io/en/latest/guides/engineering-reference/3.2-conduction-finite-difference-solution-algorithm.html",
+        "version": "latest 滚动 Engineering Reference",
+        "access": "公开正文",
+        "evidence": "两种时间格式、有限差分方程和焓温关系正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw120",
+    "name": "AutoCAD",
+    "status": "limited",
+    "summary": "官方帮助解释样条的 NURBS 表示、控制点与拟合点，但不是完整几何内核理论。",
+    "topics": [
+      {
+        "title": "NURBS 样条与拟合参数",
+        "kind": "几何与数据模型",
+        "explanation": "AutoCAD 帮助把样条说明为 NURBS 曲线，默认由三次多项式曲线段混合形成。用户可通过控制顶点或拟合点改变曲线；拟合点的节点参数化方式、容差和端部切向会影响形状，零容差时曲线经过拟合点，正容差时允许偏离。",
+        "assumptions": "拟合点方法生成三次样条；高次曲线切换到拟合点显示可能改变形状。此页不公开整个实体建模内核或布尔运算算法。",
+        "locator": "About Splines：Understand Control Vertices and Fit Points / Create Splines Using Fit Points",
+        "sourceUrls": [
+          "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/files/GUID-58316136-30EB-499C-ACAD-31D0C653B2B2.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "AutoCAD：About Splines",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/AutoCAD-Core/files/GUID-58316136-30EB-499C-ACAD-31D0C653B2B2.htm",
+        "version": "AutoCAD 2026 帮助",
+        "access": "公开正文",
+        "evidence": "正文解释 NURBS、次数、节点参数化和拟合容差。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw121",
+    "name": "MicroStation",
+    "status": "limited",
+    "summary": "官方归档技术文解释 B 样条截面生成曲面时的方向、起点及控制点匹配机制。",
+    "topics": [
+      {
+        "title": "截面曲线的匹配与曲面形状",
+        "kind": "几何与数据模型",
+        "explanation": "Bentley 技术说明用 B 样条边界或截面建立曲面，并解释截面方向、封闭曲线起点及控制点分布如何影响生成结果。沿起点匹配控制点时，方向不一致会造成扭转；相邻截面控制点数量或间距不一致可能使曲面出现不希望的变形。",
+        "assumptions": "正文明确为 2003 年归档重刊；只作为历史曲面建模机制的证据，不承诺当前全部工具采用相同实现或菜单。",
+        "locator": "Things To Know For The Surface Model Beginner：Surface Modeling，Figures 3–4",
+        "sourceUrls": [
+          "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0040379"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Bentley：Things To Know For The Surface Model Beginner",
+        "url": "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0040379",
+        "version": "2003-11-14 历史技术文章，官方归档重刊",
+        "access": "公开正文",
+        "evidence": "截面方向、起点和控制点匹配与扭转的关系正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw122",
+    "name": "OpenRoads Designer",
+    "status": "limited",
+    "summary": "官方知识库解释道路走廊的截面取样、几何加密和约束搜索机制。",
+    "topics": [
+      {
+        "title": "走廊截面离散与控制规则",
+        "kind": "几何与数据模型",
+        "explanation": "道路走廊由沿线放置的模板截面及其控制规则组织。官方知识库说明模板间距、间距倍数、平纵关键点和曲线加密会改变截面数量与模型细节；逐点控制可定位指定要素，水平要素约束则需要扫描匹配对象并计算适用范围，影响重建工作量。",
+        "assumptions": "所读知识库标为 10.12+；这是离散密度和约束处理说明，未取得完整三角化或几何求解器的数学推导。",
+        "locator": "Corridor Processing - Improving Performance：Feature Definitions / Template Drop Intervals / Point Controls",
+        "sourceUrls": [
+          "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0018271"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "OpenRoads：Corridor Processing - Improving Performance",
+        "url": "https://bentleysystems.service-now.com/community?id=kb_article_view&sysparm_article=KB0018271",
+        "version": "OpenRoads / OpenRail Designer 10.12+",
+        "access": "公开正文",
+        "evidence": "模板加密选项及约束搜索范围正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw123",
+    "name": "STAAD.Pro",
+    "status": "documented",
+    "summary": "官方知识库解释 P–Δ 迭代、几何刚度及简化放大法，并给出悬臂柱验证步骤。",
+    "topics": [
+      {
+        "title": "二阶效应与几何刚度",
+        "kind": "数学模型",
+        "explanation": "知识库说明一阶平衡基于未变形几何，而二阶分析需考虑竖向轴力在侧移后产生的附加作用。STAAD.Pro 可按更新变形的迭代路径分析，也可用几何刚度修正原刚度矩阵；文档将这些方法与按弹性屈曲荷载构造的近似放大法区分，并给出悬臂柱算例。",
+        "assumptions": "公开例题忽略构件小 δ 效应；本文不能替代所有单元与非线性设置的技术参考。完整官方 PDF 本次因访问错误未取得。",
+        "locator": "P-Delta Analysis with Verification：方法对比及悬臂柱迭代示例",
+        "sourceUrls": [
+          "https://bentleysystems.service-now.com/community?id=kb_article&sysparm_article=KB0114660"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Bentley：P-Delta Analysis with Verification",
+        "url": "https://bentleysystems.service-now.com/community?id=kb_article&sysparm_article=KB0114660",
+        "version": "知识库版本栏为 All，未标具体发行号",
+        "access": "公开正文",
+        "evidence": "正文区分迭代、几何刚度与放大法，给出手算验证。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方知识库和 Help PDF 入口；PDF 下载域名本次无法访问，已读的 P–Δ 正文可独立支持本条局部理论，不由此推断全程序理论缺失。"
+  },
+  {
+    "softwareId": "sw124",
+    "name": "SAP2000",
+    "status": "documented",
+    "summary": "官方共用分析参考公开有限元对象、自由度、约束和材料模型；所读为 2016 Rev.15。",
+    "topics": [
+      {
+        "title": "对象离散、自由度与约束",
+        "kind": "数学模型",
+        "explanation": "CSI 手册区分用于建模的对象与实际分析单元，并以节点自由度组织位移、力和质量。刚体、楼板、等位移等约束通过对应关系限制自由度；材料章节将应力应变关系及各向同性、正交各向异性等模型分开，帮助判断模型简化会保留哪些运动。",
+        "assumptions": "依据 2016 共用参考；当前 SAP2000 功能、单元和材料的可用性须核对安装版，不把几何对象数量等同分析自由度数。",
+        "locator": "CSI Analysis Reference Manual：Chapters II、IV、V、VI",
+        "sourceUrls": [
+          "https://docs.csiamerica.com/manuals/sap2000/CSiRefer.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "CSI Analysis Reference Manual",
+        "url": "https://docs.csiamerica.com/manuals/sap2000/CSiRefer.pdf",
+        "version": "July 2016，Rev.15",
+        "access": "公开正文",
+        "evidence": "Objects and Elements、Joints and Degrees of Freedom、Constraints and Welds、Material Properties。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw125",
+    "name": "CSiBridge",
+    "status": "documented",
+    "summary": "官方共用分析参考明确覆盖 CSiBridge，解释反应谱的动力平衡与模态组合。",
+    "topics": [
+      {
+        "title": "桥梁模型的反应谱分析基础",
+        "kind": "数学模型",
+        "explanation": "CSiBridge 所用共用参考从结构动力平衡解释地震反应谱，并说明先求模态、再按模态和地震方向进行统计组合。刚度、质量与阻尼模型决定参与分析的自由度；输入谱及模态组合选择共同影响得到的响应估计。",
+        "assumptions": "所读为 2016 共用理论；它没有单独核查当前桥梁移动荷载、施工阶段或桥型向导的全部内部模型。",
+        "locator": "CSI Analysis Reference Manual：Chapter XX Response-Spectrum Analysis，Overview / Modal Combination",
+        "sourceUrls": [
+          "https://docs.csiamerica.com/manuals/sap2000/CSiRefer.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "CSI Analysis Reference Manual：CSiBridge 适用共用参考",
+        "url": "https://docs.csiamerica.com/manuals/sap2000/CSiRefer.pdf",
+        "version": "July 2016，Rev.15",
+        "access": "公开正文",
+        "evidence": "封面列 CSiBridge，第 XX 章公开反应谱理论。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw126",
+    "name": "MIDAS CIVIL NX",
+    "status": "documented",
+    "summary": "官方 FAQ 解释 P–Δ 分析如何由内力更新几何刚度，区别于规范名义曲率法。",
+    "topics": [
+      {
+        "title": "P–Δ 分析的刚度更新",
+        "kind": "数值算法",
+        "explanation": "CIVIL NX 技术答复将 P–Δ 解释为轴向和横向荷载共同作用下的几何非线性：先作线性静力分析，再利用已有内力或应力构造几何刚度并重复分析，直到满足收敛条件。附加弯矩来自模型实际变形，因而与按设计应变推算的名义曲率法有不同依据。",
+        "assumptions": "所读为特定 P–Δ 机制，不能把 FAQ 中的 real-time displacement 字样理解为硬实时系统；不代表完整材料非线性或任意大变形算法。",
+        "locator": "CIVIL NX FAQ：Answer，线性初算与几何刚度重复更新段落",
+        "sourceUrls": [
+          "https://support.midasuser.com/hc/en-us/articles/26972695007513--CIVIL-NX-What-is-the-basis-of-P-analysis-in-CIVIL-NX-secondary-moment-from-P-analysis-matches-with-classical-method-calculation-using-actual-stress-rather-failure-stress-why"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "MIDAS：What is the basis of P–Δ analysis in CIVIL NX?",
+        "url": "https://support.midasuser.com/hc/en-us/articles/26972695007513--CIVIL-NX-What-is-the-basis-of-P-analysis-in-CIVIL-NX-secondary-moment-from-P-analysis-matches-with-classical-method-calculation-using-actual-stress-rather-failure-stress-why",
+        "version": "创建 2023-12-29；编辑 2025-03-05",
+        "access": "公开正文",
+        "evidence": "公开说明初算、几何刚度构造与迭代停止条件。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw127",
+    "name": "Archicad",
+    "status": "limited",
+    "summary": "用户帮助解释建筑材料优先级如何决定相交构件的实体连接与显示。",
+    "topics": [
+      {
+        "title": "材料优先级与构件相交",
+        "kind": "几何与数据模型",
+        "explanation": "Archicad 的连接首先要求建筑构件在空间中相交，再按 Building Material 的优先级处理：高优先级材料或复合层切除低优先级部分，连接会修改至复合层的几何。图层相交组另作分组控制，组编号不同的构件不相交，编号本身不代表材料优先级。",
+        "assumptions": "屋顶、壳体及 Morph 还需相应合并或修剪操作；部分平面符号显示可能与三维模型不同，不能当作结构接头力学模型。",
+        "locator": "Basic Intersection Principles：Building Material priorities / model-based intersections / Layer Intersection Groups",
+        "sourceUrls": [
+          "https://help.graphisoft.com/AC/26/INT/_AC26_Help/040_ElementsVB/040_ElementsVB-270.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Archicad：Basic Intersection Principles",
+        "url": "https://help.graphisoft.com/AC/26/INT/_AC26_Help/040_ElementsVB/040_ElementsVB-270.htm",
+        "version": "Archicad 26 帮助",
+        "access": "公开正文",
+        "evidence": "材料优先级、复合层实体连接和图层组的规则正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw128",
+    "name": "Rhino / Grasshopper",
+    "status": "documented",
+    "summary": "McNeel 开发文档解释 NURBS 的次数、控制点、权重、节点与求值规则。",
+    "topics": [
+      {
+        "title": "NURBS 几何表示",
+        "kind": "几何与数据模型",
+        "explanation": "Rhino 文档把 NURBS 曲线定义为次数、控制点、节点与求值规则的组合。控制点权重决定有理性；节点序列与重复度影响连续性和局部尖折。求值规则通过 B 样条基函数把一个参数映射为空间点，并说明升阶、加节点与降阶、删节点对曲线形状的不同影响。",
+        "assumptions": "本条覆盖 Rhino 几何表示，不代表 Grasshopper 所有组件都用 NURBS；Rhino 的节点存储约定与部分旧算法有两个额外节点的差别。",
+        "locator": "NURBS Geometry Overview：Degree / Control Points / Knots / Evaluation Rule",
+        "sourceUrls": [
+          "https://developer.rhino3d.com/guides/opennurbs/nurbs-geometry-overview/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "McNeel：NURBS Geometry Overview",
+        "url": "https://developer.rhino3d.com/guides/opennurbs/nurbs-geometry-overview/",
+        "version": "官方指南，最后更新 2020-08-07",
+        "access": "公开正文",
+        "evidence": "完整正文解释 NURBS 定义、节点与几何求值。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw155",
+    "name": "PKPM 结构设计软件（含 SATWE）",
+    "status": "documented",
+    "summary": "SATWE 官方历史手册解释剪力墙墙元、楼板理想化和抗震分析方法。",
+    "topics": [
+      {
+        "title": "墙元与楼板简化",
+        "kind": "数学模型",
+        "explanation": "SATWE 手册说明剪力墙采用以壳元理论为基础的通用墙元，同时保留平面内外刚度，节点具有六个空间自由度以连接梁柱。楼板可整体平面内无限刚、分块无限刚、分块刚性并带弹性连接板带，或采用弹性楼板；这些选择对应不同的传力理想化。",
+        "assumptions": "依据 2019 手册，墙洞说明限定矩形洞；历史容量、版本和规范限值不能直接当作当前发行版承诺。",
+        "locator": "第一章第一节：SATWE 简介 / 墙元和四种楼板假定",
+        "sourceUrls": [
+          "https://help.pkpm.cn/admin/ms/detail?SiteID=123&flagReader=1&id=1308&type=sourceBook"
+        ]
+      },
+      {
+        "title": "抗震计算的模型入口",
+        "kind": "物理与机理",
+        "explanation": "手册区分振型分解反应谱、耦联抗震分析与动力弹性时程等功能，并说明可考虑偶然偏心、双向水平地震下的扭转效应及竖向地震作用。它把抗震输入与结构理想化联系起来，为继续查振型、质量和楼板假定的影响提供阅读入口。",
+        "assumptions": "本章主要给出方法类别，未公开全部组合公式、阻尼实现及非线性耗能模型，不能把动力弹性时程写成一般弹塑性时程。",
+        "locator": "第一章第二节：基本功能第 12、13 项",
+        "sourceUrls": [
+          "https://help.pkpm.cn/admin/ms/detail?SiteID=123&flagReader=1&id=1308&type=sourceBook"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "PKPM：SATWE 的基本功能与限制",
+        "url": "https://help.pkpm.cn/admin/ms/detail?SiteID=123&flagReader=1&id=1308&type=sourceBook",
+        "version": "官方手册章节，发布 2019-11-26",
+        "access": "公开正文",
+        "evidence": "第一节墙元与楼板假定正文；第二节抗震功能明确为弹性时程等。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw156",
+    "name": "OpenSees / OpenSeesPy",
+    "status": "documented",
+    "summary": "官方命令文档同时提供非线性残差迭代与 Newmark 动力积分的 Theory 正文。",
+    "topics": [
+      {
+        "title": "非线性平衡残差的 Newton 迭代",
+        "kind": "数值算法",
+        "explanation": "OpenSees 的 Newton 文档从残差函数的一阶展开推导位移修正，并将多自由度问题写为切线矩阵与残差的关系。默认在迭代时更新切线；当前文档还区分固定首次切线和初始切线等选项，说明同一模型选择不同切线更新策略会改变求解过程。",
+        "assumptions": "Newton 是分析算法，材料、本构及单元须另外指定；收敛依赖初值、模型、约束和容差，不保证所有非线性问题都能求解。",
+        "locator": "Newton Algorithm：Notes 与残差、Jacobian 推导",
+        "sourceUrls": [
+          "https://opensees.github.io/OpenSeesDocumentation/user/manual/analysis/algorithm/Newton.html"
+        ]
+      },
+      {
+        "title": "动力平衡的 Newmark 积分",
+        "kind": "数值算法",
+        "explanation": "Newmark Theory 以外力、惯性、阻尼和内力组成瞬态动量残差，通过位移及速度的时间展开构造单步更新关系。gamma 与 beta 控制积分格式及数值耗散；手册列平均加速度和线性加速度的参数组合，可用于理解地震时程中离散时间步如何影响运动响应。",
+        "assumptions": "时间积分与平衡迭代是不同层次；参数、时间步和材料非线性共同影响精度与稳定性，积分格式的稳定性条件不等于非线性平衡迭代一定收敛。",
+        "locator": "Newmark Method：Theory 及 gamma / beta 参数说明",
+        "sourceUrls": [
+          "https://opensees.github.io/OpenSeesDocumentation/user/manual/analysis/integrator/Newmark.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "OpenSees：Newton Algorithm",
+        "url": "https://opensees.github.io/OpenSeesDocumentation/user/manual/analysis/algorithm/Newton.html",
+        "version": "滚动官方文档，未标明独立发行号",
+        "access": "公开正文",
+        "evidence": "Newton 残差线性化与切线更新正文。"
+      },
+      {
+        "title": "OpenSees：Newmark Method",
+        "url": "https://opensees.github.io/OpenSeesDocumentation/user/manual/analysis/integrator/Newmark.html",
+        "version": "滚动官方文档，未标明独立发行号",
+        "access": "公开正文",
+        "evidence": "Theory 中动力残差、位移速度更新和数值参数正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw157",
+    "name": "Ansys Mechanical APDL（MAPDL）",
+    "status": "documented",
+    "summary": "Ansys Theory Reference 公开非线性迭代、收敛、线搜索及弧长法等分析理论。",
+    "topics": [
+      {
+        "title": "非线性有限元的平衡迭代",
+        "kind": "数值算法",
+        "explanation": "Theory Reference 从有限元离散方程出发，将外荷载与由单元应力计算的恢复力之差定义为失衡残差。Newton–Raphson 每轮计算切线矩阵与恢复力，求自由度增量并更新状态，直至收敛；结构、热和电磁问题对应的未知量与矩阵具有不同物理含义。",
+        "assumptions": "算法不等于任意单元和材料的完整理论；切线、步长及收敛判断需与分析类型匹配，近极限点还需查弧长等方法。",
+        "locator": "Theory Reference §14.10.1 Overview；§14.10.2 Convergence；§14.10.5–6",
+        "sourceUrls": [
+          "https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/ans_thry/thy_tool10.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Ansys Theory Reference：Newton-Raphson Procedure",
+        "url": "https://ansyshelp.ansys.com/public/Views/Secured/corp/v252/en/ans_thry/thy_tool10.html",
+        "version": "2025 R2（v252）",
+        "access": "公开正文",
+        "evidence": "§14.10 公开失衡残差、切线矩阵、迭代步骤、收敛和增强方法。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw186",
+    "name": "盈建科 YJK",
+    "status": "documented",
+    "summary": "YJK-F 官方用户手册及技术条件公开基础板单元、桩土弹簧与上部结构刚度凝聚。",
+    "topics": [
+      {
+        "title": "桩土支承的地基模型",
+        "kind": "物理与机理",
+        "explanation": "YJK-F 技术条件用广义 Winkler 地基模型建立桩、土弹簧刚度，并考虑土层及相互影响。沉降试算依据桩土荷载分配、Mindlin 和 Boussinesq 应力解及分层总和法反算刚度；可再按第一次沉降更新刚度，或使用用户依据试验指定的基床系数和桩刚度。",
+        "assumptions": "依据 2022.1 基础模块；用户指定刚度时不再采用该二次计算路径，输入地质与试验参数是模型成立的重要条件。",
+        "locator": "第九章技术条件：六、地基模型，正文页 415 起（PDF 第 426 页）",
+        "sourceUrls": [
+          "https://www.yjk.cn/uploads/files/20220121/YJK-F%20%E5%9F%BA%E7%A1%80%E8%AE%BE%E8%AE%A1%E8%BD%AF%E4%BB%B6YJK%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C.pdf"
+        ]
+      },
+      {
+        "title": "上部结构与基础的刚度凝聚",
+        "kind": "数学模型",
+        "explanation": "基础手册将上部结构内部自由度消去，把其作用表示为基础连接节点处的等效刚度及等效荷载，再与基础系统共同求解。正文给出分块矩阵凝聚公式，解释复用 YJK-A 求解器和已有分解结果，并说明底层墙内部节点向端点的再次凝聚处理。",
+        "assumptions": "这里只核实 YJK-F 与所述上部结构计算路径；墙端节点对应、楼层取值和补充等效梁须按手册配置，不能外推所有 YJK 模块。",
+        "locator": "第九章：上部结构和基础共同作用，正文页 418–420（PDF 第 429–431 页）",
+        "sourceUrls": [
+          "https://www.yjk.cn/uploads/files/20220121/YJK-F%20%E5%9F%BA%E7%A1%80%E8%AE%BE%E8%AE%A1%E8%BD%AF%E4%BB%B6YJK%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "YJK-F 基础设计软件：用户手册及技术条件",
+        "url": "https://www.yjk.cn/uploads/files/20220121/YJK-F%20%E5%9F%BA%E7%A1%80%E8%AE%BE%E8%AE%A1%E8%BD%AF%E4%BB%B6YJK%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8C.pdf",
+        "version": "2022.1",
+        "access": "公开正文",
+        "evidence": "已从厂商 URL 下载并提取正文：第九章页 410、415、418–420 等解释板元、地基和凝聚。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "web 对大 PDF 返回长度限制，随后通过厂商原始 URL 下载并逐页提取核查正文；仅覆盖 YJK-F 2022.1 及其引用的 YJK-A 路径，未将旧版技术条件当作当前全系列规范。"
+  },
+  {
+    "softwareId": "sw187",
+    "name": "Dlubal RFEM 6 / RSTAB 9",
+    "status": "documented",
+    "summary": "RFEM 6 混凝土设计在线手册公开有效刚度法的假定、开裂插值及长期效应。",
+    "topics": [
+      {
+        "title": "混凝土开裂后的有效刚度",
+        "kind": "数学模型",
+        "explanation": "直接变形分析采用有效刚度法，在截面层面考虑未开裂与开裂状态，并按规范插值得到有效材料刚度矩阵。文档把钢筋混凝土视为正交各向异性材料，纳入拉伸刚化及简化收缩徐变效应，并交代内力向钢筋方向及上下表面的变换。",
+        "assumptions": "所核实具体理论属于 RFEM 6 Concrete Design 的 1D/2D 对象和相应模型类型；不意味着 RSTAB 9 支持 RFEM 的曲面单元或同一分析设置。",
+        "locator": "Direct Deformation Analysis：§1.1 Basic Material and Geometry Assumptions；§1.2 Internal Design Forces",
+        "sourceUrls": [
+          "https://www.dlubal.com/en/downloads-and-information/documents/online-manuals/rfem-6-concrete-design/005936"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Dlubal：Direct Deformation Analysis / Effective Stiffness Method",
+        "url": "https://www.dlubal.com/en/downloads-and-information/documents/online-manuals/rfem-6-concrete-design/005936",
+        "version": "RFEM 6 / RSTAB 9 Concrete Design 手册；2025-01-23",
+        "access": "公开正文",
+        "evidence": "§1 理论背景给出线弹性、开裂插值、正交各向异性及徐变收缩假定。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw188",
+    "name": "SOFiSTiK",
+    "status": "documented",
+    "summary": "ASE 2026 手册公开位移型有限元、板壳理论、非线性与求解方法。",
+    "topics": [
+      {
+        "title": "位移型有限元与整体平衡",
+        "kind": "数学模型",
+        "explanation": "ASE 理论章以节点位移作为未知量，通过单元内插值和能量原理建立单元刚度，再组装整体平衡方程。流程区分单元刚度形成、整体求解、位移计算及应力反力恢复，并解释单元间应力跳跃可作为网格分析质量的观察依据。",
+        "assumptions": "有限元结果是离散近似；细分受数值条件限制，不能简单认为单元越多必然更准确。这里覆盖 ASE，其他模块需各自理论手册。",
+        "locator": "ASE Manual §2.1 General，正文页 2-1（PDF 第 9 页）",
+        "sourceUrls": [
+          "https://docs.sofistik.com/2026/fea_pdf/ase_1.pdf"
+        ]
+      },
+      {
+        "title": "Mindlin 板的剪切变形",
+        "kind": "物理与机理",
+        "explanation": "ASE 的板结构单元以 Mindlin 板理论为基础，并加非协调形式扩展。截面变形后保持平面，但不必继续垂直于中性轴；总转角分为弯曲转角和附加剪切转角，曲率、剪切角及正交异性刚度共同决定内力与弯矩。",
+        "assumptions": "限于对应板单元；不是所有梁、壳和实体都共用该公式，厚度变化、连接及材料设置需按后续章节处理。",
+        "locator": "§2.8.1 Plate Structural Behaviour，正文页 2-20 起（PDF 第 28 页）",
+        "sourceUrls": [
+          "https://docs.sofistik.com/2026/fea_pdf/ase_1.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "SOFiSTiK：ASE Manual",
+        "url": "https://docs.sofistik.com/2026/fea_pdf/ase_1.pdf",
+        "version": "2026，Service Pack 2026-4 Build 155",
+        "access": "公开正文",
+        "evidence": "已下载公开 PDF 核查第 2 章理论基础，含有限元与 Mindlin 板推导。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw189",
+    "name": "Code_Aster",
+    "status": "documented",
+    "summary": "R 系列理论文档公开准静态非线性平衡、材料历史、几何更新与边界约束处理。",
+    "topics": [
+      {
+        "title": "准静态非线性平衡与增量求解",
+        "kind": "数学模型",
+        "explanation": "STAT_NON_LINE 理论将内力与外力差定义为平衡残差，并用载荷增量推进模型状态。每步先预测位移增量，再用 Newton 或变体修正；增量材料还需保存上一步应力和内部变量。文档以虚功和边界约束说明位移、历史状态及 Lagrange 乘子的作用。",
+        "assumptions": "准静态计算忽略惯性；多数情况下的伪时间仅参数化增量，但黏塑性或时间相关控制仍有物理时间意义。动态应另查 DYNA_NON_LINE。",
+        "locator": "R5.03.01 §1.1 Généralités；§1.3 Position du problème quasi-statique non linéaire",
+        "sourceUrls": [
+          "https://codeaster.gitlab.io/doc/docaster/manuals/man_r/r5/r5.03.01/Pr_sentation.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "DocAster R5.03.01：Présentation",
+        "url": "https://codeaster.gitlab.io/doc/docaster/manuals/man_r/r5/r5.03.01/Pr_sentation.html",
+        "version": "滚动官方法文理论参考，未标明独立发行号",
+        "access": "公开正文",
+        "evidence": "§1 公开平衡残差、增量历史、预测修正及边界乘子方程。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw190",
+    "name": "CalculiX",
+    "status": "documented",
+    "summary": "作者官网公开 CrunchiX 2.23 理论章，覆盖单元、材料、接触、分析类型和收敛控制。",
+    "topics": [
+      {
+        "title": "线弹性应力应变测度",
+        "kind": "物理与机理",
+        "explanation": "CalculiX 理论章将线弹性定义为弹性势中保留应变二次项，并区分各向同性、正交各向异性和全各向异性参数。文档明确其实现连接 Lagrange 应变与第二 Piola–Kirchhoff 应力；小应变小转动下可退化为常用线性应变应力关系。",
+        "assumptions": "文档明确此线性联系对大应变或大转动可能不具合适物理意义，应选相应能量势或大变形材料模型；不能因输入类似 Abaqus 就推定本构完全相同。",
+        "locator": "CrunchiX 2.23：§6 Theory / §6.8.1 Linear elasticity，正文页 259",
+        "sourceUrls": [
+          "https://www.dhondt.de/ccx_2.23.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "CalculiX CrunchiX User’s Manual",
+        "url": "https://www.dhondt.de/ccx_2.23.pdf",
+        "version": "Version 2.23",
+        "access": "公开正文",
+        "evidence": "已下载作者官网 PDF 核查 §6.8.1，正文明确应力应变测度与大变形限制。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "web 对大 PDF 超时，随后从作者官网原始 URL 下载并核查文本；不把相似输入卡或命名当作与 Abaqus 数值实现相同的证据。"
+  },
+  {
+    "softwareId": "sw191",
+    "name": "Bonsai",
+    "status": "limited",
+    "summary": "官方文档解释 IFC 对象、类型与实例、几何表示及参数化材料层的关系。",
+    "topics": [
+      {
+        "title": "IFC 语义与几何表示",
+        "kind": "几何与数据模型",
+        "explanation": "Bonsai 文档将对象的语义、类型及几何分开：一个 IFC 对象可以没有几何，也可以有多个表示，并由 Context 区分三维实体或二维平面用途。几何可为网格、CSG、扫掠或拉伸；材料层及材料型材提供参数化生成方式，通常在类型层定义并由实例继承。",
+        "assumptions": "这属于 BIM 数据与几何模型；不代表结构或热工求解理论。非网格直接建模工具仍有限，手工修改低层表示需遵守 IFC 规则。",
+        "locator": "Geometry and Representations：Representations / Representation Types / Parametric Materials",
+        "sourceUrls": [
+          "https://docs.bonsaibim.org/studio/guides/authoring/understanding_ifc/geometry_and_representations.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Bonsai：Geometry and Representations",
+        "url": "https://docs.bonsaibim.org/studio/guides/authoring/understanding_ifc/geometry_and_representations.html",
+        "version": "0.9.0post1 studio 文档",
+        "access": "公开正文",
+        "evidence": "几何 Context、表示类型和参数化材料正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  },
+  {
+    "softwareId": "sw192",
+    "name": "Navisworks Manage",
+    "status": "limited",
+    "summary": "Clash Detective 帮助解释硬碰撞、保守检测、间距与重复对象判据及容差。",
+    "topics": [
+      {
+        "title": "碰撞测试的几何判据",
+        "kind": "几何与数据模型",
+        "explanation": "Navisworks 将两组对象按测试类型比较：Hard 检测实际相交，Hard Conservative 加入保守判定，Clearance 检测是否进入给定距离内，Duplicates 比较类型和位置是否相同。容差用于过滤很小的冲突，若连接到施工时序或动画，还需设置检测间隔。",
+        "assumptions": "隐藏对象不参加测试；保守检测可报告三角形未相交的对象，静态净距判据也不等于连续运动碰撞。此页不公开底层空间索引算法。",
+        "locator": "Clash Detective / Select Tab：Type / Tolerance / Link / Step",
+        "sourceUrls": [
+          "https://help.autodesk.com/cloudhelp/2026/ENU/Navisworks-Clash-Detective/files/GUID-F72265A1-A934-4533-9377-87DC3DB1519A.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Navisworks：Clash Detective Select Tab",
+        "url": "https://help.autodesk.com/cloudhelp/2026/ENU/Navisworks-Clash-Detective/files/GUID-F72265A1-A934-4533-9377-87DC3DB1519A.htm",
+        "version": "Navisworks 2026 帮助",
+        "access": "公开正文",
+        "evidence": "四类测试、容差、时序间隔及隐藏对象边界正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查厂商公开文档及相关理论章节；列出的是已读内容，不表示涵盖全部功能，也不表示未列出的机理不存在。本次未安装软件或复现计算。"
+  }
+]

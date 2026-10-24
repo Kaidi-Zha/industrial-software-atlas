@@ -1,0 +1,1339 @@
+[
+  {
+    "softwareId": "sw052",
+    "name": "Petrel + Ocean",
+    "status": "not-located",
+    "summary": "找到分类、估计和趋势建模的功能介绍，未取得足以解释具体算法与假设的官方理论正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "SLB：Petrel Classification and Estimation",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/petrel-subsurface-software/petrel/petrel-geophysics/petrel-classification-and-estimation",
+        "version": "官网滚动产品说明，未标明版本",
+        "access": "公开正文",
+        "evidence": "Overview / Features 介绍神经网络和趋势建模；未提供训练目标、方程或算法推导。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查 Petrel 官方模块说明，并检索地质统计/相建模理论；未用 SLB 通用术语表替代 Petrel 的实现文档。未找到不表示软件没有相关文档。"
+  },
+  {
+    "softwareId": "sw053",
+    "name": "Techlog",
+    "status": "not-located",
+    "summary": "官方发布说明提到 Quanti.Elan 的 Monte Carlo 分析，未取得多矿物反演或测井响应模型的理论正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "SLB：Techlog 2024.3 release information",
+        "url": "https://www.software.slb.com/software-news/support-news/techlog/techlog-2024-3",
+        "version": "2024.3",
+        "access": "公开正文",
+        "evidence": "Petrophysics / Quanti.Elan 说明 Monte Carlo 输入和输出分布；More information 指向支持站，未公开完整反演方程。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查官方发布说明与支持入口；未收录第三方转载的 Quanti.Elan 培训手册，不从功能名补写反演方法。"
+  },
+  {
+    "softwareId": "sw054",
+    "name": "OPM Flow",
+    "status": "documented",
+    "summary": "官方模型文档解释黑油模型的相与组分、部分互溶假定，以及全隐式计算与自动微分。",
+    "topics": [
+      {
+        "title": "黑油三相三组分与全隐式求解",
+        "kind": "数学模型",
+        "explanation": "模型区分水、油、气相及水、油、气伪组分，以地层体积系数等关系描述相性质。Flow 采用全隐式黑油求解并以自动微分形成所需导数；扩展模型还可处理溶解气、挥发油等过程。",
+        "assumptions": "所引 BlackOilModel 页面描述特定部分互溶假定；不能把该简化模型直接推广为所有组分、热或化学扩展的完整方程。",
+        "locator": "BlackOilModel / Detailed Description；Flow / Model formulation",
+        "sourceUrls": [
+          "https://www.opm-project.org/apidoc/latest/opm-autodiff/html/blackoilmodel_8hh.php",
+          "https://opm-project.org/?page_id=19"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "OPM：BlackOilModel detailed description",
+        "url": "https://www.opm-project.org/apidoc/latest/opm-autodiff/html/blackoilmodel_8hh.php",
+        "version": "latest 滚动源码文档",
+        "access": "公开正文",
+        "evidence": "Detailed Description 给出三相三组分、部分互溶假定和地层体积系数定义。"
+      },
+      {
+        "title": "OPM：Flow model formulation",
+        "url": "https://opm-project.org/?page_id=19",
+        "version": "滚动项目文档",
+        "access": "公开正文",
+        "evidence": "Model formulation / Options and variants：全隐式、自动微分、溶解气/挥发油与扩展模型。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw055",
+    "name": "Maptek Vulcan",
+    "status": "documented",
+    "summary": "公开帮助解释实验半变差函数的方向、滞后距、容差及基台标准化，适合追溯品位估计的空间结构设置。",
+    "topics": [
+      {
+        "title": "实验半变差函数与方向性",
+        "kind": "数学模型",
+        "explanation": "通过全方向、沿孔或指定方向的样本对计算实验半变差函数；滞后距和角度容差决定纳入哪些样本对。基台标准化以样本方差缩放结果，便于比较不同变量或不同方向的空间连续性。",
+        "assumptions": "全方向结果是多方向的汇总，不证明地质体各向同性；样本间距、方向容差和域划分仍会影响估计。该页不构成完整克里金求解手册。",
+        "locator": "Creating a Semivariogram / Standardise Sill / Omni-Directional / Lag size",
+        "sourceUrls": [
+          "https://help.maptek.com/vulcan/2025.2/Content/topics/Analyse/VDA_Variography/Analyse_EDA_Properties_New_Variogram.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Maptek Vulcan：Creating a Semivariogram",
+        "url": "https://help.maptek.com/vulcan/2025.2/Content/topics/Analyse/VDA_Variography/Analyse_EDA_Properties_New_Variogram.htm",
+        "version": "2025.2",
+        "access": "公开正文",
+        "evidence": "Omni-Directional / Standardise Sill / lag、angle tolerance 定义实验变差函数的构造与方向选择。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw056",
+    "name": "Leapfrog Geo",
+    "status": "documented",
+    "summary": "估计器帮助解释克里金与 RBF 的工作方式、权重和输出指标；这些估计功能需 Edge 扩展。",
+    "topics": [
+      {
+        "title": "克里金、块估计与 RBF",
+        "kind": "数学模型",
+        "explanation": "克里金使用协方差和样本空间关系估计未知值；普通克里金把局部常均值视为未知并约束权重和为一。块估计对目标体积离散取样。RBF 构造可在未知位置评价的函数，所引文档说明其使用全局邻域。",
+        "assumptions": "历史 Geo 4.3 的理论与参数解释需对照实际版本；估计器属于 Edge。负权重、搜索邻域、离散尺度和趋势设置影响结果，不能当成地质真值。",
+        "locator": "Estimators / Kriging Attributes / Block Kriging / RBF Estimators",
+        "sourceUrls": [
+          "https://help.seequent.com/Geo/4.3/en-GB/Content/estimation/estimators.htm",
+          "https://help.seequent.com/Geo/2024.1/en-GB/Content/estimation/estimators.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Leapfrog Geo：Estimators",
+        "url": "https://help.seequent.com/Geo/4.3/en-GB/Content/estimation/estimators.htm",
+        "version": "Geo 4.3，历史帮助",
+        "access": "公开正文",
+        "evidence": "Kriging Attributes / Block Kriging / RBF Estimators 解释局部均值、权重、块离散和全局 RBF 邻域。"
+      },
+      {
+        "title": "Leapfrog Geo：Standard Estimators / access boundary",
+        "url": "https://help.seequent.com/Geo/2024.1/en-GB/Content/estimation/estimators.htm",
+        "version": "2024.1",
+        "access": "公开正文",
+        "evidence": "页首明确这些估计功能需要 Leapfrog Edge 扩展。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw057",
+    "name": "GEOVIA Surpac",
+    "status": "not-located",
+    "summary": "官方课程纲要包含地质统计与克里金主题，但未取得解释其实现、公式与假设的公开正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Dassault Systèmes：Surpac Resource Estimation and Geostatistics course structure",
+        "url": "https://www.3ds.com/assets/invest/2024-10/geovia-surpac-resource-estimation-and-geostatistics_juy2024.pdf",
+        "version": "2024 年 7 月课程纲要",
+        "access": "仅目录/摘要",
+        "evidence": "列出变差函数、普通/指示克里金及模型验证课程主题；不是理论正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检查官方 Surpac 资源估计课程及产品资料；培训主题能证明教学范围，不能替代理论手册，也不能证明已读到具体算法。"
+  },
+  {
+    "softwareId": "sw129",
+    "name": "ECLIPSE",
+    "status": "access-limited",
+    "summary": "官方发布说明确认存在 Technical Description，但未取得该理论手册的正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "SLB：ECLIPSE 2022.3 release information",
+        "url": "https://www.software.slb.com/software-news/support-news/eclipse/eclipse-2022-3",
+        "version": "2022.3",
+        "access": "仅目录/摘要",
+        "evidence": "Release updates 明确提及 Technical Description；进一步资料显示 Login to read more。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "公开页可读到模型更新摘要及理论文档名称，深入资料有登录入口；不把摘要中的模型名展开为未经核查的方程。理论正文需从授权支持站或安装文档核对。"
+  },
+  {
+    "softwareId": "sw130",
+    "name": "INTERSECT",
+    "status": "access-limited",
+    "summary": "确认官方 Technical Description 包含岩石建模与假设章节；未取得该章节正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "SLB：INTERSECT 2025.1 release information",
+        "url": "https://www.software.slb.com/software-news/software-top-news/intersect/intersect-2025-1",
+        "version": "2025.1",
+        "access": "仅目录/摘要",
+        "evidence": "Usability 说明 Technical Description 的 Rock Modelling 章节含工作流和建模假设；后续资料为登录入口。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查发布说明中对 Technical Description 的明确引用与登录边界；公开新增功能摘要不等于已核验流动、地应力或热模型的完整理论。"
+  },
+  {
+    "softwareId": "sw131",
+    "name": "CMG 油藏模拟套件（IMEX / GEM / STARS）",
+    "status": "limited",
+    "summary": "官方 FAQ 可用于区分 IMEX、GEM、STARS 的流体描述与应用边界，未取得整套模拟器理论手册。",
+    "topics": [
+      {
+        "title": "黑油、组分与热采模型的分工",
+        "kind": "物理与机理",
+        "explanation": "IMEX 用黑油 PVT 关系描述多相流；GEM 面向基于状态方程的组分建模；STARS 面向蒸汽和原位燃烧等热采过程。FAQ 说明基础模型需要网格、孔隙度、渗透率、PVT、相对渗透率、初始状态和井约束。",
+        "assumptions": "这是官方技术 FAQ 的模型层级说明；未取得三款模拟器的完整守恒方程、相平衡算法和数值误差分析，不把三者等同。",
+        "locator": "IMEX / FAQ：What types of fluid models；What data；When should you use IMEX",
+        "sourceUrls": [
+          "https://www.cmgl.ca/solutions/software/imex/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "CMG：IMEX technical FAQ",
+        "url": "https://www.cmgl.ca/solutions/software/imex/",
+        "version": "官网滚动说明，未标明手册版本",
+        "access": "公开正文",
+        "evidence": "FAQ 区分黑油、状态方程组分模型及热采，并说明基础输入；未展示离散方程。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw132",
+    "name": "tNavigator",
+    "status": "limited",
+    "summary": "公开技术资料解释流线和示踪的部分模型假定；完整数学手册由软件内 Adviser 提供。",
+    "topics": [
+      {
+        "title": "流线追踪与被动示踪",
+        "kind": "数学模型",
+        "explanation": "流线依据计算得到的压力势进行粒子追踪：从注入井出发沿时间正向追踪，从生产井出发可反向追踪。被动示踪不改变相的 PVT 性质；技术资料将其与需要考虑吸附、衰减和扩散的环境示踪区分。",
+        "assumptions": "这里只核查公开注水专题两页资料；被动示踪的忽略项不能推广到全部示踪类型，未审阅 Adviser 内完整数学手册。",
+        "locator": "Waterflooding / Streamline Simulation / Streamline Settings / Chemical Tracer Test",
+        "sourceUrls": [
+          "https://www.rfdyn.com/wp-content/uploads/2024/10/tNavigator-Waterflooding-InfoSheet.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "RFD：tNavigator Waterflooding technical information",
+        "url": "https://www.rfdyn.com/wp-content/uploads/2024/10/tNavigator-Waterflooding-InfoSheet.pdf",
+        "version": "官网 2024 年目录资料，未标明软件版本",
+        "access": "公开正文",
+        "evidence": "两页正文说明压力势、粒子追踪、流线方向、被动示踪与环境示踪区别。"
+      },
+      {
+        "title": "RFD：Adviser documentation hub",
+        "url": "https://www.rfdyn.com/module/adviser/",
+        "version": "官网滚动说明",
+        "access": "仅目录/摘要",
+        "evidence": "Manuals 明确提供科学、工程及物理的数学描述；完整手册从软件内 Adviser 访问。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw133",
+    "name": "FLAC3D",
+    "status": "documented",
+    "summary": "FLAC3D 理论章公开流固耦合连续方程、节点有限体积离散、时间推进和稳定性条件。",
+    "topics": [
+      {
+        "title": "孔隙流动与流固耦合离散",
+        "kind": "数值算法",
+        "explanation": "把孔隙压力和饱和度定义为节点变量，在内部四面体内作线性表示；连续方程形成节点有限体积系统。默认采用显式时间离散，耦合静力计算交替进行流动与力学迭代；饱和流还可选择隐式方案。",
+        "assumptions": "所引隐式流动方案只适用于饱和度固定的饱和流；显式时间步受稳定条件约束，隐式稳定也不意味着任意步长均有足够精度。",
+        "locator": "Theory and Background / Fluid-Mechanical Interaction / Numerical Formulation",
+        "sourceUrls": [
+          "https://docs.itascasoftware.com/itasca980/flac3d/docproject/source/theory/fluid-mechanical/numerical_form/numerical_form.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Itasca FLAC3D：Fluid-mechanical Numerical Formulation",
+        "url": "https://docs.itascasoftware.com/itasca980/flac3d/docproject/source/theory/fluid-mechanical/numerical_form/numerical_form.html",
+        "version": "Itasca 9.8 文档",
+        "access": "公开正文",
+        "evidence": "连续方程、节点有限体积、显式稳定条件及隐式 Crank–Nicolson 饱和流模型。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw134",
+    "name": "PFC Suite",
+    "status": "documented",
+    "summary": "PFC 文档解释颗粒离散元的对象、接触作用、运动更新与能量耗散机制。",
+    "topics": [
+      {
+        "title": "离散元接触与显式动力循环",
+        "kind": "物理与机理",
+        "explanation": "颗粒以具有有限形状的离散刚体表示，接触模型将相对运动转化为力和力矩；系统按牛顿运动律更新位置与速度。每个循环包含时间步确定、运动更新、接触识别及力位移关系更新，可追踪摩擦和阻尼等耗散。",
+        "assumptions": "宏观岩体响应由颗粒与接触参数组合产生；单个接触模型不能直接视为连续介质本构，时间步必须满足数值稳定和接触识别要求。",
+        "locator": "PFC Model Formulation / Overview / cycle sequence / Energy",
+        "sourceUrls": [
+          "https://docs.itascacg.com/itasca900/pfc/docproject/source/manual/numerical_simulations_with_pfc/pfc_formulation/pfc_model_formulation.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Itasca PFC：Model Formulation",
+        "url": "https://docs.itascacg.com/itasca900/pfc/docproject/source/manual/numerical_simulations_with_pfc/pfc_formulation/pfc_model_formulation.html",
+        "version": "Itasca 9.0 文档",
+        "access": "公开正文",
+        "evidence": "Overview / cycle sequence 给出离散刚体、接触模型、牛顿运动律和显式循环。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw135",
+    "name": "Deswik.CAD",
+    "status": "not-located",
+    "summary": "找到官方设计和培训主题，未取得 Deswik.CAD 几何计算、储量计算等功能的算法正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Deswik：Role-specific training scope",
+        "url": "https://www.deswik.com/training-role-specific",
+        "version": "滚动课程说明",
+        "access": "仅目录/摘要",
+        "evidence": "Design Foundations / Optimization 包含建模与优化理论主题，未提供 CAD 几何算法正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "已区分 CAD 与 Deswik GO 等其他模块；不能因优化课程提及 pseudoflow 就把该算法归于 Deswik.CAD。"
+  },
+  {
+    "softwareId": "sw136",
+    "name": "Datamine Studio RM",
+    "status": "documented",
+    "summary": "帮助正文解释多种品位估计方法及其均值、搜索距离和相关性条件。",
+    "topics": [
+      {
+        "title": "品位估计、邻域与均值假定",
+        "kind": "数学模型",
+        "explanation": "普通克里金依靠变差函数和邻域样本估计未知值；简单克里金需要已知均值。最近邻把权重全部赋给最近样本，反距离方法按距离幂衰减权重；可选择是否使用搜索体积定义的各向异性变换距离。",
+        "assumptions": "协同克里金还需要相应变差和交叉变差模型；均值、域、邻域及离散设置影响估计，不保证样本不足时仍能获得可靠资源量。",
+        "locator": "Define an Estimation / Estimation Setup",
+        "sourceUrls": [
+          "https://docs.dataminesoftware.com/StudioRM/Latest/STUDIO_RM/Multivariate_Define_Estimations.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Datamine Studio RM：Define an Estimation",
+        "url": "https://docs.dataminesoftware.com/StudioRM/Latest/STUDIO_RM/Multivariate_Define_Estimations.htm",
+        "version": "Latest 滚动帮助，页面标 Studio RM 3.2",
+        "access": "公开正文",
+        "evidence": "Estimation Setup 解释简单/普通克里金、最近邻、反距离和多变量估计条件。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw193",
+    "name": "PIPESIM",
+    "status": "limited",
+    "summary": "历史官方技术资料可确认多相流模型选择、标定量及热流体建模范围；未取得各关联式的完整推导。",
+    "topics": [
+      {
+        "title": "经验关联、机理模型与标定",
+        "kind": "物理与机理",
+        "explanation": "技术资料区分单相关联式、垂直/水平多相关联式和 OLGAS、LedaFlow、TUFFP 等机理模型，用于计算流型、持液率和压降；标定可调整持液、摩擦及总传热系数乘子，使结果与实测压力、温度对照。",
+        "assumptions": "依据历史技术说明的可检索节选，不能据文件名确定精确软件版本；不把稳态模型解释为完整瞬态模拟，也未核实各模型当前许可。",
+        "locator": "Foundational Flow Modeling Capabilities / Multiphase Flow Models / Calibration",
+        "sourceUrls": [
+          "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/20-is-000057_pipesim_2019_technical_description.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "SLB：PIPESIM historical technical description",
+        "url": "https://www.software.slb.com/-/media/software-media-items/software/documents/external/product-sheets/20-is-000057_pipesim_2019_technical_description.pdf",
+        "version": "文件名 2019；检索到正文页眉 PIPESIM 2017 / January 2018，版本关系未核实",
+        "access": "仅目录/摘要",
+        "evidence": "Foundational Flow Modeling Capabilities 及 Multiphase Flow Models：可读检索正文节选；整 PDF 抓取未完成。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw194",
+    "name": "OLGA",
+    "status": "limited",
+    "summary": "SLB 的热计算说明解释所用 OLGA 引擎的多流体与能量耦合；不是 OLGA 全功能理论手册。",
+    "topics": [
+      {
+        "title": "多流体、相间传递与混合能量",
+        "kind": "物理与机理",
+        "explanation": "官方说明分别处理气相、连续液相和夹带液滴，并通过界面传质相连；连续油/凝析液与水具有各自动量方程，气体与夹带液滴另成一组，液滴速度用滑移关系描述。混合能量方程采用各相同温假设。",
+        "assumptions": "来源是 DrillPlan 中所用 OLGA 热引擎的技术说明；未核实完整 OLGA 各模块的方程数与闭合式，不能据此统一声明所有版本采用同一方程组。",
+        "locator": "DrillPlan Features / Thermal modelling / Olga thermal engine",
+        "sourceUrls": [
+          "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/delfi/delfi-solutions/drillplan/DrillPlan-Features"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "SLB：DrillPlan thermal engine / OLGA model explanation",
+        "url": "https://www.slb.com/products-and-services/delivering-digital-at-scale/software/delfi/delfi-solutions/drillplan/DrillPlan-Features",
+        "version": "滚动功能技术说明，未标明 OLGA 内核版本",
+        "access": "公开正文",
+        "evidence": "Thermal modelling 段说明 OLGA 多流体、界面传质、动量分组、液滴滑移及同温混合能量方程。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw195",
+    "name": "Petroleum Experts IPM",
+    "status": "limited",
+    "summary": "官方技术资料解释 PROSPER 的井筒热模型与 IPM 集成思路，未公开整套软件的完整方程和求解实现。",
+    "topics": [
+      {
+        "title": "井筒热量平衡与模型层级",
+        "kind": "物理与机理",
+        "explanation": "PROSPER 的热计算可使用粗略换热近似，也可采用考虑对流、传导、辐射的完整焓平衡；混合近似还处理 Joule–Thomson 效应和随深度变化的换热系数。IPM 把井、管网、储层等模型联系起来分析相互影响。",
+        "assumptions": "资料为产品技术说明，未给出所有闭合关系与数值解法；PROSPER 的模型不能替代 MBAL、GAP 或 RESOLVE 各自的理论说明。",
+        "locator": "IPM brochure 2024 / PROSPER Technical Capabilities / Thermal Modelling",
+        "sourceUrls": [
+          "https://www.petex.com/media/3245/ipm-brochure_2024.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Petex：IPM Suite product information",
+        "url": "https://www.petex.com/media/3245/ipm-brochure_2024.pdf",
+        "version": "2024",
+        "access": "公开正文",
+        "evidence": "PROSPER / Thermal Modelling 解释粗略换热、完整焓平衡及混合近似；RESOLVE 说明集成模型边界。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw196",
+    "name": "ResInsight",
+    "status": "documented",
+    "summary": "公开文档定义流动诊断量的计算含义和组合方式，适合解释模拟结果的派生指标。",
+    "topics": [
+      {
+        "title": "飞行时间、示踪份额与井间连通",
+        "kind": "数学模型",
+        "explanation": "飞行时间描述流体从注入井到单元或从单元到生产井的迁移时间；多示踪物组合按单元份额加权。井间连通指标由生产井示踪份额之和与注入井份额之和相乘得到，用来筛选双方均有影响的区域。",
+        "assumptions": "诊断基于导入模拟结果，不能视为独立重做完整油藏预测；结果只在请求的时间步按需计算，不提供据全部时间步自动形成的统计。",
+        "locator": "Cell Results / Flow Diagnostic Results / Defining Results / On-Demand Calculation",
+        "sourceUrls": [
+          "https://resinsight.org/3d-main-window/cellresults/index.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "ResInsight：Cell Results / Flow Diagnostic Results",
+        "url": "https://resinsight.org/3d-main-window/cellresults/index.html",
+        "version": "main 滚动文档",
+        "access": "公开正文",
+        "evidence": "Flow Diagnostic Results 定义飞行时间、示踪份额、井间连通及按需计算。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw197",
+    "name": "Oasis montaj",
+    "status": "documented",
+    "summary": "帮助正文解释最小曲率网格化的拟合目标、迭代停止条件及稀疏数据下的局限。",
+    "topics": [
+      {
+        "title": "最小曲率插值与张力",
+        "kind": "数值算法",
+        "explanation": "先把观测点汇入规则网格，再数值求解定义最小曲率表面的方程，使平滑表面接近网格初值。张力参数可抑制稀疏区域过冲；单元大小、迭代次数和容差共同影响拟合及计算成本。",
+        "assumptions": "欠采样资料无法靠平滑恢复真实细节；文档提醒迭代变化容差不能简单解释为与原观测数据的直接误差。只涵盖此网格算法。",
+        "locator": "Grid Data – Minimum Curvature / Controlling Grid Accuracy / Application Notes",
+        "sourceUrls": [
+          "https://help.seequent.com/Oasismontaj/2023.2/Content/gxhelp/g/geosoft_gx_gridutils_griddingtool_MinC.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Oasis montaj：Grid Data – Minimum Curvature",
+        "url": "https://help.seequent.com/Oasismontaj/2023.2/Content/gxhelp/g/geosoft_gx_gridutils_griddingtool_MinC.htm",
+        "version": "2023.2",
+        "access": "公开正文",
+        "evidence": "Application Notes：最小曲率表面、差分方程迭代、张力与过冲、欠采样限制。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw198",
+    "name": "MRST（MATLAB Reservoir Simulation Toolbox）",
+    "status": "documented",
+    "summary": "官方模块与教程解释两点通量、输运上风、顺序求解及自动微分建模，并提供理论书籍入口。",
+    "topics": [
+      {
+        "title": "有限体积与自动微分模型构造",
+        "kind": "数值算法",
+        "explanation": "不可压两相流模块用两点通量近似求压力，以单点上风迁移率处理输运，可选择显式或隐式输运并与压力组成顺序解法。自动微分框架通过算子重载从方程计算导数和 Jacobian，支撑全隐式模型原型。",
+        "assumptions": "MRST 各模块的物理和离散条件不同；TPFA 并非所有网格与张量渗透率的通用精确离散，应查相应模块和验证例，不混同商业模拟器实现。",
+        "locator": "Modules / Discretization and Solvers；MRST-core / General overview tutorials",
+        "sourceUrls": [
+          "https://www.sintef.no/projectweb/mrst/modules/",
+          "https://www.sintef.no/projectweb/mrst/modules/mrst-core/"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "SINTEF MRST：Modules / Discretization and Solvers",
+        "url": "https://www.sintef.no/projectweb/mrst/modules/",
+        "version": "滚动模块文档",
+        "access": "公开正文",
+        "evidence": "Incompressible flow 解释 TPFA、上风迁移率和顺序求解；Fully implicit solvers with AD。"
+      },
+      {
+        "title": "SINTEF MRST：MRST-core model tutorials",
+        "url": "https://www.sintef.no/projectweb/mrst/modules/mrst-core/",
+        "version": "滚动模块文档",
+        "access": "公开正文",
+        "evidence": "General overview tutorials / automatic differentiation 通过模型方程、算子重载构造导数或 Jacobian；检索正文可读。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw199",
+    "name": "DISPATCH（Modular Mining）",
+    "status": "not-located",
+    "summary": "官方公开资料主要说明调度用途与集成范围，未取得 DISPATCH 分配优化的理论正文。",
+    "topics": [],
+    "documents": [
+      {
+        "title": "Komatsu：Modular ecosystem / DISPATCH scope",
+        "url": "https://www.komatsu.com/en-us/technology/smart-mining/modular",
+        "version": "滚动官网产品说明",
+        "access": "公开正文",
+        "evidence": "说明车队与生产协同及开放接口；未公开分配优化模型的目标、约束与求解过程。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "检索官方 DISPATCH/Modular 入口和调度算法文档；未用百科或学位论文中对线性/动态规划的概述代替厂商实现证据。"
+  },
+  {
+    "softwareId": "sw058",
+    "name": "EPANET",
+    "status": "documented",
+    "summary": "用户手册包含供水管网的水力方程与全局梯度解法，操作说明与计算原理均有正文。",
+    "topics": [
+      {
+        "title": "管网守恒与全局梯度算法",
+        "kind": "数值算法",
+        "explanation": "在节点满足流量连续，在管段满足水头损失关系；全局梯度算法在 Newton 线性化框架中先解稀疏节点水头方程，再更新各管段流量。文档还区分给定需水和压力驱动需求，以反映低压下实际供水量。",
+        "assumptions": "稳态/延时水力计算不等于高频水锤模型；压力驱动与水头损失参数需要按所用版本配置，水力收敛也不代表水质或实测吻合。",
+        "locator": "EPANET 2.2 User Manual / Hydraulic Simulation Model / Global Gradient Algorithm",
+        "sourceUrls": [
+          "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P10113EM.txt"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "US EPA：EPANET 2.2 User Manual / numerical methods",
+        "url": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P10113EM.txt",
+        "version": "2.2；EPA/600/R-20/133，2020",
+        "access": "公开正文",
+        "evidence": "Hydraulic simulation model 给出节点质量守恒、管段水头损失与 GGA 的 Newton 迭代。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw059",
+    "name": "SWMM",
+    "status": "documented",
+    "summary": "官方参考手册分别解释水文、水力与水质过程；这里收集产流及动态波/运动波的主要建模区别。",
+    "topics": [
+      {
+        "title": "非线性水库产流",
+        "kind": "物理与机理",
+        "explanation": "子汇水区表面被视为非线性水库，降水与上游来水进入，入渗、蒸发和径流离开。水深由水量平衡随时间更新，超过洼地蓄水后按 Manning 关系形成地表径流。",
+        "assumptions": "这是集总概念模型，洼地蓄水、粗糙度、入渗等参数需率定，不能视为对每一处地表流动的直接求解。",
+        "locator": "SWMM 5.2 User Manual / §3.4.1 Surface runoff",
+        "sourceUrls": [
+          "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P10145M6.TXT"
+        ]
+      },
+      {
+        "title": "动态波与运动波",
+        "kind": "数学模型",
+        "explanation": "动态波求解非恒定渐变流的质量和动量守恒，可表示储水、回水和逆流等影响；运动波对动量关系作简化。参考手册对环网、倒坡、分流和水工构筑物等情况逐项列出两种方法的差异。",
+        "assumptions": "运动波只适合相应简化条件，不能因计算稳定而忽略回水和环网限制；动态波仍需控制时间步及检查数值稳定性。",
+        "locator": "Reference Manual II / Chapters 3–4 / Table 2-1",
+        "sourceUrls": [
+          "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P100S9AS.txt"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "US EPA：SWMM Reference Manual II – Hydraulics",
+        "url": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P100S9AS.txt",
+        "version": "EPA/600/R-17/111，2017",
+        "access": "公开正文",
+        "evidence": "Chapter 3 Dynamic Wave Analysis；Chapter 4 Kinematic Wave Analysis；Table 2-1 比较适用条件。"
+      },
+      {
+        "title": "US EPA：SWMM 5.2 User Manual / process models",
+        "url": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P10145M6.TXT",
+        "version": "5.2，2022",
+        "access": "公开正文",
+        "evidence": "§3.4.1 非线性水库的产汇流概念及水量平衡；§3.4.2 入渗模型。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw060",
+    "name": "SUMO",
+    "status": "limited",
+    "summary": "官方 FAQ 和模型文献索引提供局部建模说明；未取得可逐项核对的完整动力学与化学计量正文。",
+    "topics": [
+      {
+        "title": "过程单元与生化模型层级",
+        "kind": "物理与机理",
+        "explanation": "FAQ 说明每个过程单元可选择不同复杂程度的模型实现；动力学速率用于反应单元，非反应分离单元不采用同样反应处理。官方文献索引把生化、硫铁磷和胶体等机理列为不同模型主题。",
+        "assumptions": "依据 FAQ 可检索节选与文献索引，不能据此重建 SUMO 当前版本的反应矩阵、动力学方程或默认参数；推荐论文尚未逐篇核对。",
+        "locator": "SUMO FAQ / model detail / kinetic rates；Documentation / Model Descriptions",
+        "sourceUrls": [
+          "https://wiki.dynamita.com/en/faq",
+          "https://dynamita.com/docs.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Dynamita：SUMO FAQ / model implementations",
+        "url": "https://wiki.dynamita.com/en/faq",
+        "version": "滚动 Wiki，未标明版本",
+        "access": "仅目录/摘要",
+        "evidence": "可检索正文说明过程单元可选不同复杂度、反应动力学仅在反应单元应用及分层模型求解提示；页面抓取为空。"
+      },
+      {
+        "title": "Dynamita：Documentation / Model Descriptions",
+        "url": "https://dynamita.com/docs.html",
+        "version": "滚动文档索引",
+        "access": "仅目录/摘要",
+        "evidence": "Model Descriptions 给出硫、铁磷、胶体和生物膜等模型论文，未逐篇审阅。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "Wiki 页面直接抓取为空，只有官方索引及搜索可读节选；这是读取限制，不表示登录或许可受限，也不将产品全部模型标为已读。"
+  },
+  {
+    "softwareId": "sw061",
+    "name": "FEFLOW",
+    "status": "documented",
+    "summary": "公开帮助对地下水流与溶质、热运移的边界模型有明确解释；本条未汇总全部有限元理论。",
+    "topics": [
+      {
+        "title": "定值、通量与交换边界",
+        "kind": "数学模型",
+        "explanation": "边界用于补全流动和输运微分方程的外部条件。通量边界把水、质量或能量输入输出施加于二维边或三维面；传递边界以河流水位等参考值和相邻单元的传递系数描述交换，流动中的给定通量为法向 Darcy 通量。",
+        "assumptions": "默认边界为无流；通量或传递条件虽然由节点配置，仍需覆盖完整边或面才生效。历史 7.2 的设置应对照安装版本。",
+        "locator": "FEFLOW 7.2 / Boundary Conditions / Flux / Fluid-transfer",
+        "sourceUrls": [
+          "https://download.feflow.com/html/help72/feflow/09_Parameters/Boundary_Conditions/boundaryconditions.html?rhtocid=8.1.1.0_1"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "DHI FEFLOW：Boundary Conditions",
+        "url": "https://download.feflow.com/html/help72/feflow/09_Parameters/Boundary_Conditions/boundaryconditions.html?rhtocid=8.1.1.0_1",
+        "version": "7.2，历史帮助",
+        "access": "公开正文",
+        "evidence": "解释水头/通量/传递边界、Darcy 通量、默认无流与边界作用面。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw062",
+    "name": "MIKE 21/3",
+    "status": "documented",
+    "summary": "科学文档公开水动力控制方程、深度积分、网格离散、输运及验证案例。",
+    "topics": [
+      {
+        "title": "二维浅水与三维水动力",
+        "kind": "数学模型",
+        "explanation": "二维模型对水平动量与连续方程作水深积分，计算水深和深度平均速度；三维模型保留垂向层次，用于表达分层与三维输运。科学手册还解释 sigma 与混合垂向网格及其对地形表示的影响。",
+        "assumptions": "仅限 2017 版 FM 水动力与输运模块；二维深度平均不能解析完整垂向速度结构，不能推广为 MIKE 全系列模块或现版所有功能。",
+        "locator": "Scientific Documentation / Ch.2 Governing Equations / §2.3 / Ch.3 Numerical Solution",
+        "sourceUrls": [
+          "https://manuals.mikepoweredbydhi.help/2017/Coast_and_Sea/MIKE_321_FM_Scientific_Doc.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "DHI：MIKE 21 & MIKE 3 FM Scientific Documentation",
+        "url": "https://manuals.mikepoweredbydhi.help/2017/Coast_and_Sea/MIKE_321_FM_Scientific_Doc.pdf",
+        "version": "2017 版 Hydrodynamic and Transport Module",
+        "access": "公开正文",
+        "evidence": "Chapter 2 Governing Equations；§2.3 浅水方程；Chapter 3 Numerical Solution；Chapter 6 Validation。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw063",
+    "name": "AERMOD",
+    "status": "documented",
+    "summary": "官方模型构造手册详细解释边界层参数化、浓度分布、地形和不同稳定度条件。",
+    "topics": [
+      {
+        "title": "稳态烟羽与边界层参数化",
+        "kind": "物理与机理",
+        "explanation": "AERMOD 按稳态烟羽描述污染扩散，并用边界层湍流尺度及垂直廓线连接气象与浓度计算。手册分别说明稳定和对流边界层、烟羽抬升及复杂地形处理，气象预处理与扩散模型分开说明。",
+        "assumptions": "这不是瞬态三维气象化学模型；所引版本为 24142。附录中的 ALPHA 研究选项不属于正式模型主体，不能与默认配置混为一谈。",
+        "locator": "Model Formulation / §2–5 / Appendix B",
+        "sourceUrls": [
+          "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P101CLHZ.TXT"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "US EPA：AERMOD Model Formulation",
+        "url": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P101CLHZ.TXT",
+        "version": "EPA-454/B-24-010，November 2024；对应 24142",
+        "access": "公开正文",
+        "evidence": "§2 Model overview；§3 AERMET；§4 PBL vertical structure；§5 concentration；Appendix B ALPHA options。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw137",
+    "name": "HEC-RAS",
+    "status": "documented",
+    "summary": "HEC-RAS 水力参考手册给出一维/二维水动力理论及经验关系的使用条件。",
+    "topics": [
+      {
+        "title": "非恒定河道水动力与经验模型边界",
+        "kind": "数学模型",
+        "explanation": "一维非恒定流由质量和动量守恒偏微分方程约束，模型把河道几何、边界流量与水位转化为沿程水力响应。参考手册将溃口峰值等经验关系单列，要求检查其原始样本与假设，并用于合理性对照。",
+        "assumptions": "一维断面简化与二维选项应分别查阅；历史溃坝回归式的坝型、规模和洪水样本范围不能无条件推广。最新在线理论页与 6.6 固定手册版本不同。",
+        "locator": "1D Unsteady Flow Hydrodynamics；6.6 Hydraulic Reference / Dam Break Study",
+        "sourceUrls": [
+          "https://www.hec.usace.army.mil/confluence/rasdocs/ras1dtechref/latest/theoretical-basis-for-one-dimensional-and-two-dimensional-hydrodynamic-calculations/1d-unsteady-flow-hydrodynamics",
+          "https://www.hec.usace.army.mil/software/hec-ras/documentation/HEC-RAS_Hydraulic_Reference_Manual_v6.6.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "USACE HEC-RAS：1D Unsteady Flow Hydrodynamics",
+        "url": "https://www.hec.usace.army.mil/confluence/rasdocs/ras1dtechref/latest/theoretical-basis-for-one-dimensional-and-two-dimensional-hydrodynamic-calculations/1d-unsteady-flow-hydrodynamics",
+        "version": "latest，页面标 7.0",
+        "access": "公开正文",
+        "evidence": "正文说明质量与动量守恒并链接方程推导。"
+      },
+      {
+        "title": "USACE：HEC-RAS Hydraulic Reference Manual",
+        "url": "https://www.hec.usace.army.mil/software/hec-ras/documentation/HEC-RAS_Hydraulic_Reference_Manual_v6.6.pdf",
+        "version": "6.6，历史固定版",
+        "access": "公开正文",
+        "evidence": "公开理论手册：水动力、糙率、水工结构和溃坝模型适用条件。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw138",
+    "name": "HEC-HMS",
+    "status": "documented",
+    "summary": "技术参考手册给出降水损失模型的概念与方程；用户手册明确事件/连续模拟的选择边界。",
+    "topics": [
+      {
+        "title": "SCS 曲线数法与降水损失",
+        "kind": "数学模型",
+        "explanation": "曲线数法通过累积降水、初始损失和潜在滞蓄量的经验关系估计超额降水，再把超额量用于产流。CN 与土壤、土地利用和前期条件相关，参数选择与直接连通不透水面积共同影响产流估计。",
+        "assumptions": "SCS CN 在所引手册中用于事件模拟，不能据此默认连续水量核算也适用；不同损失方法的状态与时间假设应分别检查。",
+        "locator": "Technical Reference / SCS Curve Number Loss Model；4.14 Selecting a Loss Method",
+        "sourceUrls": [
+          "https://www.hec.usace.army.mil/confluence/hmsdocs/hmstrm/canopy-surface-infiltration-and-runoff-volume/infiltration/scs-curve-number-loss-model",
+          "https://www.hec.usace.army.mil/confluence/hmsdocs/hmsum/4.14/subbasin-elements/selecting-a-loss-method"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "USACE HEC-HMS：SCS Curve Number Loss Model",
+        "url": "https://www.hec.usace.army.mil/confluence/hmsdocs/hmstrm/canopy-surface-infiltration-and-runoff-volume/infiltration/scs-curve-number-loss-model",
+        "version": "滚动 Technical Reference",
+        "access": "公开正文",
+        "evidence": "Basic Concepts and Equations / parameter estimation 给出累积降水、初损和潜在滞蓄的经验关系。"
+      },
+      {
+        "title": "USACE HEC-HMS：Selecting a Loss Method",
+        "url": "https://www.hec.usace.army.mil/confluence/hmsdocs/hmsum/4.14/subbasin-elements/selecting-a-loss-method",
+        "version": "4.14 用户手册",
+        "access": "公开正文",
+        "evidence": "表格区分事件与连续模拟；SCS CN 仅列事件，SMA 等列连续。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw139",
+    "name": "MODFLOW 6",
+    "status": "documented",
+    "summary": "已取得 USGS 正式报告全文，核查 Darcy 定律与水量平衡、控制体积离散、隐式时间差分及 Newton–Raphson 线性化。",
+    "topics": [
+      {
+        "title": "Darcy 定律与地下水守恒模型",
+        "kind": "物理与机理",
+        "explanation": "报告以恒定密度地下水在多孔介质中的 Darcy 定律连接水头梯度与比流量，再与局部水量守恒组合成三维流动方程。源汇项表示抽排或补给，比贮水量项表示水头变化引起的储水变化；给定初始水头和边界条件后求水头的时空分布。",
+        "assumptions": "此处说明2017基础GWF方程；该起始推导假设水密度恒定并令坐标轴与主渗透方向对齐，不涵盖后续所有变密度、运移和能量扩展。",
+        "locator": "Chapter 2 / Mathematical Model，印刷页2–1至2–2，式2–1至2–2",
+        "sourceUrls": [
+          "https://pubs.usgs.gov/tm/06/a55/tm6a55.pdf"
+        ]
+      },
+      {
+        "title": "单元水量平衡与隐式时间离散",
+        "kind": "数值算法",
+        "explanation": "控制体积有限差分把连续介质替换为有限单元，以节点水头及单元间导水系数计算连接流量，再将内部流、外部源汇和储水变化写入单元平衡。时间项采用后向差分，因此每个时间步需同时求解全部活动单元的未知水头。",
+        "assumptions": "网格与连接必须符合离散要求；第一阶时间近似并不消除时间步误差，稳态时储水变化项为零，边界条件与水力参数需另行率定。",
+        "locator": "Chapter 2 / Water Balance on a Cell、Temporal Discretization、CVFD Flow Equation，印刷页2–10至2–13，式2–14至2–24",
+        "sourceUrls": [
+          "https://pubs.usgs.gov/tm/06/a55/tm6a55.pdf"
+        ]
+      },
+      {
+        "title": "非线性流动的 Newton–Raphson 形式",
+        "kind": "数值算法",
+        "explanation": "报告将单元水量不平衡写成残差，用残差对本单元及相连单元水头的偏导构成稀疏 Jacobian，在迭代中线性化并更新水头。它是标准系数迭代形式之外的可选途径，主要用于改善非承压条件下干湿转换相关的收敛困难。",
+        "assumptions": "Newton形式并非对所有问题必然收敛；这里描述基础报告中的GWF推导，具体求解器、容差和现行版本选项须查对应版本。",
+        "locator": "Chapter 2 / Formulation of Newton-Raphson Equations for Solution，印刷页2–14至2–15，式2–25至2–30",
+        "sourceUrls": [
+          "https://pubs.usgs.gov/tm/06/a55/tm6a55.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "USGS：Documentation for the MODFLOW 6 Groundwater Flow Model",
+        "url": "https://pubs.usgs.gov/publication/tm6A55",
+        "version": "Techniques and Methods 6–A55，2017",
+        "access": "公开正文",
+        "evidence": "官方报告页；已通过同站直接PDF取得全文，并读取第2章物理方程、CVFD平衡、时间离散及Newton–Raphson推导。"
+      },
+      {
+        "title": "USGS：Documentation for the MODFLOW 6 Groundwater Flow Model — full report",
+        "url": "https://pubs.usgs.gov/tm/06/a55/tm6a55.pdf",
+        "version": "Techniques and Methods 6–A55，2017",
+        "access": "公开正文",
+        "evidence": "完整PDF共197页；第2章印刷页2–1至2–15，式2–1至2–30。通过curl下载及pdftotext实际提取正文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "官方报告摘要以外，已直接下载USGS同站PDF并提取全文；只整理实际核查的基础GWF章节，不表示已审阅全部程序包，也未运行算例。"
+  },
+  {
+    "softwareId": "sw140",
+    "name": "GPS-X",
+    "status": "documented",
+    "summary": "官方技术参考提供全厂生化模型的状态变量、反应过程、化学计量及具体单元假设。",
+    "topics": [
+      {
+        "title": "MANTIS2 的生化与无机反应",
+        "kind": "物理与机理",
+        "explanation": "MANTIS2 把生物碳氮磷去除、厌氧消化、气液传递与无机沉淀纳入统一状态变量和质量平衡框架。手册说明其与 ASM2d、UCTADM1 等模型的关系，并逐项解释可溶/颗粒组分、计量关系和两步硝化等过程。",
+        "assumptions": "不同模型库的状态变量和反应集合不相同，不能把一个库的变量数或默认参数归于所有 GPS-X 模型；模型仍需按进水与运行数据率定。",
+        "locator": "Technical Reference 8.0 / Comprehensive Model (MANTIS2) / Components / Processes",
+        "sourceUrls": [
+          "https://www.hydromantis.com/help/GPS-X/docs/8.0/Technical/start.htm"
+        ]
+      },
+      {
+        "title": "厌氧膜生物反应器简化",
+        "kind": "数学模型",
+        "explanation": "所述厌氧 MBR 把完全混合膜反应器与消化气相顶空模型组合；截留固体留在混合液，滤出流按进水减去抽排流计算，气体生成与传递另行耦合。",
+        "assumptions": "模型假定完全混合、无曝气且膜不限制流量，不计算膜饼、反洗或跨膜压，不能用该单元预测这些膜过程。",
+        "locator": "Technical Reference 8.0 / Anaerobic Membrane Bioreactor / Model Structure",
+        "sourceUrls": [
+          "https://www.hydromantis.com/help/GPS-X/docs/8.0/Technical/start.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Hydromantis：GPS-X Technical Reference",
+        "url": "https://www.hydromantis.com/help/GPS-X/docs/8.0/Technical/start.htm",
+        "version": "8.0 历史全文",
+        "access": "公开正文",
+        "evidence": "Comprehensive Model (MANTIS2) / Model Components / Processes / State Variables 提供反应、变量与计量说明。"
+      },
+      {
+        "title": "Hydromantis：GPS-X 8.5 Technical Reference index",
+        "url": "https://www.hydromantis.com/help/GPS-X/docs/8.5/Technical/start.htm",
+        "version": "8.5，2022",
+        "access": "仅目录/摘要",
+        "evidence": "章节索引包括模型库、生长、消化、生物膜、沉淀、控制、优化等；本条详细说明据 8.0 全文。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw141",
+    "name": "BioWin",
+    "status": "documented",
+    "summary": "已取得官方 BioWin 5 完整手册，核查分层沉淀通量、双指数沉降速度、酸碱平衡及化学沉淀的模型依据。",
+    "topics": [
+      {
+        "title": "分层固液通量与沉淀池浓度分布",
+        "kind": "数学模型",
+        "explanation": "模型假定垂向固液运动占主导而忽略水平运动，将池体分层后求各层的固体质量平衡。总通量包含液体整体运动及重力沉降，进水层以上、以下的流向不同；求解得到垂向浓度剖面以及出水和底流浓度。",
+        "assumptions": "这是一维通量模型，不是二维或三维流场；理想分离模型另有假设，不能与分层沉淀模型混同。",
+        "locator": "Model Reference / Flux Based Models，印刷页684–686（PDF页690–692）",
+        "sourceUrls": [
+          "https://www.envirosim.com/downloads/BW5Manual.pdf"
+        ]
+      },
+      {
+        "title": "双指数沉降速度与层间通量限制",
+        "kind": "数学模型",
+        "explanation": "双指数模型以 Takács 等人的速度关系描述絮凝与受阻沉降，并加入最小可达固体浓度与实际最大沉速。在相邻层之间，离开本层的重力通量受下一层可传递通量限制，用于避免无限制通量模型在某些负荷下出现的固体滞留问题。",
+        "assumptions": "为BioWin5历史模型说明，速度及非沉降组分参数应结合污泥沉降试验率定；不将文档默认值作为任何污水厂通用参数。",
+        "locator": "Model Reference / Double Exponential Settling Model，印刷页690–693，式32–35（PDF页696–699）",
+        "sourceUrls": [
+          "https://www.envirosim.com/downloads/BW5Manual.pdf"
+        ]
+      },
+      {
+        "title": "酸碱平衡与离子电荷守恒",
+        "kind": "物理与机理",
+        "explanation": "一般pH模型把各组分总浓度的物料平衡、酸碱解离平衡与电荷平衡联立，计算离子浓度、pH和离子强度。碳酸体系还与二氧化碳气液传质联系；由当前离子状态计算碱度，而非仅按生物反应化学计量直接指定碱度。",
+        "assumptions": "气相浓度固定是一种简化；厌氧消化等场景还需要气相物料平衡，输入的pH与碱度也不一定能同时满足给定组分条件。",
+        "locator": "Model Reference / Modeling of pH and Alkalinity，印刷页657–659，式4–6（PDF页663–665）",
+        "sourceUrls": [
+          "https://www.envirosim.com/downloads/BW5Manual.pdf"
+        ]
+      },
+      {
+        "title": "化学除磷的平衡与动力学分工",
+        "kind": "物理与机理",
+        "explanation": "手册因铁盐或铝盐沉淀快于生物反应而采用平衡法，联立溶解度与解离关系计算金属、磷及相关络合物分布。鸟粪石与磷酸钙自发沉淀则单列为动力学过程，说明不同沉淀模块不能统一视为瞬时平衡。",
+        "assumptions": "BioWin5中铁和铝沉淀选项不能同时选择，相关模块需启用；只核查手册给出的模型分工，未验证现版选项及全部反应参数。",
+        "locator": "Model Reference / Ferric or Alum Precipitation、Spontaneous Chemical Precipitation，印刷页651–653（PDF页657–659）",
+        "sourceUrls": [
+          "https://www.envirosim.com/downloads/BW5Manual.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "EnviroSim：BioWin 5 Manual",
+        "url": "https://www.envirosim.com/downloads/BW5Manual.pdf",
+        "version": "BioWin 5，历史固定版",
+        "access": "公开正文",
+        "evidence": "已下载完整官方PDF（828页），实读Model Reference的酸碱平衡、化学沉淀、Flux Based Models及Double Exponential Settling Model；印刷页651–659、684–693。"
+      },
+      {
+        "title": "EnviroSim：Support / Model Reference locations",
+        "url": "https://envirosim.com/support",
+        "version": "滚动支持页；引用安装内 6.0 手册",
+        "access": "公开正文",
+        "evidence": "明确区分 Manual 与 Model Reference；给出化学沉淀及生化模型位置与建模率定数据。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "已下载EnviroSim官方BW5Manual.pdf并用pdftotext实际提取全文；按历史固定版本记录，补查不表示已审阅全部生化模型，也未运行率定或求解验证。"
+  },
+  {
+    "softwareId": "sw142",
+    "name": "InfoWorks ICM",
+    "status": "documented",
+    "summary": "官方帮助公开一维水力方程、离散方法及二维浅水假定，并区分 InfoWorks 与 SWMM 网络。",
+    "topics": [
+      {
+        "title": "一维管网水力与二维积水",
+        "kind": "数学模型",
+        "explanation": "一维完整管渠模型使用 Saint-Venant 质量和动量守恒，理论页说明隐式 Preissmann 格式与非线性求解；二维引擎以深度平均浅水方程表示水平流动，可通过堰流或水头流量关系与一维网络交换。",
+        "assumptions": "2027 一维与 2024 二维页面分别注明版本；二维假定水平流动主导并忽略垂向速度变化，不能解释为完整三维 CFD。SWMM 网络另依其自身理论。",
+        "locator": "Hydraulic Theory / Solution Model / Equation System；Basic 2D Hydraulic Theory",
+        "sourceUrls": [
+          "https://help.autodesk.com/cloudhelp/2027/ENU/ICM-Help/files/GUID-3AF862EF-FC9D-4632-BACD-06CC4BC0431C.htm",
+          "https://help.autodesk.com/cloudhelp/2024/ENU/ICM-Help/files/GUID-2869BC5A-BE5B-4ED8-9460-37436F36F65F.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Autodesk InfoWorks ICM：Hydraulic Theory",
+        "url": "https://help.autodesk.com/cloudhelp/2027/ENU/ICM-Help/files/GUID-3AF862EF-FC9D-4632-BACD-06CC4BC0431C.htm",
+        "version": "2027 帮助",
+        "access": "公开正文",
+        "evidence": "Solution Model / Equation System：Saint-Venant、Preissmann 四点格式及 Newton 迭代。"
+      },
+      {
+        "title": "Autodesk InfoWorks ICM：Basic 2D Hydraulic Theory",
+        "url": "https://help.autodesk.com/cloudhelp/2024/ENU/ICM-Help/files/GUID-2869BC5A-BE5B-4ED8-9460-37436F36F65F.htm",
+        "version": "2024 帮助",
+        "access": "公开正文",
+        "evidence": "二维深度平均浅水方程、水平主导假定及 1D–2D 交换。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw143",
+    "name": "InfoWater Pro",
+    "status": "limited",
+    "summary": "公开帮助解释单管水头损失关系和参数含义，尚不足以覆盖整网求解与所有水质模型。",
+    "topics": [
+      {
+        "title": "单管沿程水头损失",
+        "kind": "数学模型",
+        "explanation": "水力计算器用管内径、长度、粗糙度和流量计算平均流速、总水头损失及单位长度损失，可选择 Hazen–Williams、Darcy–Weisbach 或 Chezy–Manning；选择不同关系时，粗糙度字段的物理含义也改变。",
+        "assumptions": "这是单管计算器的模型说明，不证明整个管网和水质计算使用同一算法；糙率单位须按所选公式确认，不能混填。",
+        "locator": "Hydraulic Calculator / Data / Results",
+        "sourceUrls": [
+          "https://help.autodesk.com/cloudhelp/ENU/INFWP-UserGuide/files/GUID-7D918FD8-CC0A-47FE-B0FC-093F8CF53792.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Autodesk InfoWater Pro：Hydraulic Calculator",
+        "url": "https://help.autodesk.com/cloudhelp/ENU/INFWP-UserGuide/files/GUID-7D918FD8-CC0A-47FE-B0FC-093F8CF53792.htm",
+        "version": "滚动帮助，未标明版本",
+        "access": "公开正文",
+        "evidence": "定义管径、长度、流量、糙率及三种水头损失计算关系。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw144",
+    "name": "Delft3D Flexible Mesh / D-Flow FM",
+    "status": "documented",
+    "summary": "D-Flow FM 技术参考公开浅水方程与数值方法；所引 2025 文档带草稿标识。",
+    "topics": [
+      {
+        "title": "柔性网格水动力方程与数值近似",
+        "kind": "数值算法",
+        "explanation": "技术手册从水深和水平动量守恒写出二维浅水方程，包含自由水面梯度、黏性、底部与风应力等项，再解释柔性网格上的数值近似，并扩展到三维计算设置。",
+        "assumptions": "PDF 页内为 DRAFT；研究关键字尚未完整文档化或通过测试，不应视为成熟选项。二维浅水与三维设置的假定不同，应按具体算例核对。",
+        "locator": "Technical Reference Manual 2025 / Chapter 6 Numerical approach / research keywords",
+        "sourceUrls": [
+          "https://content.oss.deltares.nl/dhydro/D-Flow_FM_Technical_Reference_Manual.pdf"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Deltares：D-Flow Flexible Mesh Technical Reference Manual",
+        "url": "https://content.oss.deltares.nl/dhydro/D-Flow_FM_Technical_Reference_Manual.pdf",
+        "version": "2025，revision 80505，2025-11-06；页内标 DRAFT",
+        "access": "公开正文",
+        "evidence": "Chapter 6 Numerical approach：二维/三维浅水方程及数值离散；research keywords 边界。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw206",
+    "name": "QGIS",
+    "status": "documented",
+    "summary": "QGIS 教程解释 IDW 与 TIN 插值的工作原理和局限，适合作为空间分析功能的原理入口。",
+    "topics": [
+      {
+        "title": "反距离权重与 TIN 插值",
+        "kind": "数学模型",
+        "explanation": "IDW 让观测点的影响随与预测位置距离增大而减弱，权重指数越大，越接近由邻近观测主导。TIN 则以不规则三角网连接采样点，在三角片内构造连续表面。两者把有限点观测转换为可评价的空间表面。",
+        "assumptions": "采样不均会降低 IDW 质量，且易在样点周围产生局部峰谷；插值不是新的实测数据。此教程不代表所有 Processing 提供程序采用相同实现。",
+        "locator": "Gentle GIS Introduction 3.44 / §11.3 IDW / §11.4 TIN",
+        "sourceUrls": [
+          "https://docs.qgis.org/3.44/en/docs/gentle_gis_introduction/spatial_analysis_interpolation.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "QGIS：Spatial Analysis (Interpolation)",
+        "url": "https://docs.qgis.org/3.44/en/docs/gentle_gis_introduction/spatial_analysis_interpolation.html",
+        "version": "3.44",
+        "access": "公开正文",
+        "evidence": "§11.3 IDW / §11.4 TIN 解释权重、三角网与数据不均匀影响。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw207",
+    "name": "ArcGIS Pro",
+    "status": "documented",
+    "summary": "ArcGIS Pro 的 How it works 页面公开克里金权重、变差函数与均值/趋势假设。",
+    "topics": [
+      {
+        "title": "空间自相关与克里金预测",
+        "kind": "数学模型",
+        "explanation": "克里金将观测值加权形成预测，权重依赖拟合的半变差函数、预测点距离以及样本间空间布置。普通克里金假定未知常均值；泛克里金把可解释趋势与随机残差分开建模，再把趋势加回预测。",
+        "assumptions": "必须有足够依据选择趋势与协方差模型，并检查空间统计假设；预测方差反映模型内不确定性，不能替代现场验证。所列工具还受相应扩展许可条件限制。",
+        "locator": "How Kriging works / The kriging formula / Variography / Kriging methods",
+        "sourceUrls": [
+          "https://doc.esri.com/en/arcgis-pro/latest/tool-reference/spatial-analyst/how-kriging-works.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "Esri ArcGIS Pro：How Kriging works",
+        "url": "https://doc.esri.com/en/arcgis-pro/latest/tool-reference/spatial-analyst/how-kriging-works.html",
+        "version": "latest 滚动文档",
+        "access": "公开正文",
+        "evidence": "The kriging formula / Variography / Kriging methods 解释权重、半变差函数和普通/泛克里金。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw208",
+    "name": "WEAP",
+    "status": "documented",
+    "summary": "官方帮助解释水量平衡与优先级线性规划，明确时间尺度和跨期蓄水状态。",
+    "topics": [
+      {
+        "title": "优先级配水与跨期状态",
+        "kind": "数学模型",
+        "explanation": "WEAP 在节点与链接上计算水量及污染物平衡，按需求优先级、供水偏好和约束进行线性规划配水。逐级求解优先级，同级短缺时按需求满足比例协调；水库、地下水和土壤水分状态连接相邻时段。",
+        "assumptions": "所引算法总览采用月步长并假定月内流转瞬时完成，不能当作河道洪水传播模型；其他时间设置及耦合功能需另查对应文档。",
+        "locator": "Calculation Algorithms；Objective Function and Iterations",
+        "sourceUrls": [
+          "https://www.weap21.org/webhelp/Calculation_Algorithms.htm",
+          "https://www.weap21.org/webhelp/objective_function_and_iterations.htm"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "SEI WEAP：Calculation Algorithms",
+        "url": "https://www.weap21.org/webhelp/Calculation_Algorithms.htm",
+        "version": "滚动 WebHelp；该页以月步长说明",
+        "access": "公开正文",
+        "evidence": "节点链接水量/污染物平衡；用线性规划分配水量；说明月内瞬时流转假定。"
+      },
+      {
+        "title": "SEI WEAP：Objective Function and Iterations",
+        "url": "https://www.weap21.org/webhelp/objective_function_and_iterations.htm",
+        "version": "滚动 WebHelp",
+        "access": "公开正文",
+        "evidence": "按需求优先级与供水偏好迭代，先分配高优先级，同级按满足比例。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw209",
+    "name": "WNTR",
+    "status": "documented",
+    "summary": "WNTR 文档明确两种水力求解器、需求模型和泄漏方程，并区分水质支持。",
+    "topics": [
+      {
+        "title": "压力需求、泄漏与不同求解器",
+        "kind": "数值算法",
+        "explanation": "WNTRSimulator 与 EPANET 使用同一类管网水力方程，但分别采用 Newton–Raphson 和全局梯度算法求解；可选定需水或压力相关需求，并可在 WNTRSimulator 中加入泄漏表示，以研究低压供水与扰动。",
+        "assumptions": "WNTRSimulator 本身不包含水质方程；EpanetSimulator 调用不同 EPANET 版本时支持范围也不同。两者数值结果可有小差异，不能把 API 相似当作算法相同。",
+        "locator": "Hydraulic simulation / EpanetSimulator / WNTRSimulator / Hydraulic options",
+        "sourceUrls": [
+          "https://usepa.github.io/WNTR/hydraulics.html"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "US EPA WNTR：Hydraulic simulation",
+        "url": "https://usepa.github.io/WNTR/hydraulics.html",
+        "version": "滚动文档；EpanetSimulator 2.00.12 / 2.2.0 区分",
+        "access": "公开正文",
+        "evidence": "EpanetSimulator / WNTRSimulator / DD-PDD / leaks 给出算法与支持范围。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw210",
+    "name": "CMAQ",
+    "status": "documented",
+    "summary": "官方科学说明与历史算法报告解释化学输运过程、控制方程及数值模块。",
+    "topics": [
+      {
+        "title": "化学输运与过程分解",
+        "kind": "物理与机理",
+        "explanation": "CMAQ 将排放、风场平流、湍流混合、气相与粒相反应、云过程和沉降共同纳入浓度变化。原始科学报告分章说明输运守恒方程及数值算法，再讨论气相反应机制与求解，使过程含义和算法选择可分别追溯。",
+        "assumptions": "1999 报告只描述初始版本的科学基础，不能把其中旧化学机制或默认数值选项当作当前 5.x 配置；现版应结合其发布说明和机制文档。",
+        "locator": "Science processes / Process Overview；Science Algorithms 1999 / Chapters 5–8",
+        "sourceUrls": [
+          "https://www.epa.gov/cmaq/overview-science-processes-cmaq",
+          "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=30003R9Y.TXT"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "US EPA：CMAQ science processes",
+        "url": "https://www.epa.gov/cmaq/overview-science-processes-cmaq",
+        "version": "官网滚动科学说明",
+        "access": "公开正文",
+        "evidence": "Process overview 解释平流、湍流、云过程、反应与沉降。"
+      },
+      {
+        "title": "US EPA：CMAQ original Science Algorithms",
+        "url": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=30003R9Y.TXT",
+        "version": "EPA/600/R-99/030，1999；描述 1998 初始版",
+        "access": "公开正文",
+        "evidence": "Chapters 5–8：控制方程、输运数值算法与气相化学；不能代替现版机制配置。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "核查所列官方文档中与模型或算法相关的章节；仅覆盖列出的功能，不表示已审阅软件全部理论，也未运行算例。"
+  },
+  {
+    "softwareId": "sw211",
+    "name": "TELEMAC-MASCARET",
+    "status": "documented",
+    "summary": "已取得官方仓库理论指南的LaTeX正文，核查浅水方程假设、有限体积时间分裂及有限元对流/扩散分步；指南明确仍在完善中。",
+    "topics": [
+      {
+        "title": "静水压力与深度平均的浅水方程",
+        "kind": "物理与机理",
+        "explanation": "理论指南从 Reynolds 平均 Navier–Stokes 方程出发，先忽略竖向加速度、采用静水压力，再对水深积分，并为源项及弥散扩散张量指定闭合关系，形成二维黏性 Saint-Venant 方程。求得的是水深和深度平均水平速度，不是完整竖向速度剖面。",
+        "assumptions": "浅水假设要求水深相对水平尺度足够小；当该尺度条件不成立时指南建议考虑三维模型。此处只涵盖TELEMAC-2D，不代表MASCARET等全部模块。",
+        "locator": "Chapter 1 / The viscous Saint-Venant equations / Hydrostatic pressure / Depth-averaged quantities and notations",
+        "sourceUrls": [
+          "https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/blob/2447e67d4fbefe60e93b8c6235a0fd08eb2ec7de/documentation/telemac2d/theory_guide/latex/Chapter1.tex"
+        ]
+      },
+      {
+        "title": "有限体积内核的显式与半隐式分步",
+        "kind": "数值算法",
+        "explanation": "文档把有限体积时间推进分成两个主要阶段：先显式处理对流、扩散、底部及部分源项，得到中间状态，再半隐式处理摩擦与 Coriolis 项得到最终状态。可变时间步由稳定性条件控制，后续章节还分别讨论近似 Riemann 求解器和二阶 MUSCL。",
+        "assumptions": "这里描述理论指南的一阶时间形式，不意味着所有计算都使用相同数值通量或阶次；网格、干湿处理与稳定性条件仍须按所选方案设置。",
+        "locator": "Chapter 2 / Time integration，eq:fv:first_order_time_scheme及Implementation",
+        "sourceUrls": [
+          "https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/blob/2447e67d4fbefe60e93b8c6235a0fd08eb2ec7de/documentation/telemac2d/theory_guide/latex/Chapter2.tex"
+        ]
+      },
+      {
+        "title": "有限元内核的对流与扩散分裂",
+        "kind": "数值算法",
+        "explanation": "理论指南说明中心 Galerkin 对流离散不能区分上下游，内核因此先用适合双曲对流的方案求中间状态，再以有限元处理扩散及其余源项。对流可采用特征线、SUPG或残差分配方法，分步方程会随所选对流方案而改变。",
+        "assumptions": "指南详细部分聚焦特定推荐对流与扩散选项，并采用用于干单元处理的扩散简化；这不是全部有限元选项的统一推导，也不应视为现版默认配置。",
+        "locator": "Chapter 3 / Introduction / Time integration / Overview of the algorithm of the finite elements kernel",
+        "sourceUrls": [
+          "https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/blob/2447e67d4fbefe60e93b8c6235a0fd08eb2ec7de/documentation/telemac2d/theory_guide/latex/Chapter3.tex"
+        ]
+      }
+    ],
+    "documents": [
+      {
+        "title": "TELEMAC-MASCARET：TELEMAC-2D model description",
+        "url": "https://www.opentelemac.org/index.php?Itemid=2&id=17&lang=en&option=com_content&view=article",
+        "version": "滚动官网模型说明",
+        "access": "公开正文",
+        "evidence": "官方正文说明 Saint-Venant 方程、三角网和有限元/有限体积。"
+      },
+      {
+        "title": "TELEMAC-2D Theory guide — Chapter 1（官方LaTeX正文）",
+        "url": "https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/blob/2447e67d4fbefe60e93b8c6235a0fd08eb2ec7de/documentation/telemac2d/theory_guide/latex/Chapter1.tex",
+        "version": "官方main理论指南；固定章节提交2447e67d，2026-07-08",
+        "access": "公开正文",
+        "evidence": "Governing equations and modeling choices：RANS、静水压力、深度平均、Saint-Venant与闭合。"
+      },
+      {
+        "title": "TELEMAC-2D Theory guide — Chapter 2（官方LaTeX正文）",
+        "url": "https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/blob/2447e67d4fbefe60e93b8c6235a0fd08eb2ec7de/documentation/telemac2d/theory_guide/latex/Chapter2.tex",
+        "version": "官方main理论指南；固定章节提交2447e67d，2026-07-08",
+        "access": "公开正文",
+        "evidence": "Numerical approximation with the finite volume method：显式/半隐式时间分裂、稳定性、数值通量与MUSCL。"
+      },
+      {
+        "title": "TELEMAC-2D Theory guide — Chapter 3（官方LaTeX正文）",
+        "url": "https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/blob/2447e67d4fbefe60e93b8c6235a0fd08eb2ec7de/documentation/telemac2d/theory_guide/latex/Chapter3.tex",
+        "version": "官方main理论指南；固定章节提交2447e67d，2026-07-08",
+        "access": "公开正文",
+        "evidence": "Numerical approximation with the finite elements method：分步算法、对流方案、扩散简化与选项边界。"
+      },
+      {
+        "title": "TELEMAC-2D Theory guide — 总说明与适用边界",
+        "url": "https://gitlab.pam-retd.fr/otm/telemac-mascaret/-/blob/cb4c2a0eb3981771cb3b74dc9615c5df136e255e/documentation/telemac2d/theory_guide/telemac2d_theory_guide.tex",
+        "version": "固定提交cb4c2a0e；指南版本/日期由构建生成",
+        "access": "公开正文",
+        "evidence": "Abstract、Work under construction、Authors and contributions：官方声明文档仍在完善，且不覆盖所有数值方法；正文作者Fabien Souillé及EDF等贡献者。"
+      }
+    ],
+    "checkedDate": "2026-10-21",
+    "searchNote": "历史prin30_gb.pdf域名存在证书错误，未绕过验证。改查官方GitLab实际目录，下载理论指南总说明及三个章节LaTeX正文，并将章节固定到2026-07-08提交2447e67d。仅汇总所读章节，未运行求解验证。"
+  }
+]

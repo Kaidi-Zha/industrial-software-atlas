@@ -1,0 +1,612 @@
+[
+  {
+    "softwareId": "sw028",
+    "name": "NX / NX CAM",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "已读西门子官方技术文章中的 NX CAM 工序在制工件（IPW）计算与跨装夹传递说明，公开资料不止产品功能列表。",
+      "documents": [
+        {
+          "title": "Siemens：Simplify Machining Complexity using Integrated Toolpath Analysis",
+          "url": "https://blogs.sw.siemens.com/nx-manufacturing/simplify-machining-complexity-using-integrated-toolpath-analysis/",
+          "version": "2020-08-24 技术文章；未标具体 NX 版本",
+          "access": "公开正文",
+          "evidence": "Toolpath Analysis 节明确 NX CAM 依据每道工序的刀路、刀具几何与工艺条件计算 IPW，并说明其与 Third Wave Systems Production Module 的输入输出边界。"
+        },
+        {
+          "title": "Siemens：Let NX CAM create your in-process material models automatically",
+          "url": "https://blogs.sw.siemens.com/nx-manufacturing/let-nx-cam-create-your-in-process-material-models-automatically/",
+          "version": "2014-05-22 技术提示；未标具体 NX 版本",
+          "access": "公开正文",
+          "evidence": "正文说明工序结束计算出的部分加工工件，可作为下一装夹的初始毛坯，并可引用同一零件或外部零件文件的加工状态。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官网限定检索 + 技术文章全文读取",
+          "url": "https://blogs.sw.siemens.com/nx-manufacturing/simplify-machining-complexity-using-integrated-toolpath-analysis/",
+          "result": "成功读到 IPW 的计算输入与外部分析模块边界，不再局限 CAM 产品页。"
+        },
+        {
+          "method": "沿官方技术提示读取",
+          "url": "https://blogs.sw.siemens.com/nx-manufacturing/let-nx-cam-create-your-in-process-material-models-automatically/",
+          "result": "成功核实跨装夹毛坯状态传递；未读取文章链接内的视频，摘要只取正文已写明事项。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw028",
+      "name": "NX / NX CAM",
+      "status": "limited",
+      "summary": "官方技术文章说明了工序在制工件（IPW）的计算输入和状态传递；未公开核实几何布尔、刀路生成或切削力计算的完整算法。",
+      "topics": [
+        {
+          "title": "工序在制工件（IPW）与装夹间毛坯状态传递",
+          "kind": "几何与数据模型",
+          "explanation": "NX CAM 用刀路、刀具几何和工艺条件计算每道工序的 IPW，表示部分加工后的工件。前一装夹结束的计算状态可作为后续装夹的起始毛坯，也可跨零件文件引用。",
+          "assumptions": "这是加工状态的几何表示和工作流说明。文章中的力、温度与材料非线性分析属于集成的 Third Wave Systems Production Module，不能写成 NX CAM 本身通用的求解器；未核实 IPW 内部离散或布尔算法。",
+          "locator": "2020 技术文章 Toolpath Analysis；2014 技术提示正文",
+          "sourceUrls": [
+            "https://blogs.sw.siemens.com/nx-manufacturing/simplify-machining-complexity-using-integrated-toolpath-analysis/",
+            "https://blogs.sw.siemens.com/nx-manufacturing/let-nx-cam-create-your-in-process-material-models-automatically/"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Siemens：Simplify Machining Complexity using Integrated Toolpath Analysis",
+          "url": "https://blogs.sw.siemens.com/nx-manufacturing/simplify-machining-complexity-using-integrated-toolpath-analysis/",
+          "version": "2020-08-24，未标 NX 版本",
+          "access": "公开正文",
+          "evidence": "Toolpath Analysis，明确 IPW 输入；正文标明 Third Wave Systems 撰稿及外部模块分析职责。"
+        },
+        {
+          "title": "Siemens：Let NX CAM create your in-process material models automatically",
+          "url": "https://blogs.sw.siemens.com/nx-manufacturing/let-nx-cam-create-your-in-process-material-models-automatically/",
+          "version": "2014-05-22，未标 NX 版本",
+          "access": "公开正文",
+          "evidence": "说明上一装夹 IPW 作为下一装夹初始毛坯和文件间引用。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "核查范围为西门子官方技术文章中的工序在制工件（IPW）及跨装夹状态传递。文章发布于 2014、2020 年，未标 NX 具体版本；刀路与材料去除内部算法未核实。"
+    },
+    "reason": "原先只读产品页导致漏检；公开官方技术文章已解释 IPW 状态模型，但不构成完整刀路或力学理论手册。"
+  },
+  {
+    "softwareId": "sw029",
+    "name": "SOLIDWORKS Design",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方 Web Help 的直接读取仍返回空导航，但改读官方托管的完整 SOLIDWORKS 2016 PDF 后，取得样条阶次、最少点数和草图约束规则。",
+      "documents": [
+        {
+          "title": "SOLIDWORKS 2016 What's New",
+          "url": "https://files.solidworks.com/Supportfiles/Whats_new/2016/English/whatsnew.pdf",
+          "version": "2016；231 页",
+          "access": "公开正文",
+          "evidence": "印刷页 212 说明等曲线长度关系的对象和限制；217–218 页说明 Style Spline 的 3、5、7 次 B 样条，最少分别需要 4、6、8 个点。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方 Web Help 章节直达及打印参数尝试",
+          "url": "https://help.solidworks.com/2018/english/SolidWorks/sldworks/c_description_of_sketch_relations.htm?format=P&value=",
+          "result": "直接读取仍仅得 2027 导航模板；索引能显示章节正文，但不将索引结果算作已读完整正文。"
+        },
+        {
+          "method": "官网文件域名限定检索 + 官方完整 PDF 读取",
+          "url": "https://files.solidworks.com/Supportfiles/Whats_new/2016/English/whatsnew.pdf",
+          "result": "成功解析 231 页 PDF，定位 Sketching 章节 212、217–218 页，绕开帮助框架的可读性问题。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw029",
+      "name": "SOLIDWORKS Design",
+      "status": "limited",
+      "summary": "官方历史版本说明提供 B 样条阶次与控制点数量、等曲线长度约束等局部几何规则；当前 Web Help 正文抓取问题仍需与内容是否存在分开。",
+      "topics": [
+        {
+          "title": "Style Spline 的 B 样条阶次与草图长度关系",
+          "kind": "几何与数据模型",
+          "explanation": "2016 文档的 Style Spline 支持 3、5、7 次 B 样条，最少分别需要 4、6、8 个点；把一般样条转为 Style Spline 时使用 3 次 B 样条。文档还定义线、圆弧、圆、样条之间的等曲线长度关系，可作用于 2D 或 3D 草图。",
+          "assumptions": "资料是 2016 历史版本说明，不能据此声称已核实当前版本全部选项。等曲线长度关系有对象组合限制，两个投影曲线之间不可应用；文档没有给出 B 样条基函数或约束求解器的内部算法。",
+          "locator": "Sketching，印刷页 212、217–218（PDF 页序 212、217–218）",
+          "sourceUrls": [
+            "https://files.solidworks.com/Supportfiles/Whats_new/2016/English/whatsnew.pdf"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "SOLIDWORKS 2016 What's New",
+          "url": "https://files.solidworks.com/Supportfiles/Whats_new/2016/English/whatsnew.pdf",
+          "version": "2016，231 页",
+          "access": "公开正文",
+          "evidence": "Equal Curve Length Parametric Relations；Style Spline Support for B-Splines。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "依据官方托管的 SOLIDWORKS 2016 PDF，确认局部样条及约束规则。Web Help 章节直达和打印模式返回导航框架；未用搜索索引片段推定当前版本的完整规则。"
+    },
+    "reason": "问题在动态帮助页提取方式，官方静态 PDF 可读取；已取得功能和局部几何模型说明。"
+  },
+  {
+    "softwareId": "sw030",
+    "name": "Mastercam",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方技术文章有单独的 How Does 2D Dynamic Work 说明，明确把 Dynamic 刀路与径向切屑减薄、步距及进给率联系起来。",
+      "documents": [
+        {
+          "title": "Mastercam：What is Dynamic Motion and Should I Be Using It?",
+          "url": "https://www.mastercam.com/community/blog/what-is-dynamic-motion-and-should-i-be-using-it/",
+          "version": "2023-10-26，未标软件版号",
+          "access": "公开正文",
+          "evidence": "How Does 2D Dynamic Work 节写明径向切屑减薄以及减小步距、提高进给率来控制刀具规定的切屑负载。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方技术博客定向检索 + 正文读取",
+          "url": "https://www.mastercam.com/community/blog/what-is-dynamic-motion-and-should-i-be-using-it/",
+          "result": "成功读到机制解释和 2D 应用范围；未采用宣传页的效率增益数字推断一般性能。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw030",
+      "name": "Mastercam",
+      "status": "limited",
+      "summary": "官方技术文章解释 Dynamic 刀路的径向切屑减薄思路，仍未取得专有刀路算法的完整数学表达。",
+      "topics": [
+        {
+          "title": "Dynamic 刀路的径向切屑减薄原则",
+          "kind": "物理与机理",
+          "explanation": "官方将 Dynamic 刀路与径向切屑减薄联系：协调主轴转速、进给率和刀路运动，通过减小横向步距并提高进给率，使切屑负载保持在刀具适用范围。",
+          "assumptions": "取得的是 2D Dynamic 的官方局部技术说明，未读到切屑厚度方程、几何啮合求解和转角处理的完整算法；不将文章中的效率或寿命宣传数值当作普遍保证。",
+          "locator": "How Does 2D Dynamic Work?",
+          "sourceUrls": [
+            "https://www.mastercam.com/community/blog/what-is-dynamic-motion-and-should-i-be-using-it/"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Mastercam：What is Dynamic Motion and Should I Be Using It?",
+          "url": "https://www.mastercam.com/community/blog/what-is-dynamic-motion-and-should-i-be-using-it/",
+          "version": "2023-10-26，未标软件版号",
+          "access": "公开正文",
+          "evidence": "How Does 2D Dynamic Work 说明径向切屑减薄、步距与进给率。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "依据 Mastercam 官方技术文章的 2D Dynamic 原理段落；公开说明涉及径向切屑减薄、步距和进给率，专有刀路算法细节未核实。"
+    },
+    "reason": "原先产品页不足不代表无功能文档；官方技术文章可确认原理，详细算法仍未核实。"
+  },
+  {
+    "softwareId": "sw103",
+    "name": "中望3D（ZW3D）",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "中望官方 Tips & Tricks 实际解释 N-sided patch 与 FEM Patch 的曲面构造差异及局限。",
+      "documents": [
+        {
+          "title": "ZWSOFT：ZW3D Tip:Creating Multilateral Surfaces",
+          "url": "https://www.zwsoft.com/support/zw3d-base-skills/1368",
+          "version": "文末指向 ZW3D 2012；未标正文发布日期",
+          "access": "公开正文",
+          "evidence": "Making N-sided Patches / FEM Patches 比较多片四边 NURBS 曲面与沿边界取点直接拟合单一曲面后裁剪，并说明凹边界与内部形状控制的限制。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方支持站内技术主题检索 + 正文读取",
+          "url": "https://www.zwsoft.com/support/zw3d-base-skills/1368",
+          "result": "成功取得三种多边曲面构造方式的文字与步骤，不再停留开发文档下载目录。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw103",
+      "name": "中望3D（ZW3D）",
+      "status": "limited",
+      "summary": "官方历史技术教程解释多边曲面的分片构造、边界点拟合和形状控制限制；未取得完整有限元曲面拟合方程。",
+      "topics": [
+        {
+          "title": "多边曲面的分片 NURBS 与 FEM Patch 拟合",
+          "kind": "几何与数据模型",
+          "explanation": "教程区分两种构造：N-sided patch 将边界区域分成若干四边 NURBS 曲面；FEM Patch 直接依据边界曲线上的点拟合单一曲面，再沿边界裁剪。",
+          "assumptions": "历史教程指出 N-sided patch 对凹边界不适用，FEM Patch 的内部形状可控性较弱。这里的 FEM Patch 是曲面构造命令，不能误写为结构应力有限元分析；未核实当前版本的全部限制和离散方程。",
+          "locator": "1. Making N-sided Patches；2. FEM Patches",
+          "sourceUrls": [
+            "https://www.zwsoft.com/support/zw3d-base-skills/1368"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "ZWSOFT：ZW3D Tip:Creating Multilateral Surfaces",
+          "url": "https://www.zwsoft.com/support/zw3d-base-skills/1368",
+          "version": "历史教程，文末提及 ZW3D 2012；未标发布日期",
+          "access": "公开正文",
+          "evidence": "N-sided / FEM Patches 两节实际说明几何构造和局限。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "依据官方历史曲面建模教程，核查分片 NURBS 与 FEM Patch 构造。教程文末提及 ZW3D 2012，未标发布日期，当前版本实现差异未核实。"
+    },
+    "reason": "原先只找开发文档目录造成漏检；建模教程本身包含构造方式。"
+  },
+  {
+    "softwareId": "sw174",
+    "name": "GstarCAD（浩辰CAD）",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "中文官方在线帮助可直接读取，已确认 2026 PLUS 版本标注约束的对象、几何意义和参数管理规则。",
+      "documents": [
+        {
+          "title": "浩辰CAD 2026帮助系统：参数化约束（标注约束）",
+          "url": "https://www.gstarcad.com/help/GstarCAD_2026_zh-CN/detail/GstarCAD2026NEW/GUG_NewFunction2026_DIMCONSTRAINT.html?labelId=&pageType=list&searchKeywords=",
+          "version": "2026；本章功能限 PLUS",
+          "access": "公开正文",
+          "evidence": "明确线性、水平、竖直、对齐、角度、半径、直径七类尺寸约束的几何意义，并说明动态/注释性约束、关联标注转换及参数管理器。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "改用厂商中文 HTML 帮助 + 章节直达",
+          "url": "https://www.gstarcad.com/help/GstarCAD_2026_zh-CN/detail/GstarCAD2026NEW/GUG_NewFunction2026_DIMCONSTRAINT.html?labelId=&pageType=list&searchKeywords=",
+          "result": "成功取得完整章节；前次英文 22 MB PDF 被 web 大小限制拦截不构成文档缺失，中文帮助不受该限制。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw174",
+      "name": "GstarCAD（浩辰CAD）",
+      "status": "limited",
+      "summary": "官方 2026 中文帮助明确尺寸约束的几何定义与参数关系；约束求解器的数值方法仍未核实。",
+      "topics": [
+        {
+          "title": "尺寸约束与关联参数",
+          "kind": "几何与数据模型",
+          "explanation": "标注约束用尺寸关系控制对象大小与位置。水平、竖直约束分别限定两点的 X、Y 方向距离；对齐约束限定点间距离；角度、半径和直径约束分别作用于相应几何量。参数管理器管理标注变量与用户变量。",
+          "assumptions": "该章明确功能仅在 2026 PLUS 提供。几何关系的定义可核实，但没有据此推断约束方程组的求解算法；动态约束和注释性约束的形式也不等同于求解器类型。",
+          "locator": "参数化约束（标注约束）：命令 2–8、13；版本限制段落",
+          "sourceUrls": [
+            "https://www.gstarcad.com/help/GstarCAD_2026_zh-CN/detail/GstarCAD2026NEW/GUG_NewFunction2026_DIMCONSTRAINT.html?labelId=&pageType=list&searchKeywords="
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "浩辰CAD 2026帮助系统：参数化约束（标注约束）",
+          "url": "https://www.gstarcad.com/help/GstarCAD_2026_zh-CN/detail/GstarCAD2026NEW/GUG_NewFunction2026_DIMCONSTRAINT.html?labelId=&pageType=list&searchKeywords=",
+          "version": "2026；功能限 PLUS",
+          "access": "公开正文",
+          "evidence": "七类尺寸约束和参数管理器的完整定义。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "依据浩辰官方 2026 中文 HTML 帮助的参数化约束章节；其功能范围为 PLUS。英文大 PDF 的 web 读取受大小限制，中文章节正文可读。"
+    },
+    "reason": "中文官方在线手册可正常读取，不能因英文大文件读取失败就停留未取得正文。"
+  },
+  {
+    "softwareId": "sw175",
+    "name": "ZWCAD（中望CAD）",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方 User Guide 有完整几何建模说明，明确网格点与面的连接、拉伸/旋转/扫掠/放样及开放闭合轮廓的结果差异。",
+      "documents": [
+        {
+          "title": "ZWSOFT User Guide：How to Create 2D Fills, Meshes, and 3D Solids in ZWCAD",
+          "url": "https://www.zwsoft.com/user-guide/create-surfaces-and-meshes-in-zwcad",
+          "version": "滚动用户指南，未标软件版本和发布日期",
+          "access": "公开正文",
+          "evidence": "Create Polygon and Polyface Meshes 明确两方向点阵和顶点索引组面；Create 3D Solids and Surfaces by Revolution / Sweeping / Lofting 解释轴方向、轮廓开闭与结果类型。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官网 User Guide 定向检索 + 正文读取",
+          "url": "https://www.zwsoft.com/user-guide/create-surfaces-and-meshes-in-zwcad",
+          "result": "成功读取 552 行用户指南，取得几何和网格数据表示说明，不再仅查看 SDK 目录。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw175",
+      "name": "ZWCAD（中望CAD）",
+      "status": "limited",
+      "summary": "官方用户指南提供多边/多面网格表示及旋转、扫掠等几何构造规则；未取得几何内核数值算法。",
+      "topics": [
+        {
+          "title": "多边网格表示与截面驱动几何构造",
+          "kind": "几何与数据模型",
+          "explanation": "3DMESH 以 M、N 两方向的点阵构造网格；PFACE 先编号顶点，再以顶点编号定义各面。旋转、扫掠和放样按轮廓及轴/路径/截面生成几何，开放轮廓产生曲面，闭合轮廓可选择实体或曲面。",
+          "assumptions": "滚动指南未标版本，不能据此确定所有历史版的可用性。网格表示与实体/曲面的构造规则不等于网格质量、布尔运算或 NURBS 插值求解算法；未把显示细分密度当作实体建模精度。",
+          "locator": "Create Polygon and Polyface Meshes；Create 3D Solids and Surfaces by Revolution / Sweeping / Lofting",
+          "sourceUrls": [
+            "https://www.zwsoft.com/user-guide/create-surfaces-and-meshes-in-zwcad"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "ZWSOFT User Guide：How to Create 2D Fills, Meshes, and 3D Solids in ZWCAD",
+          "url": "https://www.zwsoft.com/user-guide/create-surfaces-and-meshes-in-zwcad",
+          "version": "滚动用户指南，未标版本/日期",
+          "access": "公开正文",
+          "evidence": "网格顶点和面连接、开放/闭合轮廓及构造结果的规则。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "依据 ZWSOFT 官方 User Guide 的具体建模章节，确认网格数据及轮廓构造规则。滚动指南未标版本或日期；未核实几何内核数值算法。"
+    },
+    "reason": "原先 SDK 目录检索范围过窄；官方用户指南已有建模功能及数据模型说明。"
+  },
+  {
+    "softwareId": "sw034",
+    "name": "CATIA V5",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "2025 官方帮助章节直达仍未成功，但达索官方刊物完整 PDF 有 CATIA V5 Knowledgeware 几何公式与自动更新的可操作说明。",
+      "documents": [
+        {
+          "title": "Dassault Systèmes Contact mag No.10：Tips & Tricks: CATIA Knowledgeware Shortcuts Ramp Up Efficiency",
+          "url": "https://www.3ds.com/fileadmin/Industries/life-sciences/pdf/articles/cm-nam-10-life-sciences-article.pdf",
+          "version": "04/2010，Contact mag No.10；CATIA V5，未标小版本",
+          "access": "公开正文",
+          "evidence": "印刷页 20–21（PDF 第 11 页）说明 datum 线框和曲面元素作为参数，可由公式定义；示例使用 centerofgravity 返回 Point，实体更新后点位置自动跟随。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方帮助导航与具体章节直达",
+          "url": "https://dshelp-embed.3ds.com/2025/english/CATIA_P3/online/sdgug_C2/sdgugbt0104.htm",
+          "result": "web 返回不可访问；目录 HTML 的 curl 返回 HTTP 403。没有据此推断登录/许可限制。第三方镜像只用作章节线索，不作模型依据。"
+        },
+        {
+          "method": "厂商官方域名内技术 PDF 检索 + 全文读取",
+          "url": "https://www.3ds.com/fileadmin/Industries/life-sciences/pdf/articles/cm-nam-10-life-sciences-article.pdf",
+          "result": "成功读取官方刊物 15 页 PDF，实际定位 Knowledgeware 技术教程，不以其他网站镜像替代一手来源。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw034",
+      "name": "CATIA V5",
+      "status": "limited",
+      "summary": "达索官方刊物提供 CATIA V5 Knowledgeware 的几何参数、公式定义和自动依赖更新示例；不是当前版完整曲面或约束求解理论手册。",
+      "topics": [
+        {
+          "title": "Knowledgeware 几何参数与公式依赖更新",
+          "kind": "几何与数据模型",
+          "explanation": "CATIA V5 Knowledgeware 把 datum 线框及曲面元素也视为参数，几何定义可写成公式。官方示例创建 Point 类型参数，以 centerofgravity(Body, …):Point 定义实体重心点；实体修改并更新后，该点位置随之更新。",
+          "assumptions": "依据 2010 官方刊物中的 V5 示例，未标具体发行版本。这里只确认参数及依赖更新模型，没有取得几何内核、重心积分或约束求解器实现；不声称当前全部模块许可下均可用。",
+          "locator": "Tips & Tricks，TIP 1: Defining geometry with formulas；印刷页 20–21 / PDF 第 11 页",
+          "sourceUrls": [
+            "https://www.3ds.com/fileadmin/Industries/life-sciences/pdf/articles/cm-nam-10-life-sciences-article.pdf"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Dassault Systèmes Contact mag No.10：CATIA Knowledgeware Tips & Tricks",
+          "url": "https://www.3ds.com/fileadmin/Industries/life-sciences/pdf/articles/cm-nam-10-life-sciences-article.pdf",
+          "version": "04/2010；CATIA V5，未标小版本",
+          "access": "公开正文",
+          "evidence": "TIP 1 的参数、Point Constructor 和自动更新具体步骤；刊物为达索美国区官方出版。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "依据达索官方 2010 刊物中的 CATIA V5 Knowledgeware 教程；2025 帮助导航存在提取与 HTTP 403 问题，未据此推断登录或许可限制。未采用第三方手册镜像作为模型依据。"
+    },
+    "reason": "目录导航失败不足以判断无文档；官方历史技术教程已有几何参数与更新规则。"
+  },
+  {
+    "softwareId": "sw039",
+    "name": "Simcenter Amesim",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方 2020 白皮书有液压建模的具体物理假设：空气质量分数守恒、溶解析出动力学、混合物体积模量与压力演化。",
+      "documents": [
+        {
+          "title": "Siemens：Getting the most out of pumps and compressors",
+          "url": "https://www.plm.automation.siemens.com/media/global/en/Siemens%20SW%20Getting%20the%20most%20of%20pumps%20and%20compressors%20White%20Paper_tcm27-93875.pdf",
+          "version": "©2020，82757-C3 11/20 H；10 页；未标 Amesim 版本",
+          "access": "公开正文",
+          "evidence": "Hydraulic modeling，印刷页 4–5：总空气和未溶解空气由质量分数守恒求得，空气析出/溶解可采用用户时间常数定义的一阶滞后或更复杂定律；未溶解空气影响有效体积模量与压力变化率。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方白皮书主题检索 + PDF 正文读取",
+          "url": "https://www.plm.automation.siemens.com/media/global/en/Siemens%20SW%20Getting%20the%20most%20of%20pumps%20and%20compressors%20White%20Paper_tcm27-93875.pdf",
+          "result": "成功读取 10 页 PDF 的 Hydraulic modeling 正文及参考文献；比课程大纲取得更深入的模型依据。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw039",
+      "name": "Simcenter Amesim",
+      "status": "limited",
+      "summary": "官方液压白皮书说明空气析出/溶解的质量分数守恒与动态模型，并给出其影响混合物压缩性的路径；尚未逐个核实完整子模型手册。",
+      "topics": [
+        {
+          "title": "液压油中空气析出与溶解动力学",
+          "kind": "物理与机理",
+          "explanation": "白皮书所述较复杂含气液压模型把总空气量和未溶解空气量作为独立量，由质量分数守恒计算。未溶解气体的演化可用带用户定义时间常数的一阶滞后或更复杂定律描述；分离空气量影响油气混合物的有效体积模量，从而影响压力变化率。",
+          "assumptions": "仅针对白皮书指定的液压含气模型层级；具体库、子模型和参数需按所用版本另核。文中概述守恒及动力学形式，没有给出全部闭合关系；不能当作全部 Amesim 流体、热或电气组件共同模型。",
+          "locator": "Hydraulic modeling，印刷页 4–5；References 1–2",
+          "sourceUrls": [
+            "https://www.plm.automation.siemens.com/media/global/en/Siemens%20SW%20Getting%20the%20most%20of%20pumps%20and%20compressors%20White%20Paper_tcm27-93875.pdf"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Siemens：Getting the most out of pumps and compressors",
+          "url": "https://www.plm.automation.siemens.com/media/global/en/Siemens%20SW%20Getting%20the%20most%20of%20pumps%20and%20compressors%20White%20Paper_tcm27-93875.pdf",
+          "version": "2020，82757-C3 11/20 H；未标 Amesim 版本",
+          "access": "公开正文",
+          "evidence": "Hydraulic modeling 页 4–5，守恒、一阶滞后、有效体积模量和压力变化率。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "依据西门子 2020 官方液压主题白皮书，核查空气析出和溶解机制。具体库及子模型方程需依所用版本另核，未从引用论文反推软件未明示的实现。"
+    },
+    "reason": "官方白皮书提供模型正文，原先课程大纲检索不足。"
+  },
+  {
+    "softwareId": "sw185",
+    "name": "NASA GMAT",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "NASA 官方 GitHub 仓库包含完整用户指南 XML 源文件，已实际下载并读取传播器及力模型章节，原先只尝试 Wiki 与旧 PDF 的获取路径过窄。",
+      "documents": [
+        {
+          "title": "NASA GMAT User Guide source：Resource_Propagator.xml",
+          "url": "https://github.com/nasa/GMAT/blob/c9b78bd1c8499845cb78fde315e1f761b6b06f1c/doc/help/src/Resource_Propagator.xml",
+          "version": "固定仓库提交 c9b78bd1c8499845cb78fde315e1f761b6b06f1c；未将其当作已核实发行版",
+          "access": "公开正文",
+          "evidence": "实际下载 131 KB XML，读到 Best Practices、Numerical Integrators Overview 及误差容差、步长上下界和精度不满足时的行为。"
+        },
+        {
+          "title": "NASA GMAT User Guide source：Resource_ForceModel.xml",
+          "url": "https://github.com/nasa/GMAT/blob/c9b78bd1c8499845cb78fde315e1f761b6b06f1c/doc/help/src/Resource_ForceModel.xml",
+          "version": "固定仓库提交 c9b78bd1c8499845cb78fde315e1f761b6b06f1c；发行版本未核实",
+          "access": "公开正文",
+          "evidence": "实际下载 118 KB XML，读取力模型说明、ErrorControl、引力场、大气阻力、太阳辐射压等字段。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "官方 GitHub 递归目录 API + 文件定位",
+          "url": "https://api.github.com/repos/nasa/GMAT/git/trees/main?recursive=1",
+          "result": "web 工具不可读取此 API；curl 下载约 4.9 MB JSON 成功，取得固定提交及 doc/help/src 下用户指南章节路径。"
+        },
+        {
+          "method": "官方 raw XML 下载 + 本地正文读取",
+          "url": "https://raw.githubusercontent.com/nasa/GMAT/c9b78bd1c8499845cb78fde315e1f761b6b06f1c/doc/help/src/Resource_Propagator.xml",
+          "result": "web 报 Cache miss，curl 成功下载 131 KB；实际读取 XML 中正文而非仅查看路径名。"
+        },
+        {
+          "method": "官方 raw XML 下载 + 本地正文读取",
+          "url": "https://raw.githubusercontent.com/nasa/GMAT/c9b78bd1c8499845cb78fde315e1f761b6b06f1c/doc/help/src/Resource_ForceModel.xml",
+          "result": "web 报 Cache miss，curl 成功下载 118 KB；实际读取力模型和误差控制正文。"
+        },
+        {
+          "method": "NASA NTRS 历史 PDF 直读",
+          "url": "https://ntrs.nasa.gov/api/citations/20080047410/downloads/20080047410.pdf",
+          "result": "77 页历史 DRAFT 用户指南亦可读取；主要模型依据采用上述固定提交用户指南源文件，不用旧 PDF 推定当前默认设置。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw185",
+      "name": "NASA GMAT",
+      "status": "documented",
+      "summary": "NASA 官方仓库用户指南公开传播器、误差控制和环境力模型的实质说明；已读取固定提交的源文档，具体发行版对应关系未核实。",
+      "topics": [
+        {
+          "title": "轨道传播的自适应积分与误差控制",
+          "kind": "数值算法",
+          "explanation": "传播器结合 ForceModel 数值积分轨道运动方程。文档把 RungeKutta89 定义为自适应步长九阶积分、八阶误差控制；ErrorControl 可按步增量或当前状态归一化误差，再与 Accuracy 比较决定步是否可接受。",
+          "assumptions": "这是固定仓库提交中的说明，不能据此标记为某个已核实发行版本。MinStep 非零可能使目标容差无法满足；是否停止取决于 StopIfAccuracyIsViolated。步误差容差不等于任务全程轨道误差保证。",
+          "locator": "Resource_Propagator.xml：Accuracy、Best Practices、Numerical Integrators Overview；Resource_ForceModel.xml：ErrorControl",
+          "sourceUrls": [
+            "https://github.com/nasa/GMAT/blob/c9b78bd1c8499845cb78fde315e1f761b6b06f1c/doc/help/src/Resource_Propagator.xml",
+            "https://github.com/nasa/GMAT/blob/c9b78bd1c8499845cb78fde315e1f761b6b06f1c/doc/help/src/Resource_ForceModel.xml"
+          ]
+        },
+        {
+          "title": "环境力的组合与力模型配置",
+          "kind": "物理与机理",
+          "explanation": "ForceModel 组合点质量和球谐引力、大气阻力、太阳辐射压、潮汐及相对论修正等可配置力，供传播器计算航天器动力学；有动力飞行还可包括推力和质量流率。",
+          "assumptions": "不同力有配置前提和独立开关，例如气动模型与主天体、密度模型和航天器面积模型有关。列举可选模型不表示每次计算全部启用；所用外部密度和引力数据也影响结果。",
+          "locator": "Resource_ForceModel.xml：Description、Drag.AtmosphereModel、Drag.DragModel、SRP、GravityField 等字段",
+          "sourceUrls": [
+            "https://github.com/nasa/GMAT/blob/c9b78bd1c8499845cb78fde315e1f761b6b06f1c/doc/help/src/Resource_ForceModel.xml"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "NASA GMAT User Guide source：Resource_Propagator.xml",
+          "url": "https://github.com/nasa/GMAT/blob/c9b78bd1c8499845cb78fde315e1f761b6b06f1c/doc/help/src/Resource_Propagator.xml",
+          "version": "提交 c9b78bd1c8499845cb78fde315e1f761b6b06f1c；发行版未核实",
+          "access": "公开正文",
+          "evidence": "实际下载读取完整 131 KB XML，Numerical Integrators Overview、Best Practices 和步长/精度设置。"
+        },
+        {
+          "title": "NASA GMAT User Guide source：Resource_ForceModel.xml",
+          "url": "https://github.com/nasa/GMAT/blob/c9b78bd1c8499845cb78fde315e1f761b6b06f1c/doc/help/src/Resource_ForceModel.xml",
+          "version": "提交 c9b78bd1c8499845cb78fde315e1f761b6b06f1c；发行版未核实",
+          "access": "公开正文",
+          "evidence": "实际下载读取完整 118 KB XML，力模型、ErrorControl、阻力、SRP 与引力场配置正文。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "依据 NASA 官方仓库固定提交 c9b78bd1c8499845cb78fde315e1f761b6b06f1c 的用户指南 XML 正文；通过仓库目录定位和官方 raw 下载读取。该提交对应发行版未核实。"
+    },
+    "reason": "原先未取得正文主要由获取入口与工具限制导致；官方源码仓库已公开实质用户指南，核实后可升级。"
+  },
+  {
+    "softwareId": "sw180",
+    "name": "TIA Portal（STEP 7／WinCC工程平台）",
+    "functionDocumentation": {
+      "status": "confirmed",
+      "summary": "官方 STEP 7 V21 帮助明确 S7-300/400 的 OB1 循环执行、优先级中断、过程映像更新和超时处理，已有运行机理正文。",
+      "documents": [
+        {
+          "title": "Siemens STEP 7：Cyclic program (OB 1) (S7-300, S7-400)",
+          "url": "https://docs.tia.siemens.cloud/r/en-us/v21/organization-blocks-s7-300-s7-400/cyclic-program-ob-1-s7-300-s7-400",
+          "version": "V21，11/2025；S7-300/400",
+          "access": "公开正文",
+          "evidence": "Description / Function of OB 1 写明启动后循环、OB 优先级及中断、循环边界输出/输入过程映像更新和超时调用 OB80；未编写 OB80 时转 STOP。"
+        }
+      ],
+      "retrieval": [
+        {
+          "method": "从工程对象 API 改查 STEP 7 运行帮助 + 章节全文读取",
+          "url": "https://docs.tia.siemens.cloud/r/en-us/v21/organization-blocks-s7-300-s7-400/cyclic-program-ob-1-s7-300-s7-400",
+          "result": "成功读到 81 行具体运行机制；不再用 Openness 工程 API 是否解释控制算法判断全部帮助内容。"
+        }
+      ]
+    },
+    "theoryPatch": {
+      "softwareId": "sw180",
+      "name": "TIA Portal（STEP 7／WinCC工程平台）",
+      "status": "documented",
+      "summary": "官方 STEP 7 帮助解释了 S7-300/400 的循环执行、过程映像及时间监控机制；该条有明确 CPU 系列范围。",
+      "topics": [
+        {
+          "title": "S7-300/400 的 OB1 扫描循环与事件调度",
+          "kind": "业务与控制模型",
+          "explanation": "CPU 启动处理完成后重复执行 OB1。OB1 的优先级较低，除 OB90 外其他相关 OB 可中断它；下一循环前系统把输出过程映像写入模块并更新输入过程映像。超出最大循环时间会调用 OB80，未编写该错误处理块时 CPU 转 STOP。",
+          "assumptions": "依据 STEP 7 V21 的 S7-300/400 章节，不能直接推广到 S7-1200/1500、WinCC 运行时或所有任务类型。循环时间受中断和配置影响；文档不等于 PLC 编译器内部算法或某个 PID 控制器的数学模型。",
+          "locator": "Description；Function of OB 1；循环时间监控段落",
+          "sourceUrls": [
+            "https://docs.tia.siemens.cloud/r/en-us/v21/organization-blocks-s7-300-s7-400/cyclic-program-ob-1-s7-300-s7-400"
+          ]
+        }
+      ],
+      "documents": [
+        {
+          "title": "Siemens STEP 7：Cyclic program (OB 1) (S7-300, S7-400)",
+          "url": "https://docs.tia.siemens.cloud/r/en-us/v21/organization-blocks-s7-300-s7-400/cyclic-program-ob-1-s7-300-s7-400",
+          "version": "V21，11/2025；S7-300/400",
+          "access": "公开正文",
+          "evidence": "循环开始条件、优先级、过程映像更新、OB80/STOP 的实际说明。"
+        }
+      ],
+      "checkedDate": "2026-10-21",
+      "searchNote": "依据 STEP 7 V21 官方帮助的 S7-300/400 运行章节；不将该 CPU 系列执行机制推广到 S7-1200/1500、WinCC 或所有任务类型。"
+    },
+    "reason": "原先检索主题停留于工程 SDK，未覆盖同一平台的控制执行说明；现已核实。"
+  }
+]
